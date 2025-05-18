@@ -1,5 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 @import "tailwindcss";
 
+/* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
-    --color-avocado-100: oklch(from green l c h / 0.5);
+     --font-signature: "BestermindRegular";
+     --font-body: "Inter";
+
+    --color-wanderer-100: #D9DED1;
+    --color-wanderer-200: #A2B7A8;
+    --color-wanderer-300: #506E66;
+    --color-wanderer-shadow: #373E3B;
+    --color-wanderer-highlight: #F2EADD;
+    --color-wanderer-accent: #FCD1A0;
+    --color-wanderer-black: #171a19;
+}
+
+@font-face {
+    font-family: "BestermindRegular";
+    src: url("./src/assets/fonts/BestermindRegular.ttf");
+}
+
+/* Set global default styles */
+@layer base {
+    html {
+        @apply font-body;
+        @apply text-wanderer-black;
+    }
 }

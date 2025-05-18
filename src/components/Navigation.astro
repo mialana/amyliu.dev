@@ -6,18 +6,23 @@ import headshot from "../assets/png/headshot-2025-v1.png";
 ---
 
 <nav
-    class="px-2 pt-2 h-auto min-h-full w-[312px] bg-avocado-100 flex flex-col"
+    class="flex flex-col px-4 py-8 space-y-4 h-auto min-h-full w-[312px] bg-wanderer-300"
 >
-    <a href="/" class="">Amy M. Liu</a>
-    <Picture
-        src={headshot}
-        formats={["png", "avif", "webp"]}
-        alt="headshot-2025-v1"
-        class=""
-    />
-    <ul class="">
-        <li><a href="/" class="hover:underline">Home</a></li>
-        <li><a href="/projects" class="hover:underline">Projects</a></li>
+    <a href="/" class="flex font-signature text-4xl text-wanderer-highlight justify-center transition ease-in-out hover:scale-[101%]">Amy M. Liu</a>
+    <div></div>
+    <div class="">
+        <div class="mx-8 overflow-hidden">
+            <Picture
+                src={headshot}
+                formats={["png"]}
+                alt="headshot-2025-v1"
+                class="rounded-full object-cover w-full h-full"
+            />
+        </div>
+    </div>
+
+    <ul class="font-medium space-y-2 ">
         <li><a href="/about" class="hover:underline">About</a></li>
+        <li><a href="/projects" class="hover:underline">Projects</a></li>
     </ul>
 </nav>
