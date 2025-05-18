@@ -1,0 +1,23 @@
+---
+import "../styles/global.css";
+import { Picture } from "astro:assets";
+
+import headshot from "../assets/png/headshot-2025-v1.png";
+---
+
+<nav
+    class="px-2 pt-2 h-auto min-h-full w-[312px] bg-avocado-100 flex flex-col"
+>
+    <a href="/" class="">Amy M. Liu</a>
+    <Picture
+        src={headshot}
+        formats={["png", "avif", "webp"]}
+        alt="headshot-2025-v1"
+        class=""
+    />
+    <ul class="">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        <li><a href="/projects" class="hover:underline">Projects</a></li>
+        <li><a href="/about" class="hover:underline">About</a></li>
+    </ul>
+</nav>
