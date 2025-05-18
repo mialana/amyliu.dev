@@ -6,12 +6,12 @@ import headshot from "../assets/png/headshot-2025-v1.png";
 ---
 
 <nav
-    class="flex flex-col px-4 py-8 space-y-4 h-auto min-h-full w-[312px] bg-wanderer-300"
+    class="fixed z-10 px-8 py-12 space-y-8 h-auto min-h-full w-[312px] bg-wanderer-300"
 >
-    <a href="/" class="flex font-signature text-4xl text-wanderer-highlight justify-center transition ease-in-out hover:scale-[101%]">Amy M. Liu</a>
+    <a href="/" class="flex font-signature font-extrabold text-[2.5rem] text-wanderer-100 justify-center transition ease-in-out hover:scale-[101%]">Amy M. Liu</a>
     <div></div>
     <div class="">
-        <div class="mx-8 overflow-hidden">
+        <div class="mx-4 overflow-hidden">
             <Picture
                 src={headshot}
                 formats={["png"]}
@@ -21,8 +21,19 @@ import headshot from "../assets/png/headshot-2025-v1.png";
         </div>
     </div>
 
-    <ul class="font-medium space-y-2 ">
-        <li><a href="/about" class="hover:underline">About</a></li>
-        <li><a href="/projects" class="hover:underline">Projects</a></li>
+    <ul class="font-medium space-y-4">
+        <li><a href="#about" class="hover:underline">About</a></li>
+        <li><a href="#projects" class="hover:underline">Projects</a></li>
     </ul>
 </nav>
+
+<script type="module" is:inline>
+    const btn = document.getElementById("nav-toggle");
+    const sidebar = document.getElementById("sidebar");
+
+    btn.addEventListener("click", () => {
+        const isOpen = !sidebar.classList.toggle("-translate-x-full");
+        // update aria-expanded for accessibility
+        btn.setAttribute("aria-expanded", isOpen);
+    });
+</script>

@@ -7,7 +7,7 @@
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
      --font-signature: "BestermindRegular";
-     --font-body: "Inter";
+     --font-body: "Nunito";
 
     --color-wanderer-100: #D9DED1;
     --color-wanderer-200: #A2B7A8;
@@ -20,7 +20,7 @@
 
 @font-face {
     font-family: "BestermindRegular";
-    src: url("./src/assets/fonts/BestermindRegular.ttf");
+    src: url("./src/assets/ttf/BestermindRegular.ttf");
 }
 
 /* Set global default styles */
@@ -28,5 +28,6 @@
     html {
         @apply font-body;
         @apply text-wanderer-black;
+        scroll-behavior: smooth;
     }
 }

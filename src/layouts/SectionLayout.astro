@@ -1,0 +1,9 @@
+---
+import "../styles/global.css";
+
+const { section_id } = Astro.props;
+---
+
+<section id={section_id} class="min-h-screen p-8 flex justify-center items-center text-center">
+    <slot />
+</section>
