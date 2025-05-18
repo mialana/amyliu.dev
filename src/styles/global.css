@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+    --color-avocado-100: oklch(from green l c h / 0.5);
+}
