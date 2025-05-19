@@ -14,7 +14,7 @@ export default {
             },
         },
         {
-            files: ["**/*.*js", "**/*.ts"],
+            files: ["**/*.*js", "**/*.ts*"],
             options: {
                 parser: "typescript",
                 printWidth: 80,

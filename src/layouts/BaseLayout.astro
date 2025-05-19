@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import Navigation from "../components/Navigation.astro";
+import Navigation from "../components/NavBar.astro";
+import NavBar from "../components/NavBar.tsx";
 ---
 
 <!doctype html>
@@ -14,8 +15,10 @@ import Navigation from "../components/Navigation.astro";
         <title>Amy M. Liu - Personal Portfolio Website</title>
     </head>
     <body>
-        <Navigation />
-        <main class="bg-wanderer-100 ml-[312px] flex-col">
+        <NavBar client:load />
+        <main
+            class="bg-wanderer-100 flex flex-col transition-all ml-0 duration-300 ease-in-out"
+        >
             <slot />
         </main>
     </body>
