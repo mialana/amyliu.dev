@@ -32,11 +32,13 @@
   html {
     @apply font-body;
     @apply text-wanderer-black;
+    @apply bg-wanderer-100;
     scroll-behavior: smooth;
   }
 }
 
 @utility debug {
   border-color: black;
-  border-width: 2px;
+  border-width: 4px;
+  @apply bg-pink-200;
 }

@@ -7,9 +7,16 @@ import Landing from "../components/Landing.astro";
 ---
 
 <BaseLayout>
-    <Landing />
-    <SectionLayout section_id="projects">
-        <h2>My Projects</h2>
-        <p>...</p>
-    </SectionLayout>
+    <>
+        <SectionLayout section_id="landing">
+            <Landing />
+        </SectionLayout>
+        
+        <SectionLayout section_id="projects">
+            <div class="debug bg-red-100">
+                <h2>My Projects</h2>
+                <p>...</p>
+            </div>
+        </SectionLayout>
+    </>
 </BaseLayout>

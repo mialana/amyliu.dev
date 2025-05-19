@@ -56,8 +56,8 @@ export default function NavBar() {
             >
                 <ul className="text-wanderer-highlight my-8 space-y-4 font-bold">
                     <li>
-                        <a href="#about" className="hover:underline">
-                            About
+                        <a href="#landing" className="hover:underline">
+                            Landing
                         </a>
                     </li>
                     <li>
