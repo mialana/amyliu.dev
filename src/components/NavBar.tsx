@@ -20,8 +20,8 @@ export default function NavBar() {
     useEffect(() => {
         const main = document.querySelector("main");
         if (!main) return;
-        main.classList.toggle("ml-[312px]", open);
-        main.classList.toggle("ml-0", !open);
+        main.classList.toggle("lg:ml-[312px]", open);
+        main.classList.toggle("lg:ml-0", !open);
         syncBackgroundWidth();
 
         // kick-off a per-frame loop while the transition is running
@@ -50,29 +50,33 @@ export default function NavBar() {
     }, [open]);
 
     return (
-        <>
+        /* navigation container */
+        <div className="flex min-h-screen items-center">
             <nav
-                className={`bg-wanderer-shadow drop-shadow-nav fixed top-1/2 left-1 z-10 h-[calc(100vh-10*var(--spacing))] w-[312px] -translate-y-1/2 transform space-y-8 rounded-lg px-8 py-10 transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}
+                className={`bg-wanderer-shadow drop-shadow-nav fixed left-1 z-30 h-[calc(100vh-10*var(--spacing))] w-[312px] transform rounded-lg px-8 py-10 transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}
             >
-                <ul className="text-wanderer-highlight my-8 space-y-4 font-bold">
-                    <li>
-                        <a href="#landing" className="hover:underline">
-                            Landing
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#projects" className="hover:underline">
-                            Projects
-                        </a>
-                    </li>
-                </ul>
+                {/* list container */}
+                <div className="my-8 flex">
+                    <ul className="text-wanderer-highlight space-y-4 font-bold">
+                        <li>
+                            <a href="#landing" className="hover:underline">
+                                Landing
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#projects" className="hover:underline">
+                                Projects
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
 
             <button
                 aria-label="Toggle navigation"
                 aria-expanded={open}
                 onClick={() => setOpen(!open)}
-                className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button fixed top-8 left-4 z-20 transform cursor-pointer rounded-2xl p-2 transition-all duration-300 ease-in-out active:translate-y-[4px]`}
+                className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button fixed top-8 left-4 z-40 transform cursor-pointer rounded-2xl p-2 transition-all duration-300 ease-in-out active:translate-y-[4px]`}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -89,6 +93,6 @@ export default function NavBar() {
                     />
                 </svg>
             </button>
-        </>
+        </div>
     );
 }
