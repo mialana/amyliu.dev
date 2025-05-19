@@ -8,7 +8,7 @@
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
   --font-signature: "BestermindRegular";
-  --font-body: "Nunito";
+  --font-body: "IBM Plex Mono";
 
   --color-wanderer-100: #d9ded1;
   --color-wanderer-200: #a2b7a8;
@@ -34,4 +34,9 @@
     @apply text-wanderer-black;
     scroll-behavior: smooth;
   }
+}
+
+@utility debug {
+    border-color: black;
+    border-width: 2px;
 }

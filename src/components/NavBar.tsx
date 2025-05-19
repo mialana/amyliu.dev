@@ -8,7 +8,6 @@ export function syncBackgroundWidth() {
     if (!img || !bg) return;
 
     const rect = img.getBoundingClientRect();
-    console.log(rect.left)
     // distance from viewport left edge to img centre
     const newWidth = rect.left + rect.width / 2;
     bg.style.width = `${newWidth}px`;
