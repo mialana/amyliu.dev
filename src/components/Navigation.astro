@@ -6,11 +6,11 @@ import headshot from "../assets/png/headshot-2025-v1.png";
 ---
 
 <nav
-    class="fixed z-10 px-8 py-12 space-y-8 h-auto min-h-full w-[312px] bg-wanderer-300"
+    class="bg-wanderer-300 fixed z-10 h-auto min-h-full w-[312px] space-y-8 px-8 py-12"
 >
     <a
         href="/"
-        class="flex font-signature font-extrabold text-[2.5rem] text-wanderer-100 justify-center transition ease-in-out hover:scale-[101%]"
+        class="font-signature text-wanderer-100 flex justify-center text-[2.5rem] font-extrabold transition ease-in-out hover:scale-[101%]"
         >Amy M. Liu</a
     >
     <div></div>
@@ -20,12 +20,12 @@ import headshot from "../assets/png/headshot-2025-v1.png";
                 src={headshot}
                 formats={["png"]}
                 alt="headshot-2025-v1"
-                class="rounded-full object-cover w-full h-full"
+                class="h-full w-full rounded-full object-cover"
             />
         </div>
     </div>
 
-    <ul class="font-medium space-y-4">
+    <ul class="space-y-4 font-medium">
         <li><a href="#about" class="hover:underline">About</a></li>
         <li><a href="#projects" class="hover:underline">Projects</a></li>
     </ul>
