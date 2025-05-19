@@ -18,8 +18,8 @@
   --color-wanderer-accent: #fcd1a0;
   --color-wanderer-black: #171a19;
 
-  --drop-shadow-button:  0px 4px 4px #171a19;
-  --drop-shadow-nav:  0 12px 12px #171a19;
+  --drop-shadow-button: 0 4px 4px #171a19;
+  --drop-shadow-nav: 0 12px 12px #171a19;
 }
 
 @font-face {
@@ -37,6 +37,6 @@
 }
 
 @utility debug {
-    border-color: black;
-    border-width: 2px;
+  border-color: black;
+  border-width: 2px;
 }

@@ -3,8 +3,10 @@ import "../styles/global.css";
 import headshot from "../../public/png/headshot-2025-v1.png";
 ---
 
-<section id="about" class="flex min-h-screen min-w-full justify-center items-center">
-
+<section
+    id="about"
+    class="flex min-h-screen min-w-full items-center justify-center"
+>
     <div
         id="left-bg"
         class="bg-wanderer-200 absolute inset-y-0 left-0 z-0 h-screen transition-[width] duration-0 ease-in-out"
@@ -13,40 +15,43 @@ import headshot from "../../public/png/headshot-2025-v1.png";
 
     <a
         href="/"
-        class="font-signature fixed top-8 right-12 text-wanderer-300 flex justify-center text-[2.5rem] font-extrabold transition hover:scale-[101%]"
+        class="font-signature text-wanderer-300 fixed top-8 right-12 flex justify-center text-[2.5rem] font-extrabold transition hover:scale-[101%]"
     >
         Amy M. Liu
     </a>
     <!-- content container -->
-    <div class="flex flex-col lg:flex-row mx-12 justify-center items-center lg:space-x-16 space-y-4 z-10 py-2 px-auto overflow-hidden">
+    <div
+        class="px-auto z-10 mx-12 flex flex-col items-center justify-center space-y-4 overflow-hidden py-2 lg:flex-row lg:space-x-16"
+    >
         <!-- headshot container -->
-        <div class="flex p-4 max-w-[400px]">
+        <div class="flex max-w-[400px] p-4">
             <img
                 id="headshot"
                 src={headshot.src}
                 alt="headshot"
-                class="h-full w-full rounded-full object-cover ring-12 ring-wanderer-100/100"
+                class="ring-wanderer-100/100 h-full w-full rounded-full object-cover ring-12"
             />
         </div>
 
         <!-- text container -->
-        <div class="flex justify-center text-center lg:text-left font-medium">
+        <div class="flex justify-center text-center font-medium lg:text-left">
             <article class="">
                 <div class="text-5xl/loose font-bold">Amy M. Liu</div>
                 <div class="text-md/relaxed">
-                    <p>Hi, nice to meet you.
-                    <br>Welcome to my personal portfolio website.</p>
+                    <p>
+                        Hi, nice to meet you.
+                        <br />Welcome to my personal portfolio website.
+                    </p>
                 </div>
             </article>
         </div>
     </div>
-
 </section>
 
 <script>
     import { syncBackgroundWidth } from "./NavBar";
 
-	// run once after images load, then on every resize
-	window.addEventListener("load", syncBackgroundWidth);
-	window.addEventListener("resize", syncBackgroundWidth);
+    // run once after images load, then on every resize
+    window.addEventListener("load", syncBackgroundWidth);
+    window.addEventListener("resize", syncBackgroundWidth);
 </script>

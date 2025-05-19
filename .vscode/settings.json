@@ -4,6 +4,6 @@
     },
     "tailwindCSS.includeLanguages": {
         "html": "html",
-        "astro": "astro",
+        "astro": "astro"
     }
 }
