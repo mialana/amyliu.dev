@@ -6,28 +6,28 @@
 
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
-     --font-signature: "BestermindRegular";
-     --font-body: "Nunito";
+  --font-signature: "BestermindRegular";
+  --font-body: "Nunito";
 
-    --color-wanderer-100: #D9DED1;
-    --color-wanderer-200: #A2B7A8;
-    --color-wanderer-300: #506E66;
-    --color-wanderer-shadow: #373E3B;
-    --color-wanderer-highlight: #F2EADD;
-    --color-wanderer-accent: #FCD1A0;
-    --color-wanderer-black: #171a19;
+  --color-wanderer-100: #d9ded1;
+  --color-wanderer-200: #a2b7a8;
+  --color-wanderer-300: #506e66;
+  --color-wanderer-shadow: #373e3b;
+  --color-wanderer-highlight: #f2eadd;
+  --color-wanderer-accent: #fcd1a0;
+  --color-wanderer-black: #171a19;
 }
 
 @font-face {
-    font-family: "BestermindRegular";
-    src: url("./src/assets/ttf/BestermindRegular.ttf");
+  font-family: "BestermindRegular";
+  src: url("./src/assets/ttf/BestermindRegular.ttf");
 }
 
 /* Set global default styles */
 @layer base {
-    html {
-        @apply font-body;
-        @apply text-wanderer-black;
-        scroll-behavior: smooth;
-    }
+  html {
+    @apply font-body;
+    @apply text-wanderer-black;
+    scroll-behavior: smooth;
+  }
 }

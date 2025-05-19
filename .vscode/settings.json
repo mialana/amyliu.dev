@@ -3,7 +3,6 @@
         "*.css": "tailwindcss"
     },
     "tailwindCSS.includeLanguages": {
-        "html": "html",
-    },
-
+        "html": "html"
+    }
 }
