@@ -1,7 +1,7 @@
 import "../styles/global.css";
 
 import { useState, useEffect } from "react";
-import headshot from "../assets/png/headshot-2025-v1.png";
+import headshot from "../../public/png/headshot-2025-v1.png";
 
 export default function NavBar() {
     const [open, setOpen] = useState(false);

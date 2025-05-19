@@ -20,7 +20,7 @@
 
 @font-face {
   font-family: "BestermindRegular";
-  src: url("./src/assets/ttf/BestermindRegular.ttf");
+  src: url("./public/ttf/BestermindRegular.ttf");
 }
 
 /* Set global default styles */
