@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
@@ -16,6 +17,9 @@
   --color-wanderer-highlight: #f2eadd;
   --color-wanderer-accent: #fcd1a0;
   --color-wanderer-black: #171a19;
+
+  --drop-shadow-button:  0px 4px 4px #171a19;
+  --drop-shadow-nav:  0 12px 12px #171a19;
 }
 
 @font-face {

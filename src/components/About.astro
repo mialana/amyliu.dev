@@ -1,0 +1,55 @@
+---
+import "../styles/global.css";
+import headshot from "../../public/png/headshot-2025-v1.png";
+---
+
+<div
+	id="left-bg"
+	class="bg-wanderer-200 fixed inset-y-0 left-0 z-0 h-full transition-[width] duration-10 ease-in-out"
+>
+</div>
+
+<a
+    href="/"
+    class="font-signature fixed top-8 right-12 text-wanderer-300 flex justify-center text-[2.5rem] font-extrabold transition hover:scale-[101%]"
+>
+    Amy M. Liu
+</a>
+
+<section id="about" class="flex min-h-screen min-w-full items-center justify-center space-x-32">
+    <div class="relative z-10">
+        <div class="max-w-[350px] min-w-[200px]">
+            <img
+                id="headshot"
+                src={headshot.src}
+                alt="headshot"
+                class="h-full w-full rounded-full object-cover ring-12 ring-wanderer-100/100"
+            />
+        </div>
+    </div>
+
+    <article class="prose prose-lg max-w-[500px] font-medium leading-6">
+        <p>
+            Hi I'm Amy. Welcome to my personal portfolio website. 
+        </p>
+        <h3>About</h1>
+        <p>
+            I grew up in Portland, Oregon, but I'm currently an undergraduate studying in the
+            Computer Graphics department at the University of Pennsylvania.
+        </p>
+        <p>
+            In May 2026,
+            I will be graduating with both a Bachelor of Science in Engineering and an
+            accelerated Master of Science in Engineering degree.
+        </p>
+    </article>
+
+</section>
+
+<script>
+    import { syncBackgroundWidth } from "./NavBar";
+
+	// run once after images load, then on every resize
+	window.addEventListener("load", syncBackgroundWidth);
+	window.addEventListener("resize", syncBackgroundWidth);
+</script>
