@@ -1,8 +1,8 @@
 import "../styles/global.css";
 
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
-export function syncBackgroundWidth() {
+export function SyncBackgroundWidth() {
     const img = document.getElementById("headshot");
     const bg = document.getElementById("left-bg");
     if (!img || !bg) return;
@@ -17,54 +17,63 @@ export default function NavBar() {
     const [open, setOpen] = useState(false);
 
     // Shift the main content whenever the nav opens/closes
-    useEffect(() => {
+    useLayoutEffect(() => {
         const main = document.querySelector("main");
         if (!main) return;
         main.classList.toggle("lg:ml-[312px]", open);
         main.classList.toggle("lg:ml-0", !open);
-        syncBackgroundWidth();
+        SyncBackgroundWidth();
 
         // kick-off a per-frame loop while the transition is running
         let rafId: number;
         const tick = () => {
-            syncBackgroundWidth(); // update this frame
+            SyncBackgroundWidth(); // update this frame
             rafId = requestAnimationFrame(tick);
         };
-        tick(); // start immediately
+        main.addEventListener("transitionstart", tick); // start immediately
 
         // stop the loop when the CSS transition finishes
         const end = (e: TransitionEvent) => {
             if (e.propertyName === "margin-left") {
-                cancelAnimationFrame(rafId);
-                syncBackgroundWidth();
-                main.removeEventListener("transitionend", end);
+                cleanup();
             }
         };
+
         main.addEventListener("transitionend", end);
+
+        const cleanup = () => {
+            cancelAnimationFrame(rafId);
+            main.removeEventListener("transitionstart", tick);
+            main.removeEventListener("transitionend", end);
+        }
 
         // tidy up if the component unmounts early
         return () => {
-            cancelAnimationFrame(rafId);
-            main.removeEventListener("transitionend", end);
+            cleanup();
         };
     }, [open]);
 
     return (
         /* navigation container */
-        <div className="fixed z-30 flex min-h-screen items-center">
+        <div className="fixed inset-y-2 left-2 z-30 flex items-center">
             <nav
-                className={`bg-wanderer-shadow drop-shadow-nav transition-default-300 fixed left-1 h-[calc(100vh-10*var(--spacing))] w-[312px] transform rounded-lg px-8 py-10 ${open ? "translate-x-0" : "-translate-x-full"}`}
+                className={`bg-wanderer-shadow drop-shadow-nav transition-default-300 absolute h-full w-[312px] rounded-lg ${open ? "translate-x-0" : "-translate-x-full"}`}
             >
                 {/* list container */}
-                <div className="my-8 flex">
-                    <ul className="text-wanderer-highlight space-y-4 font-bold">
+                <div className="absolute inset-8 my-8">
+                    <ul className="text-wanderer-highlight font-medium text-center text-xl/loose *:hover:underline">
                         <li>
-                            <a href="#landing" className="hover:underline">
+                            <a href="#landing">
                                 Landing
                             </a>
                         </li>
                         <li>
-                            <a href="#projects" className="hover:underline">
+                            <a href="#about">
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#projects">
                                 Projects
                             </a>
                         </li>
@@ -72,27 +81,30 @@ export default function NavBar() {
                 </div>
             </nav>
 
-            <button
-                aria-label="Toggle navigation"
-                aria-expanded={open}
-                onClick={() => setOpen(!open)}
-                className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button transition-default-300 absolute top-8 left-4 z-40 transform cursor-pointer rounded-2xl p-2 active:translate-y-[4px]`}
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
+            <div className="absolute inset-4 z-40">
+                <button
+                    id="navigation-button"
+                    aria-label="Toggle navigation"
+                    aria-expanded={open}
+                    onClick={() => setOpen(!open)}
+                    className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button transition-default-300 cursor-pointer rounded-2xl p-2 active:translate-y-[4px]`}
                 >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 6h16M4 12h16M4 18h16"
-                    />
-                </svg>
-            </button>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2.5}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4 6 h16 M4 12 h16 M4 18 h16"
+                        />
+                    </svg>
+                </button>
+            </div>
         </div>
     );
 }

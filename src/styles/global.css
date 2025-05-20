@@ -31,9 +31,12 @@
 @layer base {
   html {
     @apply font-body;
+    @apply text-base;
     @apply text-wanderer-black;
     @apply bg-wanderer-100;
+
     scroll-behavior: smooth;
+    hyphens: auto;
   }
 }
 
