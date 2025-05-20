@@ -3,7 +3,7 @@
         "*.css": "tailwindcss"
     },
     "[astro]": {
-        "editor.defaultFormatter": "astro-build.astro-vscode",
+        "editor.defaultFormatter": "astro-build.astro-vscode"
     },
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -13,5 +13,5 @@
     },
     "prettier.requireConfig": true,
     "prettier.configPath": ".prettierrc.mjs",
-    "prettier.prettierPath": "./node_modules/prettier",
+    "prettier.prettierPath": "./node_modules/prettier"
 }
