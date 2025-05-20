@@ -38,7 +38,16 @@
 }
 
 @utility debug {
-  border-color: black;
-  border-width: 2px;
-  @apply bg-red-200/25;
+  & {
+    border-color: black;
+    border-width: 2px;
+    @apply bg-red-200/25;
+  }
+}
+
+@utility transition-default-* {
+  & {
+    @apply transition-all ease-in-out;
+    transition-duration: calc(--value(integer) * 1ms);
+  }
 }

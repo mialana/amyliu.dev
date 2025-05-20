@@ -51,9 +51,9 @@ export default function NavBar() {
 
     return (
         /* navigation container */
-        <div className="flex min-h-screen items-center">
+        <div className="fixed z-30 flex min-h-screen items-center">
             <nav
-                className={`bg-wanderer-shadow drop-shadow-nav fixed left-1 z-30 h-[calc(100vh-10*var(--spacing))] w-[312px] transform rounded-lg px-8 py-10 transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}
+                className={`bg-wanderer-shadow drop-shadow-nav transition-default-300 fixed left-1 h-[calc(100vh-10*var(--spacing))] w-[312px] transform rounded-lg px-8 py-10 ${open ? "translate-x-0" : "-translate-x-full"}`}
             >
                 {/* list container */}
                 <div className="my-8 flex">
@@ -76,7 +76,7 @@ export default function NavBar() {
                 aria-label="Toggle navigation"
                 aria-expanded={open}
                 onClick={() => setOpen(!open)}
-                className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button fixed top-8 left-4 z-40 transform cursor-pointer rounded-2xl p-2 transition-all duration-300 ease-in-out active:translate-y-[4px]`}
+                className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button transition-default-300 absolute top-8 left-4 z-40 transform cursor-pointer rounded-2xl p-2 active:translate-y-[4px]`}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
