@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: "BestermindRegular";
-  src: url("./public/ttf/BestermindRegular.ttf");
+  src: url("/ttf/BestermindRegular.ttf");
 }
 
 /* Set global default styles */
