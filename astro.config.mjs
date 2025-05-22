@@ -10,6 +10,11 @@ export default defineConfig({
     integrations: [react()],
     vite: {
         plugins: [tailwindcss()],
+        server: {
+            watch: {
+                ignored: [".obsidian"]
+            }
+        }
     },
     trailingSlash: "always",
 });
