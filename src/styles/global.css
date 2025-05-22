@@ -7,50 +7,50 @@
 
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
-  --font-signature: "BestermindRegular";
-  --font-body: "IBM Plex Mono";
+    --font-signature: "BestermindRegular";
+    --font-body: "IBM Plex Mono";
 
-  --color-wanderer-100: #d9ded1;
-  --color-wanderer-200: #a2b7a8;
-  --color-wanderer-300: #506e66;
-  --color-wanderer-shadow: #373e3b;
-  --color-wanderer-highlight: #f2eadd;
-  --color-wanderer-accent: #fcd1a0;
-  --color-wanderer-black: #171a19;
+    --color-wanderer-100: #d9ded1;
+    --color-wanderer-200: #a2b7a8;
+    --color-wanderer-300: #506e66;
+    --color-wanderer-shadow: #373e3b;
+    --color-wanderer-highlight: #f2eadd;
+    --color-wanderer-accent: #fcd1a0;
+    --color-wanderer-black: #171a19;
 
-  --drop-shadow-button: 0 4px 4px #171a19;
-  --drop-shadow-nav: 0 12px 12px #171a19;
+    --drop-shadow-button: 0 4px 4px #171a19;
+    --drop-shadow-nav: 0 12px 12px #171a19;
 }
 
 @font-face {
-  font-family: "BestermindRegular";
-  src: url("/font/BestermindRegular.ttf");
+    font-family: "BestermindRegular";
+    src: url("/font/BestermindRegular.ttf");
 }
 
 /* Set global default styles */
 @layer base {
-  html {
-    @apply font-body;
-    @apply text-base;
-    @apply text-wanderer-black;
-    @apply bg-wanderer-100;
+    html {
+        @apply font-body;
+        @apply text-base;
+        @apply text-wanderer-black;
+        @apply bg-wanderer-100;
 
-    scroll-behavior: smooth;
-    hyphens: auto;
-  }
+        scroll-behavior: smooth;
+        hyphens: auto;
+    }
 }
 
 @utility debug {
-  & {
-    border-color: black;
-    border-width: 2px;
-    @apply bg-red-200/25;
-  }
+    & {
+        border-color: black;
+        border-width: 2px;
+        @apply bg-red-200/25;
+    }
 }
 
 @utility transition-default-* {
-  & {
-    @apply transition-all ease-in-out;
-    transition-duration: calc(--value(integer) * 1ms);
-  }
+    & {
+        @apply transition-all ease-in-out;
+        transition-duration: calc(--value(integer) * 1ms);
+    }
 }
