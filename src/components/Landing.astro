@@ -8,13 +8,13 @@ import Headshot from "../../public/png/headshot-2025-v1.png";
 <>
     <div
         id="left-bg"
-        class="bg-wanderer-200 absolute inset-y-0 left-0 z-0 h-screen"
+        class="bg-wanderer-200 absolute inset-y-0 left-0 z-0 h-screen w-auto"
     >
     </div>
 
     <!-- content container -->
     <div
-        class="px-auto z-10 mx-12 flex flex-col items-center justify-center space-y-4 overflow-hidden py-2 lg:flex-row lg:space-x-16"
+        class="px-auto z-1 mx-12 flex flex-col items-center justify-center space-y-4 py-2 lg:flex-row lg:space-x-16"
     >
         <!-- headshot container -->
         <div class="flex max-w-[400px] p-4">
@@ -27,10 +27,14 @@ import Headshot from "../../public/png/headshot-2025-v1.png";
         </div>
 
         <!-- text container -->
-        <div class="flex justify-center text-center font-medium lg:text-left">
-            <article class="">
-                <div class="text-5xl/loose font-bold">Amy M. Liu</div>
-                <div class="text-md/relaxed">
+        <div
+            class="flex items-center justify-center text-center font-medium lg:text-left"
+        >
+            <article class="space-y-[2dvh]">
+                <div class="text-4xl/tight font-bold lg:text-5xl/tight">
+                    Amy M. Liu
+                </div>
+                <div class="lg:text-md/relaxed text-sm/relaxed">
                     <p>
                         Hi, nice to meet you.
                         <br />Welcome to my personal portfolio website.
@@ -40,11 +44,3 @@ import Headshot from "../../public/png/headshot-2025-v1.png";
         </div>
     </div>
 </>
-
-<script>
-    import { SyncBackgroundWidth } from "./helper";
-
-    // run once after images load, then on every resize
-    window.addEventListener("load", SyncBackgroundWidth);
-    window.addEventListener("resize", SyncBackgroundWidth);
-</script>

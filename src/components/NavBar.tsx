@@ -1,18 +1,45 @@
 import "../styles/global.css";
 
-import { useState, useLayoutEffect } from "react";
-
-import { SyncBackgroundWidth } from "./helper";
+import { useState, useEffect, useLayoutEffect } from "react";
 
 export default function NavBar() {
     const [open, setOpen] = useState(false);
 
+    function SyncBackgroundWidth() {
+        const img = document.getElementById("headshot");
+        const bg = document.getElementById("left-bg");
+        if (!img || !bg) return;
+
+        const rect = img.getBoundingClientRect();
+        // distance from viewport left edge to img centre
+        const newWidth = rect.left + rect.width / 2;
+        bg.style.width = `${newWidth}px`;
+    }
+
+    useEffect(() => {
+        // Run once on initial load
+        SyncBackgroundWidth();
+
+        // Attach listeners for resizing
+        window.addEventListener("resize", SyncBackgroundWidth);
+
+        return () => {
+            window.removeEventListener("resize", SyncBackgroundWidth);
+        };
+    }, []);
+
     // Shift the main content whenever the nav opens/closes
     useLayoutEffect(() => {
+        const navbar = document.getElementById("navbar-container");
+
         const main = document.querySelector("main");
-        if (!main) return;
-        main.classList.toggle("lg:ml-[312px]", open);
-        main.classList.toggle("lg:ml-0", !open);
+        if (!main || !navbar) return;
+
+        const isLg = window.innerWidth >= 1024;
+
+        const rect = navbar.getBoundingClientRect();
+        main.style.marginLeft = isLg && open ? `${rect.right}px` : "0px";
+
         SyncBackgroundWidth();
 
         // kick-off a per-frame loop while the transition is running
@@ -46,9 +73,12 @@ export default function NavBar() {
 
     return (
         /* navigation container */
-        <div className="fixed inset-y-2 left-2 z-30 flex items-center">
+        <div
+            id="navbar-container"
+            className={`fixed inset-y-2 left-[2vw] z-2 h-auto w-[192dvw] -translate-x-1/2 items-center lg:left-2 lg:w-[624px] ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+        >
             <nav
-                className={`bg-wanderer-shadow drop-shadow-nav transition-default-300 absolute h-full w-[312px] rounded-lg ${open ? "translate-x-0" : "-translate-x-full"}`}
+                className={`bg-wanderer-shadow drop-shadow-nav transition-default-300 absolute h-full w-1/2 rounded-lg ${open ? "left-1/2" : "left-0"}`}
             >
                 {/* list container */}
                 <div className="absolute inset-8 my-8">
@@ -66,13 +96,13 @@ export default function NavBar() {
                 </div>
             </nav>
 
-            <div className="absolute inset-4 z-40">
+            <div className="absolute inset-y-4 left-1/2 z-3 translate-x-4">
                 <button
                     id="navigation-button"
                     aria-label="Toggle navigation"
                     aria-expanded={open}
                     onClick={() => setOpen(!open)}
-                    className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button transition-default-300 cursor-pointer rounded-2xl p-2 active:translate-y-[4px]`}
+                    className={`${open ? "bg-wanderer-highlight text-wanderer-shadow" : "bg-wanderer-shadow text-wanderer-highlight"} drop-shadow-button transition-default-300 pointer-events-auto cursor-pointer rounded-2xl p-2 active:translate-y-[4px]`}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
