@@ -5,9 +5,12 @@ import tailwindcss from "@tailwindcss/vite";
 
 import react from "@astrojs/react";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
-    integrations: [react()],
+    site: "https://amymliu.dev/",
+    integrations: [react(), sitemap()],
     vite: {
         plugins: [tailwindcss()],
         server: {
@@ -16,5 +19,6 @@ export default defineConfig({
             },
         },
     },
+
     trailingSlash: "always",
 });
