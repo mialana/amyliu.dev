@@ -19,7 +19,7 @@ const projectSchema = z.object({
 export type projectSchema = z.infer<typeof projectSchema>;
 
 const projectCollection = defineCollection({
-    loader: glob({ pattern: "**/*.md", base: "./src/content/project" }),
+    loader: glob({ pattern: ["**/*.md*"], base: "./src/content/project" }),
     schema: projectSchema,
 });
 

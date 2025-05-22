@@ -8,6 +8,8 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 
 import Landing from "../components/Landing.astro";
 
+import createSlug from "../lib/createSlug";
+
 const projects = await getCollection("project");
 ---
 
@@ -20,10 +22,12 @@ const projects = await getCollection("project");
         <SectionLayout section_id="projects">
             <ul>
                 {
-                    projects.map((post) => (
+                    projects.map((project) => (
                         <li>
-                            <a href={`/project/${post.slug}/`}>
-                                {post.data.title}
+                            <a
+                                href={`/project/${createSlug(project.data.title)}/`}
+                            >
+                                {project.data.title}
                             </a>
                         </li>
                     ))

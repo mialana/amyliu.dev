@@ -1,22 +1,28 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, render, getEntries } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
+
+import createSlug from "../../lib/createSlug";
 
 // Generate a new path for every collection entry
 export async function getStaticPaths() {
     const projects = await getCollection("project");
-    return projects.map((project) => ({
-        params: { slug: project.slug },
-        props: { project },
-    }));
+
+    return projects.map((project) => {
+        let slug = createSlug(project.data.title);
+        return {
+            params: { slug: slug },
+            props: { project, slug },
+        };
+    });
 }
 
-const { project } = Astro.props;
+const { project, slug } = Astro.props;
 const { Content } = await render(project);
 ---
 
 <MainLayout>
     <h1>{project.data.title}</h1>
-    This is the slug: {project.slug}
+    This is the slug: {slug}
     <Content />
 </MainLayout>
