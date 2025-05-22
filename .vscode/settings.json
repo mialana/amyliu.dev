@@ -5,7 +5,7 @@
     "[astro]": {
         "editor.defaultFormatter": "astro-build.astro-vscode"
     },
-    "[json,javascript,typescript,typescriptreact]": {
+    "[json][javascript][typescript][typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "prettier.requireConfig": true,
