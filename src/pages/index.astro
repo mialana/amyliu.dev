@@ -1,12 +1,12 @@
 ---
 import "../styles/global.css";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 
 import Landing from "../components/Landing.astro";
 ---
 
-<BaseLayout>
+<MainLayout>
     <>
         <SectionLayout section_id="landing">
             <Landing />
@@ -19,4 +19,4 @@ import Landing from "../components/Landing.astro";
             </div>
         </SectionLayout>
     </>
-</BaseLayout>
+</MainLayout>
