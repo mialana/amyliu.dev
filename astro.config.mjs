@@ -12,9 +12,9 @@ export default defineConfig({
         plugins: [tailwindcss()],
         server: {
             watch: {
-                ignored: [".obsidian"]
-            }
-        }
+                ignored: [".obsidian"],
+            },
+        },
     },
     trailingSlash: "always",
 });

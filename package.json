@@ -7,7 +7,8 @@
         "build": "astro build",
         "preview": "astro preview",
         "astro": "astro",
-        "lint": "npx prettier . --write"
+        "lint": "npx prettier . --write",
+        "prepare": "husky"
     },
     "dependencies": {
         "@astrojs/react": "^4.2.7",
@@ -21,6 +22,7 @@
     },
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.16",
+        "husky": "^9.1.7",
         "prettier": "3.5.3",
         "prettier-plugin-astro": "0.14.1",
         "prettier-plugin-tailwindcss": "^0.6.11"
