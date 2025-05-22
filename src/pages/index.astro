@@ -1,9 +1,14 @@
 ---
 import "../styles/global.css";
+
+import { getCollection } from "astro:content";
+
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 
 import Landing from "../components/Landing.astro";
+
+const projects = await getCollection("project");
 ---
 
 <MainLayout>
@@ -13,10 +18,17 @@ import Landing from "../components/Landing.astro";
         </SectionLayout>
 
         <SectionLayout section_id="projects">
-            <div class="">
-                <h2>My Projects</h2>
-                <p>...</p>
-            </div>
+            <ul>
+                {
+                    projects.map((post) => (
+                        <li>
+                            <a href={`/project/${post.slug}/`}>
+                                {post.data.title}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
         </SectionLayout>
     </>
 </MainLayout>
