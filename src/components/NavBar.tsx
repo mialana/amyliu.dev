@@ -2,16 +2,7 @@ import "../styles/global.css";
 
 import { useState, useLayoutEffect } from "react";
 
-export function SyncBackgroundWidth() {
-    const img = document.getElementById("headshot");
-    const bg = document.getElementById("left-bg");
-    if (!img || !bg) return;
-
-    const rect = img.getBoundingClientRect();
-    // distance from viewport left edge to img centre
-    const newWidth = rect.left + rect.width / 2;
-    bg.style.width = `${newWidth}px`;
-}
+import { SyncBackgroundWidth } from "./helper";
 
 export default function NavBar() {
     const [open, setOpen] = useState(false);
@@ -45,7 +36,7 @@ export default function NavBar() {
             cancelAnimationFrame(rafId);
             main.removeEventListener("transitionstart", tick);
             main.removeEventListener("transitionend", end);
-        }
+        };
 
         // tidy up if the component unmounts early
         return () => {
@@ -61,21 +52,15 @@ export default function NavBar() {
             >
                 {/* list container */}
                 <div className="absolute inset-8 my-8">
-                    <ul className="text-wanderer-highlight font-medium text-center text-xl/loose *:hover:underline">
+                    <ul className="text-wanderer-highlight text-center text-xl/loose font-medium *:hover:underline">
                         <li>
-                            <a href="#landing">
-                                Landing
-                            </a>
+                            <a href="#landing">Landing</a>
                         </li>
                         <li>
-                            <a href="#about">
-                                About
-                            </a>
+                            <a href="#about">About</a>
                         </li>
                         <li>
-                            <a href="#projects">
-                                Projects
-                            </a>
+                            <a href="#projects">Projects</a>
                         </li>
                     </ul>
                 </div>
