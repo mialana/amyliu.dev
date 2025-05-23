@@ -21,7 +21,7 @@ const { project, slug } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<MainLayout>
+<MainLayout title={project.data.title}>
     <h1>{project.data.title}</h1>
     This is the slug: {slug}
     <Content />

@@ -84,13 +84,13 @@ export default function NavBar() {
                 <div className="absolute inset-8 my-8">
                     <ul className="text-wanderer-highlight text-center text-xl/loose font-medium *:hover:underline">
                         <li>
-                            <a href="#landing">Landing</a>
+                            <a href="/#landing">Landing</a>
                         </li>
                         <li>
-                            <a href="#about">About</a>
+                            <a href="/#about">About</a>
                         </li>
                         <li>
-                            <a href="#projects">Projects</a>
+                            <a href="/#projects">Projects</a>
                         </li>
                     </ul>
                 </div>

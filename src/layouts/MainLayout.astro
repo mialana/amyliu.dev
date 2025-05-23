@@ -1,6 +1,11 @@
 ---
 import "../styles/global.css";
 import NavBar from "../components/NavBar";
+
+const { title } = Astro.props;
+const pageTitle = title ? `${title} · Amy Liu` : "Amy Liu";
+
+console.log(pageTitle);
 ---
 
 <!doctype html>
@@ -12,7 +17,7 @@ import NavBar from "../components/NavBar";
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
-        <title>Amy Liu - Personal Portfolio Website</title>
+        <title>{pageTitle}</title>
     </head>
     <body>
         <!-- signature -->
