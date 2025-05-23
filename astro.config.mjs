@@ -11,7 +11,7 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://amymliu.dev/",
+    site: "https://amyliu.dev/",
     integrations: [react(), sitemap(), mdx()],
     vite: {
         plugins: [tailwindcss()],
