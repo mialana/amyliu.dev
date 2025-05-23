@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, getEntries } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
+import SectionLayout from "../../layouts/SectionLayout.astro";
 
 import createSlug from "../../lib/createSlug";
 
@@ -9,20 +10,30 @@ export async function getStaticPaths() {
     const projects = await getCollection("project");
 
     return projects.map((project) => {
-        let slug = createSlug(project.data.title);
+        let slug = createSlug(project.data.title, project.data.slug);
         return {
             params: { slug: slug },
-            props: { project, slug },
+            props: { project },
         };
     });
 }
 
-const { project, slug } = Astro.props;
+const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 
 <MainLayout title={project.data.title}>
-    <h1>{project.data.title}</h1>
-    This is the slug: {slug}
+    <SectionLayout>
+        <div class="flex flex-col space-y-[12px]">
+            <h1 class="text-4xl">{project.data.title}</h1>
+            <h2 class="text-md">
+                {project.data.startDate} - {project.data.endDate}
+            </h2>
+            <p class="text-[12px]">
+                {project.data.description}.<br />Slug: {project.data.slug}
+            </p>
+        </div>
+    </SectionLayout>
+
     <Content />
 </MainLayout>

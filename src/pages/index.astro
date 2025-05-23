@@ -25,7 +25,7 @@ const projects = await getCollection("project");
                     projects.map((project) => (
                         <li>
                             <a
-                                href={`/project/${createSlug(project.data.title)}/`}
+                                href={`/project/${createSlug(project.data.title, project.data.slug)}/`}
                             >
                                 {project.data.title}
                             </a>
