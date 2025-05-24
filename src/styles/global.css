@@ -55,3 +55,7 @@
         transition-duration: calc(--value(integer) * 1ms);
     }
 }
+
+@utility no-scrollbar {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
