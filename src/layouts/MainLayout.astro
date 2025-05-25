@@ -1,11 +1,27 @@
 ---
 import "../styles/global.css";
+import Header from "../components/Header.astro";
 import NavBar from "../components/NavBar";
 
-const { title } = Astro.props;
-const pageTitle = title ? `${title} · Amy Liu` : "Amy Liu";
+enum LayoutEnum {
+    DEFAULT = "grid-cols-[auto_1fr_auto]",
+    HIDE_NAV = "grid-cols-[0px_1fr_16rem]",
+    HIDE_ASIDE = "grid-cols-[16rem_1fr_0px]",
+    HIDE_BOTH = "grid-cols-[0px_1fr_0px]",
+}
 
-console.log(pageTitle);
+function extractLayout(key: string): LayoutEnum | undefined {
+    return LayoutEnum[key as keyof typeof LayoutEnum];
+}
+
+interface Props {
+    title: string;
+    layout?: keyof typeof LayoutEnum;
+}
+
+const { title, layout = "DEFAULT" } = Astro.props;
+
+const dynamic_layout = extractLayout(layout);
 ---
 
 <!doctype html>
@@ -17,19 +33,15 @@ console.log(pageTitle);
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
+        <title>{title} · Amy Liu</title>
     </head>
-    <body>
-        <!-- signature -->
-        <a
-            href="/"
-            class="text-wanderer-300 font-signature transition-default-100 fixed top-8 right-12 z-2 flex text-[2.5rem] font-extrabold hover:scale-[105%]"
-        >
-            Amy Liu
-        </a>
-        <NavBar client:load />
-        <main class="transition-default-300">
-            <slot />
-        </main>
+    <body
+        class=`grid h-screen w-screen max-h-screen grid-rows-[auto_1fr_auto] gap-4 outline-black *:outline-1 ${dynamic_layout}`
+    >
+        <header class="col-span-3 h-24"><Header /></header>
+        <nav id="main-navbar"><NavBar position="Left" client:load /></nav>
+        <main><slot /></main>
+        <aside></aside>
+        <footer class="col-span-3 h-12"></footer>
     </body>
 </html>

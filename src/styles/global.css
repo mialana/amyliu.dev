@@ -7,8 +7,8 @@
 
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
-    --font-signature: "BestermindRegular";
-    --font-body: "IBM Plex Mono";
+    --font-signature: "Inter";
+    --font-body: "Inter";
 
     --color-wanderer-100: #d9ded1;
     --color-wanderer-200: #a2b7a8;
@@ -32,9 +32,6 @@
 @layer base {
     html {
         @apply font-body;
-        @apply text-base;
-        @apply text-wanderer-black;
-        @apply bg-wanderer-100;
 
         scroll-behavior: smooth;
         hyphens: auto;
@@ -51,7 +48,7 @@
 
 @utility transition-default-* {
     & {
-        @apply transition-all ease-in-out;
+        @apply transition-all ease-linear;
         transition-duration: calc(--value(integer) * 1ms);
     }
 }

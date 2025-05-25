@@ -6,20 +6,19 @@ import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 
-import Landing from "../components/Landing.astro";
-
 import createSlug from "../lib/createSlug";
 
 const projects = await getCollection("project");
 ---
 
-<MainLayout title="Home">
-    <>
-        <SectionLayout section_id="landing">
-            <Landing />
-        </SectionLayout>
+<MainLayout title="Home" layout="DEFAULT">
+    <div class="flex h-full flex-col overflow-y-scroll">
+        <SectionLayout section_id="landing"> Landing: </SectionLayout>
 
-        <SectionLayout section_id="projects">
+        <SectionLayout section_id="about"> About: </SectionLayout>
+
+        <SectionLayout section_id="showcase">
+            Showcase:
             <ul>
                 {
                     projects.map((project) => (
@@ -34,5 +33,5 @@ const projects = await getCollection("project");
                 }
             </ul>
         </SectionLayout>
-    </>
+    </div>
 </MainLayout>
