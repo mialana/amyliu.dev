@@ -1,20 +1,17 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
-import MainLayout from "../layouts/MainLayout.astro";
-
-import SectionLayout from "../layouts/SectionLayout.astro";
+import SeoPage from "@/components/SeoPage.astro";
 ---
 
-<MainLayout title="404">
-    <SectionLayout>
-        <div class="text-4xl">
-            <div class="text-9xl">404</div>
-            <br />
-            <div>
-                Whoops, no page here. Go back
-                <a href="/" class="text-wanderer-secondary">HOME</a>.
-            </div>
-        </div>
-    </SectionLayout>
-</MainLayout>
+<BaseLayout>
+    <SeoPage slot="head" title="404: Page Not Found" />
+    <div class="mt-16 text-center">
+        <h2 class="mb-3 text-4xl font-bold text-balance">
+            404: Page Not Found
+        </h2>
+        <p class="text-balance">
+            Whatever you're looking for doesn't appear to be available. Sorry.
+        </p>
+    </div>
+</BaseLayout>
