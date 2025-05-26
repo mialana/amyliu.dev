@@ -33,7 +33,7 @@ export default function NavBar({ position }: NavBarProps) {
 
     return (
         <div
-            className={`${open ? "w-full min-w-fit" : "w-0"} transition-default-10 h-full overflow-hidden outline`}
+            className={`${open ? "w-full min-w-fit outline" : "w-0"} transition-default-10 h-full overflow-hidden`}
         >
             <button
                 id={`${position}-toggle-button`}
