@@ -7,7 +7,7 @@ techStack: [
 	"Python", "Django", "OpenUSD", "MySQL"
 ]
 tags: [
-	"2025", team project", "web", "databases"
+	"2025", "team project", "web", "databases"
 ]
 slug: USD-Asset-Browser
 

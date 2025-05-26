@@ -1,7 +1,6 @@
 ---
-import { getCollection, render, getEntries } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
-import SectionLayout from "../../layouts/SectionLayout.astro";
 
 import createSlug from "../../lib/createSlug";
 
@@ -19,21 +18,33 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+
 const { Content } = await render(project);
 ---
 
 <MainLayout title={project.data.title} layout="HIDE_BOTH">
-    <SectionLayout>
-        <div class="flex flex-col space-y-[12px]">
+    <div class="flex w-full justify-center">
+        <div
+            class="prose dark:prose-invert prose-h1:font-bold prose-h1:text-xl prose-a:text-blue-600 prose-p:text-justify prose-img:rounded-xl prose-headings:underline"
+        >
             <h1 class="text-4xl">{project.data.title}</h1>
-            <h2 class="text-md">
+            <h5 class="text-md">
                 {project.data.startDate} - {project.data.endDate}
-            </h2>
+            </h5>
+            <ul
+                class="not-prose flex space-x-4 *:rounded-md *:bg-black *:px-1 *:text-white"
+            >
+                {project.data.tags?.map((tag) => <li>{tag}</li>)}
+            </ul>
+            <ul
+                class="not-prose flex space-x-4 *:rounded-md *:bg-black *:px-1 *:text-white"
+            >
+                {project.data.techStack?.map((tag) => <li>{tag}</li>)}
+            </ul>
             <p class="text-[12px]">
                 {project.data.description}.<br />Slug: {project.data.slug}
             </p>
+            <Content />
         </div>
-    </SectionLayout>
-
-    <Content />
+    </div>
 </MainLayout>
