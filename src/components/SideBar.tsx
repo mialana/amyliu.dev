@@ -17,21 +17,26 @@ export default function NavBar({ position }: NavBarProps) {
     const positionInfo = PositionMap[position];
 
     useLayoutEffect(() => {
-        const nav = document.getElementById("nav-grid-cell");
-        const width = nav.clientWidth;
+        // Get grid cell based on passed in position prop
+        const gridCell =
+            position == "Left"
+                ? document.getElementById("nav-grid-cell")
+                : document.getElementById("aside-grid-cell");
+
+        if (!gridCell) return;
+        const width = gridCell.clientWidth;
+
         if (width == 0) {
-            setOpen(false);
-            const button = document.getElementById("nav-toggle-button");
-            button.classList.toggle("hidden");
+            gridCell.classList.toggle("collapse");
         }
     }, []);
 
     return (
         <div
-            className={`${open ? "w-full min-w-fit" : "w-0"} transition-default-10 h-full overflow-hidden`}
+            className={`${open ? "w-full min-w-fit" : "w-0"} transition-default-10 h-full overflow-hidden outline`}
         >
             <button
-                id="nav-toggle-button"
+                id={`${position}-toggle-button`}
                 className={`absolute h-4 w-4 text-[8px] outline hover:underline ${positionInfo["button"]}`}
                 onClick={() => {
                     setOpen(!open);

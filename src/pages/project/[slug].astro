@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
+import SectionLayout from "../../layouts/SectionLayout.astro";
 
 import createSlug from "../../lib/createSlug";
 
@@ -22,29 +23,24 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<MainLayout title={project.data.title} layout="HIDE_BOTH">
-    <div class="flex w-full justify-center">
-        <div
-            class="prose dark:prose-invert prose-h1:font-bold prose-h1:text-xl prose-a:text-blue-600 prose-p:text-justify prose-img:rounded-xl prose-headings:underline"
+<MainLayout title={project.data.title}>
+    <div class="max-h-full overflow-y-scroll">
+        <h1
+            class="text-center text-[36px] leading-snug font-bold text-balance text-black dark:text-white"
         >
-            <h1 class="text-4xl">{project.data.title}</h1>
-            <h5 class="text-md">
-                {project.data.startDate} - {project.data.endDate}
-            </h5>
-            <ul
-                class="not-prose flex space-x-4 *:rounded-md *:bg-black *:px-1 *:text-white"
-            >
-                {project.data.tags?.map((tag) => <li>{tag}</li>)}
-            </ul>
-            <ul
-                class="not-prose flex space-x-4 *:rounded-md *:bg-black *:px-1 *:text-white"
-            >
-                {project.data.techStack?.map((tag) => <li>{tag}</li>)}
-            </ul>
-            <p class="text-[12px]">
-                {project.data.description}.<br />Slug: {project.data.slug}
-            </p>
+            {project.data.title}
+        </h1>
+        <p class="text-muted-text dark:text-dark-muted-text mt-3 text-center">
+            {project.data.startDate} - {project.data.endDate}
+        </p>
+        <hr
+            class="border-muted-text dark:border-dark-muted-text my-8 border-[0.5px] opacity-10 dark:opacity-15"
+        />
+        <div class="prose mx-auto">
             <Content />
         </div>
+        <hr
+            class="border-muted-text dark:border-dark-muted-text my-8 border-[0.5px] opacity-10 dark:opacity-15"
+        />
     </div>
 </MainLayout>

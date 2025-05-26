@@ -1,12 +1,12 @@
 ---
 import "../styles/global.css";
 import Header from "../components/Header.astro";
-import NavBar from "../components/NavBar";
+import SideBar from "../components/SideBar";
 
 enum LayoutEnum {
     DEFAULT = "grid-cols-[auto_1fr_auto]",
-    HIDE_NAV = "grid-cols-[0px_1fr_16rem]",
-    HIDE_ASIDE = "grid-cols-[16rem_1fr_0px]",
+    HIDE_NAV = "grid-cols-[0px_1fr_auto]",
+    HIDE_ASIDE = "grid-cols-[auto_1fr_0px]",
     HIDE_BOTH = "grid-cols-[0px_1fr_0px]",
 }
 
@@ -36,12 +36,16 @@ const dynamic_layout = extractLayout(layout);
         <title>{title} · Amy Liu</title>
     </head>
     <body
-        class=`grid h-screen w-screen max-h-screen grid-rows-[auto_1fr_auto] gap-4 outline-black *:outline-1 ${dynamic_layout}`
+        class=`grid h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${dynamic_layout}`
     >
         <header class="col-span-3 h-24"><Header /></header>
-        <nav id="nav-grid-cell"><NavBar position="Left" client:load /></nav>
-        <main><slot /></main>
-        <aside></aside>
-        <footer class="col-span-3 h-12"></footer>
+        <nav id="nav-grid-cell">
+            <SideBar position="Left" client:load />
+        </nav>
+        <main class="max-h-full overflow-y-scroll"><slot /></main>
+        <aside id="aside-grid-cell">
+            <SideBar position="Right" client:load />
+        </aside>
+        <footer class="col-span-3 h-16 outline"></footer>
     </body>
 </html>

@@ -13,8 +13,6 @@ slug: USD-Asset-Browser
 
 ---
 
-# CIS7000 USD Asset Directory & Interface
-
 ![layer](./assets/Flattened_Asset_Layer.png)
 
 ### [Structure Walkthrough Video](https://youtu.be/hNuHniOKjt4)
