@@ -4,9 +4,6 @@ import "@/styles/global.css";
 const { section_id } = Astro.props;
 ---
 
-<section
-    id={section_id}
-    class="min-h-full min-w-full border-2 border-dashed p-2"
->
+<section id={section_id} class="size-full border-2 border-dashed p-2">
     <slot />
 </section>
