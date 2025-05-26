@@ -1,35 +1,12 @@
 ---
-import "../styles/global.css";
+import "@/styles/global.css";
 
-import { getCollection } from "astro:content";
-
-import MainLayout from "../layouts/MainLayout.astro";
-import SectionLayout from "../layouts/SectionLayout.astro";
-
-import createSlug from "../lib/createSlug";
-
-const projects = await getCollection("project");
+import MainLayout from "@/layouts/MainLayout.astro";
+import SectionLayout from "@/layouts/SectionLayout.astro";
 ---
 
 <MainLayout title="Home" layout="DEFAULT">
-    <SectionLayout section_id="showcase">
-        Showcase:
-        <ul>
-            {
-                projects.map((project) => (
-                    <li>
-                        <a
-                            href={`/project/${createSlug(project.data.title, project.data?.slug)}/`}
-                        >
-                            {project.data.title}
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
-    </SectionLayout>
-
     <SectionLayout section_id="landing"> Landing: </SectionLayout>
-
     <SectionLayout section_id="about"> About: </SectionLayout>
+    <SectionLayout section_id="showcase"> Showcase: </SectionLayout>
 </MainLayout>

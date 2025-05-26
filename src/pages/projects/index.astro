@@ -1,0 +1,27 @@
+---
+import "@/styles/global.css";
+
+import { getCollection } from "astro:content";
+
+import MainLayout from "@/layouts/MainLayout.astro";
+
+import createSlug from "@/lib/createSlug";
+
+const projects = await getCollection("projects");
+---
+
+<MainLayout title="Projects" layout="HIDE_BOTH">
+    <ul>
+        {
+            projects.map((project) => (
+                <li>
+                    <a
+                        href={`/projects/${createSlug(project.data.title, project.data?.slug)}/`}
+                    >
+                        {project.data.title}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</MainLayout>
