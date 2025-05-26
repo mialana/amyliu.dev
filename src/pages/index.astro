@@ -13,10 +13,6 @@ const projects = await getCollection("project");
 
 <MainLayout title="Home" layout="DEFAULT">
     <div class="flex h-full flex-col overflow-y-scroll">
-        <SectionLayout section_id="landing"> Landing: </SectionLayout>
-
-        <SectionLayout section_id="about"> About: </SectionLayout>
-
         <SectionLayout section_id="showcase">
             Showcase:
             <ul>
@@ -24,7 +20,7 @@ const projects = await getCollection("project");
                     projects.map((project) => (
                         <li>
                             <a
-                                href={`/project/${createSlug(project.data.title, project.data.slug)}/`}
+                                href={`/project/${createSlug(project.data.title, project.data?.slug)}/`}
                             >
                                 {project.data.title}
                             </a>
@@ -33,5 +29,9 @@ const projects = await getCollection("project");
                 }
             </ul>
         </SectionLayout>
+
+        <SectionLayout section_id="landing"> Landing: </SectionLayout>
+
+        <SectionLayout section_id="about"> About: </SectionLayout>
     </div>
 </MainLayout>

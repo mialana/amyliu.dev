@@ -39,7 +39,7 @@ const dynamic_layout = extractLayout(layout);
         class=`grid h-screen w-screen max-h-screen grid-rows-[auto_1fr_auto] gap-4 outline-black *:outline-1 ${dynamic_layout}`
     >
         <header class="col-span-3 h-24"><Header /></header>
-        <nav id="main-navbar"><NavBar position="Left" client:load /></nav>
+        <nav id="nav-grid-cell"><NavBar position="Left" client:load /></nav>
         <main><slot /></main>
         <aside></aside>
         <footer class="col-span-3 h-12"></footer>

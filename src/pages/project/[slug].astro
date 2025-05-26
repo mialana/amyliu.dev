@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     const projects = await getCollection("project");
 
     return projects.map((project) => {
-        let slug = createSlug(project.data.title, project.data.slug);
+        let slug = createSlug(project.data.title, project.data?.slug);
         return {
             params: { slug: slug },
             props: { project },
@@ -22,7 +22,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<MainLayout title={project.data.title}>
+<MainLayout title={project.data.title} layout="HIDE_BOTH">
     <SectionLayout>
         <div class="flex flex-col space-y-[12px]">
             <h1 class="text-4xl">{project.data.title}</h1>

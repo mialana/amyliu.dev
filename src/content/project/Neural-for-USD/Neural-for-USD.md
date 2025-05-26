@@ -7,7 +7,7 @@ techStack: [
 	"QT", "CMake", "C++", "Python", "NumPy", "PyTorch", "MatPlotLib", "OpenUSD", "Hydra"
 ]
 tags: [
-	"2025", "neural rendering", "NeRF", "neural radiance fields"
+	"2025", "individual", "neural rendering", "NeRF", "neural radiance fields"
 ]
 slug: Neural-for-USD
 

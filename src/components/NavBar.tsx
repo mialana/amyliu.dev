@@ -17,11 +17,12 @@ export default function NavBar({ position }: NavBarProps) {
     const positionInfo = PositionMap[position];
 
     useLayoutEffect(() => {
-        const nav = document.getElementById("main-navbar");
+        const nav = document.getElementById("nav-grid-cell");
         const width = nav.clientWidth;
         if (width == 0) {
             setOpen(false);
-            nav.classList.toggle("hidden");
+            const button = document.getElementById("nav-toggle-button");
+            button.classList.toggle("hidden");
         }
     }, []);
 
@@ -30,6 +31,7 @@ export default function NavBar({ position }: NavBarProps) {
             className={`${open ? "w-full min-w-fit" : "w-0"} transition-default-10 h-full overflow-hidden`}
         >
             <button
+                id="nav-toggle-button"
                 className={`absolute h-4 w-4 text-[8px] outline hover:underline ${positionInfo["button"]}`}
                 onClick={() => {
                     setOpen(!open);
