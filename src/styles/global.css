@@ -33,6 +33,7 @@
 @layer base {
     html {
         /* @apply font-body; */
+        @apply text-neutral-900;
         @apply **:scroll-smooth;
         hyphens: auto;
     }
@@ -41,7 +42,7 @@
 @utility debug {
     & {
         border-color: black;
-        border-width: 2px;
+        @apply outline;
         @apply bg-red-200/25;
     }
 }

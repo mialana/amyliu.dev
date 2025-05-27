@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from "astro:content";
-import MainLayout from "@/layouts/MainLayout.astro";
-import SectionLayout from "@/layouts/SectionLayout.astro";
+import { YouTube } from "astro-embed";
 
+import MainLayout from "@/layouts/MainLayout.astro";
+import Tags from "@/components/Tags.astro";
 import createSlug from "@/lib/createSlug";
 
 // Generate a new path for every collection entry
@@ -24,17 +25,27 @@ const { Content } = await render(project);
 ---
 
 <MainLayout title={project.data.title}>
-    <div class="**:mx-auto">
-        <div class="my-2 w-fit rounded-md p-2 *:w-fit">
-            <h1 class="text-4xl font-bold text-balance">
+    <div class="*:mx-auto">
+        <div class="prose prose-neutral prose-xl">
+            <h1 class="text-4xl">
                 {project.data.title}
             </h1>
-            <h3>
+            <h3 class="text-sm">
                 {project.data.startDate} - {project.data.endDate}
             </h3>
+
+            <Tags content={project.data.tags} label="tags" />
+            <Tags content={project.data.techStack} label="tech stack" />
+            <div class="!my-8 overflow-hidden rounded-xl">
+                <YouTube
+                    id={project.data.demoVideoLink}
+                    posterQuality="max"
+                    class="w-full !max-w-none"
+                />
+            </div>
         </div>
 
-        <div class="prose">
+        <div class="prose prose-neutral">
             <hr />
             <Content />
             <hr />

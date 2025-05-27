@@ -4,25 +4,16 @@ import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
 
-enum LayoutEnum {
-    DEFAULT = "grid-cols-[auto_1fr_auto]",
-    HIDE_NAV = "grid-cols-[0px_1fr_auto]",
-    HIDE_ASIDE = "grid-cols-[auto_1fr_0px]",
-    HIDE_BOTH = "grid-cols-[0px_1fr_0px]",
-}
-
-function extractLayout(key: string): LayoutEnum | undefined {
-    return LayoutEnum[key as keyof typeof LayoutEnum];
-}
+import { LayoutMap } from "@/lib/Maps";
 
 interface Props {
     title: string;
-    layout?: keyof typeof LayoutEnum;
+    layout?: keyof typeof LayoutMap;
 }
 
 const { title, layout = "DEFAULT" } = Astro.props;
 
-const dynamic_layout = extractLayout(layout);
+const layoutInfo = LayoutMap[layout];
 ---
 
 <!doctype html>
@@ -37,15 +28,23 @@ const dynamic_layout = extractLayout(layout);
         <title>{title} · Amy Liu</title>
     </head>
     <body
-        class=`grid h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 py-2 ${dynamic_layout}`
+        class=`grid h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 py-2 ${layoutInfo["grid_cols"]}`
     >
         <header class="col-span-3"><Header /></header>
         <nav id="nav-grid-cell">
-            <SideBar position="Left" client:load />
+            <SideBar
+                position="Left"
+                openInput={layoutInfo["nav_state"]}
+                client:load
+            />
         </nav>
         <main class="max-h-full overflow-y-scroll"><slot /></main>
         <aside id="aside-grid-cell">
-            <SideBar position="Right" client:load />
+            <SideBar
+                position="Right"
+                openInput={layoutInfo["aside_state"]}
+                client:load
+            />
         </aside>
         <footer class="col-span-3"><Footer /></footer>
     </body>

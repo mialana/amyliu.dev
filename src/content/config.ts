@@ -6,18 +6,17 @@ const projectsSchema = z.object({
     startDate: z.string(),
     endDate: z.string(),
     description: z.string(),
+    demoVideoLink: z.string().url(),
     techStack: z
         .array(z.string())
         .refine((items) => new Set(items).size === items.length, {
             message: "Tech used must be unique",
-        })
-        .optional(),
+        }),
     tags: z
         .array(z.string())
         .refine((items) => new Set(items).size === items.length, {
             message: "Tags must be unique",
-        })
-        .optional(),
+        }),
     slug: z.string().optional(),
 });
 

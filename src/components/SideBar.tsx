@@ -2,17 +2,15 @@ import "@/styles/global.css";
 
 import { useState, useLayoutEffect } from "react";
 
-const PositionMap = {
-    Left: { button: "left-0", arrowShow: "◀", arrowHide: "▶" },
-    Right: { button: "right-0", arrowShow: "▶", arrowHide: "◀" },
-};
+import { PositionMap } from "@/lib/Maps";
 
 interface NavBarProps {
     position: keyof typeof PositionMap;
+    openInput?: boolean;
 }
 
-export default function NavBar({ position }: NavBarProps) {
-    const [open, setOpen] = useState(true);
+export default function NavBar({ position, openInput = false }: NavBarProps) {
+    const [open, setOpen] = useState(openInput);
 
     const positionInfo = PositionMap[position];
 
@@ -24,9 +22,8 @@ export default function NavBar({ position }: NavBarProps) {
                 : document.getElementById("aside-grid-cell");
 
         if (!gridCell) return;
-        const width = gridCell.clientWidth;
 
-        if (width == 0) {
+        if (!openInput) {
             gridCell.classList.toggle("collapse");
         }
     }, []);
@@ -44,7 +41,7 @@ export default function NavBar({ position }: NavBarProps) {
             >
                 {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}
             </button>
-            <ul className="mx-4 my-6 list-inside list-[square] overflow-hidden text-sm leading-relaxed *:hover:underline">
+            <ul className="mx-4 my-6 list-inside list-[square] overflow-hidden text-sm leading-relaxed *:hover:underline md:w-auto">
                 <li>
                     <a href="/#landing">Landing</a>
                 </li>
