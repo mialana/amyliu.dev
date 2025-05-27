@@ -2,6 +2,7 @@
 import "@/styles/global.css";
 import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
+import Footer from "@/components/Footer.astro";
 
 enum LayoutEnum {
     DEFAULT = "grid-cols-[auto_1fr_auto]",
@@ -36,9 +37,9 @@ const dynamic_layout = extractLayout(layout);
         <title>{title} · Amy Liu</title>
     </head>
     <body
-        class=`grid h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${dynamic_layout}`
+        class=`grid h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 py-2 ${dynamic_layout}`
     >
-        <header class="col-span-3 h-24"><Header /></header>
+        <header class="col-span-3"><Header /></header>
         <nav id="nav-grid-cell">
             <SideBar position="Left" client:load />
         </nav>
@@ -46,6 +47,6 @@ const dynamic_layout = extractLayout(layout);
         <aside id="aside-grid-cell">
             <SideBar position="Right" client:load />
         </aside>
-        <footer class="col-span-3 h-16 outline"></footer>
+        <footer class="col-span-3"><Footer /></footer>
     </body>
 </html>

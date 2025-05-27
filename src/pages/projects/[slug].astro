@@ -24,23 +24,20 @@ const { Content } = await render(project);
 ---
 
 <MainLayout title={project.data.title}>
-    <div class="max-h-full overflow-y-scroll">
-        <h1
-            class="text-center text-[36px] leading-snug font-bold text-balance text-black dark:text-white"
-        >
-            {project.data.title}
-        </h1>
-        <p class="text-muted-text dark:text-dark-muted-text mt-3 text-center">
-            {project.data.startDate} - {project.data.endDate}
-        </p>
-        <hr
-            class="border-muted-text dark:border-dark-muted-text my-8 border-[0.5px] opacity-10 dark:opacity-15"
-        />
-        <div class="prose mx-auto">
-            <Content />
+    <div class="**:mx-auto">
+        <div class="my-2 w-fit rounded-md p-2 *:w-fit">
+            <h1 class="text-4xl font-bold text-balance">
+                {project.data.title}
+            </h1>
+            <h3>
+                {project.data.startDate} - {project.data.endDate}
+            </h3>
         </div>
-        <hr
-            class="border-muted-text dark:border-dark-muted-text my-8 border-[0.5px] opacity-10 dark:opacity-15"
-        />
+
+        <div class="prose">
+            <hr />
+            <Content />
+            <hr />
+        </div>
     </div>
 </MainLayout>

@@ -33,7 +33,7 @@ export default function NavBar({ position }: NavBarProps) {
 
     return (
         <div
-            className={`${open ? "w-full min-w-fit outline" : "w-0"} transition-default-10 h-full overflow-hidden`}
+            className={`${open ? "w-full min-w-fit border" : "w-0"} transition-default-10 h-full overflow-hidden`}
         >
             <button
                 id={`${position}-toggle-button`}
@@ -44,10 +44,11 @@ export default function NavBar({ position }: NavBarProps) {
             >
                 {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}
             </button>
-            <ul className="m-8 overflow-hidden text-center text-xl/loose font-medium *:hover:underline">
+            <ul className="mx-4 my-6 list-inside list-[square] overflow-hidden text-sm leading-relaxed *:hover:underline">
                 <li>
                     <a href="/#landing">Landing</a>
                 </li>
+
                 <li>
                     <a href="/#about">About</a>
                 </li>
