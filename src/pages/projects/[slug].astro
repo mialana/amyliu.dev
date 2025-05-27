@@ -6,6 +6,7 @@ import { marked } from "marked";
 import MainLayout from "@/layouts/MainLayout.astro";
 import Tags from "@/components/Tags.astro";
 import createSlug from "@/lib/createSlug";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
 // Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -22,12 +23,12 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 
-const { Content } = await render(project);
+const { Content, headings } = await render(project);
 
 const description = marked.parse(project.data.description);
 ---
 
-<MainLayout title={project.data.title}>
+<MainLayout title={project.data.title} headings={headings}>
     <div class="*:mx-auto">
         <div class="prose-custom-lg">
             <h1 class="text-4xl">
@@ -52,7 +53,7 @@ const description = marked.parse(project.data.description);
             </div>
         </div>
 
-        <div class="prose-custom">
+        <div class="prose-custom prose-code:not-prose">
             <hr />
             <Content />
             <hr />

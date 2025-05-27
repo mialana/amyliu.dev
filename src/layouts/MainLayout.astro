@@ -4,14 +4,17 @@ import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
 
+import { type MarkdownHeading } from "astro";
+
 import { LayoutMap } from "@/lib/Maps";
 
 interface Props {
     title: string;
     layout?: keyof typeof LayoutMap;
+    headings?: MarkdownHeading[];
 }
 
-const { title, layout = "DEFAULT" } = Astro.props;
+const { title, layout = "DEFAULT", headings } = Astro.props;
 
 const layoutInfo = LayoutMap[layout];
 ---
@@ -33,6 +36,7 @@ const layoutInfo = LayoutMap[layout];
         <header class="col-span-3"><Header /></header>
         <nav id="nav-grid-cell">
             <SideBar
+                label="Showcase"
                 position="Left"
                 openInput={layoutInfo["nav_state"]}
                 client:load
@@ -41,8 +45,10 @@ const layoutInfo = LayoutMap[layout];
         <main class="max-h-full overflow-y-scroll"><slot /></main>
         <aside id="aside-grid-cell">
             <SideBar
+                label="On this page"
                 position="Right"
                 openInput={layoutInfo["aside_state"]}
+                headings={headings}
                 client:load
             />
         </aside>

@@ -68,3 +68,19 @@
         @apply prose-lg;
     }
 }
+
+/* --- “timeline” list --- */
+/* .toc-list {
+    @apply ml-3 border-l border-gray-400 pl-6;
+}
+.toc-list div {
+    @apply relative debug;
+}
+
+.toc-list div li {
+    @apply absolute top-0 mt-2 mb-1 leading-snug debug;
+}
+.toc-list div li::before {
+    content: "";
+    @apply absolute top-0 -left-6 h-px w-6 bg-gray-400;
+} */
