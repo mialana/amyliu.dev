@@ -10,6 +10,7 @@
 @theme {
     --font-signature: "Fredericka the Great", serif;
     --font-body: "Inter";
+    --font-code: "IBM Plex Mono";
 
     --color-wanderer-100: #d9ded1;
     --color-wanderer-200: #a2b7a8;
@@ -51,5 +52,19 @@
     & {
         @apply transition-all ease-linear;
         transition-duration: calc(--value(integer) * 1ms);
+    }
+}
+
+@utility prose-custom {
+    & {
+        @apply prose;
+        @apply prose-neutral;
+    }
+}
+
+@utility prose-custom-lg {
+    & {
+        @apply prose-custom;
+        @apply prose-lg;
     }
 }

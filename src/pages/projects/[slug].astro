@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import { YouTube } from "astro-embed";
+import { marked } from "marked";
 
 import MainLayout from "@/layouts/MainLayout.astro";
 import Tags from "@/components/Tags.astro";
@@ -22,11 +23,13 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 
 const { Content } = await render(project);
+
+const description = marked.parse(project.data.description);
 ---
 
 <MainLayout title={project.data.title}>
     <div class="*:mx-auto">
-        <div class="prose prose-neutral prose-xl">
+        <div class="prose-custom-lg">
             <h1 class="text-4xl">
                 {project.data.title}
             </h1>
@@ -34,6 +37,10 @@ const { Content } = await render(project);
                 {project.data.startDate} - {project.data.endDate}
             </h3>
 
+            <div
+                set:html={description}
+                class="prose-custom-lg max-w-none text-sm"
+            />
             <Tags content={project.data.tags} label="tags" />
             <Tags content={project.data.techStack} label="tech stack" />
             <div class="!my-8 overflow-hidden rounded-xl">
@@ -45,7 +52,7 @@ const { Content } = await render(project);
             </div>
         </div>
 
-        <div class="prose prose-neutral">
+        <div class="prose-custom">
             <hr />
             <Content />
             <hr />
