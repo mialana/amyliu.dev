@@ -16,6 +16,7 @@ const { content, label } = Astro.props;
     {
         content.map((tag) => (
             <div class="size-fit !snap-start rounded-sm bg-neutral-900 px-1 text-nowrap">
+                {label == "tags" && <span>#</span>}
                 {tag}
             </div>
         ))
