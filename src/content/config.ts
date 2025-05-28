@@ -27,6 +27,4 @@ const projectsCollection = defineCollection({
     schema: projectsSchema,
 });
 
-export const collections = {
-    projects: projectsCollection,
-};
+export const collections = { projects: projectsCollection };

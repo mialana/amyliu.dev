@@ -15,13 +15,7 @@ export default defineConfig({
     integrations: [react(), sitemap(), mdx()],
     vite: {
         plugins: [tailwindcss()],
-        server: {
-            watch: {
-                ignored: [".obsidian"],
-            },
-        },
+        server: { watch: { ignored: [".obsidian"] } },
     },
-    devToolbar: {
-        enabled: false,
-    },
+    devToolbar: { enabled: false },
 });
