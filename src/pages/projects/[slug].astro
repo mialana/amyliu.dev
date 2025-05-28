@@ -1,12 +1,10 @@
 ---
-import { getCollection, render } from "astro:content";
-import { YouTube } from "@astro-community/astro-embed-youtube";
-import { marked } from "marked";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 
 import MainLayout from "@/layouts/MainLayout.astro";
-import Tags from "@/components/Tags.astro";
 import createSlug from "@/lib/createSlug";
 import TableOfContents from "@/components/TableOfContents.astro";
+import ProjectLayout from "@/layouts/ProjectLayout.astro";
 
 // Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -18,43 +16,22 @@ export async function getStaticPaths() {
     });
 }
 
+interface Props {
+    project: CollectionEntry<"projects">;
+}
+
 const { project } = Astro.props;
 
 const { Content, headings } = await render(project);
-
-const description = marked.parse(project.data.description);
 ---
 
 <MainLayout title={project.data.title}>
-    <TableOfContents headings={headings} slot="aside-sidebar" />
-    <div class="px-8 *:mx-auto">
-        <div class="prose-custom-lg">
-            <h1 class="text-4xl">
-                {project.data.title}
-            </h1>
-            <h3 class="text-sm">
-                {project.data.startDate} - {project.data.endDate}
-            </h3>
-
-            <div
-                set:html={description}
-                class="prose-custom-lg max-w-none text-sm"
-            />
-            <Tags content={project.data.tags} label="tags" />
-            <Tags content={project.data.techStack} label="tech stack" />
-            <div class="my-8 overflow-hidden rounded-xl">
-                <YouTube
-                    id={project.data.demoVideoLink}
-                    posterQuality="max"
-                    class="w-full !max-w-none"
-                />
-            </div>
-        </div>
-
-        <div class="prose-custom prose-code:not-prose">
+    <ProjectLayout project={project}>
+        <article class="prose-custom prose-code:not-prose">
             <hr />
             <Content />
             <hr />
-        </div>
-    </div>
+        </article>
+    </ProjectLayout>
+    <TableOfContents headings={headings} slot="aside-sidebar" />
 </MainLayout>

@@ -1,3 +1,41 @@
 ---
+import { type CollectionEntry } from "astro:content";
+import { marked } from "marked";
 
+import Tags from "@/components/Tags.astro";
+import { YouTube } from "@astro-community/astro-embed-youtube";
+
+interface Props {
+    project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const description = marked.parse(project.data.description);
 ---
+
+<div class="px-8 *:mx-auto">
+    <div class="prose-custom-lg">
+        <h1 class="text-4xl">
+            {project.data.title}
+        </h1>
+        <h3 class="text-sm">
+            {project.data.startDate} - {project.data.endDate}
+        </h3>
+
+        <div
+            set:html={description}
+            class="prose-custom-lg max-w-none text-sm"
+        />
+        <Tags content={project.data.tags} label="tags" />
+        <Tags content={project.data.techStack} label="tech stack" />
+        <div class="my-8 overflow-hidden rounded-xl">
+            <YouTube
+                id={project.data.demoVideoLink}
+                posterQuality="max"
+                class="w-full !max-w-none"
+            />
+        </div>
+    </div>
+    <slot />
+</div>
