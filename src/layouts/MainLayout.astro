@@ -39,10 +39,11 @@ const layoutInfo = LayoutMap[layout];
                 label="Showcase"
                 position="Left"
                 active={layoutInfo["nav_active"]}
+                headings={headings}
                 client:load
             />
         </nav>
-        <main class="max-h-full w-full max-w-full overflow-y-scroll">
+        <main class="overflow-x-hidden overflow-y-scroll">
             <slot />
         </main>
         <aside id="aside-grid-cell">

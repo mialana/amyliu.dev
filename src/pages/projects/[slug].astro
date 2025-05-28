@@ -29,7 +29,7 @@ const description = marked.parse(project.data.description);
 ---
 
 <MainLayout title={project.data.title} headings={headings}>
-    <div class="*:mx-auto">
+    <div class="px-8 *:mx-auto">
         <div class="prose-custom-lg">
             <h1 class="text-4xl">
                 {project.data.title}
@@ -44,7 +44,7 @@ const description = marked.parse(project.data.description);
             />
             <Tags content={project.data.tags} label="tags" />
             <Tags content={project.data.techStack} label="tech stack" />
-            <div class="!my-8 overflow-hidden rounded-xl">
+            <div class="my-8 overflow-hidden rounded-xl">
                 <YouTube
                     id={project.data.demoVideoLink}
                     posterQuality="max"

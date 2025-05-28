@@ -17,22 +17,22 @@ export default function SideBar({
     headings = [],
     active = false,
 }: SideBarProps) {
-    const [open, setOpen] = useState(active);
+    const [open, setOpen] = useState(false);
     const positionInfo = PositionMap[position];
 
     const TableOfContents = useMemo(() => {
         /* helper renders the UI for an already-built subtree */
         const renderTree = (nodes: any[]) => (
-            <ul className="w-fit not-only:pl-6">
+            <ul className="w-fit not-only:pl-3">
                 {nodes.map((n) => (
                     <li
                         key={n.slug}
                         className={`group ${n.children.length > 0 ? "not-last:border-l-1" : "no-children"}`}
                     >
                         <div
-                            className={`relative pl-6 group-last:border-l-1 group-[.no-children]:border-l-1`}
+                            className={`relative w-fit pr-2 pl-3 group-last:border-l-1 group-[.no-children]:border-l-1`}
                         >
-                            <div className="absolute bottom-0 left-0 w-7 border-[0.5px] content-['']"></div>
+                            <div className="absolute bottom-0 left-0 w-4 border-[0.5px] content-['']"></div>
                             <a
                                 href={`#${n.slug}`}
                                 className="relative top-3 left-2 hover:underline"
@@ -75,14 +75,15 @@ export default function SideBar({
         if (!active) {
             gridCell.classList.toggle("collapse");
             return;
-        } else if (active && window.screen.width < 768) {
-            setOpen(false);
+        } else {
+            // can only be open on load if not mobile
+            setOpen(active && window.screen.width > 768);
         }
     }, []);
 
     return (
         <nav
-            className={`${open ? "absolute z-20 w-screen border md:relative md:w-fit" : "w-0"} bg-neutral-300 ${positionInfo["absolutePosition"]} transition-default-10 h-full overflow-x-hidden md:h-full`}
+            className={`${open ? "absolute z-20 w-screen border md:relative md:w-auto" : "w-0"} bg:white ${positionInfo["absolutePosition"]} transition-default-10 h-full`}
         >
             <button
                 className={`absolute z-0 h-4 w-4 text-[8px] outline hover:underline ${positionInfo["absolutePosition"]}`}
@@ -91,9 +92,11 @@ export default function SideBar({
                 {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}
             </button>
             {open && (
-                <div className="m-4 overflow-scroll p-4 text-xs leading-relaxed text-nowrap **:border-neutral-300 md:w-fit md:max-w-[30vw]">
-                    <h1 className="mb-2 text-base font-semibold">{label}</h1>
-                    <div>{TableOfContents}</div>
+                <div className="m-4">
+                    <h1 className="text-base font-semibold">{label}</h1>
+                    <div className="overflow-x-scroll px-1 py-4 text-xs leading-relaxed text-nowrap **:border-neutral-300 md:max-w-[20vw]">
+                        {TableOfContents}
+                    </div>
                 </div>
             )}
         </nav>
