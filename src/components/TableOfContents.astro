@@ -18,29 +18,34 @@ for (const h of headings) {
 }
 ---
 
-<ul class="text- w-fit text-xs leading-relaxed">
-    {
-        (function renderTree(nodes: Node[]): any {
-            return nodes.map((n) => (
-                <li
-                    class={`group ${n.children.length > 0 ? "not-last:border-l-1" : "no-children"}`}
-                >
-                    <div
-                        class={`relative mb-1 w-fit pr-2 pl-3 group-last:border-l-1 group-[.no-children]:border-l-1`}
+<div>
+    <h1 class="font-semibold">On This Page</h1>
+    <ul
+        class="w-fit px-1 py-4 text-xs leading-relaxed text-nowrap **:border-neutral-200"
+    >
+        {
+            (function renderTree(nodes: Node[]): any {
+                return nodes.map((n) => (
+                    <li
+                        class={`group ${n.children.length > 0 ? "not-last:border-l-1" : "no-children"}`}
                     >
-                        <div class="absolute bottom-0 left-0 w-3 border-[0.5px] content-['']" />
-                        <a
-                            href={`#${n.slug}`}
-                            class="relative top-2 left-2 rounded-sm bg-neutral-100 px-1 py-0.5 hover:underline"
+                        <div
+                            class={`relative mb-1 w-fit pr-2 pl-3 group-last:border-l-1 group-[.no-children]:border-l-1`}
                         >
-                            {n.text}
-                        </a>
-                    </div>
-                    {n.children.length > 0 && (
-                        <ul class="pl-3">{renderTree(n.children)}</ul>
-                    )}
-                </li>
-            ));
-        })(root.children)
-    }
-</ul>
+                            <div class="absolute bottom-0 left-0 w-3 border-[0.5px] content-['']" />
+                            <a
+                                href={`#${n.slug}`}
+                                class="relative top-2 left-2 rounded-sm bg-neutral-100 px-1 py-0.5 hover:underline"
+                            >
+                                {n.text}
+                            </a>
+                        </div>
+                        {n.children.length > 0 && (
+                            <ul class="pl-3">{renderTree(n.children)}</ul>
+                        )}
+                    </li>
+                ));
+            })(root.children)
+        }
+    </ul>
+</div>

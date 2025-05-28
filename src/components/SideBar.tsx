@@ -2,29 +2,26 @@ import "@/styles/global.css";
 import { useState, useLayoutEffect } from "react";
 
 const PositionMap = {
-    Left: { absolutePosition: "left-0", arrowShow: "◀", arrowHide: "▶" },
-    Right: { absolutePosition: "right-0", arrowShow: "▶", arrowHide: "◀" },
+    NAV: { absolutePosition: "left-0", arrowShow: "◀", arrowHide: "▶" },
+    ASIDE: { absolutePosition: "right-0", arrowShow: "▶", arrowHide: "◀" },
 };
 
 interface SideBarProps {
-    label: string;
-    position: keyof typeof PositionMap;
+    category?: keyof typeof PositionMap;
     active?: boolean;
-    children: any;
+    children?: any;
 }
 
 export default function SideBar({
-    label,
-    position,
-    children,
+    category = "NAV",
     active = false,
+    children,
 }: SideBarProps) {
     const [open, setOpen] = useState(false);
-    const positionInfo = PositionMap[position];
+    const positionInfo = PositionMap[category];
 
     useLayoutEffect(() => {
-        const cellId =
-            position === "Left" ? "nav-grid-cell" : "aside-grid-cell";
+        const cellId = `${category.toLowerCase()}-grid-cell`;
         const gridCell = document.getElementById(cellId);
         if (!gridCell) return;
 
@@ -39,7 +36,7 @@ export default function SideBar({
 
     return (
         <nav
-            className={`${open ? "absolute z-20 w-screen border md:relative md:w-auto" : "w-0"} bg:white ${positionInfo["absolutePosition"]} transition-default-10 h-full`}
+            className={`${open ? "absolute z-20 w-screen border md:relative md:w-auto" : "w-0"} bg-white ${positionInfo["absolutePosition"]} transition-default-10 h-full`}
         >
             <button
                 className={`absolute z-0 h-4 w-4 text-[8px] outline hover:underline ${positionInfo["absolutePosition"]}`}
@@ -48,11 +45,8 @@ export default function SideBar({
                 {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}
             </button>
             {open && (
-                <div className="m-4">
-                    <h1 className="text-base font-semibold">{label}</h1>
-                    <div className="overflow-x-scroll px-1 py-4 text-xs leading-relaxed text-nowrap **:border-neutral-200 md:max-w-[20vw]">
-                        {children}
-                    </div>
+                <div className="m-4 overflow-x-scroll md:max-w-[20vw]">
+                    {children}
                 </div>
             )}
         </nav>
