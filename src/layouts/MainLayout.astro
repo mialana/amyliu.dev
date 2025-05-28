@@ -31,23 +31,25 @@ const layoutInfo = LayoutMap[layout];
         <title>{title} · Amy Liu</title>
     </head>
     <body
-        class=`grid h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 py-2 ${layoutInfo["grid_cols"]}`
+        class=`grid *:relative h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 py-2 ${layoutInfo["grid_cols"]}`
     >
         <header class="col-span-3"><Header /></header>
         <nav id="nav-grid-cell">
             <SideBar
                 label="Showcase"
                 position="Left"
-                openInput={layoutInfo["nav_state"]}
+                active={layoutInfo["nav_active"]}
                 client:load
             />
         </nav>
-        <main class="max-h-full overflow-y-scroll"><slot /></main>
+        <main class="max-h-full w-full max-w-full overflow-y-scroll">
+            <slot />
+        </main>
         <aside id="aside-grid-cell">
             <SideBar
                 label="On this page"
                 position="Right"
-                openInput={layoutInfo["aside_state"]}
+                active={layoutInfo["aside_active"]}
                 headings={headings}
                 client:load
             />

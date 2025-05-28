@@ -7,7 +7,7 @@ import { type MarkdownHeading } from "astro";
 interface SideBarProps {
     label: string;
     position: keyof typeof PositionMap;
-    openInput?: boolean;
+    active?: boolean;
     headings?: MarkdownHeading[];
 }
 
@@ -15,10 +15,10 @@ export default function SideBar({
     label,
     position,
     headings = [],
-    openInput = false,
+    active = false,
 }: SideBarProps) {
-    const [open, setOpen] = useState(openInput);
-    const { button, arrowShow, arrowHide } = PositionMap[position];
+    const [open, setOpen] = useState(active);
+    const positionInfo = PositionMap[position];
 
     const TableOfContents = useMemo(() => {
         /* helper renders the UI for an already-built subtree */
@@ -70,21 +70,28 @@ export default function SideBar({
         const cellId =
             position === "Left" ? "nav-grid-cell" : "aside-grid-cell";
         const gridCell = document.getElementById(cellId);
-        if (gridCell && !openInput) gridCell.classList.toggle("collapse");
+        if (!gridCell) return;
+
+        if (!active) {
+            gridCell.classList.toggle("collapse");
+            return;
+        } else if (active && window.screen.width < 768) {
+            setOpen(false);
+        }
     }, []);
 
     return (
         <nav
-            className={`${open ? "w-full min-w-fit border" : "w-0"} transition-default-10 h-full overflow-x-hidden`}
+            className={`${open ? "absolute z-20 w-screen border md:relative md:w-fit" : "w-0"} bg-neutral-300 ${positionInfo["absolutePosition"]} transition-default-10 h-full overflow-x-hidden md:h-full`}
         >
             <button
-                className={`absolute h-4 w-4 text-[8px] outline hover:underline ${button}`}
+                className={`absolute z-0 h-4 w-4 text-[8px] outline hover:underline ${positionInfo["absolutePosition"]}`}
                 onClick={() => setOpen(!open)}
             >
-                {open ? arrowShow : arrowHide}
+                {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}
             </button>
             {open && (
-                <div className="m-4 w-fit overflow-scroll p-4 text-xs leading-relaxed text-nowrap **:border-neutral-300 md:max-w-[30vw]">
+                <div className="m-4 overflow-scroll p-4 text-xs leading-relaxed text-nowrap **:border-neutral-300 md:w-fit md:max-w-[30vw]">
                     <h1 className="mb-2 text-base font-semibold">{label}</h1>
                     <div>{TableOfContents}</div>
                 </div>
