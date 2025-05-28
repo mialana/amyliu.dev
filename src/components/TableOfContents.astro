@@ -1,0 +1,38 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+    headings: MarkdownHeading[];
+}
+const { headings = [] } = Astro.props;
+
+/** Build a nested tree ------------------------------------------------ */
+type Node = MarkdownHeading & { children: Node[] };
+const root: Node = { depth: 0, slug: "", text: "", children: [] };
+const stack: Node[] = [root];
+
+for (const h of headings) {
+    while (stack.length && h.depth <= stack.at(-1)!.depth) stack.pop();
+    const node: Node = { ...h, children: [] };
+    stack.at(-1)!.children.push(node);
+    stack.push(node);
+}
+---
+
+<ul class="text-xs leading-relaxed">
+    {
+        (function render(nodes: Node[]): any {
+            return nodes.map((n) => (
+                <li>
+                    <a href={`#${n.slug}`} class="hover:underline">
+                        {n.text}
+                    </a>
+
+                    {n.children.length > 0 && (
+                        <ul class="pl-3">{render(n.children)}</ul>
+                    )}
+                </li>
+            ));
+        })(root.children)
+    }
+</ul>

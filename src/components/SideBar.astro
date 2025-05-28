@@ -1,0 +1,91 @@
+---
+import "@/styles/global.css";
+import { PositionMap } from "@/lib/Maps";
+
+interface Props {
+    label: string;
+    position: keyof typeof PositionMap;
+    active?: boolean;
+}
+
+const { label, position, active = true } = Astro.props;
+const info = PositionMap[position];
+
+const uid = Math.random().toString(36);
+---
+
+<my-sidebar
+    id=`sidebar-${uid}`
+    class={`h-full transition-default-10 bg-white
+          ${active ? "" : "md:hidden"}
+          ${info.absolutePosition}`}
+    data-uid={uid}
+    data-arrowShow={info.arrowShow}
+    data-arrowHide={info.arrowHide}
+>
+    <!-- ─── Toggle button ─── -->
+    <button
+        id=`button-${uid}`
+        class={`absolute h-4 w-4 text-[8px] outline
+            ${info.absolutePosition}`}
+        aria-expanded={active}
+    >
+        {info.arrowHide}
+    </button>
+
+    <!-- ─── Slot content ─── -->
+    <div id=`content-${uid}` class={`m-4 ${active ? "" : "hidden"}`}>
+        <h1 class="mb-2 text-base font-semibold">{label}</h1>
+        <slot />
+    </div>
+</my-sidebar>
+
+<!-- Each script is its own ES-module → no global collisions -->
+<script>
+    class SideBar extends HTMLElement {
+        connectedCallback() {
+            const uid = this.dataset.uid;
+            const arrowShow = this.dataset.arrowshow;
+            const arrowHide = this.dataset.arrowhide;
+            const button = document.getElementById(`button-${uid}`);
+            const sidebar = document.getElementById(`sidebar-${uid}`);
+            const content = document.getElementById(`content-${uid}`);
+
+            if (
+                !uid ||
+                !arrowShow ||
+                !arrowHide ||
+                !button ||
+                !content ||
+                !sidebar
+            ) {
+                return;
+            }
+
+            let open = button.getAttribute("aria-expanded") === "true";
+            const ARROW = { hide: arrowShow, show: arrowHide };
+
+            button.addEventListener("click", () => {
+                open = !open;
+                content.classList.toggle("hidden", !open);
+
+                if (!open) sidebar.classList.add("w-0");
+                if (open) {
+                    sidebar.classList.remove("w-0");
+                    sidebar.classList.add("debug");
+                    sidebar.classList.add("absolute");
+                    sidebar.classList.add("z-20");
+                    sidebar.classList.add("w-screen");
+                    sidebar.classList.add("border-");
+                    sidebar.classList.add("md:relative");
+                    sidebar.classList.add("md:w-auto");
+                    sidebar.classList.remove("md:hidden");
+                }
+                button.setAttribute("aria-expanded", `${open}`);
+                button.textContent = open ? ARROW.hide : ARROW.show;
+            });
+        }
+    }
+
+    customElements.define("my-sidebar", SideBar);
+</script>

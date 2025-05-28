@@ -3,6 +3,8 @@ import "@/styles/global.css";
 import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
+import Side from "@/components/SideBar.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
 
 import { type MarkdownHeading } from "astro";
 
@@ -31,29 +33,43 @@ const layoutInfo = LayoutMap[layout];
         <title>{title} · Amy Liu</title>
     </head>
     <body
-        class=`grid *:relative h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 py-2 ${layoutInfo["grid_cols"]}`
+        class=`grid *:relative h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 py-2 ${layoutInfo.grid_cols}`
     >
         <header class="col-span-3"><Header /></header>
         <nav id="nav-grid-cell">
-            <SideBar
+            <Side
+                label="Showcase"
+                position="Left"
+                active={layoutInfo.nav_active}
+            >
+                <slot name="nav-sidebar" />
+            </Side>
+            <!-- <SideBar
                 label="Showcase"
                 position="Left"
                 active={layoutInfo["nav_active"]}
                 headings={headings}
                 client:load
-            />
+            /> -->
         </nav>
         <main class="overflow-x-hidden overflow-y-scroll">
             <slot />
         </main>
         <aside id="aside-grid-cell">
-            <SideBar
+            <Side
+                label="On this page"
+                position="Right"
+                active={layoutInfo.aside_active}
+            >
+                <slot name="aside-sidebar" />
+            </Side>
+            <!-- <SideBar
                 label="On this page"
                 position="Right"
                 active={layoutInfo["aside_active"]}
                 headings={headings}
                 client:load
-            />
+            /> -->
         </aside>
         <footer class="col-span-3"><Footer /></footer>
     </body>
