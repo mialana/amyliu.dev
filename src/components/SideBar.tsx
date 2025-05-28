@@ -41,7 +41,7 @@ export default function SideBar({
     }, []);
 
     return (
-        <section
+        <div
             className={`${open ? "absolute z-20 w-screen border md:relative md:w-auto" : "w-0"} bg-white ${positionInfo["absolutePosition"]} transition-default-10 h-full`}
         >
             {/* sidebar button */}
@@ -57,6 +57,6 @@ export default function SideBar({
                     {children}
                 </div>
             )}
-        </section>
+        </div>
     );
 }

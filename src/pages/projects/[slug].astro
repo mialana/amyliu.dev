@@ -26,8 +26,18 @@ const { Content, headings } = await render(project);
 ---
 
 <MainLayout title={project.data.title}>
+    <section slot="nav-sidebar">
+        <ul>
+            <li>
+                <a href="/">Overview</a>
+            </li>
+            <li>
+                <a href="#breakdown">Breakdown</a>
+            </li>
+        </ul>
+    </section>
     <ProjectLayout project={project}>
-        <article class="prose-custom prose-code:not-prose">
+        <article id="breakdown" class="prose-custom prose-code:not-prose">
             <hr />
             <Content />
             <hr />
