@@ -7,14 +7,12 @@ import react from "@astrojs/react";
 
 import sitemap from "@astrojs/sitemap";
 
-import embeds from "astro-embed/integration";
-
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
     site: "https://amyliu.dev/",
-    integrations: [react(), sitemap(), embeds(), mdx()],
+    integrations: [react(), sitemap(), mdx()],
     vite: {
         plugins: [tailwindcss()],
         server: {

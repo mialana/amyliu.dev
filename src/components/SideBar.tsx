@@ -1,6 +1,10 @@
 import "@/styles/global.css";
 import { useState, useLayoutEffect } from "react";
-import { PositionMap } from "@/lib/Maps";
+
+const PositionMap = {
+    Left: { absolutePosition: "left-0", arrowShow: "◀", arrowHide: "▶" },
+    Right: { absolutePosition: "right-0", arrowShow: "▶", arrowHide: "◀" },
+};
 
 interface SideBarProps {
     label: string;
