@@ -4,7 +4,8 @@ interface ReactSlotProps {
     props: { value: string };
 }
 
-export function hasSlotReact(react_slot: ReactSlotProps) {
+export function hasSlotReact(react_slot?: ReactSlotProps) {
+    if (!react_slot) return false;
     return !!react_slot.props.value.trim().length;
 }
 

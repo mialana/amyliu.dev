@@ -1,5 +1,5 @@
 import "@/styles/global.css";
-import { useState, useLayoutEffect, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { hasSlotReact } from "@/lib/hasSlot";
 
 const PositionMap = {
@@ -21,27 +21,33 @@ export default function SideBar({
     const [open, setOpen] = useState(false);
     const positionInfo = PositionMap[category];
 
-    useLayoutEffect(() => {
-        const cellId = `${category.toLowerCase()}-grid-cell`;
-        const gridCell = document.getElementById(cellId);
-        if (!gridCell) return;
+    useEffect(() => {
+        if (!active || !hasSlotReact(children)) {
+            const cellId = `${category.toLowerCase()}-grid-cell`;
+            const gridCell = document.getElementById(cellId);
 
-        if (!active || !children || !hasSlotReact(children)) {
+            gridCell?.classList.toggle("collapse");
             console.log(`${category} collapsed`);
-            gridCell.classList.toggle("collapse");
             return;
         } else {
             // can only be open on load if not mobile
             setOpen(active && window.screen.width > 768);
+
+            if (active) {
+                const button = document.getElementById(`${category}-button`);
+                button?.classList.remove("invisible");
+            }
         }
     }, []);
 
     return (
-        <nav
+        <section
             className={`${open ? "absolute z-20 w-screen border md:relative md:w-auto" : "w-0"} bg-white ${positionInfo["absolutePosition"]} transition-default-10 h-full`}
         >
+            {/* sidebar button */}
             <button
-                className={`absolute z-0 h-4 w-4 text-[8px] outline hover:underline ${positionInfo["absolutePosition"]}`}
+                id={`${category}-button`}
+                className={`invisible absolute z-0 h-4 w-4 text-[8px] outline hover:underline ${positionInfo["absolutePosition"]}`}
                 onClick={() => setOpen(!open)}
             >
                 {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}
@@ -51,6 +57,6 @@ export default function SideBar({
                     {children}
                 </div>
             )}
-        </nav>
+        </section>
     );
 }
