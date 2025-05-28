@@ -6,7 +6,7 @@ import { marked } from "marked";
 import MainLayout from "@/layouts/MainLayout.astro";
 import Tags from "@/components/Tags.astro";
 import createSlug from "@/lib/createSlug";
-import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import TableOfContents from "@/components/TableOfContents.astro";
 
 // Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -28,7 +28,8 @@ const { Content, headings } = await render(project);
 const description = marked.parse(project.data.description);
 ---
 
-<MainLayout title={project.data.title} headings={headings}>
+<MainLayout title={project.data.title}>
+    <TableOfContents headings={headings} slot="aside-sidebar" />
     <div class="px-8 *:mx-auto">
         <div class="prose-custom-lg">
             <h1 class="text-4xl">

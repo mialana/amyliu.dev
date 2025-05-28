@@ -11,10 +11,9 @@ import { LayoutMap } from "@/lib/Maps";
 interface Props {
     title: string;
     layout?: keyof typeof LayoutMap;
-    headings?: MarkdownHeading[];
 }
 
-const { title, layout = "DEFAULT", headings } = Astro.props;
+const { title, layout = "DEFAULT" } = Astro.props;
 
 const layoutInfo = LayoutMap[layout];
 ---
@@ -39,9 +38,10 @@ const layoutInfo = LayoutMap[layout];
                 label="Showcase"
                 position="Left"
                 active={layoutInfo["nav_active"]}
-                headings={headings}
                 client:load
-            />
+            >
+                <slot name="nav-sidebar">Nav content missing...</slot>
+            </SideBar>
         </nav>
         <main class="overflow-x-hidden overflow-y-scroll">
             <slot />
@@ -51,9 +51,10 @@ const layoutInfo = LayoutMap[layout];
                 label="On this page"
                 position="Right"
                 active={layoutInfo["aside_active"]}
-                headings={headings}
                 client:load
-            />
+            >
+                <slot name="aside-sidebar"> Aside content missing...</slot>
+            </SideBar>
         </aside>
         <footer class="col-span-3"><Footer /></footer>
     </body>
