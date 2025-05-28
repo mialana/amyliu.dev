@@ -1,5 +1,6 @@
 import "@/styles/global.css";
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, type ReactNode } from "react";
+import { hasSlotReact } from "@/lib/hasSlot";
 
 const PositionMap = {
     NAV: { absolutePosition: "left-0", arrowShow: "◀", arrowHide: "▶" },
@@ -25,7 +26,8 @@ export default function SideBar({
         const gridCell = document.getElementById(cellId);
         if (!gridCell) return;
 
-        if (!active) {
+        if (!active || !children || !hasSlotReact(children)) {
+            console.log(`${category} collapsed`);
             gridCell.classList.toggle("collapse");
             return;
         } else {
