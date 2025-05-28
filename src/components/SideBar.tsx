@@ -26,6 +26,7 @@ export default function SideBar({
             <ul className="w-fit not-only:pl-6">
                 {nodes.map((n) => (
                     <li
+                        key={n.slug}
                         className={`group ${n.children.length > 0 ? "not-last:border-l-1" : "no-children"}`}
                     >
                         <div
