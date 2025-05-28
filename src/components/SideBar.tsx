@@ -1,5 +1,5 @@
 import "@/styles/global.css";
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useLayoutEffect } from "react";
 import { hasSlotReact } from "@/lib/hasSlot";
 
 const PositionMap = {
@@ -21,7 +21,7 @@ export default function SideBar({
     const [open, setOpen] = useState(false);
     const positionInfo = PositionMap[category];
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!active || !hasSlotReact(children)) {
             const cellId = `${category.toLowerCase()}-grid-cell`;
             const gridCell = document.getElementById(cellId);
