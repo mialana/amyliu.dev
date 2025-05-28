@@ -1,5 +1,5 @@
 import "@/styles/global.css";
-import { useState, useLayoutEffect, useMemo } from "react";
+import { useState, useLayoutEffect } from "react";
 import { PositionMap } from "@/lib/Maps";
 
 interface SideBarProps {
