@@ -11,7 +11,7 @@ interface Props {
 
 const { project } = Astro.props;
 
-const description = marked.parse(project.data.description);
+const summary = "";
 ---
 
 <div class="px-8 *:mx-auto">
@@ -23,10 +23,7 @@ const description = marked.parse(project.data.description);
             {project.data.startDate} - {project.data.endDate}
         </h3>
 
-        <div
-            set:html={description}
-            class="prose-custom-lg max-w-none text-sm"
-        />
+        <div set:html={summary} class="prose-custom-lg max-w-none text-sm" />
         <Tags content={project.data.tags} label="tags" />
         <Tags content={project.data.techStack} label="tech stack" />
         <div class="my-8 overflow-hidden rounded-xl">

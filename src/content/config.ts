@@ -5,7 +5,8 @@ const projectsSchema = z.object({
     title: z.string(),
     startDate: z.string(),
     endDate: z.string(),
-    description: z.string(),
+    type: z.string(),
+    category: z.string(),
     demoVideoLink: z.string().url(),
     techStack: z
         .array(z.string())
