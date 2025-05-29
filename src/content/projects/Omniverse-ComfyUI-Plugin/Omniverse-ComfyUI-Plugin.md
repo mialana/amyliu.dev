@@ -6,7 +6,7 @@ type: "individual"
 category: "internship"
 demoVideoLink: "https://youtu.be/eDHMRtDUeCI"
 techStack: [
-	"NVIDIA Omniverse Kit", "Python", "PyTorch", "NumPy"
+	"NVIDIA_Omniverse_Kit", "ComfyUI", "Python", "PyTorch", "NumPy"
 ]
 tags: [
 	"2024", "plugin", "GenAI", "image_processing"
