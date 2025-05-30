@@ -13,9 +13,6 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
     site: "https://amyliu.dev/",
     integrations: [react(), sitemap(), mdx()],
-    vite: {
-        plugins: [tailwindcss()],
-        server: { watch: { ignored: [".obsidian"] } },
-    },
+    vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
 });
