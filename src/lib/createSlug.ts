@@ -10,9 +10,5 @@ export default function (
               // remove leading & trailing whitespace
               .trim()
               // replace spaces
-              .replace(/\s+/g, "-")
-              // remove special characters
-              .replace(/[^\w-]/g, "")
-              // remove leading & trailing separtors
-              .replace(/^-+|-+$/g, "");
+              .replace(/\s+/g, "_");
 }

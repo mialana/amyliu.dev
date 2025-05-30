@@ -1,5 +1,6 @@
 ---
-title: "Mini Minecraft"
+title: "Mini Minecraft in C++"
+slug: "Mini-Minecraft"
 startDate: "April 2023"
 endDate: "May 2023"
 type: "group"
@@ -11,13 +12,11 @@ techStack: [
 tags: [
 	"2023", "game_physics", "game_development", "multi-threading", "NPC_behavior", "AI_algorithms"
 ]
-slug: "Mini-Minecraft"
+description: "This project is about Mini Minecraft in C++."
 
 ---
 
 ## Summary
-
-This project is about Mini Minecraft.
 
 ## Motivation
 

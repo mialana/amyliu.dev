@@ -1,7 +1,8 @@
 ---
-title: "Omniverse ComfyUI Plugin"
-startDate: "November 2024"
-endDate: "December 2024"
+title: "NVIDIA Omniverse ComfyUI Connector"
+slug: "Omniverse_ComfyUI_Connector"
+startDate: "2024-10-17"
+endDate: "2024-12-28"
 type: "individual"
 category: "internship"
 demoVideoLink: "https://youtu.be/eDHMRtDUeCI"
@@ -11,13 +12,10 @@ techStack: [
 tags: [
 	"2024", "plugin", "GenAI", "image_processing"
 ]
-slug: "Omniverse-ComfyUI-Plugin"
-
+description: This project is about NVIDIA Omniverse ComfyUI Connector.
 ---
 
 ## Summary
-
-This project is about Omniverse ComfyUI Plugin.
 
 ## Motivation
 
