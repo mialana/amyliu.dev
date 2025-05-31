@@ -11,10 +11,12 @@ import mdx from "@astrojs/mdx";
 
 import rehypeMermaid from "rehype-mermaid";
 
+import expressiveCode from "astro-expressive-code";
+
 // https://astro.build/config
 export default defineConfig({
     site: "https://amyliu.dev/",
-    integrations: [react(), sitemap(), mdx()],
+    integrations: [react(), sitemap(), expressiveCode(), mdx()],
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
