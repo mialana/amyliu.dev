@@ -18,7 +18,7 @@ export default defineConfig({
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
-        syntaxHighlight: { type: "shiki", excludeLangs: ["mermaid"] },
+        syntaxHighlight: { excludeLangs: ["mermaid"] },
         rehypePlugins: [
             [
                 rehypeMermaid,
