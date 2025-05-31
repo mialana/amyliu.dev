@@ -55,20 +55,6 @@
     }
 }
 
-@utility prose-custom {
-    & {
-        @apply prose;
-        @apply prose-neutral;
-    }
-}
-
-@utility prose-custom-lg {
-    & {
-        @apply prose-custom;
-        @apply prose-lg;
-    }
-}
-
 /* --- “timeline” list --- */
 /* .toc-list {
     @apply ml-3 border-l border-gray-400 pl-6;
@@ -84,3 +70,19 @@
     content: "";
     @apply absolute top-0 -left-6 h-px w-6 bg-gray-400;
 } */
+
+@utility prose {
+    @apply prose-neutral;
+    :not(pre) > code {
+        font-size: 0.75em;
+        padding: 0.125em;
+        border: 1px solid;
+        border-radius: 0.25rem;
+        border-color: var(--color-neutral-300);
+        background: var(--color-neutral-100);
+        &::before,
+        &::after {
+            content: none !important;
+        }
+    }
+}
