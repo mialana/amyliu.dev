@@ -3,8 +3,8 @@ import { glob } from "astro/loaders";
 
 const projectsSchema = z.object({
     title: z.string(),
-    startDate: z.string(),
-    endDate: z.string(),
+    startDate: z.date(),
+    endDate: z.date(),
     type: z.string(),
     category: z.string(),
     demoVideoLink: z.string().url(),

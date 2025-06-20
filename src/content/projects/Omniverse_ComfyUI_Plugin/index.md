@@ -1,8 +1,8 @@
 ---
 title: "NVIDIA Omniverse ComfyUI Connector"
 slug: "Omniverse_ComfyUI_Connector"
-startDate: "2024-10-17"
-endDate: "2024-12-28"
+startDate: 2024-10-17
+endDate: 2024-12-28
 type: "individual"
 category: "internship"
 demoVideoLink: "https://youtu.be/eDHMRtDUeCI"
