@@ -7,7 +7,7 @@ const projectsSchema = z.object({
     endDate: z.date(),
     type: z.string(),
     category: z.string(),
-    demoVideoLink: z.string().url(),
+    // demoVideoLink: z.string(),
     techStack: z
         .array(z.string())
         .refine((items) => new Set(items).size === items.length, {

@@ -21,6 +21,7 @@ tags:
     - neural_rendering
     - NeRF
     - neural_radiance_fields
+    - artificial_intelligence
 description: This project is about Neural for USD.
 ---
 

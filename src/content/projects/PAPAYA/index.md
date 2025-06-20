@@ -1,17 +1,26 @@
 ---
-title: "PAPAYA - USD Asset Browser"
-slug: "PAPAYA"
+title: PAPAYA - USD Asset Browser
+slug: PAPAYA
 startDate: 2025-03-17
 endDate: 2025-04-30
-type: "group"
-category: "school"
-demoVideoLink: "https://youtu.be/hNuHniOKjt4?si=PyFplGt_8f11F0f7"
-techStack: [
-	"Python", "Django", "OpenUSD", "MySQL", "Amazon_S3", "AstroJS"
-]
-tags: [
-	"2025", "web", "databases"
-]
+type: group
+category: personal
+demoVideoLink: https://youtu.be/hNuHniOKjt4?si=PyFplGt_8f11F0f7
+techStack:
+    - Python
+    - Django
+    - OpenUSD
+    - MySQL
+    - Amazon_S3
+    - AstroJS
+    - RestAPI
+tags:
+    - "2025"
+    - web
+    - datasets
+    - cloud_services
+    - backend
+    - RESTful
 description: A Django, MySQL, and Amazon S3-backed web database, search engine, and DCC connector for OpenUSD 3D assets.
 ---
 

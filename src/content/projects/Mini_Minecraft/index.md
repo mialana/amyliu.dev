@@ -1,6 +1,6 @@
 ---
 title: Mini Minecraft in C++
-slug: Mini-Minecraft
+slug: Mini_Minecraft
 startDate: 2023-03-27
 endDate: 2023-05-08
 type: group
@@ -10,13 +10,14 @@ techStack:
     - C++
     - QT
     - GLSL
+    - OpenGL
 tags:
     - "2023"
     - game_physics
     - game_development
     - multi-threading
     - NPC_behavior
-    - AI_algorithms
+    - artificial_intelligence
 description: This project is about Mini Minecraft in C++.
 ---
 
