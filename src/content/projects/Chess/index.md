@@ -19,16 +19,12 @@ description: This project is about Chess.
 
 ## Summary
 
-## Achievements
-
----
-
 ## Motivation
+
+## Achievements
 
 ## Next Steps
 
 ## References
-
----
 
 ## Method

@@ -22,16 +22,12 @@ description: This project is about 3D Reconstruction of Sopoćani Monastery.
 
 ## Summary
 
-## Achievements
-
----
-
 ## Motivation
+
+## Achievements
 
 ## Next Steps
 
 ## References
-
----
 
 ## Method

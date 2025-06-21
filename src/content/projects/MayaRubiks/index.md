@@ -21,16 +21,12 @@ description: This project is about MayaRubiks.
 
 ## Summary
 
-## Achievements
-
----
-
 ## Motivation
+
+## Achievements
 
 ## Next Steps
 
 ## References
-
----
 
 ## Method

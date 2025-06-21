@@ -24,6 +24,8 @@ description: This project is about NVIDIA Omniverse ComfyUI Connector.
 
 ## Motivation
 
+## Achievements
+
 ## Next Steps
 
 ## References

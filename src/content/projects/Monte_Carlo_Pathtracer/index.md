@@ -22,16 +22,12 @@ description: This project is about Monte Carlo Pathtracer.
 
 ## Summary
 
-## Achievements
-
----
-
 ## Motivation
+
+## Achievements
 
 ## Next Steps
 
 ## References
-
----
 
 ## Method

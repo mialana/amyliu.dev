@@ -19,18 +19,14 @@ tags:
 description: This project is about Shader Fun.
 ---
 
-##Summary
-
-## Achievements
-
----
+## Summary
 
 ## Motivation
+
+## Achievements
 
 ## Next Steps
 
 ## References
-
----
 
 ## Method

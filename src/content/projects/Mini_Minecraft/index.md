@@ -25,6 +25,8 @@ description: This project is about Mini Minecraft in C++.
 
 ## Motivation
 
+## Achievements
+
 ## Next Steps
 
 ## References

@@ -24,16 +24,12 @@ description: This project is about MoBiLE.
 
 ## Summary
 
-## Achievements
-
----
-
 ## Motivation
+
+## Achievements
 
 ## Next Steps
 
 ## References
-
----
 
 ## Method

@@ -26,16 +26,14 @@ description: This project is about Synthetic Face Generation.
 
 ## Summary
 
-## Achievements
-
----
-
 ## Motivation
+
+## Achievements
 
 ## Next Steps
 
 ## References
 
----
+1. https://github.com/USC-ICT/ICT-FaceKit
 
 ## Method
