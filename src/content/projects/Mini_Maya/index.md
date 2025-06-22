@@ -18,7 +18,8 @@ tags:
     - 3D-modeling
     - rasterization
     - graphical_user_interface
-description: This project is about Mini Maya.
+description: A mesh-editor GUI that performs Catmull-Clark subdivision on input OBJ files, binds model skeletons for transformation, and exports out to USD.
+code: https://github.com/mialana/mini-maya
 ---
 
 ## Summary

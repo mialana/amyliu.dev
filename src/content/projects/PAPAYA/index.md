@@ -22,6 +22,10 @@ tags:
     - backend
     - RESTful
 description: A Django, MySQL, and Amazon S3-backed web database, search engine, and DCC connector for OpenUSD 3D assets.
+code: https://github.com/CIS-7000-sp25/backend
+externalLinks:
+    - https://github.com/CIS-7000-sp25/usd-structure
+    - https://asset-browser-zeta.vercel.app/
 ---
 
 ## Summary
@@ -82,8 +86,6 @@ kanban
 ```
 
 ## Versioned Asset Resolver
-
-{insert gif here}
 
 Asset Resolution in OpenUSD is a very worthy topic of discussion. I will take an excerpt from a website called USD Survival Guide to help explain the concept:
 
@@ -229,8 +231,6 @@ To support the large team collaborating on this project, I also integrated **Swa
 - `/docs` – A reference page showing the full list of endpoints, accepted fields, return schemas, and status codes.
 - `/playground` – An interactive API tester, allowing other developers to upload and query assets directly from their browser.
 
-{insert gif here}
-
 This proved useful for other team members building on top of the API. For example, those working on DCC integration needed to be able to put assets into our database / S3 using a Houdini shelf tool, so they could reference `/docs` for the `PUT` schema of the `put_asset()` view within our . On the other hand, our frontend team created outward-facing UI, thus making use of the `/playground` feature to easily test out the return type of the `download_asset_by_tag()` endpoint, etc.
 
 ## Custom USD Structure
@@ -354,7 +354,7 @@ I wrote a lightweight viewer, `gltf_viewer.js`, structured around Three.JS’s `
 
 Here’s what the viewer looked like in the MVP:
 
-{insert gif here}
+[Video](https://youtu.be/-hFOKmnZ9MQ)
 
 To get this MVP running, throughout a one-week period I worked through the following tasks:
 

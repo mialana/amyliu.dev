@@ -17,7 +17,8 @@ tags:
     - plugin
     - image_processing
     - artificial_intelligence
-description: This project is about NVIDIA Omniverse ComfyUI Connector.
+description: A plugin for the NVIDIA Omniverse platform to support a ComfyUI workflow directly within the viewport.
+code: https://github.com/livingbio/Omniverse-ComfyUI-bridge-template
 ---
 
 ## Summary

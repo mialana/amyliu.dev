@@ -13,12 +13,12 @@ const projects = await getCollection("projects");
 <MainLayout title="Projects" layout="HIDE_BOTH">
     <ul>
         {
-            projects.map((project) => (
+            projects.map((project, index) => (
                 <li>
                     <a
                         href={`/projects/${createSlug(project.data.title, project.data?.slug)}/`}
                     >
-                        {project.data.title}
+                        {index + 1}. {project.data.title}
                     </a>
                 </li>
             ))

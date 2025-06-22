@@ -5,7 +5,7 @@ startDate: 2023-03-27
 endDate: 2023-05-08
 type: group
 category: school
-demoVideoLink: https://youtu.be/KJk70-qdE_o?si=9WNWKiwgMwRE2_GH
+demoVideoLink: https://youtu.be/KJk70-qdE_o
 techStack:
     - C++
     - QT
@@ -18,7 +18,8 @@ tags:
     - multi-threading
     - NPC_behavior
     - artificial_intelligence
-description: This project is about Mini Minecraft in C++.
+description: A simple C++ program to emulate the 3D entity interactivity and world exploration themes of Minecraft.
+code:
 ---
 
 ## Summary

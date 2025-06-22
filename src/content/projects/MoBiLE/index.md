@@ -1,7 +1,7 @@
 ---
 title: MoBiLE
 slug: MoBiLE
-startDate: 2025-05-10
+startDate: 2024-05-10
 endDate: 2024-08-01
 type: individual
 category: research
@@ -19,7 +19,7 @@ tags:
     - 3D-printing
     - 3D-modeling
     - hardware
-description: This project is about MoBiLE.
+description: A study on human-computer interaction through a 3D-printed robot "companion" for grade school children.
 ---
 
 ## Summary

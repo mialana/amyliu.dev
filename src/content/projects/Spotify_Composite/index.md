@@ -5,7 +5,7 @@ startDate: 2021-12-23
 endDate: 2022-01-14
 type: individual
 category: personal
-demoVideoLink:
+demoVideoLink: https://youtu.be/6VYXeNswZCE
 techStack:
     - React
     - HTML
@@ -15,7 +15,8 @@ tags:
     - "2022"
     - web
     - frontend
-description: This project is about Spotify Composite.
+description: Easily blend Spotify playlists through the Spotify Developer's API using this React-based web application.
+code: https://github.com/mialana/spotify-composite
 ---
 
 ## Summary

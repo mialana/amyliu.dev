@@ -5,7 +5,7 @@ startDate: 2025-06-14
 endDate: 2025-07-16
 type: individual
 category: personal
-demoVideoLink: https://youtu.be
+demoVideoLink:
 techStack:
     - SideFX_Houdini
     - Unreal_Engine
@@ -15,7 +15,7 @@ tags:
     - game_art_challenge
     - procedural
     - tech_art
-description: This project is about Houdini Underwater Terrain Generator.
+description: A SideFX Houdini Digital Asset to easily build realistic custom underwater ruins for game levels in Unreal Engine and Unity.
 ---
 
 ## Summary

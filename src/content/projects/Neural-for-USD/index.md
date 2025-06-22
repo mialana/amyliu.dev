@@ -22,7 +22,8 @@ tags:
     - NeRF
     - neural_radiance_fields
     - artificial_intelligence
-description: This project is about Neural for USD.
+description: A comprehensive program built to solve data collection for Neural Radiance Fields for the Pixar OpenUSD framework.
+code: https://github.com/mialana/neural-for-usd
 ---
 
 ## Summary

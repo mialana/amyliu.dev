@@ -21,7 +21,10 @@ tags:
     - light_stage
     - datasets
     - computer_vision
-description: This project is about Synthetic Face Generation.
+description: A National Science Foundation-funded research project to procedurally generate a dataset of photo-realistic virtual human faces.
+externalLinks:
+    - https://docs.google.com/presentation/d/10Z3G4-0b2C9TGzJGmr-ySdmvx1fgl2Ni/edit?usp=drive_link&ouid=105323988877358545567&rtpof=true&sd=true
+    - https://docs.google.com/presentation/d/1I4UXz02gznvbdSK05Zbe_6ff0Ucvj8sJ/edit?usp=drive_link&ouid=105323988877358545567&rtpof=true&sd=true
 ---
 
 ## Summary

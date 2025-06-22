@@ -5,7 +5,7 @@ startDate: 2021-11-20
 endDate: 2024-12-07
 type: individual
 category: school
-demoVideoLink:
+demoVideoLink: https://youtu.be/xzkEUZbMlUU
 techStack:
     - Java
 tags:
@@ -14,7 +14,8 @@ tags:
     - turn-based
     - game_development
     - graphical_user_interface
-description: This project is about Chess.
+description: A simple chess application with state-saving and move-hints / limitations.
+repository: https://github.com/mialana/chess
 ---
 
 ## Summary
