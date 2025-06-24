@@ -19,34 +19,34 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
-<div class="flex w-full flex-col justify-end rounded-md md:w-1/4">
-    <article class="py-4 shadow-lg hover:-translate-y-2">
-        <div class="px-4">
+<div class="flex w-full flex-col justify-end md:w-9/24 xl:w-1/4">
+    <article class="p-8 shadow-lg hover:-translate-y-2">
+        <div class="pb-4">
             <Image
-                class="mx-auto"
+                class="mx-auto border-[0.5px]"
                 src={thumbnailPath}
                 alt="Thumbnail"
                 width={400}
                 height={400}
             />
         </div>
-        <div class="mx-4 flex flex-col gap-1 p-2 text-center md:px-12">
-            <h1 class="text-xl font-bold">
+        <div class="text-center">
+            <h1 class="text-xl/tight font-bold">
                 <a href=`/projects/${finalizedSlug}`>
                     {project.data.title}
                 </a>
             </h1>
-            <h3 class="text-sm">
+            <h3 class="mt-1 text-xs">
                 {format(project.data.startDate, "MMMM yyyy")} - {
                     format(project.data.endDate, "MMMM yyyy")
                 }
             </h3>
-            <h3 class="text-sm">
+            <h3 class="mb-2 text-xs">
                 {project.data.category.toUpperCase()} · {
                     project.data.type.toUpperCase()
                 }
             </h3>
-            <p class="text-md">{project.data.description}</p>
+            <p class="text-sm text-pretty">{project.data.description}</p>
         </div>
     </article>
 </div>

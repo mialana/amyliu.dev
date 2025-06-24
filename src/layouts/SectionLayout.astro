@@ -4,8 +4,8 @@ import "@/styles/global.css";
 const { section_id } = Astro.props;
 ---
 
-<section id={section_id} class="flex size-full p-2">
-    <div class="m-8 grow shadow-lg">
+<section id={section_id} class="flex p-2 md:size-full">
+    <div class="m-4 grow p-8 shadow-lg md:m-8">
         <slot />
     </div>
 </section>

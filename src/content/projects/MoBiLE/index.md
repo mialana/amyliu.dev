@@ -1,8 +1,8 @@
 ---
 title: MoBiLE
 slug: MoBiLE
-startDate: 2024-05-10
-endDate: 2024-08-01
+startDate: 2023-05-10
+endDate: 2023-08-01
 type: individual
 category: research
 techStack:

@@ -15,7 +15,7 @@ const projects = (await getCollection("projects")).sort(
 
 <MainLayout title="Projects" layout="HIDE_BOTH">
     <div
-        class="flex flex-wrap justify-center gap-12 overflow-visible px-8 py-4 md:px-16"
+        class="flex flex-wrap justify-center gap-8 overflow-visible px-8 py-4 md:px-16"
     >
         {projects.map((project) => <ProjectCard project={project} />)}
     </div>

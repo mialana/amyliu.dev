@@ -1,7 +1,7 @@
 ---
 title: NeRFs in OpenUSD
 slug: Neural-for-USD
-startDate: 2025-01-15
+startDate: 2025-01-20
 endDate: 2025-05-02
 type: individual
 category: personal
