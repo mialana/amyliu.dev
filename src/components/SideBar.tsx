@@ -42,12 +42,12 @@ export default function SideBar({
 
     return (
         <div
-            className={`${open ? "absolute z-20 w-screen border md:relative md:w-auto" : "w-0"} bg-white ${positionInfo["absolutePosition"]} transition-default-10 h-full`}
+            className={`${open ? "absolute z-20 w-screen md:w-auto" : "w-0"} bg-white ${positionInfo["absolutePosition"]} transition-default-10 h-full shadow-lg`}
         >
             {/* sidebar button */}
             <button
                 id={`${category}-button`}
-                className={`invisible absolute z-0 h-4 w-4 text-[8px] outline hover:underline ${positionInfo["absolutePosition"]}`}
+                className={`invisible absolute z-0 h-4 w-4 cursor-pointer p-1 text-[8px] text-neutral-500 ${positionInfo["absolutePosition"]}`}
                 onClick={() => setOpen(!open)}
             >
                 {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}

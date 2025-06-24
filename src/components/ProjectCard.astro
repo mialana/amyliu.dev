@@ -41,7 +41,11 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
                     format(project.data.endDate, "MMMM yyyy")
                 }
             </h3>
-            <h3 class="text-sm">{project.data.category.toUpperCase()}</h3>
+            <h3 class="text-sm">
+                {project.data.category.toUpperCase()} · {
+                    project.data.type.toUpperCase()
+                }
+            </h3>
             <p class="text-md">{project.data.description}</p>
         </div>
     </article>

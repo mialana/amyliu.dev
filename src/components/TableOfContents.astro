@@ -16,12 +16,13 @@ for (const h of headings) {
     stack.at(-1)!.children.push(node);
     stack.push(node);
 }
+console.log(headings);
 ---
 
 <section>
     <h1 class="font-semibold">On This Page</h1>
     <ul
-        class="w-fit px-1 py-4 text-xs leading-relaxed text-nowrap **:border-neutral-200"
+        class="w-fit px-1 py-4 text-sm leading-relaxed text-nowrap **:border-neutral-200"
     >
         {
             (function renderTree(nodes: Node[]): any {
@@ -35,7 +36,7 @@ for (const h of headings) {
                             <div class="absolute bottom-0 left-0 w-3 border-[0.5px] content-['']" />
                             <a
                                 href={`#${n.slug}`}
-                                class="relative top-2 left-2 rounded-sm bg-neutral-100 px-1 py-0.5 hover:underline"
+                                class="relative top-2 left-2 px-1 py-0.5 hover:underline"
                             >
                                 {n.text}
                             </a>
