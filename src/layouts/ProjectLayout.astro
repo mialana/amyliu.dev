@@ -1,9 +1,12 @@
 ---
 import { type CollectionEntry } from "astro:content";
-import { marked } from "marked";
+import { format } from "date-fns";
 
 import Tags from "@/components/Tags.astro";
 import { YouTube } from "@astro-community/astro-embed-youtube";
+import { Image } from "astro:assets";
+
+import createSlug from "@/lib/createSlug";
 
 interface Props {
     project: CollectionEntry<"projects">;
@@ -11,28 +14,48 @@ interface Props {
 
 const { project } = Astro.props;
 
-const summary = "";
+const finalizedSlug = createSlug(project.data.title, project.data?.slug);
+
+const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
-<div class="px-8 *:mx-auto">
-    <div class="prose prose-lg">
-        <h1 class="text-4xl">
-            {project.data.title}
-        </h1>
-        <h3 class="text-sm">
-            {project.data.startDate} - {project.data.endDate}
-        </h3>
-
-        <div set:html={summary} class="prose-custom-lg max-w-none text-sm" />
-        <Tags content={project.data.tags} label="tags" />
-        <Tags content={project.data.techStack} label="tech stack" />
-        <div class="my-8 overflow-hidden rounded-xl">
-            <YouTube
-                id={project.data.demoVideoLink}
-                posterQuality="max"
-                class="w-full !max-w-none"
-            />
+<div class="px-8 py-4 *:mx-auto">
+    <div class="w-fit px-32 py-16 shadow-lg">
+        <div class="prose prose-lg">
+            <h1 class="!my-0 text-5xl">
+                {project.data.title}
+            </h1>
+            <h3 class="!mt-2 !mb-4 text-sm">
+                {format(project.data.startDate, "MMMM dd, yyyy")} -
+                {format(project.data.endDate, "MMMM dd, yyyy")}
+            </h3>
+            <div class="prose-custom-lg max-w-none text-sm">
+                {project.data.description}
+            </div>
+            <div class="my-4 overflow-hidden rounded-xl">
+                {
+                    project.data.demoVideoLink ? (
+                        <YouTube
+                            id={project.data.demoVideoLink}
+                            posterQuality="max"
+                            class="w-full !max-w-none"
+                        />
+                    ) : (
+                        <Image
+                            class="mx-auto !my-0 w-full"
+                            src={thumbnailPath}
+                            alt="Thumbnail"
+                            width={600}
+                            height={600}
+                        />
+                    )
+                }
+            </div>
+            <Tags content={[project.data.category]} label="Category" />
+            <Tags content={[project.data.type]} label="Type" />
+            <Tags content={project.data.tags} label="tags" />
+            <Tags content={project.data.techStack} label="tech stack" />
         </div>
+        <!-- <slot /> -->
     </div>
-    <slot />
 </div>

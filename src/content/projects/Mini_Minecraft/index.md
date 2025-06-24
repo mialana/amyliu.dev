@@ -19,7 +19,7 @@ tags:
     - NPC_behavior
     - artificial_intelligence
 description: A simple C++ program to emulate the 3D entity interactivity and world exploration themes of Minecraft.
-code:
+code: https://github.com/mialana/mini-minecraft
 ---
 
 ## Summary

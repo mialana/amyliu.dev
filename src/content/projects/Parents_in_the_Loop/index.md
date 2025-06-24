@@ -22,7 +22,7 @@ tags:
     - image_processing
     - natural_language_processing
     - artificial_intelligence
-description: 2nd Place and Popular Choice winner at Hack4Impact NYC 2025 -- an AI-powered interface for school systems to bridge knowledge and language barriers for immigrant parents.
+description: 2nd Place and Popular Choice winner at Hack4Impact NYC 2025. An AI-powered interface for school systems to bridge knowledge and language barriers for immigrant parents.
 code: https://github.com/mialana/Parents-in-the-Loop
 externalLinks:
     - https://devpost.com/software/parent-in-the-loop

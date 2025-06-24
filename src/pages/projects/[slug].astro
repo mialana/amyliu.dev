@@ -27,12 +27,9 @@ const { Content, headings } = await render(project);
 
 <MainLayout title={project.data.title}>
     <section slot="nav-sidebar">
-        <ul>
+        <ul class="m-4 hover:underline">
             <li>
                 <a href="/">Overview</a>
-            </li>
-            <li>
-                <a href="#breakdown">Breakdown</a>
             </li>
         </ul>
     </section>
@@ -43,5 +40,26 @@ const { Content, headings } = await render(project);
             <hr />
         </article>
     </ProjectLayout>
-    <TableOfContents headings={headings} slot="aside-sidebar" />
+    {
+        (project.data.code || project.data.externalLinks) && (
+            <section slot="aside-sidebar">
+                <ul class="m-4 hover:underline">
+                    <li>
+                        {project.data.code && (
+                            <a href={project.data.code}>CODE REPOSITORY</a>
+                        )}
+                    </li>
+
+                    {project.data.externalLinks &&
+                        project.data.externalLinks.map((link, index) => (
+                            <li>
+                                <a href={link}>EXTERNAL LINK {index + 1}</a>
+                            </li>
+                        ))}
+                </ul>
+            </section>
+        )
+    }
+
+    <!-- <TableOfContents headings={headings} slot="aside-sidebar" /> -->
 </MainLayout>

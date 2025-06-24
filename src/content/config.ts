@@ -8,7 +8,9 @@ const projectsSchema = z.object({
     type: z.string(),
     category: z.string(),
     description: z.string(),
-    demoVideoLink: z.string(),
+    demoVideoLink: z.string().optional(),
+    code: z.string().optional(),
+    externalLinks: z.array(z.string()).optional(),
     techStack: z
         .array(z.string())
         .refine((items) => new Set(items).size === items.length, {

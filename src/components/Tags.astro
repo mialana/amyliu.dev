@@ -10,16 +10,16 @@ const { content, label } = Astro.props;
 ---
 
 <div
-    class=`flex w-full !snap-x !snap-mandatory gap-2 my-1 overflow-x-scroll text-xs !text-white capitalize items-baseline`
+    class="my-1 flex w-full !snap-x !snap-mandatory items-baseline gap-2 overflow-x-scroll pb-2 text-xs capitalize"
 >
     <div class="!snap-start text-[0.4rem]/none text-neutral-600 uppercase">
         {label}
     </div>
     {
         content.map((tag) => (
-            <div class="size-fit !snap-start rounded-sm bg-neutral-900 px-1 text-nowrap">
+            <div class="size-fit !snap-start rounded-sm px-1 text-nowrap">
                 {label == "tags" && <span>#</span>}
-                {tag}
+                {tag.replaceAll("_", " ")}
             </div>
         ))
     }
