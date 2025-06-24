@@ -5,7 +5,7 @@ startDate: 2022-05-20
 endDate: 2022-08-05
 type: individual
 category: research
-demoVideoLink:
+demoVideoLink: ""
 techStack:
     - Autodesk_Maya
     - SideFX_Houdini

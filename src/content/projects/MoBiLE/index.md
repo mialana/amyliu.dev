@@ -5,7 +5,7 @@ startDate: 2024-05-10
 endDate: 2024-08-01
 type: individual
 category: research
-demoVideoLink:
+demoVideoLink: ""
 techStack:
     - UltiMaker_Cura
     - Raspberry_Pi

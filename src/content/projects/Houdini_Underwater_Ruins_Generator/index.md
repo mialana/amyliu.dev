@@ -5,7 +5,7 @@ startDate: 2025-06-14
 endDate: 2025-07-16
 type: individual
 category: personal
-demoVideoLink:
+demoVideoLink: ""
 techStack:
     - SideFX_Houdini
     - Unreal_Engine

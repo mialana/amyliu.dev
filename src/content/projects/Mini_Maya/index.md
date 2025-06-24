@@ -5,7 +5,7 @@ startDate: 2023-03-01
 endDate: 2023-03-17
 type: individual
 category: school
-demoVideoLink:
+demoVideoLink: ""
 techStack:
     - Autodesk_Maya
     - GLSL
