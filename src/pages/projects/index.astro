@@ -2,6 +2,7 @@
 import "@/styles/global.css";
 
 import { getCollection } from "astro:content";
+import type { ImageMetadata } from "astro";
 
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
@@ -11,12 +12,30 @@ import createSlug from "@/lib/createSlug";
 const projects = (await getCollection("projects")).sort(
     (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf(),
 );
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/content/projects/*/assets/thumbnail.png",
+);
 ---
 
 <MainLayout title="Projects" layout="HIDE_BOTH">
     <div
         class="flex flex-wrap justify-center gap-8 overflow-visible px-8 py-4 md:px-16"
     >
-        {projects.map((project) => <ProjectCard project={project} />)}
+        {
+            projects.map((project) => {
+                const finalizedSlug = createSlug(
+                    project.data.title,
+                    project.data?.slug,
+                );
+                const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
+                return (
+                    <ProjectCard
+                        project={project}
+                        image={images[thumbnailPath]}
+                    />
+                );
+            })
+        }
     </div>
 </MainLayout>

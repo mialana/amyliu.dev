@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Tags from "@/components/Tags.astro";
 import { YouTube } from "@astro-community/astro-embed-youtube";
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 import createSlug from "@/lib/createSlug";
 
@@ -14,8 +15,11 @@ interface Props {
 
 const { project } = Astro.props;
 
-const finalizedSlug = createSlug(project.data.title, project.data?.slug);
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/content/projects/*/assets/thumbnail.png",
+);
 
+const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
@@ -43,7 +47,7 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
                     ) : (
                         <Image
                             class="mx-auto !my-0 w-full"
-                            src={thumbnailPath}
+                            src={images[thumbnailPath]()}
                             alt="Thumbnail"
                             width={600}
                             height={600}

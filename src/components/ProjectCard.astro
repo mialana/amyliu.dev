@@ -10,13 +10,12 @@ import createSlug from "@/lib/createSlug";
 
 interface Props {
     project: CollectionEntry<"projects">;
+    image: any;
 }
 
-const { project } = Astro.props;
+const { project, image } = Astro.props;
 
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
-
-const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
 <div class="flex w-full flex-col justify-end md:w-9/24 xl:w-1/4">
@@ -24,7 +23,7 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
         <div class="pb-4">
             <Image
                 class="mx-auto border-[0.5px]"
-                src={thumbnailPath}
+                src={image()}
                 alt="Thumbnail"
                 width={400}
                 height={400}

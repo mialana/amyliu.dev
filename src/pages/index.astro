@@ -3,6 +3,8 @@ import "@/styles/global.css";
 
 import { Image } from "astro:assets";
 
+import Headshot from "src/assets/png/headshot-2025.png";
+
 import MainLayout from "@/layouts/MainLayout.astro";
 import SectionLayout from "@/layouts/SectionLayout.astro";
 
@@ -15,12 +17,7 @@ import Toast from "../components/Toast.tsx";
             class="m-4 flex grow flex-col items-center justify-center gap-8 px-8 py-8 shadow-lg md:m-8 md:gap-12 md:py-16 lg:flex-row"
         >
             <div class="md:h-auto">
-                <Image
-                    src="/src/assets/png/headshot-2025.png"
-                    alt="Headshot"
-                    width={300}
-                    height={300}
-                />
+                <Image src={Headshot} alt="Headshot" width={300} height={300} />
             </div>
             <div class="prose">
                 <h1 class="!my-0">Amy Liu</h1>
