@@ -1,0 +1,33 @@
+---
+import "@/styles/global.css";
+
+import { type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+import createSlug from "@/lib/createSlug";
+
+interface Props {
+    project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const slug = createSlug(project.data.title, project.data?.slug);
+
+const thumbnailPath = `/src/content/projects/${slug}/assets/thumbnail.png`;
+---
+
+<div class="flex w-1/4 flex-col rounded-md outline">
+    <div class="p-4">
+        <Image src={thumbnailPath} alt="Thumbnail" width={400} height={400} />
+    </div>
+    <div
+        class="align-center flex grow flex-col justify-center gap-1 bg-neutral-200 p-4 text-center"
+    >
+        <h1 class="text-lg">
+            {project.data.title}
+        </h1>
+        <h3 class="text-xs">{project.data.category.toUpperCase()}</h3>
+        <p class="text-sm">{project.data.description}</p>
+    </div>
+</div>
