@@ -5,7 +5,5 @@ const { section_id } = Astro.props;
 ---
 
 <section id={section_id} class="flex p-2 md:size-full">
-    <div class="m-4 grow p-8 shadow-lg md:m-8">
-        <slot />
-    </div>
+    <slot />
 </section>
