@@ -1,12 +1,41 @@
 ---
 import "@/styles/global.css";
 
+import { Image } from "astro:assets";
+
 import MainLayout from "@/layouts/MainLayout.astro";
 import SectionLayout from "@/layouts/SectionLayout.astro";
 ---
 
 <MainLayout title="Home" layout="DEFAULT">
-    <SectionLayout section_id="landing"> Landing: </SectionLayout>
-    <SectionLayout section_id="about"> About: </SectionLayout>
-    <SectionLayout section_id="showcase"> Showcase: </SectionLayout>
+    <SectionLayout>
+        <div class="flex h-full items-center justify-center gap-8">
+            <div class="">
+                <Image
+                    src="/src/assets/png/headshot-2025.png"
+                    alt="Headshot"
+                    width={300}
+                    height={300}
+                />
+            </div>
+            <div class="prose">
+                <h1 class="!my-0">Amy Liu</h1>
+                <h3 class="!mt-0 !mb-4">Computer Graphics Student Developer</h3>
+                <p>
+                    Hi, I'm Amy, welcome to my personal portfolio. I'm currently
+                    an undergrad at the University of Pennsylvania pursuing a
+                    BSE in Digital Media Design (Computer Graphics) and an MSE
+                    in Computer Graphics and Game Technology.
+                </p>
+
+                <p>
+                    <em>
+                        "The student keeps her eyes on the sky but her feet
+                        steady on the ground. She builds a staircase of books,
+                        all the way to the stars."
+                    </em>
+                </p>
+            </div>
+        </div>
+    </SectionLayout>
 </MainLayout>
