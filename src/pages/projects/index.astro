@@ -8,11 +8,15 @@ import ProjectCard from "@/components/ProjectCard.astro";
 
 import createSlug from "@/lib/createSlug";
 
-const projects = await getCollection("projects");
+const projects = (await getCollection("projects")).sort(
+    (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf(),
+);
 ---
 
 <MainLayout title="Projects" layout="HIDE_BOTH">
-    <ul class="flex flex-wrap justify-center gap-8 p-16">
-        {projects.map((project, index) => <ProjectCard project={project} />)}
-    </ul>
+    <div
+        class="flex flex-wrap justify-center gap-12 overflow-visible px-8 py-4 md:px-16"
+    >
+        {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
 </MainLayout>
