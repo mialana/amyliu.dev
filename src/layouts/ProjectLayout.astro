@@ -23,43 +23,41 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
-<div class="px-8 py-4 *:mx-auto">
-    <div class="w-fit px-32 py-16 shadow-lg">
-        <div class="prose prose-lg">
-            <h1 class="!my-0 text-5xl">
-                {project.data.title}
-            </h1>
-            <h3 class="!mt-2 !mb-4 text-sm">
-                {format(project.data.startDate, "MMMM dd, yyyy")} -
-                {format(project.data.endDate, "MMMM dd, yyyy")}
-            </h3>
-            <div class="prose-custom-lg max-w-none text-sm">
-                {project.data.description}
-            </div>
-            <div class="my-4 overflow-hidden rounded-2xl">
-                {
-                    project.data.demoVideoLink ? (
-                        <YouTube
-                            id={project.data.demoVideoLink}
-                            posterQuality="max"
-                            class="w-full !max-w-none"
-                        />
-                    ) : (
-                        <Image
-                            class="mx-auto !my-0 w-full"
-                            src={images[thumbnailPath]()}
-                            alt="Thumbnail"
-                            width={600}
-                            height={600}
-                        />
-                    )
-                }
-            </div>
-            <Tags content={[project.data.category]} label="Category" />
-            <Tags content={[project.data.type]} label="Type" />
-            <Tags content={project.data.tags} label="tags" />
-            <Tags content={project.data.techStack} label="tech stack" />
+<div class="m-2 p-4 shadow-lg *:mx-auto md:mx-32 md:px-16 md:py-12">
+    <div class="prose prose-lg">
+        <h1 class="!my-0 text-4xl md:text-5xl">
+            {project.data.title}
+        </h1>
+        <h3 class="!mt-2 !mb-4 text-sm">
+            {format(project.data.startDate, "MMMM dd, yyyy")} -
+            {format(project.data.endDate, "MMMM dd, yyyy")}
+        </h3>
+        <div class="prose-custom-lg max-w-none text-sm">
+            {project.data.description}
         </div>
-        <!-- <slot /> -->
+        <div class="my-4 overflow-hidden rounded-2xl">
+            {
+                project.data.demoVideoLink ? (
+                    <YouTube
+                        id={project.data.demoVideoLink}
+                        posterQuality="max"
+                        class="w-full !max-w-none"
+                    />
+                ) : (
+                    <Image
+                        class="mx-auto !my-0 w-full"
+                        src={images[thumbnailPath]()}
+                        alt="Thumbnail"
+                        width={600}
+                        height={600}
+                    />
+                )
+            }
+        </div>
+        <Tags content={[project.data.category]} label="Category" />
+        <Tags content={[project.data.type]} label="Type" />
+        <Tags content={project.data.tags} label="tags" />
+        <Tags content={project.data.techStack} label="tech stack" />
     </div>
+    <!-- <slot /> -->
 </div>
