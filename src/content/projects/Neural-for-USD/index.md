@@ -22,7 +22,8 @@ tags:
     - NeRF
     - neural_radiance_fields
     - artificial_intelligence
-description: A comprehensive program built to solve data collection for Neural Radiance Fields for the Pixar OpenUSD framework.
+    - novel_view_synthesis
+description: A comprehensive interface to solve data collection for Neural Radiance Fields and Novel View Synthesis for the Pixar OpenUSD framework.
 code: https://github.com/mialana/neural-for-usd
 ---
 
