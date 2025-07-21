@@ -118,3 +118,26 @@ Physical Simulation:
 
 ![img](./assets/Screenshot%202025-07-03%20at%206.29.01%20PM.png)
 ![img](./assets/Screenshot%202025-07-03%20at%207.40.29%20PM.png)
+
+- [ ] "Hero":
+- [ ] Main Terrain
+
+- [ ] Hero Interaction:
+- [ ] Embedded objects (hf project)
+- [ ] Shaping tools
+- [ ] Scattered objects (rbd sims)
+
+- [ ] Assets:
+- [ ] decayed rock wall
+- [ ] decayed stone column
+- [ ] frayed rope
+
+- [ ] Tools:
+- [ ] Terrain shaper
+- [x] Terrain algorithmic path curves
+- [ ] Custom Layered Fracture tool
+- [ ] Flooded Water Generator
+
+Features:
+
+- Flooded water layer
