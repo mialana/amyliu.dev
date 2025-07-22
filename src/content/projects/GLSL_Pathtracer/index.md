@@ -5,7 +5,7 @@ startDate: 2025-01-17
 endDate: 2025-03-09
 type: individual
 category: school
-demoVideoLink: https://youtu.be/ILhaRpRpJv0
+demoVideoLink: https://youtu.be/pW9bWNrxd6Y
 techStack:
     - C++
     - GLSL
@@ -38,6 +38,7 @@ Furthermore, programming directly in GLSL for the majority of this assignment of
 3. Demonstrated support for a wide range of BRDF materials—including dielectrics and microfacets—by accurately rendering scenes with diverse reflective and transmissive properties, such as glass and metal, using physically correct `Kd` and `Ks` parameters.
 4. Validated correctness and flexibility using standard benchmarks including the Cornell Box and Veach scenes, as well as custom scenes with varying environment lighting and complex material setups.
 5. Enabled support for arbitrary HDR environment maps by incorporating spherical environment sampling into the light integrator pipeline.
+6. Added a GUI selector that allows users to switch between integration methods (`Naive`, `Direct`, `DirectMIS`, and `Full`) at runtime without restarting the application. This enhancement improves workflow efficiency and enables real-time visual comparison of integration results.
 
 ## Next Steps
 
@@ -148,3 +149,9 @@ vec4 gammaCorrection(vec4 c)
     return pow(c, vec4(1.f / 2.2f));
 }
 ```
+
+### Integration Method Switch within UI
+
+A custom QT GUI element was implemented to allow runtime switching between integration methods. Internally, a uniform variable is updated to reflect the chosen integrator. This unique feature instantly streamlines testing and visual comparison between the integrator types.
+
+![img](./assets/integration_switch.gif)
