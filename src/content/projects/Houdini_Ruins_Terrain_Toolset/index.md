@@ -1,6 +1,6 @@
 ---
-title: Houdini Underwater Ruins Generator
-slug: Houdini_Underwater_Ruins_Generator
+title: Houdini Ruins Terrain Toolset
+slug: Houdini_Ruins_Terrain_Toolset
 startDate: 2025-06-14
 endDate: 2025-07-16
 type: individual
@@ -14,7 +14,8 @@ tags:
     - game_art_challenge
     - procedural
     - tech_art
-description: A SideFX Houdini Digital Asset to easily build realistic custom underwater ruins for game levels in Unreal Engine and Unity.
+    - VFX
+description: A toolset for creating procedural ruined terrains and associated assets in Houdini.
 ---
 
 ## Summary
