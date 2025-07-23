@@ -18,7 +18,7 @@ export default function Toast() {
                 work-in-progress.
             </div>
             <div>
-                <strong>LAST UPDATE: </strong>June 24, 2025
+                <strong>LAST UPDATE: </strong>July 22, 2025
             </div>
             <div
                 className={`absolute right-0 bottom-0 m-[2px] h-1 rounded-sm bg-white transition-[width] duration-[5000ms] ease-linear ${visible ? "visible w-0" : "invisible w-[calc(100%-4px)]"}`}
