@@ -25,7 +25,7 @@ const { project } = Astro.props;
 const { Content, headings } = await render(project);
 ---
 
-<MainLayout title={project.data.title}>
+<MainLayout title={project.data.title} layout="HIDE_ASIDE">
     {
         (project.data.code || project.data.externalLinks) && (
             <section slot="nav-sidebar">
