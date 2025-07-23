@@ -35,12 +35,6 @@ To create a "plug-and-play" application for playing chess. Although the interfac
 
 - [x] Add subtitles for written explanation to demo video.
 
-## References
-
-[Java Swing Library](https://docs.oracle.com/javase/7/docs/api/javax/swing/package-summary.html)
-[Java BufferedReader](https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html)
-[Java BufferedWriter](https://docs.oracle.com/javase/8/docs/api/java/io/BufferedWriter.html)
-
 ## Method
 
 ### Architecture and Class Design
