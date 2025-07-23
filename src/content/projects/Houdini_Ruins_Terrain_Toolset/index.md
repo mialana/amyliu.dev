@@ -7,8 +7,8 @@ type: individual
 category: personal
 techStack:
     - SideFX_Houdini
-    - Unreal_Engine
     - Vex
+    - Unity_Game_Engine
 tags:
     - "2025"
     - game_art_challenge
@@ -16,6 +16,7 @@ tags:
     - tech_art
     - VFX
 description: A toolset for creating procedural ruined terrains and associated assets in Houdini.
+code: https://github.com/mialana/houdini-ruins-terrain-toolset
 ---
 
 ## Summary
