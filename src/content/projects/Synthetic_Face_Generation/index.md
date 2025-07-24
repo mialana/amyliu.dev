@@ -24,6 +24,7 @@ description: A National Science Foundation-funded research project to procedural
 externalLinks:
     - https://docs.google.com/presentation/d/10Z3G4-0b2C9TGzJGmr-ySdmvx1fgl2Ni/edit?usp=drive_link&ouid=105323988877358545567&rtpof=true&sd=true
     - https://docs.google.com/presentation/d/1I4UXz02gznvbdSK05Zbe_6ff0Ucvj8sJ/edit?usp=drive_link&ouid=105323988877358545567&rtpof=true&sd=true
+demoVideoLink: https://youtu.be/HQG477SzD8U
 ---
 
 ## Summary
