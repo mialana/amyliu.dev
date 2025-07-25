@@ -66,7 +66,7 @@ Rigid facial accessories such as glasses are automatically deformed and aligned 
 To achieve a reliable fit across identities, a joint-based rig structure is initialized and driven by inverse kinematics (IK) principles. After establishing anchor point positions on the facial mesh (e.g., right/left nasal, right/left ear), the system computes the original and target angles of the glasses' temple arms. These angles are measured by projecting joint chains into the sagittal plane and calculating their deviation using the arctangent of the vertical-to-depth component ratio:
 
 ```python
-# deform_houdini/deform_glasses.py
+# deform_houdini/deform_glasses.py/
 r_orig_dist = joint_outer - joint_tip r_orig_angle = 90 - arctangent(r_orig_dist.z / r_orig_dist.y)
 r_new_dist = joint_outer - ear_anchor r_new_angle = 90 - arctangent(r_new_dist.z / r_new_dist.y)
 r_theta = r_new_angle - r_orig_angle
@@ -89,7 +89,7 @@ Each XGen collection is imported and assigned an `aiStandardHair` shader. All ad
 For example, the following function modifies the coil deformation applied to hair strands, adjusting both count and radius ramp:
 
 ```python
-# scripts/hair_modify_xgen/hair_modify.py
+# scripts/hair_modify_xgen/hair_modify.py/
 def set_coil(col, desc, mod, count, radius):
     new_cc = max(0, prev.get_prev(col, desc, mod, "count") + count)
     xg.setAttr("count", f"$cLength > 1.25 ? {str(new_cc)} : 0", col, desc, mod)

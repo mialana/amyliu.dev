@@ -50,6 +50,7 @@ By combining algorithmic problem solving with procedural animation, the plug-in 
 The geometry of each individual cubelet is generated in `rubiks_cube.py` as Maya `polyCube` primitives. In `maya_rubiks_animation.py`, each cubelet is assigned a corresponding `aiStandardSurface` shader per face via Python commands. This involves programmatically creating shading nodes, setting color attributes, and connecting them to shape nodes.
 
 ```python
+# MayaRubiks/scripts/maya_rubiks_animation.py/
 def create_shader(name, node_type="aiStandardSurface"):
 
 material = cmds.shadingNode(node_type, name=name, asShader=True)

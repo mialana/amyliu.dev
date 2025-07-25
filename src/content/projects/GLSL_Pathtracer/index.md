@@ -75,6 +75,7 @@ The `Sample_Li` function is used in direct and MIS integrators to query scene li
 - **Point & Spot Lights**: Handled using delta distributions and evaluated using closed-form visibility and intensity falloff.
 
 ```cpp
+// glsl/pathtracer.light.glsl/
 vec3 DirectSamplePointLight(int idx, vec3 view_point, int num_lights, out vec3 wiW, out float pdf)
 {
     PointLight light = pointLights[idx];
@@ -106,6 +107,7 @@ BSDF sampling is used in all integrators to determine bounce directions. Materia
 - **Diffuse** (Lambertian): Sampled with cosine-weighted hemispheres.
 
 ```cpp
+// glsl/pathtracer.bsdf.glsl/
 vec3 Sample_f_diffuse(vec3 albedo,
                       vec2 xi,
                       vec3 nor,
@@ -139,6 +141,7 @@ Each `Sample_f` variant returns both a sampled direction and corresponding PDF, 
 Each frame accumulates path-traced radiance values using floating-point buffers in OpenGL. Colors are tone-mapped using a Reinhard operator and gamma corrected before display. Sampling is progressive and temporally averaged, converging over multiple frames.
 
 ```cpp
+// glsl/noOp.frag.glsl/
 vec4 reinhardOp(vec4 c)
 {
     return c / (1.f + c);
