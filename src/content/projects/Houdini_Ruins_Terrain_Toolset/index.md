@@ -15,131 +15,194 @@ tags:
     - procedural
     - tech_art
     - VFX
-description: A toolset for creating procedural ruined terrains and associated assets in Houdini.
+description: A toolset for creating procedural ruined terrains in SideFX Houdini.
 code: https://github.com/mialana/houdini-ruins-terrain-toolset
+demoVideoLink: https://youtu.be/pT0rpPrVpLM
 ---
 
 ## Summary
 
+This project presents Ruins Terrain Toolset, or RTT, a procedural toolset developed in SideFX Houdini for generating ruined terrains and detailed environmental assets suitable for real-time game engines, such as Unity or Unreal. Built as an individual submission to the 2025 SideFX Game Art Challenge in the Best Game Art Tool category, assets are constructed entirely within Houdini -- featuring VEX-programming via `Attribute Wrangle` nodes and Copernicus -- without relying on Quixel / external mega-scan libraries. This is in accordance with the contest’s constraints. Additionally, all HDAs can be ported for usage to Unity and Unreal.
+
+The resulting pipeline emphasizes scalability and flexibility, enabling artists to create easily create detailed, modular scenes without the overhead of complex technical setups.
+
 ## Motivation
+
+Building the toolset entirely within Houdini emphasizes the completeness of Houdini’s native procedural systems for end-to-end 3D environment generation. By relying solely on Houdini’s geometry and material networks, the project demonstrates how complex scenes and assets can be built without external dependencies or traditional sculpting workflows. Just 100% procedural.
+
+Furthermore, the system can support rapid prototyping for level design and environment lookdev in Unity and Unreal. It serves as a general baseline example for proceduralism in tech art pipelines, highlighting reusable patterns in Houdini node workflows and good practices for efficiency and speed.
 
 ## Achievements
 
+1. **Main Terrain Generator**: A flexible heightfield-based terrain HDA designed for ruined and fragmented environments. Built using layered noise patterns, erosion simulations, and material masks generated with Copernicus.
+    1. RTT Main Terrain
+2. \*\*Tools: A set of reusable utilities for given a ruined appearance to 3D terrain environments.
+    1. RTT Traversal Paths Tool
+    2. RTT Layered Fracture Tool
+    3. RTT Flooded Water Tool
+    4. RTT Terrain Blockout Tool
+3. **Assets**: A collection of static assets stylized for ruined terrain. Each asset is designed to support in-engine reuse and parameter tuning for visual consistency.
+    1. RTT Decayed Rock Wall Asset
+    2. RTT Fractured Column Asset
+    3. RTT Terrain Rocks Asset
+4. **Demonstrated Tool Interactions:** HDAs that demonstrate the ease-of-use and flexibility of the main terrain HDA and associated tools through physics simulations (Rigid Body Dynamics) and applied tool usage.
+    1. Piled ruins geometry (RBD collision + scattering) on *Main Terrain*
+    2. Traversing vines and ropes using *Traversal Paths Tools*
+
 ## Next Steps
 
-## References
-
-### Tutorial Series
-
-[Post Apocalyptic Ruins in UE4 - YouTube Playlist](https://www.youtube.com/playlist?list=PLXNFA1EysfYkqx3R-WyQHYEYR3c1odJPX)
-[Castle Wall Tool -YouTube Playlist](https://www.youtube.com/playlist?list=PLNbgmFvU__fiPhyUWHHzZ2Nv5ieM_bOdB)
-
-### Copernicus
-
-1. [Texture Transfer Walkthrough](https://www.youtube.com/watch?v=5N846UXGbrA)
-2. [Exporting Textures from COPs](https://www.youtube.com/watch?v=iGkl5VV3m8M)
-3. [Sponge in COP](https://www.youtube.com/watch?v=LzNcoG1e9oc)
-4. [Create a sharp rock material](https://www.sidefx.com/tutorials/houdini-205-copernicus-creating-a-sharp-rock-material/)
-5. [LOP Import from Group Forum](https://www.sidefx.com/forum/topic/71692/)
-
-### Terrain Concepts
-
-1. [Custom Instancer HDA](https://youtu.be/Qj54ifydULo?si=da8bCOvnipuHcsuf&t=900)
-2. [Terrain Shaders & Rendering](https://www.youtube.com/watch?v=Kg7WOZqzAME)
-3. [Houdini 20.5 - COPs in terrain](https://www.youtube.com/watch?v=9xZFu2XJTBA)
-4. [Houdini Heightfields and Cliffs](https://www.youtube.com/watch?v=fF01Lyg_G48)
-
-![img](./assets/Screenshot%202025-06-26%20at%203.21.15%20PM.png)
-
-### Ruin Concepts
-
-1. [Rolling Debris with VEX](https://vimeo.com/277642002)
-
-### Underwater Concepts
-
-1. [Seaweed 01](https://www.youtube.com/watch?v=T2Xmff4WqPc)
-2. [Underwater Sunrays](https://www.youtube.com/watch?v=FXzQA9r4r98)
-3. [Underwater Bubbles](https://www.youtube.com/watch?v=aom7ZYMAxV4)
-4. [Underwater Effects (Turkish)](https://www.youtube.com/watch?v=KIJg0R0gOe0&)
-
-### Relevant Houdini Nodes:
-
-1. [Shallow Water Solver Node Tutorial](https://www.youtube.com/watch?v=-bcxSBuA7vk)
-2. [Ocean Spectrum](https://www.youtube.com/watch?v=R-QzOTRUPng)
-
-### Blender:
-
-1. [Critical Giants - Underwater Scenes in Blender](https://www.youtube.com/watch?v=I2B-x3J0W4I)
-2. [Arko Visuals - Underwater Scenes in 1 minute](https://www.youtube.com/watch?v=xvgOTeJXKII)
-
-### Cool Assets:
-
-1. [Canyon Cliffs](https://www.youtube.com/watch?v=AGJ4pRFfbBo)
-2. [Natural Rock Wall](https://www.youtube.com/watch?v=q-9cVBVMv2E)
-3. [Advanced Scattering](https://www.youtube.com/watch?v=N7CDHwgWKVo)
-4. [Procedural Greek Pillars](https://www.youtube.com/watch?v=XAIzUKZoe5Q)
+- [ ] Copernicus textures and material networks for RTT rock wall, fractured column, and terrain rocks assets.
+- [ ]  Refined Copernicus textures for RTT Flooded Water Tool geometry.
 
 ## Method
 
-Welcome to my first large-scale Houdini project. Although I've experimented with a few single-file Houdini assets in the past, it's remained for a long time as one of the "explore further" items on my to-do list.
+This project is my first large-scale Houdini project. The development process began with self-study through online tutorial series, evolving into building original networks as I became more comfortable with Houdini’s procedural workflow. Decisions were guided by the constraints of the Game Art Challenge, which required exclusive use of Houdini and Copernicus, encouraging a deeper understanding of native workflows.
 
-The very beginning of the project process meant watching and following many tutorials videos. I found this to be the best way to learn about the Houdini nodes and features available to me. And thankfully, 1.5 tutorial series later, I seemed to have caught on, i.e. being able to go off script and start building my own node networks. "Houdini-brain" is contagious, that's for sure.
+### RTT Main Terrain
 
-A big limitation though were the requirements of the Game Art Challenge: "Houdini-only, Copernicus for textures, terrain tools for sculpting". So whenever a tutorial mentioned quickly grabbing a Quixel megascan to instance / add detail, it meant a full asset creation process for me.
+![img](assets/unity_main_terrain_captures.png)
 
-To modularize my workflow, I compiled a list of different features for my underwater terrain:
+The terrain generator is built as a heightfield-based HDA that allows for sculpting, masking, and texturing using a fully procedural, modular approach.Artists can add or subtract geometry from the base terrain by projecting meshes into the heightfield using `Heightfield Project`. Once projected, various terrain-shaping nodes such as `Heightfield Noise`, `Heightfield Distort`, and `Heightfield Blur` are chained to control macro and micro surface features. A custom `Volume VOP` mask isolates bedrock-like regions, which are selectively lifted with `Heightfield Remap`. To finalize terrain realism, `HeightField Erode` simulates geological weathering.
 
-Natural Assets:
+In addition, the `Terrain_Path/` subnetwork allows artists to embed traversable paths into terrain. A custom spline input is projected and ray-transferred onto the terrain, then used to mask out a region via `Heightfield Mask by Object`, blurred for natural blending, and distorted with procedural noise using `Heightfield Noise`. The output is a distinct terrain layer isolating the carved path without manual geometry sculpting.
 
-1. [ ] Seashells / Starfish
-2. [ ] Seagrass / Seaweed
-3. [ ] Coral Reefs (big & flat, tubes, hand-like shapes)
-4. [x] Rocks
-5. [ ] Jellyfish
+![gif](./assets/embedded_terrain_path.gif)
 
-Manmade Assets:
+#### Terrain texturing Copernicus workflow
 
-1. [ ] Brick walls
-2. [ ] Decayed Structures
-3. [ ] Maze tool
+For texture generation, a dedicated COP network (`copnet_terrain`) procedurally produces all required outputs (albedo, roughness, normal, and ambient occlusion) using Houdini's Copernicus system. Geometry is rasterized using `SOP Import` and `Rasterize Geometry` nodes, extracting masked heightfield layers such as `elevation`, `sediment`, `debris`, and `water`. Each scalar map is converted to color using `MonoToRGB` and blended sequentially through layered `Blend` nodes to form the final `ALBEDO_BASE`. An additional stream handles `bedrock`-based textures with separate noise and color ramps.
 
-Physical Simulation:
+![img](./assets/cop_layer_processing.png)
 
-1. [ ] Water Volume Field
-2. [ ] Caustic lighting
-3. [ ] Flow / Current Fields
-4. [ ] Bubbles
+Normals are generated via `HeightToNormal`, with `Function` nodes performing normalization. Roughness and AO maps are blended similarly using `Remap`, `Constant`, and `Blend` nodes. All outputs (`OUT_ALBEDO`, `OUT_ROUGHNESS`, `OUT_NORMAL`, and `OUT_AO`) are written to disk using `ROP Image` nodes, adhering to OCIO color space conversions (e.g., ACEScg or sRGB) and baked texture formats.
 
-![img](./assets/underwater-statues-head-of-caesarion-alexandria-egypt-atlantis-1024x768.avif)
+![img](./assets/cop_export_workflow.png)
 
-![https://www.popularmechanics.com/science/archaeology/a63544905/race-to-study-submerged-settlements/](./assets/ruins-of-the-atlantis-civilization-underwater-ruins-royalty-free-image-1698786770.avif)
+This pipeline allows fine-grained lookdev control per layer and requires no external texture assets—making it a fully native Houdini solution, suitable for real-time usage.
 
-### Terrain Assets
+### RTT Traversal Paths Tool
 
-#### Rock Wall
+The RTT Traversal Paths Tool generates a series of traversal curves across terrain geometry using an attribute-weighted shortest path algorithm.
 
-![img](./assets/Screenshot%202025-07-03%20at%206.29.01%20PM.png)
-![img](./assets/Screenshot%202025-07-03%20at%207.40.29%20PM.png)
+![gif](assets/traversal_paths.gif)
 
-- [ ] "Hero":
-- [ ] Main Terrain
+#### Cost Calculation
 
-- [ ] Hero Interaction:
-- [ ] Embedded objects (hf project)
-- [ ] Shaping tools
-- [ ] Scattered objects (rbd sims)
+At the heart of this tool is an `Attribute Wrangle` that computes edge traversal costs between points using a weighted sum of:
 
-- [ ] Assets:
-- [ ] decayed rock wall
-- [ ] decayed stone column
-- [ ] frayed rope
+- **Slope**: Computed via the dot product between the surface normal and world up vector, penalizing steep inclines.
+- **Ascent/Descent**: Further biasing based on vertical travel direction.
+- **Convexity/Concavity**: Derived from a `Measure Curvature` node, allowing terrain shape to influence pathing.
+- **Flow**: Optional factor from values calculated by the `Heightfield Flowfield` SOP node.
+- **Border Proximity**: Penalizing proximity to the edge of the terrain geometry to avoid paths that compute the shortest path as simply lining the edges.
 
-- [ ] Tools:
-- [ ] Terrain shaper
-- [x] Terrain algorithmic path curves
-- [ ] Custom Layered Fracture tool
-- [ ] Flooded Water Generator
+Each of these cost factors is exposed to artists as a parameter and can be fine-tuned via sliders.
 
-Features:
+#### Shortest Path Computation
 
-- Flooded water layer
+The network uses the `Find Shortest Path` SOP node to connect each pair of scattered start and end points. This node is configured to operate on a fused point graph generated from a triangulated 2D projection of the terrain, ensuring spatial coherence. Building each start-end pair is handled via a `For-Each` block and `Sort` node.
+
+![img](assets/terrain_start_vs_end_points.png)
+
+#### Use Case: Flooded Water Geometry
+
+A notable application of the traversal path system is the procedural generation of shallow, terrain-following flooded water geometry. These water channels are computed by biasing the underlying traversal algorithm toward concave regions, valleys, and depressions.
+
+Once computed, the curves are projected onto the terrain using `HeightField Mask by Object` and `Heightfield Mask Blur`. A Houdini `HeightField Shallow Water` SOP node then simulates natural water spreading / pooling and flow-field dependent water velocity.
+
+![gif](assets/water_simulation.gif)
+
+The resulting geometry is shaded using a customized material network defined in `matnet_flooded_water`. The shader is based on a `Principled Shader` setup with texture maps generated in a dedicated Copernicus network. These include:
+
+- **Albedo Texture**: Simulating water coloration and clarity.
+- **Roughness Map**: Modulating surface glossiness across pooled regions.
+- **Opacity Map**: Allowing partial transparency with localized depth variation.
+
+This use case demonstrates an efficient method for producing believable, stylized flooded water effects that follows terrain attributes without simulating full fluid dynamics.
+
+#### Use Case: Ropes and Vines
+
+![img](assets/traversing_vines_and_ropes_demo.png)
+
+The RTT Traversal Paths Tool also supports procedural generation of natural dressing geometry — for example ropes and vines that follow the contour of the terrain. By adjusting traversal parameters to balance slope avoidance with concavity affinity, the tool generates splines that simulate the natural draping or growth patterns of climbing materials.
+
+![](assets/ropes_and_vines_params.png)
+
+### RTT Layered Fracture Tool
+
+The _RTT Layered Fracture Tool_ is a mask-driven procedural fracturing system designed to generate varied and naturalistic damage on geometry surfaces in real-time. It uses a layered Voronoi-based approach where multiple fracture passes are spatially directed by noise-driven masks, giving users fine-grained control over fracture placement and intensity.
+
+#### Technical Overview
+
+The tool begins with an `Attribute Wrangle` node to compute a vertical mask using a normalized ramp over the geometry’s Y-position. This creates a basic fracture influence gradient across the height of the mesh. An `Attribute Noise` node then introduces flow-based noise to the mask to add complexity and natural variation.
+
+![img](assets/fracture_masking.gif)
+
+The mask is converted into scatter points via `VDB From Polygons` and `Scatter` nodes. These points drive the first Voronoi fracture layer through `Voronoi Fracture`. A secondary fracture pass is generated similarly, with a separate scattering pass to create more fragmented sub-structures.
+
+The tool then performs a series of boolean operations and primitive-level `Attribute Promote` and `Wrangle` operations to filter and selectively delete smaller or unwanted fragments based on the mask intensity and user-defined thresholds. The result is then passed through a cleanup and consolidation stage before being output.
+
+This approach allows the user to art-direct fracture density and placement via intuitive mask controls while preserving interactive performance.
+
+### Use Case: RTT Fractured Column Asset
+
+The _RTT Fractured Column Asset_ demonstrates the use of the RTT Layered Fracture Tool in a contextually relevant application. The asset begins with a simple polygonal column form—tapered using a `Linear Taper` node and constructed with primitives like `Tube`, `Box`, and `Circle`—refined by operations such as `PolyBevel`, `Boolean Subtract`, and `Match Size` to form the base geometry.
+
+Once the base structure is finalized, the asset is passed into the RTT Layered Fracture Tool. There, the vertical mask gradient isolates the upper portion of the column as a target zone. This produces more intense fragmentation at the top, fading toward the base. The final fractured result includes both inner and outer layers.
+
+![](assets/fractured_column_use_case.gif)
+
+### RTT Terrain Blockout Tool
+
+The RTT Terrain Blockout Tool is a curve-driven system designed to generate projection geometry for shaping large-scale terrain features. Rather than directly sculpting the heightfield, artists draw input curves that are procedurally converted into terrain-modifying volumes, which are then passed into the _RTT Main Terrain_ HDA for additive or subtractive projection.
+
+Each instance of the tool accepts a single curve as input and supports four blockout modes via a switch interface:
+
+1. **Closed Curve Blockouts**: Converts curve into an extruded, closed form used for carving plateaus or basins.
+
+![gif](assets/closed_curve.gif)
+
+2. **Open Curve Ridge Forms**: Sweeps the input curve to create ridge or valley geometries.
+
+![gif](assets/open_curve.gif)
+
+3. **Peaks**: Scatters points throughout a curve's inner area to generate cone-shaped peak geometry. Useful for mountain ranges.
+
+![gif](assets/peaks_blockout.gif)
+
+4. **Distorted Masses**: Produces extremely deformed primitives ideal for embedding singular large, rough mountains into terrain.
+
+![gif](assets/distorted_blockout.gif)
+
+### RTT Rigid Body Collider Interactor
+
+The **RTT Rigid Body Collider Interactor** is a simulation-ready tool designed to generate piled geometry formations through RBD simulation.
+
+The tool begins by accepting user-provided geometry, which must include a `name` attribute to ensure proper RBD object separation during simulation. This input geometry is scattered within a **tapered bounding box**, which defines the spatial extent and general distribution profile of the pile.
+
+Instances are assigned using `Copy to Points`, and randomized transformations are applied through `Attribute Randomize` to vary orientation, position, and scale. The result is fed into a `RBD Bullet Solver`, where terrain geometry acts as a collision surface. Key solver parameters—including friction, bounce, gravity, and constraint resolution—are exposed for artist control, allowing fine-tuning of the pile’s structure and spread.
+
+![gif](assets/scattering_piles.gif)
+
+Once a convincing formation is reached, the simulation is frozen using `Timeshift` to bake a specific frame, producing a static result that maintains the fidelity of physics-driven interaction.
+
+Although it pairs naturally with assets like the `RTT Terrain Rocks`, the tool is flexible and designed to support any input geometry with a valid `name` attribute—enabling usage with wood debris, building fragments, etc. This makes it a flexible, general-purpose component to replace reliance on external assets such as Quixel Megascan geometry.
+
+### RTT Decayed Rock Wall Asset
+
+The RTT Decayed Rock Wall Asset is a terrain-conforming modular structure designed to procedurally align with any user-provided curve—including paths with sharp turns and elevation changes.
+
+![img](assets/rtt_decayed_rock_wall_asset1.png)
+
+The asset begins with a `Curve` input, which is resampled and segmented to define the backbone of the wall. At each segment, aligned bounding geometry is instantiated using sweep-based techniques and custom up-vector calculations to maintain proper orientation even along curves with high Y-differentials or tight angular turns. This ensures continuity and spatial coherence of wall segments across complex topologies.
+
+![img](assets/rtt_decayed_rock_wall_asset2.png)
+
+A decay mask is computed using a vertical (Y-axis) gradient to emulate natural erosion from top-down weathering. This mask drives probabilistic deletion of individual rock pieces.
+
+![](assets/mask_original_wall.png)
+![](assets/mask_deleted_wall.png)
+
+### Conclusion and Significance
+
+This toolset demonstrates how complex environmental elements—such as fractured geometry, terrain composition, and debris placement—can be proceduralized through technically modular design. By balancing flexibility with ease-of-use, it serves as a practical example of how procedural tools built within Houdini can streamline asset creation pipelines without compromising artistic control.
