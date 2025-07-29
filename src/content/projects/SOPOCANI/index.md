@@ -71,3 +71,7 @@ Gold halos were digitally added to figures known to have had them historically, 
 ### Camera Animation and Lighting
 
 Camera paths were also animated in Maya to guide viewer focus through the reconstructed space. Lighting was optimized to emphasize surface detail and spatial depth, contributing to a coherent and immersive final render.
+
+![png](assets/halo_zoom_in.png)
+
+![png](assets/zoom_out.png)
