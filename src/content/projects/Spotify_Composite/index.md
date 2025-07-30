@@ -29,14 +29,18 @@ Spotify makes it easy to follow and save playlists, but offers no built-in way t
 
 ### Achievements
 
-- Built a full-stack web application using React and Spotify’s Web API to enable authenticated playlist merging.
-- Implemented the OAuth 2.0 Authorization Code Flow with PKCE to securely authenticate users and access account data.
-- Developed a multi-step UI that supports playlist selection, field customization (e.g. title, visibility), and confirmation before playlist creation.
-- Integrated client-side filtering of duplicate tracks and used RESTful endpoints to fetch user profile, playlist metadata, and to create/save the final playlist.
-- Structured the application around Axios-based API calls, handling access token refresh and error states gracefully.
-- Deployed a complete working demo with reusable login via a shared Spotify developer account to comply with Spotify's API usage policies.
+1. Built a full-stack web application using React and Spotify’s Web API to enable authenticated playlist merging.
+2. Implemented the OAuth 2.0 Authorization Code Flow with PKCE to securely authenticate users and access account data.
+3. Developed a multi-step UI that supports playlist selection, field customization (e.g. title, visibility), and confirmation before playlist creation.
+4. Integrated client-side filtering of duplicate tracks and used RESTful endpoints to fetch user profile, playlist metadata, and to create/save the final playlist.
+5. Structured the application around Axios-based API calls, handling access token refresh and error states gracefully.
+6. Deployed a complete working demo with reusable login via a shared Spotify developer account to comply with Spotify's API usage policies.
 
 ## Next Steps
+
+- [ ] Add alternative “Compositify” modes that incorporate Spotify metadata such as audio features, genre classifications, and popularity scores.
+- [ ] Explore new playlist generation logic that leverages track-level analytics to shape output mood, tempo, or similarity.
+- [ ] Extend the UI to allow users to select among merging strategies based on musical characteristics.
 
 ## Method
 
