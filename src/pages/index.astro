@@ -14,7 +14,7 @@ import Toast from "../components/Toast.tsx";
 <MainLayout title="Home" layout="DEFAULT">
     <SectionLayout>
         <div
-            class="m-4 flex grow flex-col items-center justify-center gap-8 px-8 py-8 shadow-lg md:m-8 md:gap-12 md:py-16 lg:flex-row"
+            class="m-4 flex grow flex-col items-center justify-center gap-8 overflow-scroll px-8 py-8 shadow-lg md:m-8 md:flex-row md:gap-8 md:py-16"
         >
             <div class="md:h-auto">
                 <Image src={Headshot} alt="Headshot" width={300} height={300} />
@@ -22,14 +22,14 @@ import Toast from "../components/Toast.tsx";
             <div class="prose">
                 <h1 class="!my-0">Amy Liu</h1>
                 <h3 class="!mt-0 !mb-4">Computer Graphics Student Developer</h3>
-                <p>
+                <p class="text-sm lg:text-base">
                     Hi, I'm Amy, welcome to my personal portfolio. I'm currently
                     an undergrad at the University of Pennsylvania pursuing a
                     BSE in Digital Media Design (Computer Graphics) and an MSE
                     in Computer Graphics and Game Technology.
                 </p>
 
-                <p>
+                <p class="text-sm lg:text-base">
                     <em>
                         "The student keeps her eyes on the sky but her feet
                         steady on the ground. She builds a staircase of books,
