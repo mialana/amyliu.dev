@@ -19,7 +19,7 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 ---
 
 <div class="flex w-full flex-col justify-end md:w-9/24 xl:w-1/4">
-    <article class="p-8 shadow-lg hover:-translate-y-2">
+    <article class="relative p-8 shadow-lg hover:-translate-y-2">
         <div class="pb-4">
             <Image
                 class="mx-auto border-[0.5px]"
@@ -31,9 +31,7 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
         </div>
         <div class="text-center">
             <h1 class="text-xl/tight font-bold">
-                <a href=`/projects/${finalizedSlug}`>
-                    {project.data.title}
-                </a>
+                {project.data.title}
             </h1>
             <h3 class="mt-1 text-xs">
                 {format(project.data.startDate, "MMMM yyyy")} - {
@@ -47,5 +45,8 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
             </h3>
             <p class="text-sm text-pretty">{project.data.description}</p>
         </div>
+        <a
+            href=`/projects/${finalizedSlug}`
+            class="absolute top-0 left-0 h-full w-full"></a>
     </article>
 </div>

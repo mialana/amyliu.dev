@@ -42,3 +42,9 @@ UV Flatten: v.s. UV Unwrap it is better for irregular geometry
 ## Links:
 
 [SOP, POP, DOP](https://www.reddit.com/r/Houdini/comments/t4agvh/sop_pop_dop_for_begginers/)
+
+## Misc Methods:
+
+hou.setDefaultColor(hou.colorItemType.NetworkBox, hou.Color(0.0, 0.0, 0.0))
+
+![img](Screenshot%202025-07-04%20at%2012.53.10%20PM.png)- op:`opfullpath('..')`

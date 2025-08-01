@@ -25,10 +25,20 @@ const { project } = Astro.props;
 const { Content, headings } = await render(project);
 ---
 
-<MainLayout title={project.data.title}>
+<MainLayout title={project.data.title} layout="DEFAULT">
+    <TableOfContents headings={headings} slot="nav-sidebar" />
+
+    <ProjectLayout project={project}>
+        <article id="breakdown" class="prose">
+            <hr />
+            <Content />
+            <hr />
+        </article>
+    </ProjectLayout>
+
     {
         (project.data.code || project.data.externalLinks) && (
-            <section slot="nav-sidebar">
+            <section slot="aside-sidebar">
                 <ul class="m-4 w-max text-sm *:hover:underline">
                     <li>
                         {project.data.code && (
@@ -46,22 +56,4 @@ const { Content, headings } = await render(project);
             </section>
         )
     }
-
-    <ProjectLayout project={project}>
-        <article id="breakdown" class="prose">
-            <hr />
-            <Content />
-            <hr />
-        </article>
-    </ProjectLayout>
-
-    <!-- <section slot="nav-sidebar">
-        <ul class="m-4 hover:underline">
-            <li>
-                <a href="">Overview</a>
-            </li>
-        </ul>
-    </section> -->
-
-    <TableOfContents headings={headings} slot="aside-sidebar" />
 </MainLayout>
