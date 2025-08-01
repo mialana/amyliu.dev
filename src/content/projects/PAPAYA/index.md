@@ -202,7 +202,6 @@ The workflow enforces a **single-user ownership model** during check-out:
 I developed and maintained key API endpoints to support this workflow:
 
 - `post_asset()` and `put_asset()` in `library/views_upload.py`
-
     - `post_asset()` initializes asset metadata and uploads new files
     - `put_asset()` validates check-in logic and updates existing entries
 
