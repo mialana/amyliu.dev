@@ -128,7 +128,6 @@ This component is central to the application logic, as it governs data retrieval
 // sets the playlistID so that tracks can be added
 // sets the playlistURL so user can be directed via button
 function createNewPlaylist() {
-    // console.log(props.playlists);
     const userID = localStorage.getItem("user_id");
     const NEW_PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/users/${userID}/playlists`;
 
