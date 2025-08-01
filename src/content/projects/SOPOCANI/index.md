@@ -1,5 +1,5 @@
 ---
-title: 3D Reconstruction of Sopoćani Monastery
+title: Sopoćani 3D Reconstruction
 slug: SOPOCANI
 startDate: 2022-01-07
 endDate: 2022-12-20
@@ -42,7 +42,7 @@ This project explores how digital reconstruction can serve both historical schol
 
 ## Method
 
-### Image Preparation and Texture Reconstruction
+### Image Preparation & Textures
 
 High-resolution images of the church in its modern state were used as a foundation for the texturing process. In Adobe Photoshop, perspective distortion was corrected using the `Perspective Warp` tool, and detailed selection masks were created for individual portrait figures. Layer masks and compositing techniques were employed to replace deteriorated facial features and clothing with photorealistic mosaic textures, prioritizing seamless continuity between adjacent portraits in their original 3D layout.
 

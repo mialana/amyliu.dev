@@ -59,13 +59,13 @@ As neural rendering techniques such as NeRF become increasingly influential in c
 
 ## Method
 
-### Part 1: OpenUSD Scene Traversal and Data Extraction
+### Part 1: USD Scene Traversal
 
 ![gif](assets/data_collection.gif)
 
 The Qt-based application is designed around two primary components: a **Stage Manager** and a **Render Engine**, both coordinated through a shared `OpenGLContext` (`QOpenGLWidget`). This architecture enables modular rendering and data collection from OpenUSD scenes.
 
-#### Stage Manager (`src/base/stagemanager.cpp`)
+#### Stage Manager
 
 The Stage Manager handles all interactions with the OpenUSD scene. It owns the USD Stage object, controls both fixed and free camera behavior, and generates the necessary metadata for NeRF training. Key responsibilities include:
 
@@ -98,7 +98,7 @@ Internally, the Stage Manager stores:
 
 ![gif](assets/free_camera_demo.gif)
 
-#### Render Engine (`src/base/renderengine.cpp`)
+#### Render Engine
 
 The Render Engine integrates with Hydra to provide OpenGL-based rendering of the current scene state. It directly queries framebuffers and AOVs to retrieve rendered color data and facilitates continuous rendering for multi-view frame capture. Core responsibilities include:
 
@@ -144,7 +144,7 @@ void RenderEngine::record(StageManager* manager)
 
 Together, these components create a tightly coupled yet extensible rendering loop that supports user-driven data collection for downstream neural rendering. The entire system is built with modular C++ and configured through CMake, enabling cross-platform compilation and integration into broader pipelines.
 
-### Part 2: Neural Rendering Pipeline (Python CLI and PyTorch)
+### Part 2: Neural Rendering Pipeline
 
 After extracting multi-view images and camera parameters using the Qt GUI, the second phase of the pipeline prepares the data and trains a Neural Radiance Field (NeRF) model implemented in PyTorch. The system is modular and interactive, with all functionality accessible through a structured command-line interface (CLI).
 

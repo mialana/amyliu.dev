@@ -48,7 +48,7 @@ Furthermore, programming directly in GLSL for the majority of this assignment of
 
 This project is structured around a modular GLSL path tracing pipeline. Core components include the main integrators in `glsl/pathtracer.frag.glsl/`, light sampling routines in `glsl/pathtracer.light.glsl/`, and BSDF evaluation and sampling in `glsl/pathtracer.bsdf.glsl/`. Scene data such as geometry, materials, and lights are loaded from JSON files at runtime.
 
-### Integration Methods (`pathtracer.frag.glsl`)
+### Integration Methods
 
 - **`Li_Naive`**: A basic path tracing integrator that recursively samples BSDFs to simulate indirect illumination. It does not compute direct lighting explicitly and ignores emitted light unless encountered through perfect specular reflection.
 
@@ -66,7 +66,7 @@ This project is structured around a modular GLSL path tracing pipeline. Core com
 
     ![img](./assets/full_results.png)
 
-### Light Sampling (`pathtracer.light.glsl`)
+### Light Sampling
 
 The `Sample_Li` function is used in direct and MIS integrators to query scene lights. It supports:
 
@@ -100,7 +100,7 @@ vec3 DirectSamplePointLight(int idx, vec3 view_point, int num_lights, out vec3 w
 
 PDF values are computed using `Pdf_Li` for both light- and BSDF-sampled directions, supporting MIS evaluation.
 
-### BSDF Evaluation (`pathtracer.bsdf.glsl`)
+### BSDF Evaluation
 
 BSDF sampling is used in all integrators to determine bounce directions. Material types supported include:
 
