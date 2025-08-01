@@ -11,14 +11,25 @@ import createSlug from "@/lib/createSlug";
 interface Props {
     project: CollectionEntry<"projects">;
     image: any;
+    "data-type"?: string;
+    "data-category"?: string;
 }
 
-const { project, image } = Astro.props;
+const {
+    project,
+    image,
+    "data-type": dataType,
+    "data-category": dataCategory,
+} = Astro.props;
 
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 ---
 
-<div class="flex w-full flex-col justify-end md:w-9/24 xl:w-1/4">
+<div
+    class="flex w-full flex-col justify-end md:w-9/24 xl:w-1/4"
+    data-type={dataType}
+    data-category={dataCategory}
+>
     <article class="relative p-8 shadow-lg hover:-translate-y-2">
         <div class="pb-4">
             <Image
@@ -46,7 +57,7 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
             <p class="text-sm text-pretty">{project.data.description}</p>
         </div>
         <a
-            href=`/projects/${finalizedSlug}`
+            href={`/projects/${finalizedSlug}`}
             class="absolute top-0 left-0 h-full w-full"></a>
     </article>
 </div>
