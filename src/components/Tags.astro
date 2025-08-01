@@ -1,0 +1,26 @@
+---
+import "@/styles/global.css";
+
+interface Props {
+    content: string[];
+    label: string;
+}
+
+const { content, label } = Astro.props;
+---
+
+<div
+    class="my-1 flex w-full !snap-x !snap-mandatory items-baseline gap-2 overflow-x-scroll pb-2 text-xs capitalize"
+>
+    <div class="!snap-start text-[0.4rem]/none text-neutral-600 uppercase">
+        {label}
+    </div>
+    {
+        content.map((tag) => (
+            <div class="size-fit !snap-start rounded-sm text-nowrap">
+                {label == "tags" && <span>#</span>}
+                {tag.replaceAll("_", " ")}
+            </div>
+        ))
+    }
+</div>

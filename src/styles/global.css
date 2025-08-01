@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
+@theme {
+    --font-signature: "Fredericka the Great", serif;
+    --font-body: "Roboto Condensed", sans-serif;
+    /* --font-body: "Roboto Slab", sans-serif; */
+    --font-code: "IBM Plex Mono";
+
+    --color-wanderer-100: #d9ded1;
+    --color-wanderer-200: #a2b7a8;
+    --color-wanderer-300: #506e66;
+    --color-wanderer-shadow: #373e3b;
+    --color-wanderer-highlight: #f2eadd;
+    --color-wanderer-accent: #fcd1a0;
+    --color-wanderer-black: #171a19;
+    --color-wanderer-secondary: #cc6c4d;
+
+    --drop-shadow-button: 0 4px 4px #171a19;
+    --drop-shadow-nav: 0 12px 12px #171a19;
+}
+
+@font-face {
+    font-family: "BestermindRegular";
+    src: url("/font/BestermindRegular.ttf");
+}
+
+/* Set global default styles */
+@layer base {
+    html {
+        @apply font-body;
+        @apply text-neutral-900;
+        @apply **:scroll-smooth;
+        hyphens: auto;
+    }
+}
+
+@utility debug {
+    & {
+        border-color: black;
+        @apply outline;
+        @apply bg-red-200/25;
+    }
+}
+
+@utility transition-default-* {
+    & {
+        @apply transition-all ease-linear;
+        transition-duration: calc(--value(integer) * 1ms);
+    }
+}
+
+@utility prose {
+    @apply prose-neutral;
+    :not(pre) > code {
+        font-size: 0.75em;
+        padding: 0.125em;
+        border: 1px solid;
+        border-radius: 0.25rem;
+        border-color: var(--color-neutral-300);
+        background: var(--color-neutral-100);
+        &::before,
+        &::after {
+            content: none !important;
+        }
+    }
+}

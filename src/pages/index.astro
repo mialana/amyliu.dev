@@ -1,0 +1,43 @@
+---
+import "@/styles/global.css";
+
+import { Image } from "astro:assets";
+
+import Headshot from "src/assets/png/headshot-2025.png";
+
+import MainLayout from "@/layouts/MainLayout.astro";
+import SectionLayout from "@/layouts/SectionLayout.astro";
+
+import Toast from "../components/Toast.tsx";
+---
+
+<MainLayout title="Home" layout="DEFAULT">
+    <SectionLayout>
+        <div
+            class="m-4 flex grow flex-col items-center justify-center gap-8 px-8 py-8 shadow-lg md:m-8 md:gap-12 md:py-16 lg:flex-row"
+        >
+            <div class="md:h-auto">
+                <Image src={Headshot} alt="Headshot" width={300} height={300} />
+            </div>
+            <div class="prose">
+                <h1 class="!my-0">Amy Liu</h1>
+                <h3 class="!mt-0 !mb-4">Computer Graphics Student Developer</h3>
+                <p>
+                    Hi, I'm Amy, welcome to my personal portfolio. I'm currently
+                    an undergrad at the University of Pennsylvania pursuing a
+                    BSE in Digital Media Design (Computer Graphics) and an MSE
+                    in Computer Graphics and Game Technology.
+                </p>
+
+                <p>
+                    <em>
+                        "The student keeps her eyes on the sky but her feet
+                        steady on the ground. She builds a staircase of books,
+                        all the way to the stars."
+                    </em>
+                </p>
+            </div>
+        </div>
+    </SectionLayout>
+    <Toast client:load />
+</MainLayout>

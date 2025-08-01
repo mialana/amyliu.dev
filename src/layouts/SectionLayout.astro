@@ -1,0 +1,9 @@
+---
+import "@/styles/global.css";
+
+const { section_id } = Astro.props;
+---
+
+<section id={section_id} class="flex p-2 md:size-full">
+    <slot />
+</section>

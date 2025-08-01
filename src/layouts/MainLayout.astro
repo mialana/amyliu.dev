@@ -1,0 +1,58 @@
+---
+import "@/styles/global.css";
+import Header from "@/components/Header.astro";
+import SideBar from "@/components/SideBar";
+import Footer from "@/components/Footer.astro";
+
+import parseLayout from "@/lib/parseLayout";
+
+export const LayoutMap = {
+    DEFAULT: "grid-cols-[auto_minmax(0,1fr)_auto]",
+    HIDE_NAV: "grid-cols-[0px_minmax(0,1fr)_auto]",
+    HIDE_ASIDE: "grid-cols-[auto_minmax(0,1fr)_0px]",
+    HIDE_BOTH: "grid-cols-[0px_minmax(0,1fr)_0px]",
+};
+
+interface Props {
+    title: string;
+    layout?: keyof typeof LayoutMap;
+}
+
+const { title, layout = "DEFAULT" } = Astro.props;
+
+const grid_cols = LayoutMap[layout];
+
+const { navActive, asideActive } = parseLayout(grid_cols);
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title} · Amy Liu</title>
+    </head>
+    <body
+        class=`grid *:relative h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${grid_cols}`
+    >
+        <header class="col-span-3"><Header /></header>
+        <nav id="nav-grid-cell">
+            <SideBar category="NAV" active={navActive} client:load>
+                <slot name="nav-sidebar" />
+            </SideBar>
+        </nav>
+        <main class="overflow-x-hidden overflow-y-scroll">
+            <slot />
+        </main>
+        <aside id="aside-grid-cell">
+            <SideBar category="ASIDE" active={asideActive} client:load>
+                <slot name="aside-sidebar" />
+            </SideBar>
+        </aside>
+        <footer class="col-span-3"><Footer /></footer>
+    </body>
+</html>

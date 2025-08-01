@@ -1,0 +1,62 @@
+import "@/styles/global.css";
+import { useState, useLayoutEffect } from "react";
+import { hasSlotReact } from "@/lib/hasSlot";
+
+const PositionMap = {
+    NAV: { absolutePosition: "left-0", arrowShow: "◀", arrowHide: "▶" },
+    ASIDE: { absolutePosition: "right-0", arrowShow: "▶", arrowHide: "◀" },
+};
+
+interface SideBarProps {
+    category?: keyof typeof PositionMap;
+    active?: boolean;
+    children?: any;
+}
+
+export default function SideBar({
+    category = "NAV",
+    active = false,
+    children,
+}: SideBarProps) {
+    const [open, setOpen] = useState(false);
+    const positionInfo = PositionMap[category];
+
+    useLayoutEffect(() => {
+        if (!active || !hasSlotReact(children)) {
+            const cellId = `${category.toLowerCase()}-grid-cell`;
+            const gridCell = document.getElementById(cellId);
+
+            gridCell?.classList.toggle("collapse");
+            console.log(`${category} collapsed`);
+            return;
+        } else {
+            // can only be open on load if not mobile
+            setOpen(active && window.screen.width > 768);
+
+            if (active) {
+                const button = document.getElementById(`${category}-button`);
+                button?.classList.remove("invisible");
+            }
+        }
+    }, []);
+
+    return (
+        <div
+            className={`${open ? "absolute z-20 w-screen md:w-auto" : "w-0"} bg-white ${positionInfo["absolutePosition"]} transition-default-10 h-full shadow-lg`}
+        >
+            {/* sidebar button */}
+            <button
+                id={`${category}-button`}
+                className={`invisible absolute z-0 h-4 w-4 cursor-pointer p-1 text-[8px] text-neutral-500 ${positionInfo["absolutePosition"]}`}
+                onClick={() => setOpen(!open)}
+            >
+                {open ? positionInfo["arrowShow"] : positionInfo["arrowHide"]}
+            </button>
+            {open && (
+                <div className="m-4 overflow-x-scroll md:max-w-[20vw]">
+                    {children}
+                </div>
+            )}
+        </div>
+    );
+}
