@@ -30,34 +30,35 @@ externalLinks:
 
 ## Summary
 
-In a collaboration with 13 other students in the Computer Graphics department at Penn, we created **PAPAYA** -- a web-deployed asset browser showcasing a database of our own past 3D-modeling work (as CG majors, we have a LOT of these).
+**PAPAYA** is a web-based asset browser designed to facilitate collaborative management and previewing of OpenUSD 3D assets. Developed by a team of 14 students in the Computer Graphics department at the University of Pennsylvania, the platform integrates a custom OpenUSD asset structure with a Django backend, MySQL database, and Amazon S3 cloud storage.
 
-Our browser is:
+The browser supports:
 
-1. Built on a custom [OpenUSD](https://openusd.org/release/index.html) asset structure
-2. Targets artists, programmers, and other members of the 3D graphics industry
-3. Features:
-    1. Version control (commit history, check-in/check-out)
-    2. Tag-based search
-    3. Interaction via live-previewing on the web + automatic import into a [Houdini](https://www.sidefx.com/) workspace.
+- Version-controlled asset management with check-in/check-out functionality
+- Tag-based search and metadata querying
+- Web-based 3D asset preview via a Three.JS viewer, with support for direct integration into digital content creation (DCC) tools such as Houdini
 
-Throughout the process, I acted in a **technical lead position**, specializing in building our USD composition arcs workflow and implementing asset resolving + versioning.
+I contributed as a technical lead, focusing on asset versioning and resolution infrastructure. My work included designing the USD composition workflow, implementing resolver logic across the database and cloud storage, and contributing to the system's extensibility and developer documentation.
 
 ## Motivation
 
-Within practically every game development or animation studio pipeline, there is a need for 3D asset storage and browsing. The experience within such a database is core to the productivity and organization of the studio's artists and engineers alike. Seeing this prominent use case, our team of students at Penn set out to create a 3D asset browser that prioritizes 1. scaleability, 2. modularity, and 3. interdepartmental collaboration.
+Modern game and animation studios require scalable infrastructure to store, browse, and collaborate on 3D assets. These systems are essential not only for artists to access production-ready content, but also for technical teams to maintain consistency across complex pipelines.
+
+Recognizing this industry need, our team set out to develop a collaborative 3D asset browser that emphasizes:
+
+1. **Scalability** – supporting growing asset libraries and multi-versioned contributions
+2. **Modularity** – enabling flexible integration across DCC tools and web platforms
+3. **Interdisciplinary workflows** – streamlining collaboration between artists, technical directors, and developers
+
+By combining OpenUSD’s composition model with a modern web backend, PAPAYA serves as both a practical tool and a proof-of-concept for studio-grade asset management in an academic setting.
 
 ## Achievements
 
-My primary individual accomplishment was to:
+As technical lead, I focused on core infrastructure to support asset resolution, storage, and interactivity. My primary contributions included:
 
-- [1.](#versioned-asset-resolver) Implement a **versioned asset resolver** for our database and backend server.
-
-My other two most notable contributions were:
-
-- [2.](#custom-usd-structure) Helping to design a custom asset structure utilizing **USD composition arcs**
-
-- [3.](#threejs-web-viewer) Supporting a built-in frontend **Three.JS web viewer for USD**
+- Designing and implementing a **versioned asset resolver**, integrating metadata across MySQL and Amazon S3 to support multi-version workflows
+- Co-developing a **custom OpenUSD asset structure** that leveraged composition arcs for modular layering, material binding, and LOD management
+- Prototyping and validating a **Three.JS-based web viewer** for interactive preview of glTF-converted USD assets, which later informed the design of the final frontend
 
 ## Next Steps
 
@@ -69,7 +70,7 @@ My other two most notable contributions were:
 
 # Method
 
-A unique goal of this project was to simulate the graphics pipeline within a small studio team. Our process followed the structure below:
+A unique goal of this project was to simulate the graphics pipeline within a small studio team. We organized work around sprint cycles, beginning with individual MVP proposals and culminating in a shared architecture that balanced backend reliability with frontend usability.
 
 ```mermaid
 
@@ -87,19 +88,15 @@ kanban
 
 ## Versioned Asset Resolver
 
-Asset Resolution in OpenUSD is a very worthy topic of discussion. I will take an excerpt from a website called USD Survival Guide to help explain the concept:
+Asset resolution in OpenUSD involves mapping logical asset paths to physical file locations—often across multiple layers, tools, or storage backends. For this project, we needed a resolver that could support:
 
-> You can kind of think of your asset resolver as a little black box that takes an input path, processes it and spits out a file path/URI that can be opened as a file/streamed data from.
->
-> <cite>[USD Survival Guide](https://lucascheller.github.io/VFX-UsdSurvivalGuide/pages/core/plugins/assetresolver.html)</cite>
+- Multi-versioned assets with commit history
+- Layer-based composition in USD
+- Compatibility with MySQL, Amazon S3, and Django-based APIs
 
-I personally define it as the internally used system of locating USD files in every context, be it runtime-related (e.g. loading up a scene that contains specific versions of an asset) or workflow-related (e.g. easily locating files in a studio's 10,000+ asset database).
+The primary bottleneck was the lack of integrated versioning between our database and cloud storage. While commit metadata existed per asset, it was not consistently tracked or accessible across systems.
 
-In the context of our 14-person project, this meant designing a resolver that would play nicely with everybody's individual features. A multi-faceted ask for sure, considering we had a check-in/check-out system, DCC integrations (Houdini), and on and on (14 CG students can make A LOT of features).
-
-To breakdown the task, I decided that _versioning_ was the primary bottleneck of our current asset resolving. We had ensured that everybody's individual 3D-models had commit history metadata, but this data was not yet handled in either MySQL or S3. By standardizing versioning + storage in both of these locations, then providing API endpoints via our Django backend, I could encapsulate and solve asset resolving needs within everybody's respective workflows.
-
-My trajectory was set. I would go through and refactor functionality in the following order:
+To address this, I refactored the backend in three coordinated layers:
 
 ```mermaid
 flowchart LR
@@ -111,7 +108,7 @@ D[Astro Frontend]
 
 ```
 
-Though the first three were heavily interlaced, so it looked more like this:
+Though ultimately, we realized that the systems were heavily interconnected, so it looked more like this:
 
 ```mermaid
 flowchart LR
@@ -128,22 +125,22 @@ flowchart LR
     one --> c1
 ```
 
-(Get it? Because clang... is clang? Haha)
+(Get it? Because clang... is clang?)
 
 ### MySQL "Sublayer" Structure
 
 ![img](./assets/mysql-visual.png)
 
-Within MySQL, the `Sublayer` table is essential to the asset resolver system. A `Sublayer` row shares conceptual similarities with a layer in USD, having a 1:1 correspondence with a `.usd` file but a _many-to-one_ correspondence with an `Asset`. It also contains columns for `s3_versionID` and `previousVersion_id`.
+In support of version-aware asset resolution, we introduced a `Sublayer` table to the MySQL schema. Each `Sublayer` corresponds to a physical `.usd` file and maintains a many-to-one relationship with an `Asset` entry. This design enables fine-grained tracking of individual USD layers within a composite asset.
 
-> [!NOTE]
-> At first glance, storing `previousVersion_id` seems slightly unintuitive. Shouldn't that be stored with either commits or assets? However, know that when an USD asset contains multiple layer files, there are many times when certain layers will increment, but others won't. Storing version info within `Sublayer` covers that scenario.
+Key columns include:
 
-To complete this refactor step, I took care to make my changes to the database replicable.
+- `s3_versionID`: references the corresponding object version in Amazon S3
+- `previousVersion_id`: links to the prior version of the same sublayer
 
-(I quickly learned my lesson after accidentally using an `UPDATE` command on our production DB, rather than the test. Thankfully, it was harmless, as update commands go)
+Initially, version tracking was considered at the asset or commit level. However, because USD assets may consist of multiple independently evolving sublayers, tracking version history at the sublayer level offered greater precision—particularly when only specific components (e.g., a LOD variant or material file) change between commits.
 
-I found that the easiest way to do this was via Django models and the [Django custom admin commands](https://docs.djangoproject.com/en/5.2/howto/custom-management-commands/) concept.
+To integrate this logic into the development pipeline, I extended our Django models and created reusable [Django custom admin commands](https://docs.djangoproject.com/en/5.2/howto/custom-management-commands/) for database maintenance. These tools allowed contributors to standardize version syntax, patch historical inconsistencies, and maintain reproducibility across environments.
 
 ```python title="library/management/command/commits.py"
 class Command(BaseCommand):
@@ -157,27 +154,20 @@ class Command(BaseCommand):
 	...
 ```
 
-<cite>[Backend Repo](https://github.com/CIS-7000-sp25/backend/blob/main/library/management/commands/commits.py)</cite>
-
 ### Refactoring Amazon S3 and Code Collabs
 
-S3 has built-in [versioning of objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html). Furthermore, an S3 bucket seems to naturally emulate a local file folder structure. Thus, the idea was to take our class assets, pre-organized to fit our custom USD structure (detailed [here](#custom-usd-structure)), and import them into the bucket as-is, while simultaneously extracting the updated `versionId` property to store within MySQL.
+To complement the versioning system in MySQL, we leveraged Amazon S3’s native object versioning to manage file-level history for all USD sublayers. The structure of our S3 bucket mirrored the organization of our USD assets, preserving their directory layout and enabling direct mapping between local files and cloud objects.
+
+As assets were uploaded to S3, their corresponding `versionId` values were extracted and stored in the MySQL `Sublayer` table. This allowed the backend to reference a specific state of any file, ensuring consistency between database metadata and actual stored content.
 
 ```bash
-Dev ~ % aws s3 ls s3://cis-7000-usd-assets/ --recursive --summarize | grep "Total"
-
-                           Assets/
-                           Assemblies/
-                           DCC/
-                           ...
+$ aws s3 ls s3://cis-7000-usd-assets/ --recursive | grep "Total"
 
 Total Objects: 817
    Total Size: 273902365
 ```
 
-For this process, the most enjoyable task was collaborating with some of my peers, who had done an amazing job of building the workflow between Django (aka the backend of our browser) and S3. I learned a lot from reading their committed code and asking them about their design decisions. For example, before, when I interacted with most APIs, I would simply jump right into writing my own functions. This would often cause bloated code upfront, writing repeated simple "GET" and "PUT" functionality until I got around to creating helper classes & functions.
-
-On the other hand, my peers demonstrated how they chose to first write a wrapper around the S3 client:
+In building this pipeline, I collaborated closely with teammates who developed the S3 interface layer. Their implementation of a centralized `S3Manager` class provided a clean abstraction over AWS SDK calls and significantly improved maintainability:
 
 ```mermaid
 flowchart TD
@@ -185,53 +175,59 @@ flowchart TD
 
     A --> B["generate_presigned_url()"]
     A --> C["update_file()"]
-    A --> D["upload_fileobj()"]
     A --> E["delete_file()"]
     A --> F["list_s3_files()"]
     A --> G["download_s3_file()"]
-    A --> H["get_s3_versionID()"]
-    A --> I["delete_object()"]
-    A --> J["thumbnail_key_to_url()"]
 ```
 
-The `S3Manager` class was simple logic-wise, yet I could see how beneficial it was for the organization of our backend. I took care to make note of this and other coding tricks + niche design choices that were evident within this project. And overall, I took full advantage of the opportunity to collaborate with so many of the brilliant, knowledgable minds within my university department.
+This wrapper pattern reinforced the importance of modular backend design. It also allowed me to streamline resolver logic and maintain a consistent interface between asset metadata and its physical representation in storage.
+
+Through this collaborative backend effort, we achieved version parity across MySQL and S3 while improving clarity and extensibility in the codebase.
 
 ### Checkin/Checkout Views for Django Backend
 
-As part of our versioning pipeline, I implemented several Django API endpoints to handle asset upload, access, and check-in/check-out functionality. These views emphasized modularity, reusability via serializers, and usability by other developers through auto-generated Swagger documentation.
+To support collaborative editing and version control, I implemented a check-in/check-out system on top of our Django backend. This system enforces edit locks at the asset level, ensuring safe concurrent use across team members while maintaining traceable asset histories.
 
-**Core Functionality**:
+#### Access Control Logic
 
-Our check-in/check-out logic enforces a **“single artist at a time” policy**:
+The workflow enforces a **single-user ownership model** during check-out:
 
-- When an asset is checked out, a `checked_out_by` field in the MySQL database is updated to indicate the current owner.
-- Other users are still able to **download** the asset, but attempts to check it out will be blocked if the flag is set.
-- This guarantees collaboration safety while maintaining accessibility for review and integration.
+- When a user checks out an asset, the `checked_out_by` field in the database is updated with their identifier
+- While other users can still download the asset, further check-out attempts are blocked until it is checked back in
+- This policy safeguards against overwriting and promotes structured review and integration
 
-**Backend Architecture**:
+#### Endpoint Development
 
-I created or contributed to the following key endpoints:
+I developed and maintained key API endpoints to support this workflow:
 
 - `post_asset()` and `put_asset()` in `library/views_upload.py`
-    - `post_asset()` handles new asset uploads and initializes their metadata.
-    - `put_asset()` supports updates to existing assets and enforces check-in behavior.
+
+    - `post_asset()` initializes asset metadata and uploads new files
+    - `put_asset()` validates check-in logic and updates existing entries
+
 - `download_asset_by_commit()` and `download_asset_by_tag()` in `library/views_download.py`
-    - These endpoints support version-specific asset retrieval, giving users control over which historical state they wish to fetch.
+    - Enables precise retrieval of asset versions based on metadata selectors
 
-All views use corresponding serializers defined in `library/serializers.py`, which:
+Each view is structured around a corresponding serializer in `library/serializers.py`, ensuring:
 
-- Cleanly enforce validation of incoming request data
-- Simplify model transformations
-- Make each endpoint modular and testable
+- Input validation and error handling
+- Clean model transformations
+- Reusability and testability of endpoint logic
 
-**Developer-Facing Documentation:**
+#### Developer-Facing Documentation
 
-To support the large team collaborating on this project, I also integrated **Swagger/OpenAPI** support. This exposed:
+To ensure smooth adoption by a large, multidisciplinary team, I integrated **Swagger/OpenAPI** documentation into the backend:
 
-- `/docs` – A reference page showing the full list of endpoints, accepted fields, return schemas, and status codes.
-- `/playground` – An interactive API tester, allowing other developers to upload and query assets directly from their browser.
+- `/docs` – Auto-generated reference of all endpoints, expected schemas, and return types
+- `/playground` – Interactive API testing interface directly in the browser
+  ![png](assets/swagger.png)
 
-This proved useful for other team members building on top of the API. For example, those working on DCC integration needed to be able to put assets into our database / S3 using a Houdini shelf tool, so they could reference `/docs` for the `PUT` schema of the `put_asset()` view within our . On the other hand, our frontend team created outward-facing UI, thus making use of the `/playground` feature to easily test out the return type of the `download_asset_by_tag()` endpoint, etc.
+This was particularly useful for downstream developers:
+
+- Those building DCC integrations could refer to `/docs` to match their shelf tools to PUT schemas
+- The frontend team leveraged `/playground` to test response formats and preview integration behavior
+
+By combining clear access logic with modular API design and strong developer support, the check-in/check-out system became a reliable component for team-wide collaboration.
 
 ## Custom USD Structure
 
@@ -239,11 +235,9 @@ To support a collaborative, multi-contributor pipeline, we developed a custom US
 
 The structure was tailored to our own needs but also took **inspiration from established practices** — in particular, NVIDIA’s [_da Vinci’s Workshop_ dataset](https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/davinci_workshop.html), which also uses a `contrib/` pattern to separate layers by functionality. That reference helped reinforce our decision to adopt a flexible but standardized way of handling composition.
 
----
+### Directory Layout
 
-**Directory Layout:**
-
-Under our design, we decided that each asset should reside under the `Assets/` directory in the following hierarchy:
+Assets were organized under a top-level `Assets/` directory, with each asset containing a root `.usda` file and a `contrib/` subfolder for structured layers:
 
 ```bash
 Assets/
@@ -278,18 +272,19 @@ Assets/
 
 Each asset’s root `.usda` file served as a **single authoritative entry point** that composited together all modular contributions. From this root, references unfolded **layer by layer** — starting with top-level geometry and material references, then expanding into deeper sublayers like LOD variants or per-material texture maps. This hierarchical unfolding made each asset **introspectable at a glance**, while still allowing contributors to work at fine-grained levels without touching the root.
 
----
+### Composition Arcs
 
-**Composition Arcs:**
-
-To adopt best practices and standards, we integrated several core USD composition arcs. Briefly:
+We used core USD composition arcs to define asset behavior. Briefly:
 
 - **`reference` arcs** connected the root layer to subsequent layers
 - **`variantset` arcs** were applied within each `contrib`, such as LOD switching within the geometry `contrib`.
 - **`payload` arcs** greatly optimized performance. For example `LOD0`, which often exceeded 80mb size, was on default hidden by a payload.
 - **`class` and `inherits`:** each material that an asset needed was assigned its own `class` within a `MaterialClasses` **Scope** that could be accessed throughout the entire stage. This effectively allowed the usage of a simple `inherits` keyword to bind a geometry prim to a desired material.
 
+For example, we defined a `MaterialClasses` scope containing `class_` prims, allowing assets to bind materials via inheritance:
+
 ```usda
+// Assets/campfire/contrib/material/material.usda
 def Scope "MaterialClasses"
 	{
 		over "class_Default"
@@ -307,11 +302,11 @@ def Scope "MaterialClasses"
 	}
 ```
 
----
+This promoted reuse and ensured materials could be consistently referenced across assets without duplication.
 
-**Assemblies, DCCs, and Overall Extensibility**:
+### Assemblies, DCCs, and Overall Extensibility
 
-At the top level, there is also the `Assemblies/` and `DCCs` directory. This is what would allow for larger scene compositions to be included, if desired (no dedicated task for assemblies was initiated during this sprint).
+The root directory also included:
 
 ```bash
 └── Assemblies/
@@ -319,13 +314,11 @@ At the top level, there is also the `Assemblies/` and `DCCs` directory. This is 
 └── DCCs/
 ```
 
-We were proud of the design choice in making these topmost folders in themselves another "layer". Another layer represents another layer of flexibility and abstraction -- essentially, what's to say that `Assemblies/` and `DCCs` couldn't follow a completely different rulebook, entirely?
+While `Assets/` housed atomic models, `Assemblies/` was reserved for larger scene compositions, and `DCCs/` for integration scripts or source workspace files. These directories were treated as additional layers, giving contributors the freedom to adopt different rulesets where needed.
 
----
+### Documentation and Supporting Project-wide Workflows
 
-** Documentation and Supporting Project-wide Workflows:**
-
-To assist all project contributors in adopting this structure, I decided to create a collection of resources to explain the thought process and use-cases behind our custom USD structure. Most notably:
+To assist all project contributors in adopting this structure, I developed a suite of supporting materials:
 
 - A [demo video](https://www.youtube.com/watch?v=hNuHniOKjt4) in USDView walking through an example asset, demonstrating how to switch through different geometry variants, and view the inherited material binding for a given geometry prim.
 - A visual [workflow presentation](https://drive.google.com/file/d/1ZxiKbZk2xu4kw1len1eW1ywzZlvCVUjK/view) outlining what is possible with this structure. Namely, walks through a "check-in/check-out" workflow, and details the thought process of a potential **geometry artist** as well as a **material artist**.
@@ -334,35 +327,36 @@ To assist all project contributors in adopting this structure, I decided to crea
 
 - A [GitHub reference repo](https://github.com/) containing dummy assets, layer templates, example Python scripting routes, and an extensive README tailored towards my fellow contributors.
 
-If I'm being honest, documentation has never been the easiest part of my workflow. But it felt meaningful here — knowing that anyone on the team could navigate the structure and understand not just how things worked, but why.
-
-Overall, this custom USD structure acted as the structural foundation of our asset browser, PAPAYA. We are happy with how it balances flexibility for artistic creativity ]with conceptual best practices using OpenUSD composition arcs and archetypal datasets.
-
 ## Three.JS Web Viewer
 
-Early on during the MVP stage of the project, I explored the idea of creating an in-browser rendered view of our assets by building a working prototype of a **Three.JS** and **USD-to-glTF conversion pipeline**.
+To enable real-time asset inspection directly in the browser, I developed an initial prototype of a **Three.JS-based viewer** for glTF-converted USD files. This early MVP laid the groundwork for the final frontend integration and validated the feasibility of web-based asset previewing within our pipeline.
 
-This became a foundational concept for the deployed frontend: enabling users to preview our browser's assets quickly and with high-quality, right on the web.
+### MVP Development
 
----
+During the initial sprint, I implemented a proof-of-concept viewer using Three.JS’s `GLTFLoader`. This viewer supported:
 
-**From Concept to MVP:**
+- Basic lighting and shading
+- Interactive camera orbit controls
+- Visualization of geometry and materials converted from USD
 
-At the MVP stage, we were still deciding what our final tech stack and browser deliverables would be. In addition to helping with these tasks, I personally wanted to test whether it was possible to view asset geometry and material appearance quickly and interactively using client-side rendering alone.
+The pipeline converted USD files to `.gltf` format using Blender scripts, allowing compatibility with Three.JS rendering. This decision was made after evaluating other options such as USDZ and `three-usdz-loader`, which showed inconsistent material and geometry handling.
 
-I wrote a lightweight viewer, `gltf_viewer.js`, structured around Three.JS’s `GLTFLoader`. It enabled basic orbiting, lighting, and material visualization from uploaded `.gltf` files — which were converted from our USD assets through an intermediary [Blender](https://www.blender.org/) script.
+At the time, our MVP used both a Django-based backend and frontend. So to support the viewer feature, I also experimented with:
 
-Here’s what the viewer looked like in the MVP:
+- **Webpack-based bundling** for static assets
+- Integration of JavaScript modules into Django templates
+- Static file routing and serving for frontend deployment
 
-[Video](https://youtu.be/-hFOKmnZ9MQ)
+The MVP was functional and helped define the asset preview feature’s technical constraints and opportunities.
 
-To get this MVP running, throughout a one-week period I worked through the following tasks:
+![gif](assets/Demo_Usd_Viewer_with_Animations.gif)
 
-1. Research state-of-the-art on USD web interfaces, as it is still very early in development.
-    - Although there is one proprietary [USDZLoader for Three.JS](https://github.com/ponahoum/three-usdz-loader) package available, I noticed that there were often material-loading issues and missing geometry. I made a decision to opt for GLTF-conversion.
-2. Experiment with **[Webpack-based](https://webpack.js.org/) static file bundling**, creating a local bundle system for building frontend scripts (e.g. `gltf_viewer.js`) and collecting Three.JS dependencies.
-3. Learn how to properly serve and load static files properly in a Django project.
+In the final AstroJS-based frontend, a more robust Three.JS viewer was integrated by the frontend team. It includes additional features such as:
 
----
+- Environmental lighting
+- Multiple shading models (e.g., PBR, Toon)
+- Responsive UI controls
 
-Thanks to other amazing teammates, in the final Astro-based frontend, the integrated Three.JS + glTF viewer offers much more brilliant features than my rough baseline, such as environmental lighting and shading options (PBR, Toon, etc) -- navigate [here](https://asset-browser-zeta.vercel.app/asset/jelloShelf) and press "Preview model in browser" to test it out yourself. I'm glad that the MVP helped verify that the concept was feasible early in the process, and hope to continue taking such chances to self-explore and understand new concepts and tech libraries.
+Example: [Live asset preview – Jello Shelf](https://asset-browser-zeta.vercel.app/asset/jelloShelf)
+
+Navigate to the link above and press "Preview model in browser" to test out the feature in production.
