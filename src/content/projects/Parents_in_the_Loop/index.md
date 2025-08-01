@@ -64,7 +64,7 @@ The backend is implemented in Django and exposes a REST API for document upload 
 The platform uses the [`mcp-agent`](https://github.com/modelcontextprotocol/mcp-agent) framework to mount a local document context and run structured prompts via OpenAI. The document directory is served using a filesystem-based MCP server:
 
 ```python
-# backend/hack4impact/api/agent.py/
+# backend/hack4impact/api/agent.py
 settings = Settings(
     execution_engine="asyncio",
     logger=LoggerSettings(type="file", level="info"),
@@ -86,7 +86,7 @@ settings = Settings(
 A `finder_agent` is instantiated with access to the local server and a custom instruction prompt, defined in `prompt.py`. The OpenAI model is attached using:
 
 ```python
-# backend/hack4impact/api/agent.py/
+# backend/hack4impact/api/agent.py
 llm = await finder_agent.attach_llm(OpenAIAugmentedLLM)
 ```
 

@@ -56,7 +56,7 @@ The extension’s service layer is structured around two FastAPI routers—`view
 In `services/viewport_capture.py`, the `/viewport-capture/simple-capture` route is implemented as a synchronous RGB frame request. It uses utilities from `ext_utils.py` to define file storage paths and offloads the actual image capture to Kit’s legacy viewport API. The rendered image is saved to disk and returned via a relative URL, which the ComfyUI node then fetches.
 
 ```python
-# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/services/viewport_capture.py/
+# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/services/viewport_capture.py
 
 # Using the `@router` annotation, we'll tag our `capture` function handler to document the responses and path of the
 # API, once again using the OpenAPI specification format.
@@ -74,7 +74,7 @@ async def simple_capture(response: Response) -> ViewportCaptureResponseModel:
 The `/viewport-record` endpoint in `services/viewport_record.py` serves as a thin wrapper that forwards validated capture requests to the `run()` function defined in `use_replicator.py`. In `viewport_models.py`, the request and response formats, `ViewportRecordRequestModel` and `ViewportRecordResponseModel`, are strongly typed and inherit from `pydantic.BaseModel` class, which define user-configurable fields such as number of frames and renderer types (realtime or path-traced).
 
 ```python
-# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/models/viewport_models.py/
+# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/models/viewport_models.py
 
 class ViewportRecordRequestModel(BaseModel):
     """Model describing the request to record a viewport."""
@@ -103,7 +103,7 @@ During each frame step, the viewport is captured using `omni.kit.viewport.utilit
 For semantic data, `_add_auto_semantics()` generates class labels for USD prims and applies them using `add_prim_semantics()` from the `semantics.schema.editor` module. This ensures the stage includes class-based annotation before AOV collection begins.
 
 ```python
-# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/use_replicator.py/
+# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/use_replicator.py
 async def _add_auto_semantics():
     _output_str = ""
 
@@ -154,7 +154,7 @@ The integration includes two custom ComfyUI nodes: `OmniViewportFrameNode` and `
 In addition to capture, `omni_nodes.py` includes post-processing utilities for interpreting AOV data. Functions such as `_colorize_normals`, `_colorize_depth`, and `_colorize_standard` handle normalization and tensor conversion of non-RGB outputs. Depth data is remapped using a log-scale transform to enhance perceptual contrast, while normals are adjusted from `[-1, 1]` to `[0, 1]` and rescaled. These processed tensors are structured to match ComfyUI’s `"IMAGE"` format, enabling seamless input into any image-based diffusion model.
 
 ```python
-# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/omni_nodes.py/
+# exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/omni_nodes.py
 def _colorize_normals(data: list):
     start = round(perf_counter(), 2)
 

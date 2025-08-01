@@ -76,7 +76,7 @@ Several operations are implemented with user-triggered GUI actions through the Q
 - **Face Color Editing**: A color selection slider allows the user to assign a new RGB value to the selected face. The chosen color is stored in the face object and used in the fragment shader for display.
 
 ```cpp
-// miniMaya/src/display.cpp/
+// miniMaya/src/display.cpp
 void FaceDisplay::create() {
     std::vector<GLuint> indices;       // Index buffer for drawing edges of the face
     std::vector<glm::vec4> positions;  // Vertex positions of the face corners
@@ -145,7 +145,7 @@ Joints are parsed from the imported file and represented as a tree structure. Ea
 For example:
 
 ```json
-// jsons/two_joints.json/
+// jsons/two_joints.json
 {
     "root": {
         "name": "Joint_1",
@@ -178,7 +178,7 @@ Once the skeleton is loaded, users can bind the mesh to the skeleton. Each verte
 The **bind matrix** of each joint captures the inverse of its global transform at the time of binding. These matrices are used during deformation to ensure consistent transformation from object to joint space and back.
 
 ```cpp
-// miniMaya/src/scene/vertex.h/
+// miniMaya/src/scene/vertex.h
 class Vertex : public QListWidgetItem
 {
 public:
@@ -199,7 +199,7 @@ public:
 During rendering, each vertex position is transformed using linear blend skinning:
 
 ```glsl
-// miniMaya/glsl/skeleton.glsl/
+// miniMaya/glsl/skeleton.glsl
 uniform mat4 u_ViewProj;    // The matrix that defines the camera's transformation.
 in vec4 vs_Pos;             // The array of vertex positions passed to the shader
 
@@ -254,7 +254,7 @@ The exporter gathers mesh data from the internal half-edge structure, including:
 These are written to a `UsdGeomMesh` like so:
 
 ```cpp
-// miniMaya/src/mygl.cpp/
+// miniMaya/src/mygl.cpp
 void MyGL::slot_exportToUSD()
 {
     pxr::UsdStageRefPtr stage = pxr::UsdStage::CreateNew(usda_file.toStdString());

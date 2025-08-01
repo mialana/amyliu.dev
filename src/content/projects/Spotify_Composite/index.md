@@ -55,7 +55,7 @@ The application is divided into four primary React components: `LoginPage`, `Mai
 - Generates a code verifier and challenge using `sha256` and `base64url`.
 
 ```js
-// src/components/LoginPage.js/
+// src/components/LoginPage.js
 // function that creates the required code challenge for User Authorization Request API call
 async function createCodeChallenge() {
     localStorage.setItem("code_verifier", generateRandomString(128));
@@ -72,9 +72,8 @@ async function createCodeChallenge() {
 - Stores temporary credentials in `localStorage` for token exchange on redirect.
 
 ```js
-// src/components/LoginPage.js/
+// src/components/LoginPage.js
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
-const CLIENT_ID = "2576cea43cb54b30809d0dd85c936e6f";
 const RESPONSE_TYPE = "code";
 const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/main";
 const SCOPES =
@@ -97,7 +96,7 @@ This two-stage flow ensures compliance with Spotify’s secure token management 
 - Sends a GET request to the Spotify `/me` and `/me/playlists` endpoints to populate the UI with the user's profile and playlists.
 
 ```js
-// src/components/PlaylistMenu.js/
+// src/components/PlaylistMenu.js
 const [playlistsEndpoint, setPlaylistsEndpoint] = useState(
     "https://api.spotify.com/v1/me/playlists",
 );
@@ -123,7 +122,7 @@ This component is central to the application logic, as it governs data retrieval
 - Creates a new playlist using a POST request to `/users/{user_id}/playlists`.
 
 ```js
-// src/components/Compositify.js/
+// src/components/Compositify.js
 // called by compositifyCalled()
 // axios post request to create a new playlist
 // sets the playlistID so that tracks can be added
@@ -149,7 +148,7 @@ function createNewPlaylist() {
 - Sends a series of batched POST requests to `/playlists/{playlist_id}/tracks` to populate it with the selected tracks.
 
 ```js
-// src/components/Compositify.js/
+// src/components/Compositify.js
 const ADD_TO_PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/playlists/${playlistID}/tracks`;
 
 const postBody = { position: 0, uris: modifiedArray };

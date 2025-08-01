@@ -74,7 +74,7 @@ The Stage Manager handles all interactions with the OpenUSD scene. It owns the U
 - **Exporting data** using `exportDataJson()` to write camera intrinsics and extrinsics to structured JSON, alongside the rendered frames.
 
 ```cpp
-// src/base/stagemanager.cpp/
+// src/base/stagemanager.cpp
 void StageManager::exportDataJson() const
 {
 QJsonObject json;
@@ -153,7 +153,7 @@ After extracting multi-view images and camera parameters using the Qt GUI, the s
 Each input sample to the NeRF model consists of a 3D point **x** along a camera ray and the corresponding viewing direction **d**. Rays are sampled per image at a resolution of 100×100, with 64 samples per ray along the near-to-far depth range. For training, this amounts to 67,840,000 sample points per batch across 106 training images.
 
 ```python
-# src/nerf/nerf.py/
+# src/nerf/nerf.py
 def get_rays(
     height: int, width: int, focal_length: float, c2w: torch.Tensor
 ) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -219,7 +219,7 @@ The core model is a fully connected MLP, implemented in `nerf.py`. It consists o
 - **Separate heads** for predicting RGB color and volume density (σ), with the density head applied after the base network and the color head applied after a fused view direction branch.
 
 ```python
-# src/nerf/nerf.py/
+# src/nerf/nerf.py
 class MLP(nn.Module):
     r"""
     Multilayer Perceptron module.

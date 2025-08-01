@@ -49,7 +49,7 @@ The goal of this project was to explore core game engine components such as terr
 The world is partitioned into 16×256×16 chunks, each representing a segment of the 3D terrain. Chunks loaded in dynamically as the player moves through the world. This system reduces draw calls by culling off-screen chunks and batching vertex data. Vertex and index buffers for each chunk are stored and updated via OpenGL, using VBOs and VAOs to manage geometry efficiently.
 
 ```cpp
-// miniMinecraft/src/scene/chunk.cpp/
+// miniMinecraft/src/scene/chunk.cpp
 void Chunk::linkNeighbor(uPtr<Chunk>& neighbor, Direction dir)
 {
     if (neighbor != nullptr) {
@@ -66,7 +66,7 @@ Block data is stored in a 3D array for each chunk. When blocks are added or remo
 The main simulation runs on a fixed timestep via a tick-based loop that decouples logic updates from rendering. This allows consistent simulation behavior regardless of framerate. The `MyGL::tick()` function handles player input, physics, and AI logic updates. Each tick processes gravity, collision detection, jumping, and velocity integration for the player and NPCs.
 
 ```cpp
-// miniMinecraft/src/mygl.cpp/
+// miniMinecraft/src/mygl.cpp
 void MyGL::tick()
 {
     glm::vec3 prevPlayerPos = m_player.m_position;
@@ -82,7 +82,7 @@ void MyGL::tick()
 ```
 
 ```cpp
-// miniMinecraft/src/scene/player.cpp/
+// miniMinecraft/src/scene/player.cpp
 void Player::tick(float dT, Terrain& terrain)
 {
     Entity::isOnGround(terrain);
@@ -141,7 +141,7 @@ Hostile mobs exhibit pursuit behavior. When the player enters a predefined detec
 Both pig and zombie agents update once per engine tick. Their movement routines are integrated into the same fixed-time simulation loop handling physics and player updates. Collision detection with the environment ensures correct positioning and prevents agents from falling through terrain or entering solid blocks. This minimalist AI design avoids complexity while providing lifelike, responsive NPC behavior.
 
 ```cpp
-// miniMinecraft/src/scene/mob.cpp/
+// miniMinecraft/src/scene/mob.cpp
 void Mob::tick(float dT, Terrain& terrain)
 {
     if (!this->needsRespawn) {
@@ -181,7 +181,7 @@ Animation states are driven by user input and player movement speed. Keyframe-ba
 The player is represented using a node-based scene graph. The cube-based player body is traversed at runtime and sent to OpenGL for rendering if the current camera view is second or third-person.
 
 ```cpp
-// miniMinecraft/src/scene/player.h/
+// miniMinecraft/src/scene/player.h
 class Player : public Entity
 {
 private:

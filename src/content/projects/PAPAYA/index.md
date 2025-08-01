@@ -142,7 +142,8 @@ Initially, version tracking was considered at the asset or commit level. However
 
 To integrate this logic into the development pipeline, I extended our Django models and created reusable [Django custom admin commands](https://docs.djangoproject.com/en/5.2/howto/custom-management-commands/) for database maintenance. These tools allowed contributors to standardize version syntax, patch historical inconsistencies, and maintain reproducibility across environments.
 
-```python title="library/management/command/commits.py"
+```python
+# library/management/command/commits.py
 class Command(BaseCommand):
     help = """Easily refactor Commit objects in database."""
 
