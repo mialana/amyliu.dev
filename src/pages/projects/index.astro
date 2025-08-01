@@ -3,10 +3,12 @@ import "@/styles/global.css";
 
 import { getCollection } from "astro:content";
 import type { ImageMetadata } from "astro";
+import type { MarkdownHeading } from "astro";
 
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import Search from "@/components/Search";
+import TableOfContents from "@/components/TableOfContents.astro";
 
 import createSlug from "@/lib/createSlug";
 
@@ -17,10 +19,17 @@ const projects = (await getCollection("projects")).sort(
 const images = import.meta.glob<{ default: ImageMetadata }>(
     "/src/content/projects/*/assets/thumbnail.png",
 );
+
+// Create headings-like structure from projects for TableOfContents
+const projectHeadings: MarkdownHeading[] = projects.map((project) => ({
+    depth: 1,
+    slug: `project-${createSlug(project.data.title, project.data?.slug)}`,
+    text: project.data.title,
+}));
 ---
 
-<MainLayout title="Projects" layout="HIDE_ASIDE">
-    <Search client:load slot="nav-sidebar" />
+<MainLayout title="Projects" layout="DEFAULT">
+    <Search slot="nav-sidebar" client:load />
 
     <div
         class="flex flex-wrap justify-center gap-8 overflow-visible px-8 py-4 md:px-16"
@@ -43,4 +52,5 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
             })
         }
     </div>
+    <TableOfContents slot="aside-sidebar" headings={projectHeadings} />
 </MainLayout>

@@ -24,8 +24,8 @@
     --color-wanderer-black: #171a19;
     --color-wanderer-secondary: #cc6c4d;
 
-    --drop-shadow-button: 0 4px 4px #171a19;
-    --drop-shadow-nav: 0 12px 12px #171a19;
+    --drop-shadow-button: 0 4px 4px #000000;
+    --drop-shadow-nav: 0 12px 12px #000000;
 }
 
 @font-face {
@@ -40,6 +40,16 @@
         @apply text-neutral-900;
         @apply **:scroll-smooth;
         hyphens: auto;
+    }
+
+    /* Hide scrollbar outlines while keeping smooth scrolling */
+    * {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+
+    *::-webkit-scrollbar {
+        display: none; /* WebKit browsers */
     }
 }
 

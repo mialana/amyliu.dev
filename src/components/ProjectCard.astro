@@ -26,6 +26,7 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 ---
 
 <div
+    id={`project-${finalizedSlug}`}
     class="flex w-full flex-col justify-end md:w-9/24 xl:w-1/4"
     data-type={dataType}
     data-category={dataCategory}
