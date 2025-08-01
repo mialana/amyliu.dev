@@ -48,7 +48,7 @@ The application is divided into four primary React components: `LoginPage`, `Mai
 
 ![](assets/playlist_creation_preview.gif)
 
-### Authentication (`LoginPage.js` and `Main.js`)
+### Authentication
 
 `LoginPage.js` initiates the OAuth 2.0 Authorization Code Flow with PKCE. It:
 

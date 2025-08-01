@@ -114,7 +114,7 @@ void FaceDisplay::create() {
 
 All edits are immediately reflected in the GLSL-powered OpenGL viewport. A redraw is triggered on each modification, showing updated geometry or coloration.
 
-### Catmull-Clark Subdivision with Real-Time Feedback
+### Catmull-Clark Subdivision
 
 Catmull-Clark subdivision in this project is implemented as a recursive mesh refinement algorithm that operates directly on the half-edge structure. The goal is to generate a smoother version of a polygonal mesh by computing new vertex positions and reconstructing face connectivity accordingly.
 
@@ -131,7 +131,7 @@ The algorithm follows the standard Catmull-Clark steps:
 
 Subdivision levels can be applied recursively, and each pass builds on the updated half-edge connectivity.
 
-### Basic Skeleton Binding and Transformation
+### Basic Skeleton Binding
 
 The skeleton system in Mini Maya enables users to import a hierarchical joint structure from JSON, interactively manipulate joints, and preview mesh deformation using linear blend skinning (LBS). This feature showcases a minimal but functional rigging system built into a custom C++/Qt graphics application.
 
@@ -232,7 +232,7 @@ void main()
 
 This deformation is updated in real time as joints are rotated or moved.
 
-#### Joint Manipulation and Real-Time Feedback
+#### Joint Manipulation & Feedback
 
 - Users can select joints and adjust their position and rotation through GUI sliders.
 - Rotation is applied via quaternions and updated recursively down the joint hierarchy.

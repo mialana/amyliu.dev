@@ -185,7 +185,7 @@ This wrapper pattern reinforced the importance of modular backend design. It als
 
 Through this collaborative backend effort, we achieved version parity across MySQL and S3 while improving clarity and extensibility in the codebase.
 
-### Checkin/Checkout Views for Django Backend
+### Checkin/Checkout Views
 
 To support collaborative editing and version control, I implemented a check-in/check-out system on top of our Django backend. This system enforces edit locks at the asset level, ensuring safe concurrent use across team members while maintaining traceable asset histories.
 
@@ -305,7 +305,7 @@ def Scope "MaterialClasses"
 
 This promoted reuse and ensured materials could be consistently referenced across assets without duplication.
 
-### Assemblies, DCCs, and Overall Extensibility
+### Assemblies, DCCs & Extensibility
 
 The root directory also included:
 
@@ -317,7 +317,7 @@ The root directory also included:
 
 While `Assets/` housed atomic models, `Assemblies/` was reserved for larger scene compositions, and `DCCs/` for integration scripts or source workspace files. These directories were treated as additional layers, giving contributors the freedom to adopt different rulesets where needed.
 
-### Documentation and Supporting Project-wide Workflows
+### Documentation & Workflows
 
 To assist all project contributors in adopting this structure, I developed a suite of supporting materials:
 

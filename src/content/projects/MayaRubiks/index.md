@@ -26,7 +26,7 @@ Given the details of a scrambled Rubik's Cube, this Maya plug-in applies the [Ko
 
 ## Motivation
 
-This project originated from a desire to explore Maya’s internal graphics APIs and deepen my understanding of plug-in development within a production-grade 3D environment. Maya provides a rich platform for extending procedural workflows through Python, and this project leverages that extensibility.
+This project originated from a desire to explore Maya's internal graphics APIs and deepen my understanding of plug-in development within a production-grade 3D environment. Maya provides a rich platform for extending procedural workflows through Python, and this project leverages that extensibility.
 
 By combining algorithmic problem solving with procedural animation, the plug-in serves as a proof of concept for using Maya as a tool for visualizing abstract computational logic. It also reflects my broader interest in creating tools that bring clarity to complex systems through real-time, visual representation—an approach increasingly valuable in both technical art and pipeline automation contexts.
 
@@ -45,7 +45,7 @@ By combining algorithmic problem solving with procedural animation, the plug-in 
 
 ## Method
 
-### Geometry Construction, Stylization, and Programatic Shading
+### Geometry Construction & Shading
 
 The geometry of each individual cubelet is generated in `rubiks_cube.py` as Maya `polyCube` primitives. In `maya_rubiks_animation.py`, each cubelet is assigned a corresponding `aiStandardSurface` shader per face via Python commands. This involves programmatically creating shading nodes, setting color attributes, and connecting them to shape nodes.
 
@@ -66,7 +66,7 @@ Automating shader setup to bypass manual Maya Hypershade manipulation is vital t
 
 ---
 
-### Scene State to Internal Solver Communication
+### Scene State to Solver Communication
 
 `rubiks_cube_solver.py` samples the current scene/cube state and translates it into a serialized string format. A subprocess call to muodov's `kociemba`
 PyPi package returns the optimal solution, which is then parsed back into a list of discrete moves for `MayaRubiks` usage.

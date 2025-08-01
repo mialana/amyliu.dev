@@ -1,5 +1,5 @@
 ---
-title: NVIDIA Omniverse ComfyUI Connector
+title: NVIDIA Omniverse ComfyUI Bridge
 slug: Omniverse_ComfyUI_Connector
 startDate: 2024-10-17
 endDate: 2024-12-28
@@ -141,7 +141,7 @@ All captured arrays are packed into a response model and returned directly to th
 
 The `async capture_viewport()` function in `ext_utils.py` invokes Omniverse Kit’s built-in screenshot mechanism. It validates the existence of a loaded USD stage and an active, rendering viewport, then calls `viewport.wait_for_rendered_frames()` to ensure the capture occurs only after the current frame is fully resolved. The screenshot is captured using `capture_viewport_to_file()`, a utility provided by `omni.kit.viewport.utility`, which asynchronously writes the image to a temporary extension-specific path. Once saved, the file is moved to a static directory mounted by the Kit web server, allowing it to be retrieved via HTTP by external clients like ComfyUI. The function returns a success flag, the relative web path to the image, and a debug message. This approach ensures robust, render-synchronized single-frame capture with graceful handling of missing or inactive viewports.
 
-### Custom ComfyUI Nodes and Workflow Template
+### Custom ComfyUI Nodes & Workflow
 
 The integration includes two custom ComfyUI nodes: `OmniViewportFrameNode` and `OmniViewportRecordingNode`. Both are implemented in `omni_nodes.py` and enable real-time data transfer from an Omniverse viewport into a ComfyUI graph.
 
