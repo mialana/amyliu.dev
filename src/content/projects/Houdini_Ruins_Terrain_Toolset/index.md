@@ -36,7 +36,7 @@ Furthermore, the system can support rapid prototyping for level design and envir
 
 1. **Main Terrain Generator**: A flexible heightfield-based terrain HDA designed for ruined and fragmented environments. Built using layered noise patterns, erosion simulations, and material masks generated with Copernicus.
     1. RTT Main Terrain
-2. \*\*Tools: A set of reusable utilities for given a ruined appearance to 3D terrain environments.
+2. **Tools:** A set of reusable utilities for given a ruined appearance to 3D terrain environments.
     1. RTT Traversal Paths Tool
     2. RTT Layered Fracture Tool
     3. RTT Flooded Water Tool
