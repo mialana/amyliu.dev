@@ -8,6 +8,7 @@ const projectsSchema = z.object({
     type: z.string(),
     category: z.string(),
     description: z.string(),
+    pinned: z.boolean().optional(),
     demoVideoLink: z.string().optional(),
     code: z.string().optional(),
     externalLinks: z.array(z.string()).optional(),

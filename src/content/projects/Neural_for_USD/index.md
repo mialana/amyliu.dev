@@ -1,6 +1,6 @@
 ---
 title: Neural for USD
-slug: Neural-for-USD
+slug: Neural_for_USD
 startDate: 2025-01-20
 endDate: 2025-05-02
 type: individual
@@ -25,6 +25,7 @@ tags:
     - novel_view_synthesis
 description: A comprehensive interface to solve data collection for Neural Radiance Fields and Novel View Synthesis for the Pixar OpenUSD framework.
 code: https://github.com/mialana/neural-for-usd
+pinned: true
 ---
 
 ## Summary

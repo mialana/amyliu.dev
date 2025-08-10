@@ -62,7 +62,7 @@ export default function SideBar({
 
     return (
         <div
-            className={`${open ? "absolute z-20 w-screen md:w-auto" : "w-0"} bg-white ${category == "NAV" ? "left-0" : "right-0"} transition-default-10 h-full shadow-lg`}
+            className={`${open ? "absolute z-20 w-screen md:w-auto" : "w-0"} bg-white ${category == "NAV" ? "left-0" : "right-0"} transition-default-10 h-full overflow-scroll shadow-lg`}
         >
             {/* sidebar button */}
             <button

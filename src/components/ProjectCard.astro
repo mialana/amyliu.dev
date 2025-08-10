@@ -31,8 +31,8 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
     data-type={dataType}
     data-category={dataCategory}
 >
-    <article class="relative p-8 shadow-lg hover:-translate-y-2">
-        <div class="pb-4">
+    <article class="relative p-4 shadow-lg hover:-translate-y-2">
+        <div class="pb-2">
             <Image
                 class="mx-auto border-[0.5px]"
                 src={image()}
@@ -57,6 +57,13 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
             </h3>
             <p class="text-sm text-pretty">{project.data.description}</p>
         </div>
+        {
+            project.data.pinned === true && (
+                <div class="bg-accent pointer-events-none absolute -bottom-2 -left-2 rounded-md px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-white uppercase select-none">
+                    pinned
+                </div>
+            )
+        }
         <a
             href={`/projects/${finalizedSlug}`}
             class="absolute top-0 left-0 h-full w-full"></a>
