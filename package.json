@@ -19,7 +19,7 @@
         "@types/react": "^19.1.9",
         "@types/react-dom": "^19.1.7",
         "astro": "^5.12.9",
-        "astro-expressive-code": "^0.41.2",
+        "astro-expressive-code": "^0.41.3",
         "date-fns": "^4.1.0",
         "marked": "^15.0.12",
         "rehype-mermaid": "^3.0.0",
