@@ -17,6 +17,7 @@ const expressiveCodeConfig = { shiki: { langAlias: { usda: "bash" } } };
 
 // https://astro.build/config
 export default defineConfig({
+    server: { host: "0.0.0.0" },
     site: "https://amyliu.dev/",
     integrations: [
         react(),

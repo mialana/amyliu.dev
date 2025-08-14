@@ -37,9 +37,9 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <title>{title} · Amy Liu</title>
     </head>
     <body
-        class=`grid *:relative h-screen w-screen max-h-screen max-w-screen grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${grid_cols}`
+        class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${grid_cols}`
     >
-        <header class="fixed col-span-3"><Header /></header>
+        <header class="col-span-3"><Header /></header>
         <nav id="nav-grid-cell">
             <SideBar category="NAV" active={navActive} client:load>
                 <slot name="nav-sidebar" />
@@ -53,6 +53,6 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 <slot name="aside-sidebar" />
             </SideBar>
         </aside>
-        <footer class="fixed col-span-3"><Footer /></footer>
+        <footer class="col-span-3"><Footer /></footer>
     </body>
 </html>
