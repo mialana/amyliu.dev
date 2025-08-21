@@ -23,9 +23,9 @@ pinned: true
 
 ## Summary
 
-This project presents Ruins Terrain Toolset, or RTT, a procedural toolset developed in SideFX Houdini for generating ruined terrains and detailed environmental assets suitable for real-time game engines, such as Unity or Unreal. Built as an individual submission to the 2025 SideFX Game Art Challenge in the Best Game Art Tool category, assets are constructed entirely within Houdini -- featuring VEX-programming via `Attribute Wrangle` nodes and Copernicus -- without relying on Quixel / external mega-scan libraries. This is in accordance with the contest’s constraints. Additionally, all HDAs can be ported for usage to Unity and Unreal.
+This project presents Ruins Terrain Toolset, or RTT, a procedural toolset developed in SideFX Houdini for generating ruined terrains and detailed environmental assets suitable for real-time game engines, such as Unity or Unreal. Notably, all included geometry, tools, and interactions are procedurally constructed entirely within native Houdini without relying on external mega-scan libraries.
 
-The resulting pipeline emphasizes scalability and flexibility, enabling artists to create easily create detailed, modular scenes without the overhead of complex technical setups.
+It features heightfield-based terrain geometry, Copernicus texturing, rigid-body dynamics (RBD) simulations/fracturing, dynamic shortest path calculations, and more.
 
 ## Motivation
 
@@ -42,11 +42,11 @@ Furthermore, the system can support rapid prototyping for level design and envir
     2. RTT Layered Fracture Tool
     3. RTT Flooded Water Tool
     4. RTT Terrain Blockout Tool
-3. **Assets**: A collection of static assets stylized for ruined terrain. Each asset is designed to support in-engine reuse and parameter tuning for visual consistency.
+3. **Assets**: A collection of static assets stylized for ruined terrain. Each asset is designed to support in-engine reuse and parameter tuning.
     1. RTT Decayed Rock Wall Asset
     2. RTT Fractured Column Asset
     3. RTT Terrain Rocks Asset
-4. **Demonstrated Tool Interactions:** HDAs that demonstrate the ease-of-use and flexibility of the main terrain HDA and associated tools through physics simulations (Rigid Body Dynamics) and applied tool usage.
+4. **Demonstrated Tool Interactions:** HDAs that demonstrate the ease-of-use and flexibility of the main terrain HDA and associated tools through physics simulations (Rigid Body Dynamics) and associated tool usage.
     1. Piled ruins geometry (RBD collision + scattering) on *Main Terrain*
     2. Traversing vines and ropes using *Traversal Paths Tools*
 
