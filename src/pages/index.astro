@@ -3,41 +3,55 @@ import "@/styles/global.css";
 
 import { Image } from "astro:assets";
 
-import Headshot from "src/assets/png/headshot-2025.png";
-
 import MainLayout from "@/layouts/MainLayout.astro";
 import SectionLayout from "@/layouts/SectionLayout.astro";
 
 import Toast from "../components/Toast.tsx";
+import Headshot from "../components/Headshot.astro";
 ---
 
 <MainLayout title="Home" layout="DEFAULT">
     <SectionLayout>
         <div
-            class="m-4 flex grow flex-col items-center justify-center gap-8 overflow-scroll px-8 py-8 shadow-lg md:m-8 md:flex-row md:gap-8 md:py-16"
+            class="relative m-4 flex flex-col items-center justify-center gap-8 overflow-y-scroll p-8 shadow-lg md:m-4 md:flex-col md:gap-8"
         >
-            <div class="md:h-auto">
-                <Image src={Headshot} alt="Headshot" width={300} height={300} />
-            </div>
+            <Headshot />
             <div class="prose">
-                <h1 class="!my-0">Amy Liu</h1>
-                <h3 class="!mt-0 !mb-4 text-sm lg:text-base">
-                    Computer Graphics Student Developer
-                </h3>
-                <p class="text-xs lg:text-sm">
-                    Hi, I'm Amy, welcome to my personal portfolio. I'm currently
-                    an undergrad at the University of Pennsylvania pursuing a
-                    BSE in Digital Media Design (Computer Graphics) and an MSE
-                    in Computer Graphics and Game Technology.
-                </p>
-
-                <p class="text-xs lg:text-sm">
-                    <em>
-                        "The student keeps her eyes on the sky but her feet
-                        steady on the ground. She builds a staircase of books,
-                        all the way to the stars."
-                    </em>
-                </p>
+                <h4 class="leading-tight">
+                    Computer Graphics Engineer ⋅ Technical Artist ⋅ Code Junkie
+                </h4>
+                <div class="*:my-4 *:text-sm">
+                    <p>
+                        Hi, I'm Amy. Welcome to my website -- a one-stop shop
+                        for my CG personal portfolio.
+                    </p>
+                    <p>
+                        I'm currently an undergrad at the University of
+                        Pennsylvania pursuing a BSE in Digital Media Design
+                        (Computer Graphics) and an MSE in Computer Graphics and
+                        Game Technology.
+                    </p>
+                    <p>
+                        Here, you can easily scroll and filter through my past
+                        projects, watch their corresponding demo videos, and
+                        read through each project breakdown for more
+                        information. I am also currently expanding on the
+                        content, such as including my work in 3D-modeling and 2D
+                        art.
+                    </p>
+                    <!-- <p>
+                        A quick intro to me: My hometown is Portland, Oregon. My first window into
+                        Computer Graphics was a butterfly effect from taking AP 2D Studio Art
+                        - Photography Focus, in high school. I enjoy outdoor activities
+                    </p> -->
+                    <p>
+                        <em>
+                            "The student keeps her eyes on the sky but her feet
+                            steady on the ground. She builds a staircase of
+                            books, all the way to the stars."
+                        </em>
+                    </p>
+                </div>
             </div>
         </div>
     </SectionLayout>

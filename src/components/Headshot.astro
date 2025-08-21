@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import Headshot2025_1 from "@/assets/png/headshot-2025.png";
+import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
+import Headshot2025_3 from "@/assets/png/headshot-2025-3.png";
+---
+
+<div class="relative w-full">
+    <!-- Desktop: Show all three side by side -->
+    <div
+        class="hidden flex-row items-center justify-center gap-4 *:aspect-square *:w-1/5 *:rounded-lg md:flex"
+    >
+        <Image src={Headshot2025_1} alt="Headshot 1" width={800} height={800} />
+        <Image src={Headshot2025_2} alt="Headshot 2" width={800} height={800} />
+        <Image src={Headshot2025_3} alt="Headshot 3" width={800} height={800} />
+    </div>
+
+    <!-- Mobile: Show one at a time with transitions -->
+    <div class="aspect-square md:hidden">
+        <Image
+            src={Headshot2025_1}
+            alt="Headshot 1"
+            width={800}
+            height={800}
+            class="headshot-image absolute inset-0 rounded-lg transition-opacity duration-300"
+            data-index="0"
+        />
+        <Image
+            src={Headshot2025_2}
+            alt="Headshot 2"
+            width={800}
+            height={800}
+            class="headshot-image absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300"
+            data-index="1"
+        />
+        <Image
+            src={Headshot2025_3}
+            alt="Headshot 3"
+            width={800}
+            height={800}
+            class="headshot-image absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300"
+            data-index="2"
+        />
+    </div>
+</div>
+
+<script>
+    // Only run on mobile devices
+    let intervalId: NodeJS.Timeout;
+
+    function handleHeadshotSlideshow() {
+        if (window.innerWidth < 768) {
+            const images = document.querySelectorAll(".headshot-image");
+            let currentIndex = 0;
+
+            intervalId = setInterval(() => {
+                const prevIndex = currentIndex;
+                currentIndex = (currentIndex + 1) % images.length;
+
+                // Hide previous image
+                images[prevIndex].classList.toggle("opacity-0");
+
+                // Show current image
+                images[currentIndex].classList.toggle("opacity-0");
+            }, 3000);
+        } else {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        }
+    }
+    window.addEventListener("load", handleHeadshotSlideshow);
+    window.addEventListener("resize", handleHeadshotSlideshow);
+</script>
