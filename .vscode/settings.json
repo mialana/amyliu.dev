@@ -1,8 +1,9 @@
 {
     "files.associations": { "*.css": "tailwindcss", "*.mdx": "markdown" },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[astro]": { "editor.defaultFormatter": "astro-build.astro-vscode" },
+    "[astro]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
     "prettier.requireConfig": true,
     "prettier.configPath": ".prettierrc.mjs",
-    "prettier.prettierPath": "./node_modules/prettier"
+    "prettier.prettierPath": "./node_modules/prettier",
+    "prettier.useEditorConfig": false
 }

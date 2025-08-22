@@ -1,0 +1,56 @@
+---
+import { type CollectionEntry } from "astro:content";
+
+import createSlug from "@/lib/createSlug";
+
+interface Props {
+    project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const finalizedSlug = createSlug(project.data.title, project.data?.slug);
+
+const normalizeTag = (t: string) =>
+    t.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
+
+const keywords = [...project.data.tags, ...project.data.techStack].map(
+    normalizeTag,
+);
+const url = new URL(Astro.url.pathname, Astro.site).href;
+
+const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.data.title,
+    description: project.data.description,
+    url: url,
+    keywords: keywords, // <= your tags, normalized
+    ...(finalizedSlug ? { identifier: finalizedSlug } : {}),
+});
+---
+
+{
+    project.data.description && (
+        <meta name="description" content={project.data.description} />
+    )
+}
+
+{
+    keywords.length > 0 && (
+        <>
+            {/* Meta keywords are mostly ignored by Google, but harmless and used by some engines */}
+            <meta name="keywords" content={keywords.join(", ")} />
+            {/* Helpful OG tags for social/crawlers */}
+            {keywords.map((k) => (
+                <meta property="article:tag" content={k} />
+            ))}
+        </>
+    )
+}
+
+{/* Canonical */}
+<link rel="canonical" href={url} />
+
+{/* JSON‑LD */}
+<script is:inline type="application/ld+json" set:html={jsonLd} />
