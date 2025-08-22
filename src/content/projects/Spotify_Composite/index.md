@@ -46,7 +46,7 @@ Spotify makes it easy to follow and save playlists, but offers no built-in way t
 
 The application is divided into four primary React components: `LoginPage`, `Main`, `PlaylistMenu`, and `Compositify`, located under `src/components`. Each handles a distinct phase of the playlist merging workflow and contributes to the overall single-page application structure.
 
-![](assets/playlist_creation_preview.gif)
+![Playlist Creation Preview](assets/playlist_creation_preview.gif)
 
 ### Authentication
 

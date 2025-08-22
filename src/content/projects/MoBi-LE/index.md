@@ -50,20 +50,20 @@ Creating a complete 3D-printable redesign of an interactive robot requires caref
 
 The modeling process took visual and functional inspiration from the original first MoBi prototype.
 
-![img](./assets/MoBi-LE_first_prototype.jpg)
+![Mobi Le First Prototype](./assets/MoBi-LE_first_prototype.jpg)
 
 The MoBi-LE robot body was modeled using Autodesk Maya, with emphasis on visual clarity, structural simplicity, and printability. The original character design was adapted into a modular digital form, split into multiple printable components such as the body, base, and arms. The design was constrained to fit within standard FDM printer dimensions (approx. 20×20×30 cm) to ensure accessibility and reproducibility.
 
-![img](./assets/MoBi-LE_dev_process_1.png)
+![Mobi Le Dev Process 1](./assets/MoBi-LE_dev_process_1.png)
 
-![img](./assets/MoBi-LE_dev_process_2.png)
+![Mobi Le Dev Process 2](./assets/MoBi-LE_dev_process_2.png)
 
 Attachment points were embedded into the geometry to support later hardware mounting and enclosure. Care was taken to balance aesthetic and functional needs—ensuring the form was child-friendly, while keeping surfaces planar where feasible to reduce overhangs and support requirements. The final geometry was exported in `.stl` format and validated in Ultimaker Cura for slicing, support creation, and other printability processes.
 
-![img](./assets/MoBi-LE_iterations.png)
+![Mobi Le Iterations](./assets/MoBi-LE_iterations.png)
 
 ### Software Interface Prototyping
 
 A minimal Progressive Web App (PWA) built on ReactJS was prototyped to serve as an interactive UI displayed on the robot’s touchscreen. The app mimicked the original system's question/answer prompts and allowed basic tap interaction. The PWA served as a proof-of-concept for future interaction logic.
 
-![gif](./assets/MoBi-LE_software_preview.gif)
+![Mobi Le Software Preview](./assets/MoBi-LE_software_preview.gif)

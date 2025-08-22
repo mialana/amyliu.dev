@@ -150,7 +150,7 @@ The integration includes two custom ComfyUI nodes: `OmniViewportFrameNode` and `
 
 `OmniViewportRecordingNode` supports multi-frame capture. Upon execution, it sends a JSON payload to the `/viewport-capture/record` endpoint, then asynchronously receives and parses a multi-frame tensor stack from the response. Each frame is wrapped as a separate `"IMAGE"` output, enabling time-aware workflows such as video synthesis and temporal conditioning.
 
-![gif](assets/omni_record_process.gif)
+![Omni Record Process](assets/omni_record_process.gif)
 
 In addition to capture, `omni_nodes.py` includes post-processing utilities for interpreting AOV data. Functions such as `_colorize_normals`, `_colorize_depth`, and `_colorize_standard` handle normalization and tensor conversion of non-RGB outputs. Depth data is remapped using a log-scale transform to enhance perceptual contrast, while normals are adjusted from `[-1, 1]` to `[0, 1]` and rescaled. These processed tensors are structured to match ComfyUI’s `"IMAGE"` format, enabling seamless input into any image-based diffusion model.
 
@@ -172,6 +172,6 @@ def _colorize_normals(data: list):
 
 `OmniViewportRecordingNode` supports configuration of both frame count and renderer mode (`RTX - Real-Time` or `Path Tracing`) via UI-selectable parameters. It returns five outputs: `rgb_out`, `depth_out`, `normals_out`, `instance_id_out`, and `semantic_out`. These are individually routed to downstream nodes, allowing selective use or combination depending on the synthesis pipeline. The node implementation ensures type safety, normalized data scaling, and alignment with the frame-by-frame order in the capture buffer.
 
-![gif](assets/omni_record_output_aovs.gif)
+![Omni Record Output Aovs](assets/omni_record_output_aovs.gif)
 
 The repository includes a ready-to-use workflow file (`omni_workflow.json`) that demonstrates how to incorporate these nodes into a standard ComfyUI pipeline.

@@ -61,23 +61,23 @@ This project is my first large-scale Houdini project. The development process be
 
 ### RTT Main Terrain
 
-![img](assets/unity_main_terrain_captures.png)
+![Unity Main Terrain Captures](assets/unity_main_terrain_captures.png)
 
 The terrain generator is built as a heightfield-based HDA that allows for sculpting, masking, and texturing using a fully procedural, modular approach.Artists can add or subtract geometry from the base terrain by projecting meshes into the heightfield using `Heightfield Project`. Once projected, various terrain-shaping nodes such as `Heightfield Noise`, `Heightfield Distort`, and `Heightfield Blur` are chained to control macro and micro surface features. A custom `Volume VOP` mask isolates bedrock-like regions, which are selectively lifted with `Heightfield Remap`. To finalize terrain realism, `HeightField Erode` simulates geological weathering.
 
 In addition, the `Terrain_Path/` subnetwork allows artists to embed traversable paths into terrain. A custom spline input is projected and ray-transferred onto the terrain, then used to mask out a region via `Heightfield Mask by Object`, blurred for natural blending, and distorted with procedural noise using `Heightfield Noise`. The output is a distinct terrain layer isolating the carved path without manual geometry sculpting.
 
-![gif](./assets/embedded_terrain_path.gif)
+![Embedded Terrain Path](./assets/embedded_terrain_path.gif)
 
 #### Terrain texturing Copernicus workflow
 
 For texture generation, a dedicated COP network (`copnet_terrain`) procedurally produces all required outputs (albedo, roughness, normal, and ambient occlusion) using Houdini's Copernicus system. Geometry is rasterized using `SOP Import` and `Rasterize Geometry` nodes, extracting masked heightfield layers such as `elevation`, `sediment`, `debris`, and `water`. Each scalar map is converted to color using `MonoToRGB` and blended sequentially through layered `Blend` nodes to form the final `ALBEDO_BASE`. An additional stream handles `bedrock`-based textures with separate noise and color ramps.
 
-![img](./assets/cop_layer_processing.png)
+![Cop Layer Processing](./assets/cop_layer_processing.png)
 
 Normals are generated via `HeightToNormal`, with `Function` nodes performing normalization. Roughness and AO maps are blended similarly using `Remap`, `Constant`, and `Blend` nodes. All outputs (`OUT_ALBEDO`, `OUT_ROUGHNESS`, `OUT_NORMAL`, and `OUT_AO`) are written to disk using `ROP Image` nodes, adhering to OCIO color space conversions (e.g., ACEScg or sRGB) and baked texture formats.
 
-![img](./assets/cop_export_workflow.png)
+![Cop Export Workflow](./assets/cop_export_workflow.png)
 
 This pipeline allows fine-grained lookdev control per layer and requires no external texture assets—making it a fully native Houdini solution, suitable for real-time usage.
 
@@ -85,7 +85,7 @@ This pipeline allows fine-grained lookdev control per layer and requires no exte
 
 The RTT Traversal Paths Tool generates a series of traversal curves across terrain geometry using an attribute-weighted shortest path algorithm.
 
-![gif](assets/traversal_paths.gif)
+![Traversal Paths](assets/traversal_paths.gif)
 
 #### Cost Calculation
 
@@ -103,7 +103,7 @@ Each of these cost factors is exposed to artists as a parameter and can be fine-
 
 The network uses the `Find Shortest Path` SOP node to connect each pair of scattered start and end points. This node is configured to operate on a fused point graph generated from a triangulated 2D projection of the terrain, ensuring spatial coherence. Building each start-end pair is handled via a `For-Each` block and `Sort` node.
 
-![img](assets/terrain_start_vs_end_points.png)
+![Terrain Start Vs End Points](assets/terrain_start_vs_end_points.png)
 
 #### Use Case: Flooded Water Geometry
 
@@ -111,7 +111,7 @@ A notable application of the traversal path system is the procedural generation 
 
 Once computed, the curves are projected onto the terrain using `HeightField Mask by Object` and `Heightfield Mask Blur`. A Houdini `HeightField Shallow Water` SOP node then simulates natural water spreading / pooling and flow-field dependent water velocity.
 
-![gif](assets/water_simulation.gif)
+![Water Simulation](assets/water_simulation.gif)
 
 The resulting geometry is shaded using a customized material network defined in `matnet_flooded_water`. The shader is based on a `Principled Shader` setup with texture maps generated in a dedicated Copernicus network. These include:
 
@@ -123,11 +123,11 @@ This use case demonstrates an efficient method for producing believable, stylize
 
 #### Use Case: Ropes and Vines
 
-![img](assets/traversing_vines_and_ropes_demo.png)
+![Traversing Vines And Ropes Demo](assets/traversing_vines_and_ropes_demo.png)
 
 The RTT Traversal Paths Tool also supports procedural generation of natural dressing geometry — for example ropes and vines that follow the contour of the terrain. By adjusting traversal parameters to balance slope avoidance with concavity affinity, the tool generates splines that simulate the natural draping or growth patterns of climbing materials.
 
-![](assets/ropes_and_vines_params.png)
+![Ropes And Vines Params](assets/ropes_and_vines_params.png)
 
 ### RTT Layered Fracture Tool
 
@@ -137,7 +137,7 @@ The _RTT Layered Fracture Tool_ is a mask-driven procedural fracturing system de
 
 The tool begins with an `Attribute Wrangle` node to compute a vertical mask using a normalized ramp over the geometry’s Y-position. This creates a basic fracture influence gradient across the height of the mesh. An `Attribute Noise` node then introduces flow-based noise to the mask to add complexity and natural variation.
 
-![img](assets/fracture_masking.gif)
+![Fracture Masking](assets/fracture_masking.gif)
 
 The mask is converted into scatter points via `VDB From Polygons` and `Scatter` nodes. These points drive the first Voronoi fracture layer through `Voronoi Fracture`. A secondary fracture pass is generated similarly, with a separate scattering pass to create more fragmented sub-structures.
 
@@ -151,7 +151,7 @@ The _RTT Fractured Column Asset_ demonstrates the use of the RTT Layered Fractur
 
 Once the base structure is finalized, the asset is passed into the RTT Layered Fracture Tool. There, the vertical mask gradient isolates the upper portion of the column as a target zone. This produces more intense fragmentation at the top, fading toward the base. The final fractured result includes both inner and outer layers.
 
-![](assets/fractured_column_use_case.gif)
+![Fractured Column Use Case](assets/fractured_column_use_case.gif)
 
 ### RTT Terrain Blockout Tool
 
@@ -161,19 +161,19 @@ Each instance of the tool accepts a single curve as input and supports four bloc
 
 1. **Closed Curve Blockouts**: Converts curve into an extruded, closed form used for carving plateaus or basins.
 
-![gif](assets/closed_curve.gif)
+![Closed Curve](assets/closed_curve.gif)
 
 2. **Open Curve Ridge Forms**: Sweeps the input curve to create ridge or valley geometries.
 
-![gif](assets/open_curve.gif)
+![Open Curve](assets/open_curve.gif)
 
 3. **Peaks**: Scatters points throughout a curve's inner area to generate cone-shaped peak geometry. Useful for mountain ranges.
 
-![gif](assets/peaks_blockout.gif)
+![Peaks Blockout](assets/peaks_blockout.gif)
 
 4. **Distorted Masses**: Produces extremely deformed primitives ideal for embedding singular large, rough mountains into terrain.
 
-![gif](assets/distorted_blockout.gif)
+![Distorted Blockout](assets/distorted_blockout.gif)
 
 ### RTT Rigid Body Collider Interactor
 
@@ -183,7 +183,7 @@ The tool begins by accepting user-provided geometry, which must include a `name`
 
 Instances are assigned using `Copy to Points`, and randomized transformations are applied through `Attribute Randomize` to vary orientation, position, and scale. The result is fed into a `RBD Bullet Solver`, where terrain geometry acts as a collision surface. Key solver parameters—including friction, bounce, gravity, and constraint resolution—are exposed for artist control, allowing fine-tuning of the pile’s structure and spread.
 
-![gif](assets/scattering_piles.gif)
+![Scattering Piles](assets/scattering_piles.gif)
 
 Once a convincing formation is reached, the simulation is frozen using `Timeshift` to bake a specific frame, producing a static result that maintains the fidelity of physics-driven interaction.
 
@@ -193,16 +193,16 @@ Although it pairs naturally with assets like the `RTT Terrain Rocks`, the tool i
 
 The RTT Decayed Rock Wall Asset is a terrain-conforming modular structure designed to procedurally align with any user-provided curve—including paths with sharp turns and elevation changes.
 
-![img](assets/rtt_decayed_rock_wall_asset1.png)
+![Rtt Decayed Rock Wall Asset1](assets/rtt_decayed_rock_wall_asset1.png)
 
 The asset begins with a `Curve` input, which is resampled and segmented to define the backbone of the wall. At each segment, aligned bounding geometry is instantiated using sweep-based techniques and custom up-vector calculations to maintain proper orientation even along curves with high Y-differentials or tight angular turns. This ensures continuity and spatial coherence of wall segments across complex topologies.
 
-![img](assets/rtt_decayed_rock_wall_asset2.png)
+![Rtt Decayed Rock Wall Asset2](assets/rtt_decayed_rock_wall_asset2.png)
 
 A decay mask is computed using a vertical (Y-axis) gradient to emulate natural erosion from top-down weathering. This mask drives probabilistic deletion of individual rock pieces.
 
-![](assets/mask_original_wall.png)
-![](assets/mask_deleted_wall.png)
+![Mask Original Wall](assets/mask_original_wall.png)
+![Mask Deleted Wall](assets/mask_deleted_wall.png)
 
 ### Conclusion and Significance
 

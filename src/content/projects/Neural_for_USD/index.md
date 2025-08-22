@@ -62,7 +62,7 @@ As neural rendering techniques such as NeRF become increasingly influential in c
 
 ### Part 1: USD Scene Traversal
 
-![gif](assets/data_collection.gif)
+![Data Collection](assets/data_collection.gif)
 
 The Qt-based application is designed around two primary components: a **Stage Manager** and a **Render Engine**, both coordinated through a shared `OpenGLContext` (`QOpenGLWidget`). This architecture enables modular rendering and data collection from OpenUSD scenes.
 
@@ -86,7 +86,7 @@ for (const auto& frameMeta : m_allFrameMeta) {
 }
 ```
 
-![](assets/json_comparison.png)
+![Json Comparison](assets/json_comparison.png)
 
 - **State reset and reinitialization** through `reset()`, ensuring the stage remains clean between different asset loads or capture runs.
 
@@ -97,7 +97,7 @@ Internally, the Stage Manager stores:
 - A free camera controller
 - A pose generation module for determining view samples
 
-![gif](assets/free_camera_demo.gif)
+![Free Camera Demo](assets/free_camera_demo.gif)
 
 #### Render Engine
 
@@ -197,7 +197,7 @@ def get_rays(
     return rays_o, rays_d
 ```
 
-![](assets/sampled_view_directions.png)
+![Sampled View Directions](assets/sampled_view_directions.png)
 
 #### Positional Encoding
 
@@ -260,7 +260,7 @@ The raw outputs of the MLP are converted into final renderings using volume rend
 
 A **coarse pass** samples uniformly across each ray. These weights are then used to define a **PDF** for importance sampling in the **fine pass**, where a second set of samples is drawn via inverse transform sampling. Both passes are fed into separate MLPs (coarse and fine) to produce the final render.
 
-![gif](assets/psnr_dev.gif)
+![Psnr Dev](assets/psnr_dev.gif)
 
 #### Python CLI and Workflow
 
@@ -268,11 +268,11 @@ The CLI, implemented using `Click` and `Questionary` PyPI packages, walks users 
 
 ##### Process NeRF Input Data
 
-![gif](assets/process_data.gif)
+![Process Data](assets/process_data.gif)
 
 ##### Train NeRF
 
-![gif](assets/train_nerf.gif)
+![Train Nerf](assets/train_nerf.gif)
 
 ##### Evaluate NeRF
 
@@ -280,24 +280,24 @@ Choose from the following options:
 
 - Reproduce a known input view
 
-![](assets/replicate_input.gif)
+![Replicate Input](assets/replicate_input.gif)
 
 - Generate a 360° orbit animation
 
-![](assets/360_render.gif)
+![360 Render](assets/360_render.gif)
 
-![gif](assets/results.gif)
+![Results](assets/results.gif)
 
 - Randomized novel views
 
-![](assets/random_pose.gif)
+![Random Pose](assets/random_pose.gif)
 
 - Specify a custom θ/ϕ camera angle
 
-![](assets/custom_pose.gif)
+![Custom Pose](assets/custom_pose.gif)
 
 - Visualize 24 random test poses
 
-![gif](assets/24_poses.gif)
+![24 Poses](assets/24_poses.gif)
 
 This modular NeRF pipeline offers a complete experience from structured USD scene traversal to novel view synthesis, and is designed for accessibility, reproducibility, and experimentation.

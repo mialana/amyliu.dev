@@ -52,19 +52,19 @@ This project is structured around a modular GLSL path tracing pipeline. Core com
 
 - **`Li_Naive`**: A basic path tracing integrator that recursively samples BSDFs to simulate indirect illumination. It does not compute direct lighting explicitly and ignores emitted light unless encountered through perfect specular reflection.
 
-![img](./assets/naive_results.png)
+![Naive Results](./assets/naive_results.png)
 
 - **`Li_Direct`**: Adds single-bounce direct lighting estimation by explicitly sampling light sources via `Sample_Li`, in addition to BSDF-based sampling. This version improves convergence in scenes with small or distant lights.
 
-    ![img](./assets/directsimple_results.png)
+    ![Directsimple Results](./assets/directsimple_results.png)
 
 - **`Li_DirectMIS`**: Implements multiple importance sampling by combining BSDF sampling and light sampling. Each path is evaluated using both techniques, and their contributions are weighted using the power heuristic to reduce variance.
 
-    ![img](./assets/directmis_results.png)
+    ![Directmis Results](./assets/directmis_results.png)
 
 - **`Li_Full`**: Combines the global illumination of `Li_Naive` with the MIS-based direct lighting of `Li_DirectMIS`. Additionally, it incorporates environment light sampling for HDR maps and performs direct light evaluation at each intersection of diffuse or microfacet surfaces.
 
-    ![img](./assets/full_results.png)
+    ![Full Results](./assets/full_results.png)
 
 ### Light Sampling
 
@@ -157,4 +157,4 @@ vec4 gammaCorrection(vec4 c)
 
 A custom QT GUI element was implemented to allow runtime switching between integration methods. Internally, a uniform variable is updated to reflect the chosen integrator. This unique feature instantly streamlines testing and visual comparison between the integrator types.
 
-![img](./assets/integration_switch.gif)
+![Integration Switch](./assets/integration_switch.gif)

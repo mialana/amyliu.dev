@@ -46,32 +46,32 @@ This project explores how digital reconstruction can serve both historical schol
 
 High-resolution images of the church in its modern state were used as a foundation for the texturing process. In Adobe Photoshop, perspective distortion was corrected using the `Perspective Warp` tool, and detailed selection masks were created for individual portrait figures. Layer masks and compositing techniques were employed to replace deteriorated facial features and clothing with photorealistic mosaic textures, prioritizing seamless continuity between adjacent portraits in their original 3D layout.
 
-![png](assets/masked_selections.png)
+![Masked Selections](assets/masked_selections.png)
 
 Gold halos were digitally added to figures known to have had them historically, ensuring historical fidelity. Where figures or surfaces were lost or degraded, reconstructions drew on surviving references and academic sources to inform texture design. Alpha masks were exported for use in PBR materials and integrated into Autodesk Maya, where the textures were mapped onto the refined 3D geometry.
 
-![png](assets/apostle_duo.png)
+![Apostle Duo](assets/apostle_duo.png)
 
-![png](assets/incredulity_of_thomas.png)
+![Incredulity Of Thomas](assets/incredulity_of_thomas.png)
 
-![png](assets/multi-figure_beneath_anastasis.png)
+![Multi Figure Beneath Anastasis](assets/multi-figure_beneath_anastasis.png)
 
-![png](assets/multi-figure_left_of_christ.png)
+![Multi Figure Left Of Christ](assets/multi-figure_left_of_christ.png)
 
-![png](assets/multi-figure_line.png)
+![Multi Figure Line](assets/multi-figure_line.png)
 
-![png](assets/multi-figure_southwest_wall.png)
+![Multi Figure Southwest Wall](assets/multi-figure_southwest_wall.png)
 
-![png](assets/sanctuary_standing_figure.png)
+![Sanctuary Standing Figure](assets/sanctuary_standing_figure.png)
 
-![png](assets/single_figure_beneath_anastasis.png)
+![Single Figure Beneath Anastasis](assets/single_figure_beneath_anastasis.png)
 
-![png](assets/single_figure_southwest_wall.png)
+![Single Figure Southwest Wall](assets/single_figure_southwest_wall.png)
 
 ### Camera Animation and Lighting
 
 Camera paths were also animated in Maya to guide viewer focus through the reconstructed space. Lighting was optimized to emphasize surface detail and spatial depth, contributing to a coherent and immersive final render.
 
-![png](assets/halo_zoom_in.png)
+![Halo Zoom In](assets/halo_zoom_in.png)
 
-![png](assets/zoom_out.png)
+![Zoom Out](assets/zoom_out.png)
