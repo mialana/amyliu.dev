@@ -63,15 +63,15 @@ Several operations are implemented with user-triggered GUI actions through the Q
 
 - **Edge Splitting**: When the user selects an edge and clicks the “split” tool, the program computes the midpoint, inserts a new vertex, and updates adjacent half-edges to maintain consistency. This ensures that each face retains a valid loop and that symmetry is preserved.
 
-![gif](assets/edge_splitting.gif)
+![Edge Splitting](assets/edge_splitting.gif)
 
 - **Face Triangulation**: Selected faces can be triangulated by inserting a new central vertex and connecting it to each corner. This relies on iterating through the half-edges of a face, calculating triangle edges, and forming three new faces while updating adjacency.
 
-![gif](assets/face_triangulation.gif)
+![Face Triangulation](assets/face_triangulation.gif)
 
 - **Vertex Manipulation**: Vertex positions are adjusted using numeric sliders in the GUI, which update the selected vertex’s coordinates directly in the mesh data structure and refresh the OpenGL viewport accordingly.
 
-![gif](assets/vertex_manipulation.gif)
+![Vertex Manipulation](assets/vertex_manipulation.gif)
 
 - **Face Color Editing**: A color selection slider allows the user to assign a new RGB value to the selected face. The chosen color is stored in the face object and used in the fragment shader for display.
 
@@ -127,7 +127,7 @@ The algorithm follows the standard Catmull-Clark steps:
 3. **Vertex Points**: Each original vertex is repositioned based on its adjacent face points, midpoints of surrounding edges, and its original position using the standard weighted formula.
 4. **Topology Reconstruction**: Using the newly created points, the mesh is rebuilt with new quads. Each original face is subdivided into smaller faces by connecting the new face points, edge points, and vertex points.
 
-![gif](assets/subdivision.gif)
+![Subdivision](assets/subdivision.gif)
 
 Subdivision levels can be applied recursively, and each pass builds on the updated half-edge connectivity.
 
@@ -238,7 +238,7 @@ This deformation is updated in real time as joints are rotated or moved.
 - Rotation is applied via quaternions and updated recursively down the joint hierarchy.
 - The OpenGL viewport immediately reflects joint transformations and mesh deformation.
 
-![](assets/skeleton_binding.gif)
+![Skeleton Binding](assets/skeleton_binding.gif)
 
 ### Export to OpenUSD Format
 

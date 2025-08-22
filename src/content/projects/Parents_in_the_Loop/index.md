@@ -102,4 +102,4 @@ result = await llm.generate_structured(
 
 This design ensures that AI responses are grounded in the local document context, leveraging MCP’s agent abstraction and OpenAI’s structured output capabilities. All logic is encapsulated within an async `query()` method and invoked during API requests from `views.py`.
 
-![gif](assets/mcp_agent_demo.gif)
+![Mcp Agent Demo](assets/mcp_agent_demo.gif)

@@ -58,7 +58,7 @@ This project seeks to address that gap by developing a scalable and automated pi
 
 ### Rigid Facial Accessories
 
-![img](./assets/glasses_variations.png)
+![Glasses Variations](./assets/glasses_variations.png)
 
 Rigid facial accessories such as glasses are automatically deformed and aligned to subject-specific geometry using a Houdini-based rigging pipeline. The key idea is to extract 3D facial landmarks from the [FaceKit](https://github.com/USC-ICT/ICT-FaceKit) meshes — specifically, predefined indices corresponding to anatomical regions like the nasal bridge and ear positions — and use them as anchor points for rig alignment.
 
@@ -73,7 +73,7 @@ r_theta = r_new_angle - r_orig_angle
 
 These angle offsets (`r_theta`, `l_theta`) are applied to the hinge joints to ensure the temple arms rotate cleanly into their final position, preserving the structural rigidity of the asset. This effectively solves a planar IK problem using trigonometric inference based on two known positions per limb and a shared base joint.
 
-![gif](./assets/glasses_deformer.gif)
+![Glasses Deformer](./assets/glasses_deformer.gif)
 
 #### Pipeline Contribution
 
@@ -104,29 +104,29 @@ def set_coil(col, desc, mod, count, radius):
 Hair color is selected from a predefined dictionary of natural shades and applied directly to the assigned `aiStandardHair` shader’s `baseColor` attribute. The process is randomized per subject while retaining structural consistency by building on a set of shared base grooms.
 
 This setup allows fully batched, stylized hair generation at scale without relying on manual groom editing or artist intervention.
-![img](./assets/hair_modifier_diagram.png)
+![Hair Modifier Diagram](./assets/hair_modifier_diagram.png)
 
 ## Headwear Assets Deformation
 
-![img](./assets/headwear_variations.png)
+![Headwear Variations](./assets/headwear_variations.png)
 
 Headwear accessories are conformed to target meshes using a proximity-driven deformation workflow in Maya. The deformation is unique to each asset — guided by procedurally generated point weights, where each vertex's influence is determined by its distance from the face mesh. This weighting strategy ensures that regions of the asset closer to the face are more deformable, while distant regions remain more rigid.
 
-![img](./assets/hat_weights.png)
+![Hat Weights](./assets/hat_weights.png)
 
-![gif](./assets/headwear_deform_results.gif)
+![Headwear Deform Results](./assets/headwear_deform_results.gif)
 
 ### Fitted Facial Accessories Deformation
 
-![img](./assets/mask_variations.png)
+![Mask Variations](./assets/mask_variations.png)
 
 Facial accessories are fitted to target meshes using a localized deformation strategy. Unlike rigid or headwear assets, these items require a higher degree of surface adherence to fit high curvature or articulation areas like the nose, cheeks, and jaw.
 
-![img](./assets/mask_weights.png)
+![Mask Weights](./assets/mask_weights.png)
 
 To support this, deformation weights are first computed procedurally based on vertex proximity to the underlying facial geometry, similar to the headwear assets. However, additionally a smoothing stage is then applied to mitigate shearing and surface noise introduced during proximity wrapping. The method preserves fine detail from the original geometry while producing a smooth transition across regions with sharp spatial gradients.
 
-![gif](./assets/mask_deform_results.gif)
+![Mask Deform Results](./assets/mask_deform_results.gif)
 
 ### Platform Integration Strategy
 

@@ -129,7 +129,7 @@ flowchart LR
 
 ### MySQL "Sublayer" Structure
 
-![img](./assets/mysql-visual.png)
+![Mysql Visual](./assets/mysql-visual.png)
 
 In support of version-aware asset resolution, we introduced a `Sublayer` table to the MySQL schema. Each `Sublayer` corresponds to a physical `.usd` file and maintains a many-to-one relationship with an `Asset` entry. This design enables fine-grained tracking of individual USD layers within a composite asset.
 
@@ -220,7 +220,7 @@ To ensure smooth adoption by a large, multidisciplinary team, I integrated **Swa
 
 - `/docs` – Auto-generated reference of all endpoints, expected schemas, and return types
 - `/playground` – Interactive API testing interface directly in the browser
-  ![png](assets/swagger.png)
+  ![Swagger](assets/swagger.png)
 
 This was particularly useful for downstream developers:
 
@@ -323,7 +323,7 @@ To assist all project contributors in adopting this structure, I developed a sui
 - A [demo video](https://www.youtube.com/watch?v=hNuHniOKjt4) in USDView walking through an example asset, demonstrating how to switch through different geometry variants, and view the inherited material binding for a given geometry prim.
 - A visual [workflow presentation](https://drive.google.com/file/d/1ZxiKbZk2xu4kw1len1eW1ywzZlvCVUjK/view) outlining what is possible with this structure. Namely, walks through a "check-in/check-out" workflow, and details the thought process of a potential **geometry artist** as well as a **material artist**.
 
-![img](./assets/workflow-presentation-preview.png)
+![Workflow Presentation Preview](./assets/workflow-presentation-preview.png)
 
 - A [GitHub reference repo](https://github.com/) containing dummy assets, layer templates, example Python scripting routes, and an extensive README tailored towards my fellow contributors.
 
@@ -349,7 +349,7 @@ At the time, our MVP used both a Django-based backend and frontend. So to suppor
 
 The MVP was functional and helped define the asset preview feature’s technical constraints and opportunities.
 
-![gif](assets/Demo_Usd_Viewer_with_Animations.gif)
+![Demo Usd Viewer With Animations](assets/Demo_Usd_Viewer_with_Animations.gif)
 
 In the final AstroJS-based frontend, a more robust Three.JS viewer was integrated by the frontend team. It includes additional features such as:
 

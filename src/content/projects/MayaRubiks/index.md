@@ -83,6 +83,6 @@ Each move is animated by creating a temporary group transform and rotating the g
 
 The plug-in is initialized through `MayaRubiks.py`, which registers the `mayaRubiks` command using `OpenMayaMPx.MPxCommand`. This command sets up the persistent primitives of the scene (`polyCube`'s and `aiStandardSurface`'s ) and opens a custom UI window defined in `maya_rubiks_ui.py`. The UI provides 3 simple buttons to 1. `Create New Cube`, 2. `Solve`, and 3. `Delete Cube`. A custom shelf is included as part of the tool plug-in, and activation requires only appending the package path to `MAYA_MODULE_PATH` through `Maya.env` (detailed instructions in README and demo video).
 
-![img](./assets/maya_rubiks_ui.png)
+![Maya Rubiks Ui](./assets/maya_rubiks_ui.png)
 
 This design enables the plug-in to remain self-contained and version-controlled, while allowing users to activate it with minimal environment configuration.

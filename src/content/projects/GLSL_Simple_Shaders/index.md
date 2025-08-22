@@ -54,23 +54,23 @@ In the first pass, geometry is rendered with one of several user-selectable surf
 
 - **Lambert**: Basic diffuse shading using the surface normal and light direction.
 
-![img](./assets/surface_lambert.png)
+![Surface Lambert](./assets/surface_lambert.png)
 
 - **Blinn-Phong**: Adds specular highlights using a halfway vector.
 
-![img](./assets/surface_blinn-phong.png)
+![Surface Blinn Phong](./assets/surface_blinn-phong.png)
 
 - **Matcap**: Applies a stylized material capture (matcap) texture by mapping view-space normals directly to UV coordinates on a 2D matcap image. This technique simulates lighting and shading using a single texture lookup, making it lightweight and visually expressive. Users can choose from styles such as Red Clay, Chrome, and Outline.
 
-![img](./assets/surface_matcap.png)
+![Surface Matcap](./assets/surface_matcap.png)
 
 - **Color Gradient**: Maps object height to a vertical color ramp.
 
-![img](./assets/surface_color_gradient.png)
+![Surface Color Gradient](./assets/surface_color_gradient.png)
 
 - **Vertex Deformation**: Displaces vertex positions in the vertex shader based on time or procedural noise.
 
-![img](./assets/surface_vertex_deformation.gif)
+![Surface Vertex Deformation](./assets/surface_vertex_deformation.gif)
 
 ### Post-Processing Stage
 
@@ -78,23 +78,23 @@ After the surface pass, a full-screen quad is rendered using one of several post
 
 - **Greyscale**: Converts RGB to luminance.
 
-![img](./assets/post_grayscale.png)
+![Post Grayscale](./assets/post_grayscale.png)
 
 - **Gaussian Blur**: Applies a separable blur kernel to smooth the image.
 
-![img](./assets/post_gaussian_blur.png)
+![Post Gaussian Blur](./assets/post_gaussian_blur.png)
 
 - **Sobel**: Detects edges using gradient convolution.
 
-![img](./assets/post_sobel.png)
+![Post Sobel](./assets/post_sobel.png)
 
 - **Bloom**: Bright-pass filter followed by blur and additive blending.
 
-![img](./assets/post_bloom.png)
+![Post Bloom](./assets/post_bloom.png)
 
 - **Worley Noise**: Generates a cellular noise pattern and uses it to apply a dynamic screen-space warp, resulting in a subtle animated translation of the scene.
 
-![img](./assets/post_worley_noise.gif)
+![Post Worley Noise](./assets/post_worley_noise.gif)
 
 ### GUI Interaction
 

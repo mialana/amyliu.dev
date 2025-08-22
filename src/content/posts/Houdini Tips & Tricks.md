@@ -6,10 +6,10 @@ U = Jump up network
 ## Helpful UI
 
 Visualization: Visualize attributes on points, prims, etc.
-![](houdini-visualization-ui.png)
+![Houdini Visualization Ui](houdini-visualization-ui.png)
 
 Textport Window: Use `exhelp` to get full documentation for VEX method
-![](houdini-textport-ui.png)
+![Houdini Textport Ui](houdini-textport-ui.png)
 
 ## VEX methods
 
@@ -37,7 +37,7 @@ setpointgroup(0, "noiseMask", @ptnum, 1, "set");
 ## Nodes of Interest:
 
 UV Flatten: v.s. UV Unwrap it is better for irregular geometry
-![](houdini-uv-flatten.png)
+![Houdini Uv Flatten](houdini-uv-flatten.png)
 
 ## Links:
 
@@ -47,4 +47,4 @@ UV Flatten: v.s. UV Unwrap it is better for irregular geometry
 
 hou.setDefaultColor(hou.colorItemType.NetworkBox, hou.Color(0.0, 0.0, 0.0))
 
-![img](Screenshot%202025-07-04%20at%2012.53.10%20PM.png)- op:`opfullpath('..')`
+![Screenshot%202025 07 04%20At%2012.53.10%20Pm](Screenshot%202025-07-04%20at%2012.53.10%20PM.png)- op:`opfullpath('..')`
