@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+
+import MainLayout from "@/layouts/MainLayout.astro";
+import ProjectLayout from "@/layouts/ProjectLayout.astro";
+
+import createSlug from "@/lib/createSlug";
+
+export async function getStaticPaths() {
+    const projects = await getCollection("projects");
+
+    // Include tech stack as honorary tags
+    const uniqueTags = [
+        ...new Set(
+            projects
+                .map((project: any) => [
+                    ...project.data.tags,
+                    ...project.data.techStack,
+                ])
+                .flat(),
+        ),
+    ];
+
+    return uniqueTags.map((tag) => {
+        const filteredProjects = projects.filter(
+            (project: any) =>
+                project.data.tags.includes(tag) ||
+                project.data.techStack.includes(tag),
+        );
+        return { params: { tag: tag }, props: { projects: filteredProjects } };
+    });
+}
+
+const { tag: tag } = Astro.params;
+const { projects } = Astro.props;
+---
+
+<MainLayout title={tag} layout="HIDE_BOTH">
+    <div class="w-full text-center">
+        <div class="prose m-auto">
+            <h3 class="mb-8">
+                PROJECTS UNDER <i class="text-accent">{tag}</i> TAG
+            </h3>
+        </div>
+
+        <ul>
+            {
+                projects.map((project: any) => (
+                    <li class="mb-24">
+                        <a
+                            href={`/projects/${createSlug(
+                                project.data.title,
+                                project.data.slug,
+                            )}`}
+                            class="text-red-accent text-xl font-bold underline hover:text-2xl"
+                        >
+                            {project.data.title}
+                        </a>
+
+                        <ProjectLayout project={project} />
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</MainLayout>

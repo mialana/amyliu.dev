@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+
+import MainLayout from "@/layouts/MainLayout.astro";
+
+const projects = await getCollection("projects");
+
+const uniqueTags = [
+    ...new Set(
+        projects
+            .map((project: any) => [
+                ...project.data.tags,
+                ...project.data.techStack,
+            ])
+            .flat(),
+    ),
+];
+---
+
+<MainLayout title="Tags Index">
+    <div class="prose m-auto text-center">
+        <h1 class="">Tags Index</h1>
+        <div class="columns-3 leading-tight *:in-first-of-type:mt-0">
+            {
+                uniqueTags.map((tag) => (
+                    <p>
+                        <a
+                            href={`/tags/${tag}`}
+                            class="hover:text-accent underline"
+                        >
+                            {tag}
+                        </a>
+                    </p>
+                ))
+            }
+        </div>
+    </div>
+</MainLayout>

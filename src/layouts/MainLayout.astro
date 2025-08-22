@@ -35,6 +35,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
         <title>{title} · Amy Liu</title>
+        <slot name="head" />
     </head>
     <body
         class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${grid_cols}`
