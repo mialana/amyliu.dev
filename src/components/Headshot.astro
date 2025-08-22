@@ -31,13 +31,15 @@ import Headshot2025_3 from "@/assets/png/headshot-2025-3.png";
     </div>
 
     <!-- Mobile: Show one at a time with transitions -->
-    <div class="aspect-square md:hidden">
+    <div
+        class="aspect-square *:absolute *:inset-0 *:rounded-lg *:transition-opacity *:duration-1000 md:hidden"
+    >
         <Image
             src={Headshot2025_1}
             alt="Amy Liu Headshot 1 from University of Pennsylvania"
             width={800}
             height={800}
-            class="headshot-image absolute inset-0 rounded-lg transition-opacity duration-300"
+            class="headshot-image"
             data-index="0"
         />
         <Image
@@ -45,7 +47,7 @@ import Headshot2025_3 from "@/assets/png/headshot-2025-3.png";
             alt="Amy Liu Headshot 2 from Barcelona, Spain"
             width={800}
             height={800}
-            class="headshot-image absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300"
+            class="headshot-image opacity-0"
             data-index="1"
         />
         <Image
@@ -53,7 +55,7 @@ import Headshot2025_3 from "@/assets/png/headshot-2025-3.png";
             alt="Amy Liu Headshot 3 from Seoul, South Korea"
             width={800}
             height={800}
-            class="headshot-image absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300"
+            class="headshot-image opacity-0"
             data-index="2"
         />
     </div>
@@ -77,13 +79,9 @@ import Headshot2025_3 from "@/assets/png/headshot-2025-3.png";
 
                 // Show current image
                 images[currentIndex].classList.toggle("opacity-0");
-            }, 3000);
-        } else {
-            if (intervalId) {
-                clearInterval(intervalId);
-            }
+            }, 4000);
         }
     }
-    window.addEventListener("load", handleHeadshotSlideshow);
     window.addEventListener("resize", handleHeadshotSlideshow);
+    window.addEventListener("load", handleHeadshotSlideshow);
 </script>

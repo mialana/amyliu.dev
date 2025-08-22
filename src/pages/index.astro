@@ -11,9 +11,10 @@ import Headshot from "../components/Headshot.astro";
 ---
 
 <MainLayout title="Home" layout="DEFAULT">
+    <Toast client:load />
     <SectionLayout>
         <div
-            class="relative m-4 flex flex-col items-center justify-center gap-8 overflow-y-scroll p-8 shadow-lg md:m-4 md:flex-col md:gap-8"
+            class="relative flex flex-col items-center justify-center gap-8 overflow-y-scroll p-8 shadow-lg md:flex-col md:gap-8"
         >
             <Headshot />
             <div class="prose">
@@ -35,7 +36,7 @@ import Headshot from "../components/Headshot.astro";
                         Here, you can easily scroll and filter through my past
                         projects, watch their corresponding demo videos, and
                         read through each project breakdown for more
-                        information. I am also currently expanding on the
+                        information. I am also gradually expanding on the
                         content, such as including my work in 3D-modeling and 2D
                         art.
                     </p>
@@ -55,5 +56,4 @@ import Headshot from "../components/Headshot.astro";
             </div>
         </div>
     </SectionLayout>
-    <Toast client:load />
 </MainLayout>
