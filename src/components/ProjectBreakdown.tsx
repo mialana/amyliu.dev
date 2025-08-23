@@ -1,13 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface MarkdownHeading {
-    depth: number;
-    slug: string;
-    text: string;
-}
-
-interface Section {
+interface Tab {
     id: string;
     title: string;
     content: string;
@@ -15,35 +9,27 @@ interface Section {
 
 interface ProjectBreakdownProps {
     children: React.ReactElement;
-    headings?: MarkdownHeading[];
 }
 
-export default function ProjectBreakdown({
-    children,
-    headings = [],
-}: ProjectBreakdownProps) {
-    const [sections, setSections] = useState<Section[]>([]);
+export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
+    const [tabs, setTabs] = useState<Tab[]>([]);
     const [activeTabId, setActiveTabId] = useState<string>("");
     const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Parse already rendered HTML content into sections based on h2 tags
-        const parseSections = () => {
+        // Parse already rendered HTML content into tabs based on h2 tags
+        const parseMarkdown = () => {
             if (!contentRef.current) return;
 
             const h2Elements = contentRef.current.querySelectorAll("h2");
-            const sections: Section[] = [];
+            const tabs: Tab[] = [];
 
             h2Elements.forEach((h2, index) => {
                 const title = h2.textContent || "";
 
                 // Use the heading slug if available, otherwise generate one
                 let id: string;
-                if (headings.length > index && headings[index]) {
-                    id = headings[index].slug;
-                } else {
-                    id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                }
+                id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
                 // Get content between this h2 and the next h2 (or end of content)
                 let content = "";
@@ -54,28 +40,25 @@ export default function ProjectBreakdown({
                     nextElement = nextElement.nextElementSibling;
                 }
 
-                sections.push({ id, title, content: content.trim() });
+                tabs.push({ id, title, content: content.trim() });
             });
 
-            setSections(sections);
+            setTabs(tabs);
+            setActiveTabId(tabs[0].id);
         };
 
-        // Use a small delay to ensure the DOM is fully rendered
-        const timer = setTimeout(parseSections, 100);
-        return () => clearTimeout(timer);
-    }, [headings, activeTabId]);
+        parseMarkdown();
+    }, [activeTabId]);
 
     // Listen for hash changes and sync with tab selection
     useEffect(() => {
         const handleHashChange = () => {
             const hash = window.location.hash.slice(1); // Remove the # symbol
 
-            if (hash && sections.length > 0) {
-                // Find the section that matches the hash
-                const sectionExists = sections.find(
-                    (section) => section.id === hash,
-                );
-                if (sectionExists) {
+            if (hash && tabs.length > 0) {
+                // Find the tab that matches the hash
+                const tabExists = tabs.find((tab) => tab.id === hash);
+                if (tabExists) {
                     setActiveTabId(hash);
                 }
             }
@@ -90,18 +73,18 @@ export default function ProjectBreakdown({
         return () => {
             window.removeEventListener("hashchange", handleHashChange);
         };
-    }, [sections]);
+    }, [tabs]);
 
     // Update URL hash when tab changes
-    const handleTabChange = (sectionId: string) => {
-        setActiveTabId(sectionId);
-        const newHash = `#${sectionId}`;
+    const handleTabChange = (tabId: string) => {
+        setActiveTabId(tabId);
+        const newHash = `#${tabId}`;
         if (window.location.hash !== newHash) {
             window.history.replaceState(null, "", newHash);
         }
     };
 
-    if (sections.length === 0) {
+    if (tabs.length === 0) {
         return (
             <div ref={contentRef} className="prose prose-lg max-w-none">
                 {children}
@@ -109,8 +92,7 @@ export default function ProjectBreakdown({
         );
     }
 
-    const activeSection =
-        sections.find((section) => section.id === activeTabId) || sections[0];
+    const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
 
     return (
         <div className="mx-auto my-8 w-fit **:scroll-mt-24">
@@ -119,47 +101,40 @@ export default function ProjectBreakdown({
                 className="sticky top-0 z-10 mb-6 flex scale-103 flex-wrap gap-2 border-b border-neutral-200 bg-white py-2"
                 role="tablist"
             >
-                {sections.map((section) => (
+                {tabs.map((tab) => (
                     <button
-                        key={section.id}
-                        id={`tab-${section.id}`}
+                        key={tab.id}
+                        id={tab.id}
                         role="tab"
-                        aria-selected={activeTabId === section.id}
-                        aria-controls={`panel-${section.id}`}
-                        onClick={() => handleTabChange(section.id)}
+                        aria-selected={activeTabId === tab.id}
+                        aria-controls={`panel-${activeTab.id}`}
+                        onClick={() => handleTabChange(tab.id)}
                         className={`mt-6 rounded-t-md px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                            activeTabId === section.id
+                            activeTabId === tab.id
                                 ? "bg-blue-accent text-white"
                                 : "bg-neutral-200 hover:bg-neutral-300"
                         }`}
                     >
-                        {section.title}
+                        {tab.title}
                     </button>
                 ))}
             </div>
 
             {/* Tab Content */}
             <div className="relative min-h-[400px]">
-                <AnimatePresence mode="popLayout">
-                    <motion.div
-                        key={activeTabId}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="prose prose-lg max-w-none"
-                        role="tabpanel"
-                        id={`panel-${activeSection.id}`}
-                        aria-labelledby={`tab-${activeSection.id}`}
-                    >
-                        <div
-                            dangerouslySetInnerHTML={{
-                                __html: activeSection.content || "",
-                            }}
-                            className="prose prose-h5:font-medium"
-                        />
-                    </motion.div>
-                </AnimatePresence>
+                <div
+                    key={activeTabId}
+                    className="prose prose-lg max-w-none"
+                    role="tabpanel"
+                    aria-labelledby={`tab-${activeTab.id}`}
+                >
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: activeTab.content || "",
+                        }}
+                        className="prose prose-h5:font-medium"
+                    />
+                </div>
             </div>
 
             {/* Hidden content for parsing - this won't be visible */}
