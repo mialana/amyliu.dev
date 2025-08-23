@@ -34,11 +34,7 @@ const { Content, headings } = await render(project);
     <TableOfContents headings={headings} slot="nav-sidebar" />
 
     <ProjectLayout project={project}>
-        <article id="breakdown" class="prose">
-            <hr />
-            <Content />
-            <hr />
-        </article>
+        <Content />
     </ProjectLayout>
 
     {
