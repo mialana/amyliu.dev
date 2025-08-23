@@ -52,37 +52,41 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
     // Listen for hash changes and sync with tab selection
     useEffect(() => {
+        let timer: ReturnType<typeof setTimeout> | null = null;
+
         const handleHashChange = () => {
-            const hash = window.location.hash.slice(1); // Remove the # symbol
+            const hash = window.location.hash.slice(1);
 
             if (hash && tabs.length > 0) {
-                // Find the tab that matches the hash
                 const tabExists = tabs.find((tab) => tab.id === hash);
+                let section = document.getElementById(hash);
                 if (tabExists) {
                     setActiveTabId(hash);
+
+                    section?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    });
                 } else {
                     setActiveTabId("method");
 
-                    const timer = setTimeout(() => {
-                        const section = document.getElementById(hash);
+                    if (timer) clearTimeout(timer); // clear previous
+                    timer = setTimeout(() => {
+                        section = document.getElementById(hash);
                         section?.scrollIntoView({
                             behavior: "smooth",
-                            block: "start", // Aligns the element's top with the top of the viewport
+                            block: "start",
                         });
-                        console.log("called");
-                    }, 500);
-                    return () => clearTimeout(timer);
+                    }, 300);
                 }
             }
         };
 
-        // Handle initial hash on component mount
         handleHashChange();
-
-        // Listen for hash changes
         window.addEventListener("hashchange", handleHashChange);
 
         return () => {
+            if (timer) clearTimeout(timer);
             window.removeEventListener("hashchange", handleHashChange);
         };
     }, [tabs]);
@@ -119,7 +123,6 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         id={tab.id}
                         role="tab"
                         aria-selected={activeTabId === tab.id}
-                        aria-controls={`panel-${activeTab.id}`}
                         onClick={() => handleTabChange(tab.id)}
                         className={`mt-6 rounded-t-md px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                             activeTabId === tab.id
@@ -135,7 +138,6 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
             {/* Tab Content */}
             <div className="relative min-h-[400px]">
                 <div
-                    key={activeTabId}
                     className="prose prose-lg max-w-none"
                     role="tabpanel"
                     aria-labelledby={`tab-${activeTab.id}`}
