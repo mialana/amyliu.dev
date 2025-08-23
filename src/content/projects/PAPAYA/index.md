@@ -112,17 +112,17 @@ Though ultimately, we realized that the systems were heavily interconnected, so 
 
 ```mermaid
 flowchart LR
-    subgraph one[clang]
-    direction LR
-    a1[MySQL]-->a2
-    a2[Django Views/Models]-->a3
-    a3[S3 Bucket]-->a1
-    a1---a2
-    a2---a3
-    a3---a1
-    end
-    c1[Astro Frontend]
-    one --> c1
+  subgraph one[clang]
+  direction LR
+  a1[MySQL]-->a2
+  a2[Django Views/Models]-->a3
+  a3[S3 Bucket]-->a1
+  a1---a2
+  a2---a3
+  a3---a1
+  end
+  c1[Astro Frontend]
+  one --> c1
 ```
 
 (Get it? Because clang... is clang?)
@@ -145,13 +145,13 @@ To integrate this logic into the development pipeline, I extended our Django mod
 ```python
 # library/management/command/commits.py
 class Command(BaseCommand):
-    help = """Easily refactor Commit objects in database."""
+  help = """Easily refactor Commit objects in database."""
 
-    def handle(self, *args, **options):
-        if click.confirm(f"Fixing timestamp-related commit history. Continue?"):
-            self.fixCommitTimestamps()
-        if click.confirm('Refactoring 1.x commit versions to 0x.00.00 versions. Continue?'):
-            self.standardizeCommitVersionSyntax()
+  def handle(self, *args, **options):
+    if click.confirm(f"Fixing timestamp-related commit history. Continue?"):
+      self.fixCommitTimestamps()
+    if click.confirm('Refactoring 1.x commit versions to 0x.00.00 versions. Continue?'):
+      self.standardizeCommitVersionSyntax()
 	...
 ```
 
@@ -172,13 +172,13 @@ In building this pipeline, I collaborated closely with teammates who developed t
 
 ```mermaid
 flowchart TD
-    A[S3Manager Class]
+  A[S3Manager Class]
 
-    A --> B["generate_presigned_url()"]
-    A --> C["update_file()"]
-    A --> E["delete_file()"]
-    A --> F["list_s3_files()"]
-    A --> G["download_s3_file()"]
+  A --> B["generate_presigned_url()"]
+  A --> C["update_file()"]
+  A --> E["delete_file()"]
+  A --> F["list_s3_files()"]
+  A --> G["download_s3_file()"]
 ```
 
 This wrapper pattern reinforced the importance of modular backend design. It also allowed me to streamline resolver logic and maintain a consistent interface between asset metadata and its physical representation in storage.
@@ -242,32 +242,32 @@ Assets were organized under a top-level `Assets/` directory, with each asset con
 ```bash title="bash"
 Assets/
 └── assetName/
-    ├── assetName.usda # Root layer to reference contribs
-    └── contrib/
-        ├── geometry/
-        │   ├── geometry.usda
-        │   ├── bbox/
-        │   │   └── geometry_bbox.usda
-        │   ├── LOD0/
-        │   │   └── geometry_LOD0.usda
-        │   ├── LOD1/
-        │   │   └── geometry_LOD1.usda
-        │   └── LOD2/
-        │       └── geometry_LOD2.usda
-        └── material/
-            ├── material.usda
-            ├── default/
-            │   ├── material_default.usda
-            │   └── texture/
-            │       └── default.png
-            ├── plastic/
-            │   ├── material_plastic.usda
-            │   └── texture/
-            │       └── plastic.png
-            └── metal/
-                ├── material_metal.usda
-                └── texture/
-                    └── metal.png
+  ├── assetName.usda # Root layer to reference contribs
+  └── contrib/
+    ├── geometry/
+    │   ├── geometry.usda
+    │   ├── bbox/
+    │   │   └── geometry_bbox.usda
+    │   ├── LOD0/
+    │   │   └── geometry_LOD0.usda
+    │   ├── LOD1/
+    │   │   └── geometry_LOD1.usda
+    │   └── LOD2/
+    │       └── geometry_LOD2.usda
+    └── material/
+      ├── material.usda
+      ├── default/
+      │   ├── material_default.usda
+      │   └── texture/
+      │       └── default.png
+      ├── plastic/
+      │   ├── material_plastic.usda
+      │   └── texture/
+      │       └── plastic.png
+      └── metal/
+        ├── material_metal.usda
+        └── texture/
+          └── metal.png
 ```
 
 Each asset’s root `.usda` file served as a **single authoritative entry point** that composited together all modular contributions. From this root, references unfolded **layer by layer** — starting with top-level geometry and material references, then expanding into deeper sublayers like LOD variants or per-material texture maps. This hierarchical unfolding made each asset **introspectable at a glance**, while still allowing contributors to work at fine-grained levels without touching the root.

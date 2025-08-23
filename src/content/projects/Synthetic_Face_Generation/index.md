@@ -90,15 +90,15 @@ For example, the following function modifies the coil deformation applied to hai
 ```python
 # scripts/hair_modify_xgen/hair_modify.py
 def set_coil(col, desc, mod, count, radius):
-    new_cc = max(0, prev.get_prev(col, desc, mod, "count") + count)
-    xg.setAttr("count", f"$cLength > 1.25 ? {str(new_cc)} : 0", col, desc, mod)
+  new_cc = max(0, prev.get_prev(col, desc, mod, "count") + count)
+  xg.setAttr("count", f"$cLength > 1.25 ? {str(new_cc)} : 0", col, desc, mod)
 
-    prev_ccr, prev_cct = prev.get_prev_ramp(col, desc, mod, "radiusScale")
-    new_ccr = min(1, max(0, prev_ccr + radius[0]))
-    new_cct = min(1, max(0, prev_cct + radius[1]))
-    xg.setAttr(
-        "radiusScale", f"rampUI(0.0,{new_ccr},3:1.0,{new_cct},3)", col, desc, mod
-    )
+  prev_ccr, prev_cct = prev.get_prev_ramp(col, desc, mod, "radiusScale")
+  new_ccr = min(1, max(0, prev_ccr + radius[0]))
+  new_cct = min(1, max(0, prev_cct + radius[1]))
+  xg.setAttr(
+    "radiusScale", f"rampUI(0.0,{new_ccr},3:1.0,{new_cct},3)", col, desc, mod
+  )
 ```
 
 Hair color is selected from a predefined dictionary of natural shades and applied directly to the assigned `aiStandardHair` shader’s `baseColor` attribute. The process is randomized per subject while retaining structural consistency by building on a set of shared base grooms.

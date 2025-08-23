@@ -52,10 +52,10 @@ The world is partitioned into 16×256×16 chunks, each representing a segment of
 // miniMinecraft/src/scene/chunk.cpp
 void Chunk::linkNeighbor(uPtr<Chunk>& neighbor, Direction dir)
 {
-    if (neighbor != nullptr) {
-        this->m_neighbors[dir] = neighbor.get();
-        neighbor->m_neighbors[oppositeDirection.at(dir)] = this;
-    }
+  if (neighbor != nullptr) {
+    this->m_neighbors[dir] = neighbor.get();
+    neighbor->m_neighbors[oppositeDirection.at(dir)] = this;
+  }
 }
 ```
 
@@ -69,15 +69,15 @@ The main simulation runs on a fixed timestep via a tick-based loop that decouple
 // miniMinecraft/src/mygl.cpp
 void MyGL::tick()
 {
-    glm::vec3 prevPlayerPos = m_player.m_position;
-    float dT = (QDateTime::currentMSecsSinceEpoch() - m_currMSecSinceEpoch) / 1000.f;
-    m_player.tick(dT, m_terrain);
+  glm::vec3 prevPlayerPos = m_player.m_position;
+  float dT = (QDateTime::currentMSecsSinceEpoch() - m_currMSecSinceEpoch) / 1000.f;
+  m_player.tick(dT, m_terrain);
 
-    for (auto& mob : m_mobs) {
-        mob->m_inputs.playerPosition = m_player.m_position;
-        mob->tick(dT, m_terrain);
-    }
-    m_currMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
+  for (auto& mob : m_mobs) {
+    mob->m_inputs.playerPosition = m_player.m_position;
+    mob->tick(dT, m_terrain);
+  }
+  m_currMSecSinceEpoch = QDateTime::currentMSecsSinceEpoch();
 }
 ```
 
@@ -85,12 +85,12 @@ void MyGL::tick()
 // miniMinecraft/src/scene/player.cpp
 void Player::tick(float dT, Terrain& terrain)
 {
-    Entity::isOnGround(terrain);
-    Entity::isInLiquid(terrain);
-    Entity::isUnderLiquid(terrain);
-    processInputs();
-    Entity::computePhysics(dT, terrain);
-    Entity::animate(dT);
+  Entity::isOnGround(terrain);
+  Entity::isInLiquid(terrain);
+  Entity::isUnderLiquid(terrain);
+  processInputs();
+  Entity::computePhysics(dT, terrain);
+  Entity::animate(dT);
 }
 ```
 
@@ -101,32 +101,32 @@ Player physics are implemented using the concept of axis-aligned bounding box (A
 class Entity
 {
 protected:
-    // Check if the entity is submerged in water or lava
-    void isInLiquid(Terrain& terrain);
+  // Check if the entity is submerged in water or lava
+  void isInLiquid(Terrain& terrain);
 
-    // Check if the entity is standing on solid ground
-    void isOnGround(Terrain& terrain);
+  // Check if the entity is standing on solid ground
+  void isOnGround(Terrain& terrain);
 
-    // Check if the entity's head is underwater or under lava for full-screen post-processing
-    void isUnderLiquid(Terrain& terrain);
+  // Check if the entity's head is underwater or under lava for full-screen post-processing
+  void isUnderLiquid(Terrain& terrain);
 
 public:
-    // Update entity state and behavior each tick
-    virtual void tick(float dT, Terrain& terrain) = 0;
+  // Update entity state and behavior each tick
+  virtual void tick(float dT, Terrain& terrain) = 0;
 
-    // Apply gravity, velocity, and movement integration
-    virtual void computePhysics(float dT, Terrain& terrain);
+  // Apply gravity, velocity, and movement integration
+  virtual void computePhysics(float dT, Terrain& terrain);
 
-    // Resolve collisions with surrounding solid blocks
-    virtual void detectCollision(Terrain& terrain);
+  // Resolve collisions with surrounding solid blocks
+  virtual void detectCollision(Terrain& terrain);
 
-    // Perform voxel grid traversal to find first intersected block
-    virtual bool gridMarch(glm::vec3 rayOrigin,
-                           glm::vec3 rayDirection,
-                           float* out_dist,
-                           glm::ivec3* out_blockHit,
-                           Terrain& terrain,
-                           BlockType* out_type = nullptr);
+  // Perform voxel grid traversal to find first intersected block
+  virtual bool gridMarch(glm::vec3 rayOrigin,
+               glm::vec3 rayDirection,
+               float* out_dist,
+               glm::ivec3* out_blockHit,
+               Terrain& terrain,
+               BlockType* out_type = nullptr);
 }
 ```
 
@@ -144,31 +144,31 @@ Both pig and zombie agents update once per engine tick. Their movement routines 
 // miniMinecraft/src/scene/mob.cpp
 void Mob::tick(float dT, Terrain& terrain)
 {
-    if (!this->needsRespawn) {
-        computePhysics(dT, terrain);
-        animate(dT);
-        isInLiquid(terrain);
-        isUnderLiquid(terrain);
-        pathFind();
+  if (!this->needsRespawn) {
+    computePhysics(dT, terrain);
+    animate(dT);
+    isInLiquid(terrain);
+    isUnderLiquid(terrain);
+    pathFind();
 
-        timeSinceLastPathRecompute += dT;
-        timeSinceLastDirectionCompute += dT;
+    timeSinceLastPathRecompute += dT;
+    timeSinceLastDirectionCompute += dT;
 
-        if (timeSinceLastDirectionCompute > 0.3f) {
-            timeSinceLastDirectionCompute = 0.f;
+    if (timeSinceLastDirectionCompute > 0.3f) {
+      timeSinceLastDirectionCompute = 0.f;
 
-            if (glm::length(m_position - m_lastPosition) < 0.1f) {
-                m_realDirection = glm::vec3(0.f);
-            } else {
-                m_realDirection = glm::normalize(m_position - m_lastPosition);
-                m_lastPosition = m_position;
-            }
-        }
+      if (glm::length(m_position - m_lastPosition) < 0.1f) {
+        m_realDirection = glm::vec3(0.f);
+      } else {
+        m_realDirection = glm::normalize(m_position - m_lastPosition);
+        m_lastPosition = m_position;
+      }
     }
+  }
 
-    if (glm::distance(this->m_position, this->m_inputs.playerPosition) > 100.f) {
-        this->needsRespawn = true;
-    }
+  if (glm::distance(this->m_position, this->m_inputs.playerPosition) > 100.f) {
+    this->needsRespawn = true;
+  }
 }
 ```
 
@@ -185,13 +185,13 @@ The player is represented using a node-based scene graph. The cube-based player 
 class Player : public Entity
 {
 private:
-    Camera m_camera;
-    Camera m_thirdPersonCamera;
-    Camera m_frontViewCamera;
+  Camera m_camera;
+  Camera m_thirdPersonCamera;
+  Camera m_frontViewCamera;
 
 public:
-    void calculateThirdPersonCameraRotation();
-    void calculateFrontViewCameraRotation();
-    void changeCamera();
+  void calculateThirdPersonCameraRotation();
+  void calculateFrontViewCameraRotation();
+  void changeCamera();
 }
 ```

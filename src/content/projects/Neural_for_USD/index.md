@@ -82,7 +82,7 @@ QJsonObject json;
 QJsonArray frames;
 
 for (const auto& frameMeta : m_allFrameMeta) {
-    frames.append(frameMeta->toJson(m_outputDataJsonPath));
+  frames.append(frameMeta->toJson(m_outputDataJsonPath));
 }
 ```
 
@@ -118,28 +118,28 @@ It also holds references to:
 // src/base/renderengine.cpp
 void RenderEngine::record(StageManager* manager)
 {
-    HgiTextureHandle textureHandle = m_imagingEngine.GetAovTexture(HdAovTokens->color);
+  HgiTextureHandle textureHandle = m_imagingEngine.GetAovTexture(HdAovTokens->color);
 
-    HioImage::StorageSpec storage;
-    storage.flipped = true;
+  HioImage::StorageSpec storage;
+  storage.flipped = true;
 
-    size_t size = 0;
-    HdStTextureUtils::AlignedBuffer<uint8_t> mappedColorTextureBuffer;
+  size_t size = 0;
+  HdStTextureUtils::AlignedBuffer<uint8_t> mappedColorTextureBuffer;
 
-    storage.width = textureHandle->GetDescriptor().dimensions[0];
-    storage.height = textureHandle->GetDescriptor().dimensions[1];
-    storage.format = HdxGetHioFormat(textureHandle->GetDescriptor().format);
+  storage.width = textureHandle->GetDescriptor().dimensions[0];
+  storage.height = textureHandle->GetDescriptor().dimensions[1];
+  storage.format = HdxGetHioFormat(textureHandle->GetDescriptor().format);
 
-    mappedColorTextureBuffer = HdStTextureUtils::HgiTextureReadback(m_imagingEngine.GetHgi(),
-                                                                    textureHandle,
-                                                                    &size);
-    storage.data = mappedColorTextureBuffer.get();
+  mappedColorTextureBuffer = HdStTextureUtils::HgiTextureReadback(m_imagingEngine.GetHgi(),
+                                  textureHandle,
+                                  &size);
+  storage.data = mappedColorTextureBuffer.get();
 
-    int frame = manager->getCurrentFrame();
-    QString filename = manager->getOutputImagePath(frame);
+  int frame = manager->getCurrentFrame();
+  QString filename = manager->getOutputImagePath(frame);
 
-    const HioImageSharedPtr image = HioImage::OpenForWriting(filename.toStdString());
-    const bool writeSuccess = image && image->Write(storage);
+  const HioImageSharedPtr image = HioImage::OpenForWriting(filename.toStdString());
+  const bool writeSuccess = image && image->Write(storage);
 }
 ```
 
@@ -156,45 +156,45 @@ Each input sample to the NeRF model consists of a 3D point **x** along a camera 
 ```python
 # src/nerf/nerf.py
 def get_rays(
-    height: int, width: int, focal_length: float, c2w: torch.Tensor
+  height: int, width: int, focal_length: float, c2w: torch.Tensor
 ) -> Tuple[torch.Tensor, torch.Tensor]:
-    r"""
-    Find origin and direction of rays through every pixel and camera origin.
-    """
+  r"""
+  Find origin and direction of rays through every pixel and camera origin.
+  """
 
-    # Apply pinhole camera model to gather directions at each pixel
-    # i is a [width, height] grid with x-values of pixel at coordinate
-    # j is a [width, height] grid with x-values of pixel at coordinate
-    i, j = torch.meshgrid(
-        torch.arange(width, dtype=torch.float32).to(c2w),
-        torch.arange(height, dtype=torch.float32).to(c2w),
-        indexing="ij",
-    )
+  # Apply pinhole camera model to gather directions at each pixel
+  # i is a [width, height] grid with x-values of pixel at coordinate
+  # j is a [width, height] grid with x-values of pixel at coordinate
+  i, j = torch.meshgrid(
+    torch.arange(width, dtype=torch.float32).to(c2w),
+    torch.arange(height, dtype=torch.float32).to(c2w),
+    indexing="ij",
+  )
 
-    # swaps the last two dimensions (should be just 2, to get i and j shaped [height, width].
-    i, j = i.transpose(-1, -2), j.transpose(-1, -2)
+  # swaps the last two dimensions (should be just 2, to get i and j shaped [height, width].
+  i, j = i.transpose(-1, -2), j.transpose(-1, -2)
 
-    # Map to [(-1, -1), (1, 1)] and then NDC (scaled by focal length):
-    #   x: (i - width/2) / focal
-    #   y: -(j - height/2) / focal
-    #   z: -1 (-1 is camera's forward)
-    directions = torch.stack(
-        [
-            (i - width * 0.5) / focal_length,
-            -(j - height * 0.5) / focal_length,
-            -torch.ones_like(i),
-        ],
-        dim=-1,
-    )
+  # Map to [(-1, -1), (1, 1)] and then NDC (scaled by focal length):
+  #   x: (i - width/2) / focal
+  #   y: -(j - height/2) / focal
+  #   z: -1 (-1 is camera's forward)
+  directions = torch.stack(
+    [
+      (i - width * 0.5) / focal_length,
+      -(j - height * 0.5) / focal_length,
+      -torch.ones_like(i),
+    ],
+    dim=-1,
+  )
 
-    # Convert to world coords
-    # Apply camera pose to directions
-    rays_d = torch.sum(directions[..., None, :] * c2w[:3, :3], dim=-1)
+  # Convert to world coords
+  # Apply camera pose to directions
+  rays_d = torch.sum(directions[..., None, :] * c2w[:3, :3], dim=-1)
 
-    # Origin is same for all directions (the optical center)
-    rays_o = c2w[:3, -1].expand(rays_d.shape)
+  # Origin is same for all directions (the optical center)
+  rays_o = c2w[:3, -1].expand(rays_d.shape)
 
-    return rays_o, rays_d
+  return rays_o, rays_d
 ```
 
 ![Sampled View Directions](assets/sampled_view_directions.png)
@@ -222,18 +222,18 @@ The core model is a fully connected MLP, implemented in `nerf.py`. It consists o
 ```python
 # src/nerf/nerf.py
 class MLP(nn.Module):
-    r"""
-    Multilayer Perceptron module.
-    """
+  r"""
+  Multilayer Perceptron module.
+  """
 
-    def __init__(
-        self,
-        d_input: int = 3,
-        n_layers: int = 8,
-        d_filter: int = 256,
-        skip: Tuple[int] = (4,),
-        d_viewdirs: Optional[int] = None,
-    ):
+  def __init__(
+    self,
+    d_input: int = 3,
+    n_layers: int = 8,
+    d_filter: int = 256,
+    skip: Tuple[int] = (4,),
+    d_viewdirs: Optional[int] = None,
+  ):
 ```
 
 The MLP approximates a function mapping:
