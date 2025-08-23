@@ -48,7 +48,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
         };
 
         parseMarkdown();
-    }, [activeTabId]);
+    }, []);
 
     // Listen for hash changes and sync with tab selection
     useEffect(() => {
@@ -60,6 +60,18 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 const tabExists = tabs.find((tab) => tab.id === hash);
                 if (tabExists) {
                     setActiveTabId(hash);
+                } else {
+                    setActiveTabId("method");
+
+                    const timer = setTimeout(() => {
+                        const section = document.getElementById(hash);
+                        section?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start", // Aligns the element's top with the top of the viewport
+                        });
+                        console.log("called");
+                    }, 500);
+                    return () => clearTimeout(timer);
                 }
             }
         };
