@@ -62,12 +62,12 @@ In `services/viewport_capture.py`, the `/viewport-capture/simple-capture` route 
 # Using the `@router` annotation, we'll tag our `capture` function handler to document the responses and path of the
 # API, once again using the OpenAPI specification format.
 @router.get(
-    path="/simple-capture",
-    summary="Capture a given USD stage",
-    description="Capture a given USD stage as an image.",
-    response_model=ViewportCaptureResponseModel,
-    tags=["Viewport"],
-    responses={200: {"model": ViewportCaptureResponseModel}, 400: {"model": ViewportCaptureResponseModel}},
+  path="/simple-capture",
+  summary="Capture a given USD stage",
+  description="Capture a given USD stage as an image.",
+  response_model=ViewportCaptureResponseModel,
+  tags=["Viewport"],
+  responses={200: {"model": ViewportCaptureResponseModel}, 400: {"model": ViewportCaptureResponseModel}},
 )
 async def simple_capture(response: Response) -> ViewportCaptureResponseModel:
 ```
@@ -78,18 +78,18 @@ The `/viewport-record` endpoint in `services/viewport_record.py` serves as a thi
 # exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/models/viewport_models.py
 
 class ViewportRecordRequestModel(BaseModel):
-    """Model describing the request to record a viewport."""
+  """Model describing the request to record a viewport."""
 
-    num_frames_to_record: int = Field(
-        default=100,
-        title="Capture Status",
-        description="Status of the recording of the given USD stage.",
-    )
-    renderer: str = Field(
-        default="realtime",
-        title="Viewport Renderer",
-        description="Renderer used to record viewport",
-    )
+  num_frames_to_record: int = Field(
+    default=100,
+    title="Capture Status",
+    description="Status of the recording of the given USD stage.",
+  )
+  renderer: str = Field(
+    default="realtime",
+    title="Viewport Renderer",
+    description="Renderer used to record viewport",
+  )
 
 ```
 
@@ -106,34 +106,34 @@ For semantic data, `_add_auto_semantics()` generates class labels for USD prims 
 ```python
 # exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/use_replicator.py
 async def _add_auto_semantics():
-    _output_str = ""
+  _output_str = ""
 
-    _prim_types_filter = "Mesh, Material, Skeleton"
-    _prefixes_to_remove = "SM, MI, Mat"
-    _suffixes_to_remove = "Mat, 6M"
+  _prim_types_filter = "Mesh, Material, Skeleton"
+  _prefixes_to_remove = "SM, MI, Mat"
+  _suffixes_to_remove = "Mat, 6M"
 
-    prim_types = [prim_type for prim_type in _prim_types_filter.replace(" ", "").split(",") if prim_type]
-    prefixes = [prefix for prefix in _prefixes_to_remove.replace(" ", "").split(",") if prefix]
-    suffixes = [suffix for suffix in _suffixes_to_remove.replace(" ", "").split(",") if suffix]
+  prim_types = [prim_type for prim_type in _prim_types_filter.replace(" ", "").split(",") if prim_type]
+  prefixes = [prefix for prefix in _prefixes_to_remove.replace(" ", "").split(",") if prefix]
+  suffixes = [suffix for suffix in _suffixes_to_remove.replace(" ", "").split(",") if suffix]
 
-    get_prim_data = partial(
-        get_prim_auto_label,
-        prim_types=prim_types,
-        remove_numerical_ending=True,
-        prefixes=prefixes,
-        suffixes=suffixes,
-        apply_cumulatively=True,
-        remove_separators=True,
-    )
-    add_prim_data = partial(
-        add_prim_semantics, type="class", write_type=LabelWriteType.NEW, preview=False
-    )
+  get_prim_data = partial(
+    get_prim_auto_label,
+    prim_types=prim_types,
+    remove_numerical_ending=True,
+    prefixes=prefixes,
+    suffixes=suffixes,
+    apply_cumulatively=True,
+    remove_separators=True,
+  )
+  add_prim_data = partial(
+    add_prim_semantics, type="class", write_type=LabelWriteType.NEW, preview=False
+  )
 
-    context: UsdContext = omni.usd.get_context()
-    for prim in context.get_stage().Traverse():
-        label = get_prim_data(prim)
-        if label:
-            _output_str += add_prim_data(prim, data=label)
+  context: UsdContext = omni.usd.get_context()
+  for prim in context.get_stage().Traverse():
+    label = get_prim_data(prim)
+    if label:
+      _output_str += add_prim_data(prim, data=label)
 ```
 
 All captured arrays are packed into a response model and returned directly to the service layer, where they are streamed back to ComfyUI as serialized JSON.
@@ -157,17 +157,17 @@ In addition to capture, `omni_nodes.py` includes post-processing utilities for i
 ```python
 # exts/omni.comfyui.connector.core-0.1.0/omni/comfyui/connector/core/omni_nodes.py
 def _colorize_normals(data: list):
-    start = round(perf_counter(), 2)
+  start = round(perf_counter(), 2)
 
-    normals_data = data[0]
+  normals_data = data[0]
 
-    normals_data = ((normals_data * 0.5 + 0.5) * 255).astype(np.uint8)
-    normals_data = normals_data / 255.0
-    normals_data = torch.from_numpy(normals_data)
+  normals_data = ((normals_data * 0.5 + 0.5) * 255).astype(np.uint8)
+  normals_data = normals_data / 255.0
+  normals_data = torch.from_numpy(normals_data)
 
-    data[0] = normals_data
+  data[0] = normals_data
 
-    end = round(perf_counter(), 2)
+  end = round(perf_counter(), 2)
 ```
 
 `OmniViewportRecordingNode` supports configuration of both frame count and renderer mode (`RTX - Real-Time` or `Path Tracing`) via UI-selectable parameters. It returns five outputs: `rgb_out`, `depth_out`, `normals_out`, `instance_id_out`, and `semantic_out`. These are individually routed to downstream nodes, allowing selective use or combination depending on the synthesis pipeline. The node implementation ensures type safety, normalized data scaling, and alignment with the frame-by-frame order in the capture buffer.

@@ -78,35 +78,35 @@ Several operations are implemented with user-triggered GUI actions through the Q
 ```cpp
 // miniMaya/src/display.cpp
 void FaceDisplay::create() {
-    std::vector<GLuint> indices;       // Index buffer for drawing edges of the face
-    std::vector<glm::vec4> positions;  // Vertex positions of the face corners
-    std::vector<glm::vec4> colors;     // Per-vertex color (derived from face color)
+  std::vector<GLuint> indices;       // Index buffer for drawing edges of the face
+  std::vector<glm::vec4> positions;  // Vertex positions of the face corners
+  std::vector<glm::vec4> colors;     // Per-vertex color (derived from face color)
 
-    int fVertNum = 0;
-    HalfEdge* he = displayedFace->m_hedge;
+  int fVertNum = 0;
+  HalfEdge* he = displayedFace->m_hedge;
 
-    // Traverse the boundary loop of the face via its half-edges
-    do {
-        // Get the position of the vertex this half-edge points to
-        positions.push_back(glm::vec4(he->m_vert->m_pos, 1.0f));
+  // Traverse the boundary loop of the face via its half-edges
+  do {
+    // Get the position of the vertex this half-edge points to
+    positions.push_back(glm::vec4(he->m_vert->m_pos, 1.0f));
 
-        // Generate an inverted version of the face color for visual distinction
-        colors.push_back(glm::vec4(
-            1.0f - displayedFace->m_color.x,
-            1.0f - displayedFace->m_color.y,
-            1.0f - displayedFace->m_color.z,
-            1.0f
-        ));
+    // Generate an inverted version of the face color for visual distinction
+    colors.push_back(glm::vec4(
+      1.0f - displayedFace->m_color.x,
+      1.0f - displayedFace->m_color.y,
+      1.0f - displayedFace->m_color.z,
+      1.0f
+    ));
 
-        fVertNum++;       // Count vertices (used for indexing)
-        he = he->next;    // Move to the next half-edge in the face loop
-    } while (he != displayedFace->m_hedge);  // Loop until we return to the starting edge
+    fVertNum++;       // Count vertices (used for indexing)
+    he = he->next;    // Move to the next half-edge in the face loop
+  } while (he != displayedFace->m_hedge);  // Loop until we return to the starting edge
 
-    // Generate indices to draw line segments between consecutive vertices
-    for (int i = 0; i < fVertNum; i++) {
-        indices.push_back(i);                  // Current vertex
-        indices.push_back((i + 1) % fVertNum); // Next vertex (looping back to start)
-    }
+  // Generate indices to draw line segments between consecutive vertices
+  for (int i = 0; i < fVertNum; i++) {
+    indices.push_back(i);                  // Current vertex
+    indices.push_back((i + 1) % fVertNum); // Next vertex (looping back to start)
+  }
 }
 ```
 
@@ -182,15 +182,15 @@ The **bind matrix** of each joint captures the inverse of its global transform a
 class Vertex : public QListWidgetItem
 {
 public:
-    static int population;
-    int id;
+  static int population;
+  int id;
 
-    glm::vec3 m_pos;
-    HalfEdge* m_hedge;
+  glm::vec3 m_pos;
+  HalfEdge* m_hedge;
 
-    std::pair<Joint*, Joint*> influencers;
-    glm::vec2 distances;
-    glm::vec2 weights;
+  std::pair<Joint*, Joint*> influencers;
+  glm::vec2 distances;
+  glm::vec2 weights;
 }
 ```
 
@@ -215,18 +215,18 @@ in ivec2 vs_Ids;
 
 void main()
 {
-    vec4 modelposition
-        = (u_Binded)
-              ? (u_Model
-                 * ((vs_Wts[0] * (u_OverallTransforms[vs_Ids[0]] * u_BindMats[vs_Ids[0]] * vs_Pos))
-                    + (vs_Wts[1]
-                       * (u_OverallTransforms[vs_Ids[1]] * u_BindMats[vs_Ids[1]] * vs_Pos))))
-              : (u_Model * vs_Pos);
+  vec4 modelposition
+    = (u_Binded)
+        ? (u_Model
+         * ((vs_Wts[0] * (u_OverallTransforms[vs_Ids[0]] * u_BindMats[vs_Ids[0]] * vs_Pos))
+          + (vs_Wts[1]
+             * (u_OverallTransforms[vs_Ids[1]] * u_BindMats[vs_Ids[1]] * vs_Pos))))
+        : (u_Model * vs_Pos);
 
-    fs_Pos = modelposition.xyz;
+  fs_Pos = modelposition.xyz;
 
-    gl_Position = u_ViewProj
-                  * modelposition;  // used to render the final positions of the geometry's vertices
+  gl_Position = u_ViewProj
+          * modelposition;  // used to render the final positions of the geometry's vertices
 }
 ```
 
@@ -257,42 +257,42 @@ These are written to a `UsdGeomMesh` like so:
 // miniMaya/src/mygl.cpp
 void MyGL::slot_exportToUSD()
 {
-    pxr::UsdStageRefPtr stage = pxr::UsdStage::CreateNew(usda_file.toStdString());
-    m_usdMesh = pxr::UsdGeomMesh::Define(stage, pxr::SdfPath("/MyRoot/MyMesh"));
+  pxr::UsdStageRefPtr stage = pxr::UsdStage::CreateNew(usda_file.toStdString());
+  m_usdMesh = pxr::UsdGeomMesh::Define(stage, pxr::SdfPath("/MyRoot/MyMesh"));
 
-    pxr::UsdAttribute face_vertex_counts = m_usdMesh.CreateFaceVertexCountsAttr();
-    pxr::UsdAttribute face_vertex_indices = m_usdMesh.CreateFaceVertexIndicesAttr();
-    pxr::UsdAttribute points = m_usdMesh.CreatePointsAttr();
+  pxr::UsdAttribute face_vertex_counts = m_usdMesh.CreateFaceVertexCountsAttr();
+  pxr::UsdAttribute face_vertex_indices = m_usdMesh.CreateFaceVertexIndicesAttr();
+  pxr::UsdAttribute points = m_usdMesh.CreatePointsAttr();
 
-    pxr::VtArray<int> face_vertex_counts_data;
-    pxr::VtArray<int> face_vertex_indices_data;
-    pxr::VtArray<pxr::GfVec3f> points_data;
+  pxr::VtArray<int> face_vertex_counts_data;
+  pxr::VtArray<int> face_vertex_indices_data;
+  pxr::VtArray<pxr::GfVec3f> points_data;
 
-    for (auto& face : m_meshCurrent.m_faces) {
-        HalfEdge* firstHedge = face->m_hedge;
-        HalfEdge* currHedge = firstHedge;
-        int count = 0;
+  for (auto& face : m_meshCurrent.m_faces) {
+    HalfEdge* firstHedge = face->m_hedge;
+    HalfEdge* currHedge = firstHedge;
+    int count = 0;
 
-        do {  // Discover how many vertices are in this face
-            count += 1;
-            face_vertex_indices_data.push_back(currHedge->m_vert->id);
+    do {  // Discover how many vertices are in this face
+      count += 1;
+      face_vertex_indices_data.push_back(currHedge->m_vert->id);
 
-            currHedge = currHedge->next;
-        } while (currHedge != firstHedge);
-        face_vertex_counts_data.push_back(count);
-    }
+      currHedge = currHedge->next;
+    } while (currHedge != firstHedge);
+    face_vertex_counts_data.push_back(count);
+  }
 
-    // Iterate through mesh verts to read position data
-    for (auto& vert : m_meshCurrent.m_verts) {
-        glm::vec3 pos = vert->m_pos;
-        points_data.push_back(pxr::GfVec3f(pos.x, pos.y, pos.z));
-    }
+  // Iterate through mesh verts to read position data
+  for (auto& vert : m_meshCurrent.m_verts) {
+    glm::vec3 pos = vert->m_pos;
+    points_data.push_back(pxr::GfVec3f(pos.x, pos.y, pos.z));
+  }
 
-    face_vertex_counts.Set(face_vertex_counts_data);
-    face_vertex_indices.Set(face_vertex_indices_data);
-    points.Set(points_data);
+  face_vertex_counts.Set(face_vertex_counts_data);
+  face_vertex_indices.Set(face_vertex_indices_data);
+  points.Set(points_data);
 
-    stage->Save();
+  stage->Save();
 }
 ```
 

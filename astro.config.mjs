@@ -11,11 +11,13 @@ import mdx from "@astrojs/mdx";
 
 import rehypeMermaid from "rehype-mermaid";
 
-import expressiveCode from "astro-expressive-code";
+import astroExpressiveCode from "astro-expressive-code";
 
+/** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
 const expressiveCodeConfig = {
     shiki: { langAlias: { usda: "bash" } },
-    styleOverrides: { codeFontSize: "0.6rem", uiFontSize: "0.85rem" },
+    styleOverrides: { codeFontSize: "0.75rem", uiFontSize: "0.85rem" },
+    themes: ["aurora-x"],
 };
 
 // https://astro.build/config
@@ -25,7 +27,7 @@ export default defineConfig({
     integrations: [
         react(),
         sitemap(),
-        expressiveCode(expressiveCodeConfig),
+        astroExpressiveCode(expressiveCodeConfig),
         mdx(),
     ],
     vite: { plugins: [tailwindcss()] },

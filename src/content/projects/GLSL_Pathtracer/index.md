@@ -78,21 +78,21 @@ The `Sample_Li` function is used in direct and MIS integrators to query scene li
 // glsl/pathtracer.light.glsl
 vec3 DirectSamplePointLight(int idx, vec3 view_point, int num_lights, out vec3 wiW, out float pdf)
 {
-    PointLight light = pointLights[idx];
+  PointLight light = pointLights[idx];
 
-    wiW = normalize(light.pos - view_point);
+  wiW = normalize(light.pos - view_point);
 
-    pdf = 1.f;
+  pdf = 1.f;
 
-    Ray shadowRay = SpawnRay(view_point, normalize(light.pos - view_point));
-    Intersection shadowIsect = sceneIntersect(shadowRay);
+  Ray shadowRay = SpawnRay(view_point, normalize(light.pos - view_point));
+  Intersection shadowIsect = sceneIntersect(shadowRay);
 
-    float dist = distance(view_point, light.pos);
-    if (shadowIsect.t <= dist) {
-        return vec3(0.f);
-    }
+  float dist = distance(view_point, light.pos);
+  if (shadowIsect.t <= dist) {
+    return vec3(0.f);
+  }
 
-    return light.Le / (dist * dist) * float(num_lights);
+  return light.Le / (dist * dist) * float(num_lights);
 }
 ```
 
@@ -109,22 +109,22 @@ BSDF sampling is used in all integrators to determine bounce directions. Materia
 ```cpp
 // glsl/pathtracer.bsdf.glsl
 vec3 Sample_f_diffuse(vec3 albedo,
-                      vec2 xi,
-                      vec3 nor,
-                      out vec3 wiW,
-                      out float pdf,
-                      out int sampledType)
+            vec2 xi,
+            vec3 nor,
+            out vec3 wiW,
+            out float pdf,
+            out int sampledType)
 {
-    vec3 wi = squareToHemisphereCosine(xi);
-    // Set wiW to a world-space ray direction since wo is in tangent space.
-    mat3 worldMat = LocalToWorld(nor);
-    wiW = worldMat * wi;
+  vec3 wi = squareToHemisphereCosine(xi);
+  // Set wiW to a world-space ray direction since wo is in tangent space.
+  mat3 worldMat = LocalToWorld(nor);
+  wiW = worldMat * wi;
 
-    pdf = squareToHemisphereCosinePDF(wi);  // tangent space pdf
+  pdf = squareToHemisphereCosinePDF(wi);  // tangent space pdf
 
-    sampledType = DIFFUSE_REFL;
+  sampledType = DIFFUSE_REFL;
 
-    return (albedo * INV_PI);
+  return (albedo * INV_PI);
 }
 ```
 
@@ -144,12 +144,12 @@ Each frame accumulates path-traced radiance values using floating-point buffers 
 // glsl/noOp.frag.glsl
 vec4 reinhardOp(vec4 c)
 {
-    return c / (1.f + c);
+  return c / (1.f + c);
 }
 
 vec4 gammaCorrection(vec4 c)
 {
-    return pow(c, vec4(1.f / 2.2f));
+  return pow(c, vec4(1.f / 2.2f));
 }
 ```
 

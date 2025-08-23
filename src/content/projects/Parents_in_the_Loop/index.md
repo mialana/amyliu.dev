@@ -66,20 +66,20 @@ The platform uses the [`mcp-agent`](https://github.com/modelcontextprotocol/mcp-
 ```python
 # backend/hack4impact/api/agent.py
 settings = Settings(
-    execution_engine="asyncio",
-    logger=LoggerSettings(type="file", level="info"),
-    mcp=MCPSettings(
-        servers={
-            "filesystem": MCPServerSettings(
-                command="npx",
-                args=["-y", "@modelcontextprotocol/server-filesystem", filepath],
-            ),
-        }
-    ),
-    openai=OpenAISettings(
-        api_key=OPENAI_KEY,
-        default_model="gpt-4o-mini",
-    ),
+  execution_engine="asyncio",
+  logger=LoggerSettings(type="file", level="info"),
+  mcp=MCPSettings(
+    servers={
+      "filesystem": MCPServerSettings(
+        command="npx",
+        args=["-y", "@modelcontextprotocol/server-filesystem", filepath],
+      ),
+    }
+  ),
+  openai=OpenAISettings(
+    api_key=OPENAI_KEY,
+    default_model="gpt-4o-mini",
+  ),
 )
 ```
 
@@ -95,8 +95,8 @@ The main interaction runs `generate_structured()` with a custom `Result` schema,
 ```python
 # backend/hack4impact/api/agent.py
 result = await llm.generate_structured(
-    message=message,
-    response_model=Result
+  message=message,
+  response_model=Result
 )
 ```
 
