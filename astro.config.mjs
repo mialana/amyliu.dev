@@ -13,7 +13,10 @@ import rehypeMermaid from "rehype-mermaid";
 
 import expressiveCode from "astro-expressive-code";
 
-const expressiveCodeConfig = { shiki: { langAlias: { usda: "bash" } } };
+const expressiveCodeConfig = {
+    shiki: { langAlias: { usda: "bash" } },
+    styleOverrides: { codeFontSize: "0.6rem", uiFontSize: "0.85rem" },
+};
 
 // https://astro.build/config
 export default defineConfig({

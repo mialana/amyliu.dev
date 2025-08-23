@@ -22,6 +22,6 @@ description: Inspired by 2D concept art of the Tokyo Ghoul anime series, a suite
 code: https://github.com/mialana/unity-3d-stylization.git
 ---
 
-## **Update 8/9/2025:**
+## **Update 8/23/2025:**
 
 More details soon, thanks for your patience!
