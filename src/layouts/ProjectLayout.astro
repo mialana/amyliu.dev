@@ -37,14 +37,16 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
             {project.data.description}
         </div>
     </div>
-    <div class="mx-auto my-6 outline-4 outline-neutral-900">
+    <div
+        class="mt-4 mb-6 w-full bg-neutral-200 p-2 drop-shadow-lg drop-shadow-neutral-400 md:mt-6 md:mb-8 md:shadow-xl"
+    >
         {
             project.data.demoVideoLink ? (
                 <YouTube
                     id={project.data.demoVideoLink}
                     params="autoplay=1&color=white&rel=0"
                     posterQuality="high"
-                    class="w-full !max-w-[868px]"
+                    class="w-full !max-w-[868px] min-w-full"
                 />
             ) : (
                 <Image
@@ -57,7 +59,7 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
             )
         }
     </div>
-    <div class="prose prose-lg mb-8">
+    <div class="prose prose-lg mb-4 md:mb-6">
         <Tags content={[project.data.category]} label="Category" />
         <Tags content={[project.data.type]} label="Type" />
         <Tags content={project.data.tags} label="tags" />

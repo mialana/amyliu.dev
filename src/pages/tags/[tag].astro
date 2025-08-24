@@ -41,11 +41,11 @@ const { projects } = Astro.props;
 <MainLayout title={tag} layout="HIDE_BOTH">
     <a
         href="/tags"
-        class="sticky top-0 m-2 bg-neutral-900 py-3 pr-3 pl-6 font-medium text-white [clip-path:polygon(0%_50%,10%_0,100%_0,100%_100%,10%_100%)] hover:bg-neutral-700"
+        class="sticky top-0 z-1000 m-2 bg-neutral-900 py-3 pr-3 pl-6 text-xs text-white [clip-path:polygon(0%_50%,10%_0,100%_0,100%_100%,10%_100%)] hover:bg-neutral-700 md:m-4 md:text-base md:font-medium"
     >
-        Back to Tags Index
+        Back to <span class="underline underline-offset-4">Tags Index</span>
     </a>
-    <div class="w-full text-center">
+    <div class="w-full p-2 pt-8 text-center">
         <div class="prose m-auto">
             <h3 class="mb-8">
                 PROJECTS UNDER <i class="text-blue-accent">{tag}</i> TAG
