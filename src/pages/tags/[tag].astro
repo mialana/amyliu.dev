@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     const projects = await getCollection("projects");
 
     // Include tech stack as honorary tags
-    const uniqueTags = [
+    const uniqueRawTags = [
         ...new Set(
             projects
                 .map((project: any) => [
@@ -21,13 +21,16 @@ export async function getStaticPaths() {
         ),
     ];
 
-    return uniqueTags.map((tag) => {
+    return uniqueRawTags.map((tag) => {
         const filteredProjects = projects.filter(
             (project: any) =>
                 project.data.tags.includes(tag) ||
                 project.data.techStack.includes(tag),
         );
-        return { params: { tag: tag }, props: { projects: filteredProjects } };
+        return {
+            params: { tag: tag.replaceAll("_", " ") },
+            props: { projects: filteredProjects },
+        };
     });
 }
 
@@ -36,6 +39,12 @@ const { projects } = Astro.props;
 ---
 
 <MainLayout title={tag} layout="HIDE_BOTH">
+    <a
+        href="/tags"
+        class="sticky top-0 m-2 bg-black py-3 pr-3 pl-6 font-medium text-white [clip-path:polygon(0%_50%,10%_0,100%_0,100%_100%,10%_100%)] hover:bg-neutral-700"
+    >
+        Back to Tags Index
+    </a>
     <div class="w-full text-center">
         <div class="prose m-auto">
             <h3 class="mb-8">
