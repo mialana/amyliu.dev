@@ -79,33 +79,44 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
 
     <div class="flex flex-wrap justify-center gap-6 overflow-visible p-4">
         {
-            sections.flatMap((section) => [
-                // Section heading
-                <div class="w-full text-center first-of-type:collapse first-of-type:h-0">
-                    <h2
-                        id={section.id}
-                        class="mt-4 mb-0 text-2xl leading-tight font-bold text-neutral-900"
-                    >
-                        {section.title}
-                    </h2>
-                </div>,
-                // Section projects
-                ...section.projects.map((project) => {
-                    const finalizedSlug = createSlug(
-                        project.data.title,
-                        project.data?.slug,
+            sections.flatMap((section) => {
+                let projectElementsArr = [];
+
+                if (section.id != "pinned") {
+                    projectElementsArr.push(
+                        <div class="w-full text-center first-of-type:collapse first-of-type:h-0">
+                            <h2
+                                id={section.id}
+                                class="mt-4 mb-0 text-2xl leading-tight font-bold text-neutral-900"
+                            >
+                                {section.title}
+                            </h2>
+                        </div>,
                     );
-                    const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
-                    return (
-                        <ProjectCard
-                            project={project}
-                            image={images[thumbnailPath]}
-                            data-type={project.data.type}
-                            data-category={project.data.category}
-                        />
-                    );
-                }),
-            ])
+                }
+
+                projectElementsArr.push(
+                    // Section heading
+                    // Section projects
+                    ...section.projects.map((project) => {
+                        const finalizedSlug = createSlug(
+                            project.data.title,
+                            project.data?.slug,
+                        );
+                        const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
+                        return (
+                            <ProjectCard
+                                project={project}
+                                image={images[thumbnailPath]}
+                                data-type={project.data.type}
+                                data-category={project.data.category}
+                            />
+                        );
+                    }),
+                );
+
+                return projectElementsArr;
+            })
         }
     </div>
     <TableOfContents slot="aside-sidebar" headings={projectHeadings} />
