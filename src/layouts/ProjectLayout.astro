@@ -42,6 +42,7 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
             project.data.demoVideoLink ? (
                 <YouTube
                     id={project.data.demoVideoLink}
+                    params="autoplay=1&color=white&rel=0"
                     posterQuality="high"
                     class="w-full !max-w-[868px]"
                 />
