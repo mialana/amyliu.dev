@@ -146,7 +146,7 @@ export default function Search() {
                 />
                 <label
                     htmlFor="excludeSchool"
-                    className="text-sm whitespace-nowrap text-neutral-900"
+                    className="text-sm leading-relaxed whitespace-nowrap text-neutral-900"
                 >
                     Filter out all School projects
                 </label>
