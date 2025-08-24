@@ -24,8 +24,8 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
-<div class="m-2 p-4 shadow-lg *:mx-auto md:mx-32 md:px-16 md:py-4">
-    <div class="prose prose-lg mb-2">
+<div class="m-1 p-4 *:mx-auto md:px-16 md:py-4">
+    <div class="prose prose-lg">
         <h1 class="!my-0 text-4xl md:text-5xl">
             {project.data.title}
         </h1>
@@ -37,17 +37,17 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
             {project.data.description}
         </div>
     </div>
-    <div class="my-4 overflow-hidden md:mx-24">
+    <div class="mx-auto my-6 outline-4 outline-neutral-900">
         {
             project.data.demoVideoLink ? (
                 <YouTube
                     id={project.data.demoVideoLink}
                     posterQuality="high"
-                    class="w-full !max-w-none"
+                    class="w-full !max-w-[868px]"
                 />
             ) : (
                 <Image
-                    class="mx-auto !my-0 w-full"
+                    class="w-full"
                     src={images[thumbnailPath]()}
                     alt={`Fallback Thumbnail ${project.data.title}`}
                     width={600}
@@ -56,7 +56,7 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
             )
         }
     </div>
-    <div class="prose prose-lg mb-2">
+    <div class="prose prose-lg mb-8">
         <Tags content={[project.data.category]} label="Category" />
         <Tags content={[project.data.type]} label="Type" />
         <Tags content={project.data.tags} label="tags" />

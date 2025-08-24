@@ -77,9 +77,7 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
 <MainLayout title="Projects" layout="DEFAULT">
     <Search slot="nav-sidebar" client:load />
 
-    <div
-        class="flex flex-wrap justify-center gap-4 overflow-visible px-8 py-2 md:px-48"
-    >
+    <div class="flex flex-wrap justify-center gap-4 overflow-visible p-4">
         {
             sections.flatMap((section) => [
                 // Section heading

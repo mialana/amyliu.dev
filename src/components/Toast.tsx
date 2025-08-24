@@ -16,7 +16,7 @@ export default function Toast() {
 
     return (
         <div
-            className={`pointer-none fixed top-2 right-2 z-100 w-fit max-w-screen rounded-sm bg-black px-8 py-4 text-lg text-white transition-opacity duration-500 ease-linear ${visible ? "visible" : "invisible"}`}
+            className={`pointer-none fixed top-2 right-2 z-100 w-fit max-w-screen rounded-sm bg-neutral-900 px-8 py-4 text-lg text-white transition-opacity duration-500 ease-linear ${visible ? "visible" : "invisible"}`}
         >
             <div>
                 <strong>NOTE: </strong>This site is currently a

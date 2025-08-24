@@ -21,16 +21,16 @@ for (const h of headings) {
 <section>
     <h1 class="leading-loose font-semibold">On This Page</h1>
     <ul
-        class="w-fit px-1 pb-4 text-sm leading-relaxed text-nowrap **:border-neutral-200"
+        class="w-fit px-1 text-sm leading-relaxed text-nowrap **:border-neutral-200"
     >
         {
             (function renderTree(nodes: Node[]): any {
                 return nodes.map((n) => (
                     <li>
-                        <div class={`relative mb-1 w-fit pr-2`}>
+                        <div class={`relative w-fit pr-2 pb-1`}>
                             <a
                                 href={`#${n.slug}`}
-                                class="x-1 relative top-2 py-0.5 hover:underline active:underline"
+                                class="x-1 relative top-1 hover:underline active:underline"
                             >
                                 {n.text}
                             </a>
