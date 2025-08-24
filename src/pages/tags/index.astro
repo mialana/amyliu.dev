@@ -8,10 +8,16 @@ const projects = await getCollection("projects");
 const uniqueTags = [
     ...new Set(
         projects
-            .map((project: any) => [
-                ...project.data.tags,
-                ...project.data.techStack,
-            ])
+            .map((project: any) => {
+                let tags = project.data.tags;
+                tags.push(...project.data.techStack); // push tech stack as additional tags
+
+                tags = tags.map((tag: string) => {
+                    return tag.replaceAll("_", " ");
+                });
+
+                return [...tags];
+            })
             .flat(),
     ),
 ];
@@ -26,7 +32,7 @@ const uniqueTags = [
                     <p>
                         <a
                             href={`/tags/${tag}`}
-                            class="hover:text-blue-accent underline"
+                            class="hover:text-blue-accent underline underline-offset-4"
                         >
                             {tag}
                         </a>

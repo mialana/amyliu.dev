@@ -57,7 +57,7 @@ Furthermore, the system can support rapid prototyping for level design and envir
 
 ## Method
 
-This project is my first large-scale Houdini project. The development process began with self-study through online tutorial series, evolving into building original networks as I became more comfortable with Houdini’s procedural workflow. Decisions were guided by the constraints of the Game Art Challenge, which required exclusive use of Houdini and Copernicus, encouraging a deeper understanding of native workflows.
+This project is my first large-scale Houdini project. The development process began with self-study through online tutorial series, evolving into building original networks as I became more comfortable with Houdini’s procedural workflow. Decisions were guided by the constraints of the SideFX 2025 Game Art Challenge, which required exclusive use of Houdini and Copernicus, encouraging a deeper understanding of native workflows.
 
 ### RTT Main Terrain
 
