@@ -62,12 +62,12 @@ export default function SideBar({
 
     return (
         <div
-            className={`${open ? "absolute z-20 w-screen md:w-auto" : "w-0"} bg-white ${category == "NAV" ? "left-0" : "right-0"} h-full overflow-scroll shadow-lg`}
+            className={`${open ? "absolute z-20 w-screen md:relative md:w-auto" : "w-0"} bg-white ${category == "NAV" ? "left-0" : "right-0"} h-full overflow-scroll py-4 shadow-lg`}
         >
             {/* sidebar button */}
             <button
                 id={`${category}-button`}
-                className={`invisible absolute z-0 h-6 w-6 cursor-pointer p-1 text-[8px] text-neutral-500 ${positionInfo["absolutePosition"]}`}
+                className={`invisible absolute top-0 z-0 flex h-4 w-4 cursor-pointer items-center justify-center text-[8px] text-neutral-500 ${positionInfo["absolutePosition"]}`}
                 onClick={() => setOpen(!open)}
                 title={`${open ? "Close" : "Open"} ${category}`}
             >
@@ -82,8 +82,8 @@ export default function SideBar({
                 </svg>
             </button>
             {open && (
-                <div className="mx-4 my-6 overflow-x-scroll md:max-w-[20vw]">
-                    {children}
+                <div className="mx-4 h-full overflow-x-scroll md:max-w-[30vw]">
+                    <div className="size-full">{children}</div>
                 </div>
             )}
         </div>
