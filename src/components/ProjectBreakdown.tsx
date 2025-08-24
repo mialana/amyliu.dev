@@ -111,10 +111,10 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
     const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
 
     return (
-        <div className="mx-auto w-fit max-w-full **:scroll-mt-20 md:**:scroll-mt-22">
+        <div className="mx-auto w-fit max-w-full p-2 **:scroll-mt-20 md:**:scroll-mt-22">
             {/* Tab Navigation */}
             <div
-                className="sticky top-0 z-10 mb-6 flex scale-103 flex-nowrap gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 md:gap-2"
+                className="sticky top-0 z-10 mb-6 flex scale-108 flex-nowrap gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 md:gap-2"
                 role="tablist"
             >
                 {tabs.map((tab) => (
