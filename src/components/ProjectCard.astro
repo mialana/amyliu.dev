@@ -27,11 +27,11 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 
 <div
     id={`project-${finalizedSlug}`}
-    class="flex size-full max-w-[400px] flex-col justify-end md:w-5/11"
+    class="flex size-full max-w-[400px] flex-col justify-end bg-white shadow-lg hover:-translate-y-2 hover:bg-neutral-100 md:w-5/11"
     data-type={dataType}
     data-category={dataCategory}
 >
-    <article class="relative p-6 shadow-lg hover:-translate-y-2">
+    <article class="relative p-6">
         <div class="pb-2">
             <Image
                 class="mx-auto border-[0.5px]"
