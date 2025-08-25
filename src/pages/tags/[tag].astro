@@ -40,7 +40,7 @@ const { projects } = Astro.props;
 
 <MainLayout title={tag} layout="HIDE_BOTH">
     <a
-        href="/tags"
+        href="/tags/"
         class="sticky top-0 z-1000 m-2 bg-neutral-900 py-3 pr-3 pl-6 text-xs text-white [clip-path:polygon(0%_50%,10%_0,100%_0,100%_100%,10%_100%)] hover:bg-neutral-700 md:m-4 md:text-base md:font-medium"
     >
         Back to <span class="underline underline-offset-4">Tags Index</span>
@@ -60,7 +60,7 @@ const { projects } = Astro.props;
                             href={`/projects/${createSlug(
                                 project.data.title,
                                 project.data.slug,
-                            )}`}
+                            )}/`}
                             class="text-red-accent text-xl font-bold underline hover:text-2xl"
                         >
                             {project.data.title}
