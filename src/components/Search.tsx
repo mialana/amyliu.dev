@@ -169,7 +169,7 @@ export default function Search() {
                 onChange={setTypeFilter}
                 options={typeOptions}
             />
-            <a href="/tags" className="text-[10px] underline">
+            <a href="/tags/" className="text-[10px] underline">
                 View Tags Index
             </a>
         </section>
