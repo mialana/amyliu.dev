@@ -10,6 +10,8 @@ import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 
 import rehypeMermaid from "rehype-mermaid";
+import remarkMath from "remark-math";
+import rehypeMathJaxChtml from "rehype-mathjax/chtml";
 
 import astroExpressiveCode from "astro-expressive-code";
 
@@ -34,6 +36,7 @@ export default defineConfig({
     devToolbar: { enabled: false },
     markdown: {
         syntaxHighlight: { excludeLangs: ["mermaid"] },
+        remarkPlugins: [[remarkMath, { singleDollarTextMath: true }]],
         rehypePlugins: [
             [
                 rehypeMermaid,
@@ -41,6 +44,15 @@ export default defineConfig({
                     strategy: "img-svg",
 
                     mermaidConfig: { theme: "default" },
+                },
+            ],
+            [
+                rehypeMathJaxChtml,
+                {
+                    chtml: {
+                        fontURL:
+                            "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2",
+                    },
                 },
             ],
         ],
