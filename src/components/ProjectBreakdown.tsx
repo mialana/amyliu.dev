@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface Tab {
     id: string;
@@ -111,10 +110,10 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
     const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
 
     return (
-        <div className="mx-auto w-fit max-w-full p-2 **:scroll-mt-20 md:**:scroll-mt-22">
+        <div className="mx-auto w-fit max-w-full p-2 **:scroll-mt-20 lg:**:scroll-mt-22">
             {/* Tab Navigation */}
             <div
-                className="sticky top-0 z-10 mb-6 flex scale-108 flex-nowrap gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 md:gap-2"
+                className="sticky top-0 z-10 mb-6 flex scale-108 flex-nowrap gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 lg:gap-2"
                 role="tablist"
             >
                 {tabs.map((tab) => (
@@ -124,7 +123,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         role="tab"
                         aria-selected={activeTabId === tab.id}
                         onClick={() => handleTabChange(tab.id)}
-                        className={`rounded-t-md px-2 py-1 text-[0.55rem] font-semibold md:px-4 md:py-2 md:text-sm ${
+                        className={`rounded-t-md px-2 py-1 text-[0.55rem] font-semibold lg:px-4 lg:py-2 lg:text-sm ${
                             activeTabId === tab.id
                                 ? "bg-blue-accent text-white"
                                 : "bg-neutral-200 hover:bg-neutral-300"
@@ -137,7 +136,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
             {/* Tab Content */}
             <div
-                className="prose prose-sm md:prose-base prose-h5:font-medium relative mx-auto min-h-24"
+                className="prose prose-sm lg:prose-base prose-h5:font-medium relative mx-auto min-h-24"
                 role="tabpanel"
                 aria-labelledby={`tab-${activeTab.id}`}
                 dangerouslySetInnerHTML={{ __html: activeTab.content || "" }}

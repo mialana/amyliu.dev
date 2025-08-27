@@ -53,7 +53,8 @@ export default function SideBar({
                 return;
             } else {
                 // can only be open on load if not mobile
-                setOpen(active && window.screen.width > 768);
+
+                setOpen(active && window.innerWidth > 768);
 
                 if (active) {
                     const button = document.getElementById(

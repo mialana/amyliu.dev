@@ -24,9 +24,9 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
-<div class="m-1 p-4 *:mx-auto md:px-16 md:py-4">
+<div class="m-1 p-4 *:mx-auto lg:px-16 lg:py-4">
     <div class="prose prose-lg">
-        <h1 class="!my-0 text-4xl md:text-5xl">
+        <h1 class="!my-0 text-4xl lg:text-5xl">
             {project.data.title}
         </h1>
         <h3 class="!mt-2 !mb-4 text-sm">
@@ -38,7 +38,7 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
         </div>
     </div>
     <div
-        class="mt-4 mb-6 w-full bg-neutral-200 p-2 drop-shadow-lg drop-shadow-neutral-400 md:mt-6 md:mb-8 md:shadow-xl"
+        class="mt-4 mb-6 w-full bg-neutral-200 p-2 drop-shadow-lg drop-shadow-neutral-400 lg:mt-6 lg:mb-8 lg:shadow-xl"
     >
         {
             project.data.demoVideoLink ? (
@@ -59,7 +59,7 @@ const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.p
             )
         }
     </div>
-    <div class="prose prose-lg mb-4 md:mb-6">
+    <div class="prose prose-lg mb-4 lg:mb-6">
         <Tags content={[project.data.category]} label="Category" />
         <Tags content={[project.data.type]} label="Type" />
         <Tags content={project.data.tags} label="tags" />
