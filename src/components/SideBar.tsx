@@ -42,22 +42,35 @@ export default function SideBar({
     const positionInfo = PositionMap[category];
 
     useLayoutEffect(() => {
-        if (!active || !hasSlotReact(children)) {
-            const cellId = `${category.toLowerCase()}-grid-cell`;
-            const gridCell = document.getElementById(cellId);
+        function handleResize() {
+            console.log("called");
+            if (!active || !hasSlotReact(children)) {
+                const cellId = `${category.toLowerCase()}-grid-cell`;
+                const gridCell = document.getElementById(cellId);
 
-            gridCell?.classList.toggle("collapse");
-            console.log(`${category} collapsed`);
-            return;
-        } else {
-            // can only be open on load if not mobile
-            setOpen(active && window.screen.width > 768);
+                gridCell?.classList.toggle("collapse");
+                console.log(`${category} collapsed`);
+                return;
+            } else {
+                // can only be open on load if not mobile
+                setOpen(active && window.screen.width > 768);
 
-            if (active) {
-                const button = document.getElementById(`${category}-button`);
-                button?.classList.remove("invisible");
+                if (active) {
+                    const button = document.getElementById(
+                        `${category}-button`,
+                    );
+                    button?.classList.remove("invisible");
+                }
             }
         }
+
+        handleResize();
+
+        // Initial call to set dimensions on mount
+        window.addEventListener("resize", handleResize);
+
+        // Cleanup function to remove the event listener
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     return (
