@@ -5,7 +5,7 @@ startDate: 2025-03-17
 endDate: 2025-04-30
 type: group
 category: personal
-demoVideoLink: https://youtu.be/hNuHniOKjt4?si=PyFplGt_8f11F0f7
+demoVideoLink: https://youtu.be/hNuHniOKjt4
 techStack:
     - Python
     - Django
@@ -22,9 +22,10 @@ tags:
     - backend
     - RESTful
 description: A Django, MySQL, and Amazon S3-backed web database, search engine, and DCC connector for OpenUSD 3D assets.
-code: https://github.com/CIS-7000-sp25/backend
+code: https://github.com/CIS-7000-sp25/usd-structure
 externalLinks:
-    - https://github.com/CIS-7000-sp25/usd-structure
+    - https://github.com/CIS-7000-sp25/backend
+    - https://youtu.be/760CSeimXMI
     - https://asset-browser-zeta.vercel.app/
 ---
 

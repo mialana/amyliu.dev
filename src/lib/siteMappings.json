@@ -1,6 +1,15 @@
 [
+    {
+        "host": "github.com/CIS-7000-sp25/usd-structure",
+        "label": "Code (USD Structure)"
+    },
+    {
+        "host": "github.com/CIS-7000-sp25/backend",
+        "label": "Code (Asset Resolver)"
+    },
+    { "host": "youtu.be", "label": "Extra Demo Video (Asset Resolver)" },
     { "host": "github.com", "label": "Code" },
-    { "host": "vercel.app", "label": "Live Demo" },
+    { "host": "vercel.app", "label": "Live Deployment" },
     { "host": "devpost.com", "label": "Hackathon Showcase" },
     { "host": "linkedin.com", "label": "LinkedIn Spotlight" },
     { "host": "developer.nvidia.com", "label": "NVIDIA Blogpost" },
