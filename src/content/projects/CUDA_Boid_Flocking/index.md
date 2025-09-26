@@ -13,12 +13,12 @@ techStack:
     - OpenGL
 tags:
     - Year2025
-    - gpu_programming
+    - GPU_programming
     - graphical_user_interface
     - simulation
     - performance_analysis
-    - gpu_optimization
-    - gpu_profiling
+    - GPU_optimization
+    - GPU_profiling
 description: A simulation of "Boids" in CUDA C++. Boids are a concept in artificial life algorithms that aim to emulate the collective flocking behavior of real-life birds.
 code: https://github.com/mialana/GPU-Programming-Project1-CUDA-Flocking
 ---
