@@ -26,6 +26,16 @@ interface Props {
 const { project } = Astro.props;
 
 const { Content, headings } = await render(project);
+
+const fallbackHeading = {
+    depth: 1,
+    slug: `update-${new Date().toISOString().split("T")[0]}`,
+    text: `Update ${new Date().toISOString().split("T")[0]}`,
+};
+
+if (!headings.length) {
+    headings.push(fallbackHeading);
+}
 ---
 
 <MainLayout title={project.data.title} layout="DEFAULT">
