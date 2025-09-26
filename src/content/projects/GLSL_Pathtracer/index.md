@@ -12,7 +12,7 @@ techStack:
     - QT
     - OpenGL
 tags:
-    - "2025"
+    - Year2025
     - rendering
     - pathtracing
     - raytracing

@@ -13,7 +13,7 @@ techStack:
     - PyTorch
     - NumPy
 tags:
-    - "2024"
+    - Year2024
     - plugin
     - image_processing
     - artificial_intelligence

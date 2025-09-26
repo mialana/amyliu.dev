@@ -17,11 +17,15 @@ interface Props {
 const { project } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/content/projects/*/assets/thumbnail.png",
+    "/src/content/projects/*/assets/thumbnail.{png,gif}",
 );
 
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
-const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
+const thumbnailPath = images[
+    `/src/content/projects/${finalizedSlug}/assets/thumbnail.gif`
+]
+    ? `/src/content/projects/${finalizedSlug}/assets/thumbnail.gif`
+    : `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
 <div class="m-1 p-4 *:mx-auto lg:px-16 lg:py-4">

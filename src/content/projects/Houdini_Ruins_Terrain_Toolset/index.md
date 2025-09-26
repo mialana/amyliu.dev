@@ -10,7 +10,7 @@ techStack:
     - Vex
     - Unity_Game_Engine
 tags:
-    - "2025"
+    - Year2025
     - game_art_challenge
     - procedural
     - tech_art

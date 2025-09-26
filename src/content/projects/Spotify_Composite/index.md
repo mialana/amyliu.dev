@@ -11,8 +11,8 @@ techStack:
     - HTML
     - CSS
 tags:
-    - "2021"
-    - "2022"
+    - Year2021
+    - Year2022
     - web
     - frontend
 description: Easily blend Spotify playlists through the Spotify Developer's API using this React-based web application.

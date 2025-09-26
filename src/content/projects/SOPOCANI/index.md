@@ -10,7 +10,7 @@ techStack:
     - Adobe_Creative_Cloud
     - Autodesk_Maya
 tags:
-    - "2022"
+    - Year2022
     - art_history
     - 3D-reconstruction
     - rasterization

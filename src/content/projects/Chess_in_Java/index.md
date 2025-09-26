@@ -10,12 +10,12 @@ techStack:
     - Java
     - Java_Swing
 tags:
-    - "2021"
+    - Year2021
     - turn-based
     - game_development
     - graphical_user_interface
 description: A simple chess application with state-saving and move-hints / limitations.
-repository: https://github.com/mialana/chess
+code: https://github.com/mialana/chess
 ---
 
 ## Summary

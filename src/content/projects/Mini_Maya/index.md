@@ -13,7 +13,7 @@ techStack:
     - OpenGL
     - OpenUSD
 tags:
-    - "2023"
+    - Year2023
     - 3D-modeling
     - rasterization
     - graphical_user_interface

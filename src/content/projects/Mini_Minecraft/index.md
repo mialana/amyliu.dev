@@ -12,7 +12,7 @@ techStack:
     - GLSL
     - OpenGL
 tags:
-    - "2023"
+    - Year2023
     - game_physics
     - game_development
     - multi-threading

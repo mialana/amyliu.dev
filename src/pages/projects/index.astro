@@ -30,7 +30,7 @@ const projects: ProjectEntry[] = (
 );
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/content/projects/*/assets/thumbnail.png",
+    "/src/content/projects/*/assets/thumbnail.{png,gif}",
 );
 
 // Group projects by year
@@ -103,7 +103,11 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
                             project.data.title,
                             project.data?.slug,
                         );
-                        const thumbnailPath = `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
+                        const thumbnailPath = images[
+                            `/src/content/projects/${finalizedSlug}/assets/thumbnail.gif`
+                        ]
+                            ? `/src/content/projects/${finalizedSlug}/assets/thumbnail.gif`
+                            : `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
                         return (
                             <ProjectCard
                                 project={project}

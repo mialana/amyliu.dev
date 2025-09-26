@@ -15,7 +15,7 @@ techStack:
     - AstroJS
     - RestAPI
 tags:
-    - "2025"
+    - Year2025
     - web
     - datasets
     - cloud_services

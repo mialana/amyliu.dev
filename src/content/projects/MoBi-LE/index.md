@@ -11,8 +11,7 @@ techStack:
     - Autodesk_Maya
     - React
 tags:
-    - "2025"
-    - "2024"
+    - Year2023
     - product_design
     - human_computer_interaction
     - 3D-printing

@@ -21,7 +21,3 @@ tags:
 description: Inspired by 2D concept art of the Tokyo Ghoul anime series, a suite of stylized surface shaders and post-processing shaders for Unity.
 code: https://github.com/mialana/unity-3d-stylization.git
 ---
-
-## **Update 9/20/2025:**
-
-More details soon, thanks for your patience!

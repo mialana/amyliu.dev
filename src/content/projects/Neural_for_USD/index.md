@@ -17,7 +17,7 @@ techStack:
     - OpenUSD
     - Hydra
 tags:
-    - "2025"
+    - Year2025
     - neural_rendering
     - NeRF
     - neural_radiance_fields

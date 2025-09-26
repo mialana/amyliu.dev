@@ -12,7 +12,7 @@ techStack:
     - Gemini_AI
     - Model_Context_Protocol
 tags:
-    - "2025"
+    - Year2025
     - hackathon
     - honors
     - social_impact

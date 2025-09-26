@@ -10,7 +10,7 @@ techStack:
     - SideFX_Houdini
     - Python
 tags:
-    - "2022"
+    - Year2022
     - digital_humans
     - physically-based
     - photorealism

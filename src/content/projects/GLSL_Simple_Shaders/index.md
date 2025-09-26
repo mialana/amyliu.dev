@@ -11,7 +11,7 @@ techStack:
     - QT
     - OpenGL
 tags:
-    - "2023"
+    - Year2023
     - shading
     - cg_toolbox_functions
     - VFX

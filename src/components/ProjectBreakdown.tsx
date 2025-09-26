@@ -42,6 +42,16 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 tabs.push({ id, title, content: content.trim() });
             });
 
+            // Fallback if no h2 elements are found
+            if (tabs.length === 0) {
+                const today = new Date().toISOString().split("T")[0];
+                tabs.push({
+                    id: `update-${today}`,
+                    title: `Update ${today}`,
+                    content: "More details soon, thanks for your patience!",
+                });
+            }
+
             setTabs(tabs);
             setActiveTabId(tabs[0].id);
         };

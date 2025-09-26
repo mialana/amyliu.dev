@@ -11,8 +11,8 @@ techStack:
     - Autodesk_Maya
     - Python
 tags:
-    - "2023"
-    - "2024"
+    - Year2024
+    - Year2023
     - plugin
     - procedural
     - 3D-modeling
