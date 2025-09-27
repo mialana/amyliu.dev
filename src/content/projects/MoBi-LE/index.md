@@ -65,4 +65,4 @@ Attachment points were embedded into the geometry to support later hardware moun
 
 A minimal Progressive Web App (PWA) built on ReactJS was prototyped to serve as an interactive UI displayed on the robot’s touchscreen. The app mimicked the original system's question/answer prompts and allowed basic tap interaction. The PWA served as a proof-of-concept for future interaction logic.
 
-![Mobi Le Software Preview](./assets/MoBi-LE_software_preview.gif)
+![Mobi Le Software Preview](./assets/MoBi-LE_software_preview.webp)

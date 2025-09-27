@@ -73,7 +73,7 @@ r_theta = r_new_angle - r_orig_angle
 
 These angle offsets (`r_theta`, `l_theta`) are applied to the hinge joints to ensure the temple arms rotate cleanly into their final position, preserving the structural rigidity of the asset. This effectively solves a planar IK problem using trigonometric inference based on two known positions per limb and a shared base joint.
 
-![Glasses Deformer](./assets/glasses_deformer.gif)
+![Glasses Deformer](./assets/glasses_deformer.webp)
 
 #### Pipeline Contribution
 
@@ -114,7 +114,7 @@ Headwear accessories are conformed to target meshes using a proximity-driven def
 
 ![Hat Weights](./assets/hat_weights.png)
 
-![Headwear Deform Results](./assets/headwear_deform_results.gif)
+![Headwear Deform Results](./assets/headwear_deform_results.webp)
 
 ### Fitted Facial Accessories Deformation
 
@@ -126,7 +126,7 @@ Facial accessories are fitted to target meshes using a localized deformation str
 
 To support this, deformation weights are first computed procedurally based on vertex proximity to the underlying facial geometry, similar to the headwear assets. However, additionally a smoothing stage is then applied to mitigate shearing and surface noise introduced during proximity wrapping. The method preserves fine detail from the original geometry while producing a smooth transition across regions with sharp spatial gradients.
 
-![Mask Deform Results](./assets/mask_deform_results.gif)
+![Mask Deform Results](./assets/mask_deform_results.webp)
 
 ### Platform Integration Strategy
 

@@ -67,7 +67,7 @@ The terrain generator is built as a heightfield-based HDA that allows for sculpt
 
 In addition, the `Terrain_Path/` subnetwork allows artists to embed traversable paths into terrain. A custom spline input is projected and ray-transferred onto the terrain, then used to mask out a region via `Heightfield Mask by Object`, blurred for natural blending, and distorted with procedural noise using `Heightfield Noise`. The output is a distinct terrain layer isolating the carved path without manual geometry sculpting.
 
-![Embedded Terrain Path](./assets/embedded_terrain_path.gif)
+![Embedded Terrain Path](./assets/embedded_terrain_path.webp)
 
 #### Terrain texturing Copernicus workflow
 
@@ -85,7 +85,7 @@ This pipeline allows fine-grained lookdev control per layer and requires no exte
 
 The RTT Traversal Paths Tool generates a series of traversal curves across terrain geometry using an attribute-weighted shortest path algorithm.
 
-![Traversal Paths](assets/traversal_paths.gif)
+![Traversal Paths](assets/traversal_paths.webp)
 
 #### Cost Calculation
 
@@ -111,7 +111,7 @@ A notable application of the traversal path system is the procedural generation 
 
 Once computed, the curves are projected onto the terrain using `HeightField Mask by Object` and `Heightfield Mask Blur`. A Houdini `HeightField Shallow Water` SOP node then simulates natural water spreading / pooling and flow-field dependent water velocity.
 
-![Water Simulation](assets/water_simulation.gif)
+![Water Simulation](assets/water_simulation.webp)
 
 The resulting geometry is shaded using a customized material network defined in `matnet_flooded_water`. The shader is based on a `Principled Shader` setup with texture maps generated in a dedicated Copernicus network. These include:
 
@@ -137,7 +137,7 @@ The _RTT Layered Fracture Tool_ is a mask-driven procedural fracturing system de
 
 The tool begins with an `Attribute Wrangle` node to compute a vertical mask using a normalized ramp over the geometry’s Y-position. This creates a basic fracture influence gradient across the height of the mesh. An `Attribute Noise` node then introduces flow-based noise to the mask to add complexity and natural variation.
 
-![Fracture Masking](assets/fracture_masking.gif)
+![Fracture Masking](assets/fracture_masking.webp)
 
 The mask is converted into scatter points via `VDB From Polygons` and `Scatter` nodes. These points drive the first Voronoi fracture layer through `Voronoi Fracture`. A secondary fracture pass is generated similarly, with a separate scattering pass to create more fragmented sub-structures.
 
@@ -151,7 +151,7 @@ The _RTT Fractured Column Asset_ demonstrates the use of the RTT Layered Fractur
 
 Once the base structure is finalized, the asset is passed into the RTT Layered Fracture Tool. There, the vertical mask gradient isolates the upper portion of the column as a target zone. This produces more intense fragmentation at the top, fading toward the base. The final fractured result includes both inner and outer layers.
 
-![Fractured Column Use Case](assets/fractured_column_use_case.gif)
+![Fractured Column Use Case](assets/fractured_column_use_case.webp)
 
 ### RTT Terrain Blockout Tool
 
@@ -161,19 +161,19 @@ Each instance of the tool accepts a single curve as input and supports four bloc
 
 1. **Closed Curve Blockouts**: Converts curve into an extruded, closed form used for carving plateaus or basins.
 
-![Closed Curve](assets/closed_curve.gif)
+![Closed Curve](assets/closed_curve.webp)
 
 2. **Open Curve Ridge Forms**: Sweeps the input curve to create ridge or valley geometries.
 
-![Open Curve](assets/open_curve.gif)
+![Open Curve](assets/open_curve.webp)
 
 3. **Peaks**: Scatters points throughout a curve's inner area to generate cone-shaped peak geometry. Useful for mountain ranges.
 
-![Peaks Blockout](assets/peaks_blockout.gif)
+![Peaks Blockout](assets/peaks_blockout.webp)
 
 4. **Distorted Masses**: Produces extremely deformed primitives ideal for embedding singular large, rough mountains into terrain.
 
-![Distorted Blockout](assets/distorted_blockout.gif)
+![Distorted Blockout](assets/distorted_blockout.webp)
 
 ### RTT Rigid Body Collider Interactor
 
@@ -183,7 +183,7 @@ The tool begins by accepting user-provided geometry, which must include a `name`
 
 Instances are assigned using `Copy to Points`, and randomized transformations are applied through `Attribute Randomize` to vary orientation, position, and scale. The result is fed into a `RBD Bullet Solver`, where terrain geometry acts as a collision surface. Key solver parameters—including friction, bounce, gravity, and constraint resolution—are exposed for artist control, allowing fine-tuning of the pile’s structure and spread.
 
-![Scattering Piles](assets/scattering_piles.gif)
+![Scattering Piles](assets/scattering_piles.webp)
 
 Once a convincing formation is reached, the simulation is frozen using `Timeshift` to bake a specific frame, producing a static result that maintains the fidelity of physics-driven interaction.
 

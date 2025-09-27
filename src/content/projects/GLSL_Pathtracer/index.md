@@ -157,4 +157,4 @@ vec4 gammaCorrection(vec4 c)
 
 A custom QT GUI element was implemented to allow runtime switching between integration methods. Internally, a uniform variable is updated to reflect the chosen integrator. This unique feature instantly streamlines testing and visual comparison between the integrator types.
 
-![Integration Switch](./assets/integration_switch.gif)
+![Integration Switch](./assets/integration_switch.webp)

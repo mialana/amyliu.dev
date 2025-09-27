@@ -70,7 +70,7 @@ In the first pass, geometry is rendered with one of several user-selectable surf
 
 - **Vertex Deformation**: Displaces vertex positions in the vertex shader based on time or procedural noise.
 
-![Surface Vertex Deformation](./assets/surface_vertex_deformation.gif)
+![Surface Vertex Deformation](./assets/surface_vertex_deformation.webp)
 
 ### Post-Processing Stage
 
@@ -94,7 +94,7 @@ After the surface pass, a full-screen quad is rendered using one of several post
 
 - **Worley Noise**: Generates a cellular noise pattern and uses it to apply a dynamic screen-space warp, resulting in a subtle animated translation of the scene.
 
-![Post Worley Noise](./assets/post_worley_noise.gif)
+![Post Worley Noise](./assets/post_worley_noise.webp)
 
 ### GUI Interaction
 

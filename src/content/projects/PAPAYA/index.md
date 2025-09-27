@@ -306,7 +306,7 @@ At the time, our MVP used both a Django-based backend and frontend. So to suppor
 
 The MVP was functional and helped define the asset preview feature’s technical constraints and opportunities.
 
-![Demo Usd Viewer With Animations](assets/Demo_Usd_Viewer_with_Animations.gif)
+![Demo Usd Viewer With Animations](assets/Demo_Usd_Viewer_with_Animations.webp)
 
 In the final AstroJS-based frontend, a more robust Three.JS viewer was integrated by the frontend team. It includes additional features such as:
 
