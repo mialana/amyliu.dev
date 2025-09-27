@@ -29,41 +29,39 @@ const thumbnailPath = images[
 ---
 
 <div class="m-1 p-4 *:mx-auto lg:px-16 lg:py-4">
-    <div class="prose prose-lg">
-        <h1 class="!my-0 text-4xl lg:text-5xl">
+    <div class="prose prose-lg xl:prose-2xl">
+        <h1 class="!my-0 text-4xl lg:text-5xl xl:text-6xl">
             {project.data.title}
         </h1>
-        <h3 class="!mt-2 !mb-4 text-sm">
+        <h3 class="!mt-2 !mb-4 text-sm xl:text-base">
             {format(project.data.startDate, "MMMM dd, yyyy")} -
             {format(project.data.endDate, "MMMM dd, yyyy")}
         </h3>
-        <div class="prose-custom-lg max-w-none text-sm">
+        <div class="prose-custom-lg max-w-none text-sm xl:text-base">
             {project.data.description}
         </div>
     </div>
     <div
-        class="mt-4 mb-6 w-full bg-neutral-200 p-2 drop-shadow-lg drop-shadow-neutral-400 lg:mt-6 lg:mb-8 lg:shadow-xl"
+        class="mt-4 mb-6 w-full max-w-[1280px] bg-neutral-200 p-2 drop-shadow-lg drop-shadow-neutral-400 lg:mt-6 lg:mb-8 lg:shadow-xl"
     >
         {
             project.data.demoVideoLink ? (
                 <YouTube
                     id={project.data.demoVideoLink}
                     params="autoplay=1&color=white&rel=0"
-                    posterQuality="high"
-                    class="w-full !max-w-[868px] min-w-full"
+                    posterQuality="max"
+                    class="w-full min-w-full"
                 />
             ) : (
                 <Image
                     class="w-full"
                     src={images[thumbnailPath]()}
                     alt={`Fallback Thumbnail ${project.data.title}`}
-                    width={600}
-                    height={600}
                 />
             )
         }
     </div>
-    <div class="prose prose-lg mb-4 lg:mb-6">
+    <div class="prose prose-lg xl:prose-2xl mb-4 lg:mb-6">
         <Tags content={[project.data.category]} label="Category" />
         <Tags content={[project.data.type]} label="Type" />
         <Tags content={project.data.tags} label="tags" />

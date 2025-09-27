@@ -111,7 +111,10 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
     if (tabs.length === 0) {
         return (
-            <div ref={contentRef} className="prose prose-lg max-w-none">
+            <div
+                ref={contentRef}
+                className="prose prose-lg xl:prose-xl max-w-none"
+            >
                 {children}
             </div>
         );
@@ -120,10 +123,10 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
     const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
 
     return (
-        <div className="mx-auto w-fit max-w-full p-2 **:scroll-mt-20 lg:**:scroll-mt-22">
+        <div className="prose xl:prose-lg mx-auto max-w-[1024px] p-2 **:scroll-mt-20 lg:**:scroll-mt-22">
             {/* Tab Navigation */}
             <div
-                className="sticky top-0 z-10 mb-6 flex scale-108 flex-nowrap gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 lg:gap-2"
+                className="sticky top-0 z-10 mb-6 flex w-full scale-108 flex-nowrap justify-center gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 lg:gap-2"
                 role="tablist"
             >
                 {tabs.map((tab) => (
@@ -146,10 +149,19 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
             {/* Tab Content */}
             <div
-                className="prose prose-sm lg:prose-base prose-h5:font-medium relative mx-auto min-h-24"
+                className="prose prose-sm lg:prose-base prose-h5:font-medium prose-a: relative mx-auto min-w-full **:mx-auto"
                 role="tabpanel"
                 aria-labelledby={`tab-${activeTab.id}`}
                 dangerouslySetInnerHTML={{ __html: activeTab.content || "" }}
+                ref={(el) => {
+                    if (el) {
+                        // set all links to open to new tab
+                        el.querySelectorAll("a").forEach((link) => {
+                            link.setAttribute("target", "_blank");
+                            link.setAttribute("rel", "noopener noreferrer");
+                        });
+                    }
+                }}
             ></div>
 
             {/* Hidden content for parsing - this won't be visible */}

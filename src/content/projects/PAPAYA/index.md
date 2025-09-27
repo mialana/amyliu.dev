@@ -67,25 +67,11 @@ As technical lead, I focused on core infrastructure to support asset resolution,
 - [ ] Revisit the idea of a native **Three.JS USDZLoader** as web-related USD development matures — evaluate performance, material fidelity, and potential integration in-place of current **USD->glTF->Three.JS** workaround method.
     - [ ] Contribute to the [**three-usdz-loader**](https://github.com/ponahoum/three-usdz-loader) open source repo. Improve its support for material-binding and geometry "Mesh prim" handling.
 
----
-
 ## Method
 
 A unique goal of this project was to simulate the graphics pipeline within a small studio team. We organized work around sprint cycles, beginning with individual MVP proposals and culminating in a shared architecture that balanced backend reliability with frontend usability.
 
-```mermaid
-
-kanban
-	A[Individual MVP proposals]
-	B['Studio' design session]
-		Choose tech stack
-		Team / role divisions
-		Define all goals & final deliverables
-	C[Sprint]
-		Weekly standups
-		Cross-team collab whenever desired
-	D[Sprint review]
-```
+![Mermaid Diagram Timeline](./assets/mermaid_timeline.svg)
 
 ### Versioned Asset Resolver
 
@@ -99,32 +85,11 @@ The primary bottleneck was the lack of integrated versioning between our databas
 
 To address this, I refactored the backend in three coordinated layers:
 
-```mermaid
-flowchart LR
-
-A[MySQL] -->C
-B[S3 Bucket]-->C
-C[Django Views/Models] -->
-D[Astro Frontend]
-
-```
+![Mermaid Diagram Workflow Concrete](./assets/mermaid_workflow_concrete.svg)
 
 Though ultimately, we realized that the systems were heavily interconnected, so it looked more like this:
 
-```mermaid
-flowchart LR
-  subgraph one[clang]
-  direction LR
-  a1[MySQL]-->a2
-  a2[Django Views/Models]-->a3
-  a3[S3 Bucket]-->a1
-  a1---a2
-  a2---a3
-  a3---a1
-  end
-  c1[Astro Frontend]
-  one --> c1
-```
+![Mermaid Diagram Workflow Reality](./assets/mermaid_workflow_reality.svg)
 
 (Get it? Because clang... is clang?)
 
@@ -171,16 +136,7 @@ Total Objects: 817
 
 In building this pipeline, I collaborated closely with teammates who developed the S3 interface layer. Their implementation of a centralized `S3Manager` class provided a clean abstraction over AWS SDK calls and significantly improved maintainability:
 
-```mermaid
-flowchart TD
-  A[S3Manager Class]
-
-  A --> B["generate_presigned_url()"]
-  A --> C["update_file()"]
-  A --> E["delete_file()"]
-  A --> F["list_s3_files()"]
-  A --> G["download_s3_file()"]
-```
+![Mermaid Diagram S3 Manager Class](./assets/mermaid_s3manager_class.svg)
 
 This wrapper pattern reinforced the importance of modular backend design. It also allowed me to streamline resolver logic and maintain a consistent interface between asset metadata and its physical representation in storage.
 

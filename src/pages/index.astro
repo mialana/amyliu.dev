@@ -6,7 +6,6 @@ import { Image } from "astro:assets";
 import MainLayout from "@/layouts/MainLayout.astro";
 import SectionLayout from "@/layouts/SectionLayout.astro";
 
-import Toast from "../components/Toast.tsx";
 import Headshot from "../components/Headshot.astro";
 ---
 
@@ -14,14 +13,14 @@ import Headshot from "../components/Headshot.astro";
     <!-- <Toast client:load /> -->
     <SectionLayout>
         <div
-            class="relative flex flex-col items-center justify-center gap-8 overflow-y-scroll p-8 md:flex-col"
+            class="relative flex flex-col items-center justify-center gap-8 overflow-y-scroll p-8 md:flex-col xl:gap-10"
         >
             <Headshot />
             <div class="prose">
-                <h4 class="leading-tight">
+                <h4 class="text-base leading-tight xl:text-lg">
                     Computer Graphics Engineer ⋅ Technical Artist ⋅ Code Junkie
                 </h4>
-                <div class="*:my-4 *:text-sm">
+                <div class="*:my-4 *:text-sm xl:*:text-base">
                     <p>
                         Hi, I'm Amy. Welcome to my website -- a one-stop shop
                         for my CG personal portfolio.

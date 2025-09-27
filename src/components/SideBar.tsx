@@ -43,7 +43,6 @@ export default function SideBar({
 
     useLayoutEffect(() => {
         function handleResize() {
-            console.log("called");
             if (!active || !hasSlotReact(children)) {
                 const cellId = `${category.toLowerCase()}-grid-cell`;
                 const gridCell = document.getElementById(cellId);

@@ -106,7 +106,7 @@ Hair color is selected from a predefined dictionary of natural shades and applie
 This setup allows fully batched, stylized hair generation at scale without relying on manual groom editing or artist intervention.
 ![Hair Modifier Diagram](./assets/hair_modifier_diagram.png)
 
-## Headwear Assets Deformation
+### Headwear Assets Deformation
 
 ![Headwear Variations](./assets/headwear_variations.png)
 

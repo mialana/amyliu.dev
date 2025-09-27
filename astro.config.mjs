@@ -9,7 +9,6 @@ import sitemap from "@astrojs/sitemap";
 
 import mdx from "@astrojs/mdx";
 
-import rehypeMermaid from "rehype-mermaid";
 import remarkMath from "remark-math";
 import rehypeMathJaxChtml from "rehype-mathjax/chtml";
 
@@ -35,17 +34,8 @@ export default defineConfig({
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
-        syntaxHighlight: { excludeLangs: ["mermaid"] },
         remarkPlugins: [[remarkMath, { singleDollarTextMath: true }]],
         rehypePlugins: [
-            [
-                rehypeMermaid,
-                {
-                    strategy: "img-svg",
-
-                    mermaidConfig: { theme: "default" },
-                },
-            ],
             [
                 rehypeMathJaxChtml,
                 {

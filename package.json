@@ -24,7 +24,6 @@
         "date-fns": "^4.1.0",
         "motion": "^12.23.12",
         "rehype-mathjax": "^7.1.0",
-        "rehype-mermaid": "^3.0.0",
         "remark-math": "^6.0.0",
         "tailwindcss": "^4.1.13"
     },
