@@ -76,12 +76,20 @@ export default function SideBar({
     return (
         <div
             className={`${open ? "absolute z-20 w-screen md:relative md:w-auto" : "w-0"} bg-white ${category == "NAV" ? "left-0" : "right-0"} h-full overflow-scroll py-4 shadow-lg`}
+            onClick={() => {
+                if (window.innerWidth <= 768) {
+                    setOpen(false);
+                }
+            }}
         >
             {/* sidebar button */}
             <button
                 id={`${category}-button`}
                 className={`invisible absolute top-0 z-0 flex h-4 w-4 cursor-pointer items-center justify-center text-[8px] text-neutral-500 ${positionInfo["absolutePosition"]}`}
-                onClick={() => setOpen(!open)}
+                onClick={(event) => {
+                    event.stopPropagation(); // Prevent click from propagating
+                    setOpen(!open);
+                }}
                 title={`${open ? "Close" : "Open"} ${category}`}
             >
                 <svg

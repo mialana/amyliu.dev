@@ -123,7 +123,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
     const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
 
     return (
-        <div className="prose xl:prose-lg mx-auto max-w-[1024px] p-2 **:scroll-mt-20 lg:**:scroll-mt-22">
+        <div className="prose xl:prose-lg mx-auto my-4 max-w-[1024px] p-2 **:scroll-mt-20 lg:my-6 lg:**:scroll-mt-22">
             {/* Tab Navigation */}
             <div
                 className="sticky top-0 z-10 mb-6 flex w-full scale-108 flex-nowrap justify-center gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 lg:gap-2"
@@ -149,7 +149,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
             {/* Tab Content */}
             <div
-                className="prose prose-sm lg:prose-base prose-h5:font-medium prose-a: relative mx-auto min-w-full **:mx-auto"
+                className="prose prose-sm lg:prose-base prose-h5:font-medium prose-a: relative mx-auto min-w-full **:mx-auto *:last:!my-0"
                 role="tabpanel"
                 aria-labelledby={`tab-${activeTab.id}`}
                 dangerouslySetInnerHTML={{ __html: activeTab.content || "" }}

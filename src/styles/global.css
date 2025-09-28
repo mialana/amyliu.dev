@@ -86,4 +86,22 @@
             content: none !important;
         }
     }
+
+    div.expressive-code {
+        max-width: 100ch;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+
+        span.title {
+            @apply !text-[0.6rem] md:!text-[0.7rem] lg:!text-[0.75rem];
+        }
+
+        code {
+            @apply !text-[0.6rem] md:!text-[0.7rem] lg:!text-[0.75rem];
+        }
+    }
+
+    mjx-container {
+        @apply !text-xs lg:!text-base;
+    }
 }

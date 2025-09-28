@@ -17,8 +17,9 @@ import astroExpressiveCode from "astro-expressive-code";
 /** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
 const expressiveCodeConfig = {
     shiki: { langAlias: { usda: "bash" } },
-    styleOverrides: { codeFontSize: "0.75rem", uiFontSize: "0.85rem" },
-    themes: ["aurora-x"],
+    styleOverrides: { borderRadius: "0rem" },
+    themes: ["gruvbox-dark-hard"],
+    minSyntaxHighlightingColorContrast: 7.5,
 };
 
 // https://astro.build/config

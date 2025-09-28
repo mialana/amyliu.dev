@@ -205,9 +205,10 @@ To capture high-frequency variation in scene geometry and appearance, the 3D pos
 
 For a scalar component $p$, encoding with frequency $w$ yields:
 
-```txt
-[p, sin(ω₁p), cos(ω₁p), sin(ω₂p), cos(ω₂p), ..., sin(ω₅p), cos(ω₅p)]
-```
+$$
+\bigl[\, p,\; \sin(\omega_{1}p),\; \cos(\omega_{1}p),\; \dots,\;
+          \sin(\omega_{5}p),\; \cos(\omega_{5}p) \,\bigr]
+$$
 
 The result is a higher-dimensional embedding that allows the MLP to approximate sharp changes in lighting or geometry without requiring excessive network depth.
 
@@ -292,7 +293,7 @@ Choose from the following options:
 
 ![Random Pose](assets/random_pose.webp)
 
-- Specify a custom θ/ϕ camera angle
+- Specify a custom $\theta$ or $\phi$ camera angle
 
 ![Custom Pose](assets/custom_pose.webp)
 
