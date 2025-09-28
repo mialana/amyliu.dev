@@ -22,51 +22,63 @@ export async function getStaticPaths() {
     ];
 
     return uniqueRawTags.map((tag) => {
-        const filteredProjects = projects.filter(
-            (project: any) =>
-                project.data.tags.includes(tag) ||
-                project.data.techStack.includes(tag),
-        );
-        return {
-            params: { tag: tag.replaceAll("_", " ") },
-            props: { projects: filteredProjects },
-        };
+        const filteredProjects = projects
+            .filter(
+                (project: any) =>
+                    project.data.tags.includes(tag) ||
+                    project.data.techStack.includes(tag),
+            )
+            .sort(
+                (a, b) =>
+                    b.data.startDate.valueOf() - a.data.startDate.valueOf(),
+            );
+        return { params: { tag: tag }, props: { projects: filteredProjects } };
     });
 }
 
 const { tag: tag } = Astro.params;
 const { projects } = Astro.props;
+
+const tagTitle = tag.replaceAll("_", " ");
 ---
 
-<MainLayout title={tag} layout="HIDE_BOTH">
-    <a
+<MainLayout title={tagTitle} layout="HIDE_BOTH">
+    <!-- <a
         href="/tags/"
         class="sticky top-0 z-1000 m-2 bg-neutral-900 py-3 pr-3 pl-6 text-xs text-white [clip-path:polygon(0%_50%,10%_0,100%_0,100%_100%,10%_100%)] hover:bg-neutral-700 md:m-4 md:text-base md:font-medium"
     >
         Back to <span class="underline underline-offset-4">Tags Index</span>
-    </a>
+    </a> -->
     <div class="w-full p-2 pt-8 text-center">
-        <div class="prose m-auto">
+        <div class="prose sticky top-2 z-20 m-auto rounded-md bg-white">
             <h3 class="mb-8">
-                PROJECTS UNDER <i class="text-blue-accent">{tag}</i> TAG
+                PROJECTS UNDER <span
+                    class="text-wanderer-300 mx-1 rounded-sm bg-neutral-100 px-2 py-1 tracking-widest"
+                    >{tagTitle}</span
+                > TAG
             </h3>
         </div>
 
         <ul>
             {
                 projects.map((project: any) => (
-                    <li class="mb-24">
+                    <li>
                         <a
                             href={`/projects/${createSlug(
                                 project.data.title,
                                 project.data.slug,
                             )}/`}
                             class="text-red-accent text-xl font-bold underline hover:text-2xl"
+                            title="View on page"
                         >
                             {project.data.title}
                         </a>
 
-                        <ProjectLayout project={project} />
+                        <ProjectLayout
+                            project={project}
+                            showBreakdown={false}
+                        />
+                        <hr class="mx-auto mt-4 mb-10 w-1/2 border-1 border-neutral-300 xl:mt-8 xl:mb-16" />
                     </li>
                 ))
             }

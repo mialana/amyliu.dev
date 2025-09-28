@@ -12,19 +12,22 @@ const uniqueTags = [
                 let tags = project.data.tags;
                 tags.push(...project.data.techStack); // push tech stack as additional tags
 
-                tags = tags.map((tag: string) => {
-                    return tag.replaceAll("_", " ");
-                });
-
                 return [...tags];
             })
-            .flat(),
+            .flat()
+            .sort(),
     ),
 ];
 ---
 
 <MainLayout title="Tags Index">
-    <div class="prose m-auto text-center">
+    <!-- <a
+        href="/projects/"
+        class="sticky top-0 z-1000 m-2 bg-neutral-900 py-3 pr-3 pl-6 text-xs text-white [clip-path:polygon(0%_50%,10%_0,100%_0,100%_100%,10%_100%)] hover:bg-neutral-700 md:m-4 md:text-base md:font-medium"
+    >
+        Back to <span class="underline underline-offset-4">Projects</span>
+    </a> -->
+    <div class="prose m-auto p-8 text-center">
         <h1 class="">Tags Index</h1>
         <div class="columns-3 leading-tight *:in-first-of-type:mt-0">
             {
@@ -32,9 +35,9 @@ const uniqueTags = [
                     <p>
                         <a
                             href={`/tags/${tag}/`}
-                            class="hover:text-blue-accent underline underline-offset-4"
+                            class="hover:text-wanderer-300 underline underline-offset-4"
                         >
-                            {tag}
+                            {tag.replaceAll("_", " ")}
                         </a>
                     </p>
                 ))

@@ -40,6 +40,11 @@ const FilterSelect = ({
             <select
                 id={id}
                 value={value}
+                onClick={(e) => {
+                    if (e.target === e.currentTarget) {
+                        e.stopPropagation(); // Stop propagation only for the select element
+                    }
+                }}
                 onChange={(e) => onChange(e.target.value)}
                 className="w-max min-w-[120px] rounded-md border border-neutral-300 bg-white px-2 py-1 text-sm focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 focus:outline-none"
                 style={selectStyle}
@@ -69,6 +74,10 @@ export default function Search() {
             const type = card.getAttribute("data-type");
             const category = card.getAttribute("data-category");
 
+            // Query the corresponding TOC item
+            const slug = card.id; // Extract slug from the card's id
+            const tocItem = document.querySelector(`li[data-slug="${slug}"]`);
+
             let show = true;
 
             // Filter by type
@@ -89,8 +98,15 @@ export default function Search() {
             // Show/hide the card
             if (show) {
                 (card as HTMLElement).style.display = "block";
+                if (tocItem) {
+                    (tocItem as HTMLElement).style.display = "block";
+                }
             } else {
                 (card as HTMLElement).style.display = "none";
+
+                if (tocItem) {
+                    (tocItem as HTMLElement).style.display = "none";
+                }
             }
         });
     };
@@ -131,6 +147,8 @@ export default function Search() {
         })),
     ];
 
+    const showRestoreAll = typeFilter !== "all" || categoryFilter !== "all";
+
     return (
         <section className="w-fit min-w-max space-y-4 px-1">
             <h1 className="leading-loose font-semibold">Filter Projects</h1>
@@ -141,7 +159,10 @@ export default function Search() {
                     type="checkbox"
                     id="excludeSchool"
                     checked={excludeSchool}
-                    onChange={(e) => setExcludeSchool(e.target.checked)}
+                    onChange={(e) => {
+                        e.stopPropagation(); // Prevent click from propagating
+                        setExcludeSchool(e.target.checked);
+                    }}
                     className="flex-shrink-0 focus:ring-neutral-500"
                 />
                 <label
@@ -151,6 +172,21 @@ export default function Search() {
                     Filter out all School projects
                 </label>
             </div>
+
+            {/* Restore All Button */}
+            {showRestoreAll && (
+                <div className="w-full px-4">
+                    <button
+                        className="bg-wanderer-300 w-full cursor-pointer rounded-sm text-sm leading-normal text-white outline-1"
+                        onClick={() => {
+                            setTypeFilter("all");
+                            setCategoryFilter("all");
+                        }}
+                    >
+                        Restore All
+                    </button>
+                </div>
+            )}
 
             {/* Category Filter */}
             <FilterSelect
@@ -169,7 +205,12 @@ export default function Search() {
                 onChange={setTypeFilter}
                 options={typeOptions}
             />
-            <a href="/tags/" className="text-[10px] underline">
+
+            <a
+                href="/tags/"
+                className="text-[10px] underline"
+                onClick={(e) => e.stopPropagation()} // Prevent click from propagating
+            >
                 View Tags Index
             </a>
         </section>

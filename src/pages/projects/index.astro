@@ -75,7 +75,7 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
 ---
 
 <MainLayout title="Projects" layout="DEFAULT">
-    <Search slot="nav-sidebar" client:load />
+    <Search slot="nav-sidebar" client:only />
 
     <div
         class="flex flex-wrap justify-center gap-6 overflow-visible p-4 xl:gap-10"

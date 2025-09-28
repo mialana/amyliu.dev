@@ -12,9 +12,10 @@ import createSlug from "@/lib/createSlug";
 
 interface Props {
     project: CollectionEntry<"projects">;
+    showBreakdown?: boolean;
 }
 
-const { project } = Astro.props;
+const { project, showBreakdown = true } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
     "/src/content/projects/*/assets/thumbnail.{png,webp}",
@@ -68,7 +69,11 @@ const thumbnailPath = images[
         <Tags content={project.data.techStack} label="tech stack" />
     </div>
 
-    <ProjectBreakdown client:load>
-        <slot />
-    </ProjectBreakdown>
+    {
+        showBreakdown && (
+            <ProjectBreakdown client:load>
+                <slot />
+            </ProjectBreakdown>
+        )
+    }
 </div>
