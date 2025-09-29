@@ -59,7 +59,7 @@
 
 @utility debug {
     & {
-        border-color: black;
+        outline-color: black;
         @apply outline;
         @apply bg-red-200/25;
     }

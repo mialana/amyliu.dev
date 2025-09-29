@@ -6,54 +6,62 @@ import { Image } from "astro:assets";
 import MainLayout from "@/layouts/MainLayout.astro";
 import SectionLayout from "@/layouts/SectionLayout.astro";
 
-import Headshot from "../components/Headshot.astro";
+import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
 ---
 
 <MainLayout title="Home" layout="DEFAULT">
     <!-- <Toast client:load /> -->
-    <SectionLayout>
+    <!-- <SectionLayout> -->
+    <div
+        class="flex flex-grow flex-col items-center justify-start gap-6 overflow-y-scroll p-2 lg:justify-center lg:gap-4 xl:gap-10"
+    >
         <div
-            class="relative flex flex-col items-center justify-center gap-8 overflow-y-scroll p-8 md:flex-col xl:gap-10"
+            class="flex aspect-square max-h-1/2 max-w-[800px] flex-col items-center justify-center overflow-visible *:min-h-[200px] *:min-w-[200px] *:flex-grow *:rounded-full"
         >
-            <Headshot />
-            <div class="prose">
-                <h4 class="text-base leading-tight xl:text-lg">
-                    Computer Graphics Engineer ⋅ Technical Artist ⋅ Code Junkie
-                </h4>
-                <div class="*:my-4 *:text-sm xl:*:text-base">
-                    <p>
-                        Hi, I'm Amy. Welcome to my website -- a one-stop shop
-                        for my CG personal portfolio.
-                    </p>
-                    <p>
-                        I'm currently an undergrad at the University of
-                        Pennsylvania pursuing a BSE in Digital Media Design
-                        (Computer Graphics) and an Accelerated Master's in
-                        Computer Graphics and Game Technology. I will be
-                        graduating in May 2026.
-                    </p>
-                    <p>
-                        Here, you can easily scroll and filter through my past
-                        projects, watch their corresponding demo videos, and
-                        read through each project breakdown for more
-                        information. I am also gradually expanding on the
-                        content, such as including my work in 3D-modeling and 2D
-                        art.
-                    </p>
-                    <!-- <p>
+            <Image
+                src={Headshot2025_2}
+                alt="Amy Liu Headshot 2 from Barcelona, Spain"
+                width={800}
+                height={800}
+            />
+        </div>
+
+        <div class="prose xl:prose-lg 2xl:prose-2xl">
+            <h4 class="text-base leading-tight xl:text-lg">
+                Computer Graphics Engineer ⋅ Technical Artist ⋅ Code Junkie
+            </h4>
+            <div class="*:my-4 *:text-sm xl:*:text-base 2xl:*:text-lg">
+                <p>
+                    Hi, I'm Amy. Welcome to my website -- a one-stop shop for my
+                    CG personal portfolio.
+                </p>
+                <p>
+                    I'm currently an undergrad at the University of Pennsylvania
+                    pursuing a BSE in Digital Media Design (Computer Graphics)
+                    and an Accelerated Master's in Computer Graphics and Game
+                    Technology. I will be graduating in May 2026.
+                </p>
+                <p>
+                    Here, you can easily scroll and filter through my past
+                    projects, watch their corresponding demo videos, and read
+                    through each project breakdown for more information. I am
+                    also gradually expanding on the content, such as including
+                    my work in 3D-modeling and 2D art.
+                </p>
+                <!-- <p>
                         A quick intro to me: My hometown is Portland, Oregon. My first window into
                         Computer Graphics was a butterfly effect from taking AP 2D Studio Art
                         - Photography Focus, in high school. I enjoy outdoor activities
                     </p> -->
-                    <p>
-                        <em>
-                            "The student keeps her eyes on the sky but her feet
-                            steady on the ground. She builds a staircase of
-                            books, all the way to the stars."
-                        </em>
-                    </p>
-                </div>
+                <p class="!mb-0">
+                    <em>
+                        "The student keeps her eyes on the sky but her feet
+                        steady on the ground. She builds a staircase of books,
+                        all the way to the stars."
+                    </em>
+                </p>
             </div>
         </div>
-    </SectionLayout>
+    </div>
+    <!-- </SectionLayout> -->
 </MainLayout>

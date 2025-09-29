@@ -60,7 +60,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 <slot name="nav-sidebar" />
             </SideBar>
         </nav>
-        <main class="overflow-x-hidden overflow-y-scroll shadow-lg">
+        <main class="flex overflow-y-scroll p-1 shadow-lg *:overflow-y-scroll">
             <slot />
         </main>
         <aside id="aside-grid-cell">
