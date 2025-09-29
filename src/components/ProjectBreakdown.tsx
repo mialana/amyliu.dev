@@ -126,7 +126,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
         <div className="prose xl:prose-lg mx-auto my-4 w-full max-w-[1024px] p-2 **:scroll-mt-20 lg:my-6 lg:**:scroll-mt-22">
             {/* Tab Navigation */}
             <div
-                className="sticky top-0 z-10 mb-6 flex w-full scale-108 flex-nowrap justify-center gap-1 overflow-x-scroll border-b border-neutral-200 bg-white py-1 lg:gap-2"
+                className="sticky top-0 z-10 mb-6 flex w-full scale-108 flex-nowrap justify-center-safe gap-1 overflow-x-scroll scroll-auto border-b border-neutral-200 bg-white py-1 lg:gap-2"
                 role="tablist"
             >
                 {tabs.map((tab) => (
@@ -136,7 +136,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         role="tab"
                         aria-selected={activeTabId === tab.id}
                         onClick={() => handleTabChange(tab.id)}
-                        className={`rounded-t-md px-2 py-1 text-[0.55rem] font-semibold lg:px-4 lg:py-2 lg:text-sm ${
+                        className={`scroll-auto rounded-t-md px-2 py-1 text-[0.55rem] font-semibold lg:px-4 lg:py-2 lg:text-sm ${
                             activeTabId === tab.id
                                 ? "bg-blue-accent text-white"
                                 : "bg-neutral-200 hover:bg-neutral-300"

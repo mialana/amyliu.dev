@@ -10,9 +10,11 @@ const { content, label } = Astro.props;
 ---
 
 <div
-    class="my-1 flex max-w-full !snap-x !snap-mandatory items-baseline gap-3 !overflow-x-scroll scroll-auto pb-2 text-xs capitalize xl:text-sm"
+    class="my-1 flex max-w-full !snap-x !snap-mandatory items-baseline-last gap-3 !overflow-x-scroll scroll-auto pb-1 text-xs capitalize xl:text-sm"
 >
-    <div class="!snap-start text-[0.4rem]/none text-neutral-600 uppercase">
+    <div
+        class="!snap-start place-self-center-safe text-[0.4rem]/none text-neutral-600 uppercase"
+    >
         {label}
     </div>
     {
