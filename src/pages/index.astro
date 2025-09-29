@@ -25,9 +25,15 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
             />
         </div>
 
-        <div class="prose xl:prose-lg 2xl:prose-2xl">
+        <div class="prose xl:prose-lg 2xl:prose-2xl px-4">
             <h4 class="text-base leading-tight xl:text-lg">
-                Computer Graphics Engineer ⋅ Technical Artist ⋅ Code Junkie
+                <div id="typed-strings">
+                    <p>
+                        ⋅ Computer Graphics Engineer ^1000 <br />⋅ Technical
+                        Artist ^1000 <br />⋅ Code Junkie
+                    </p>
+                </div>
+                <span id="typed"></span>
             </h4>
             <div class="*:my-4 *:text-sm xl:*:text-base 2xl:*:text-lg">
                 <p>
@@ -64,3 +70,13 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
     </div>
     <!-- </SectionLayout> -->
 </MainLayout>
+
+<script>
+    import Typed from "typed.js";
+
+    var typed = new Typed("#typed", {
+        stringsElement: "#typed-strings",
+        typeSpeed: 30,
+        showCursor: false,
+    });
+</script>

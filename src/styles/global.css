@@ -105,3 +105,19 @@
         @apply !text-xs lg:!text-base;
     }
 }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.page-animation {
+    animation: 0.25s fadeIn ease-in-out;
+}
