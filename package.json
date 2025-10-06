@@ -25,7 +25,7 @@
         "motion": "^12.23.22",
         "rehype-mathjax": "^7.1.0",
         "remark-math": "^6.0.0",
-        "tailwindcss": "^4.1.13",
+        "tailwindcss": "^4.1.14",
         "typed.js": "^2.1.0"
     },
     "devDependencies": {
