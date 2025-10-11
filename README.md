@@ -1,6 +1,6 @@
 # Amy Liu Personal Portfolio Website
 
-[**Live Deployment**](amyliu.dev)
+[**Live Deployment**](https://amyliu.dev)
 
 ## Setup Instructions
 
