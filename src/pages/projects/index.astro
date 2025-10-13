@@ -78,7 +78,7 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
     <Search slot="nav-sidebar" client:only />
 
     <div
-        class="m-1 flex flex-wrap items-start justify-center gap-6 overflow-x-visible overflow-y-scroll p-4 md:pb-8 xl:gap-10"
+        class="m-1 flex flex-wrap items-start justify-center gap-6 overflow-x-visible overflow-y-scroll p-4 md:p-8 xl:gap-10"
     >
         {
             sections.flatMap((section) => {
@@ -87,12 +87,12 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
                 if (section.id != "pinned") {
                     projectElementsArr.push(
                         <div class="w-full text-center first-of-type:collapse first-of-type:h-0">
-                            <h2
+                            <h1
                                 id={section.id}
-                                class="mt-4 mb-0 text-2xl leading-tight font-bold text-neutral-900"
+                                class="mt-4 mb-0 text-2xl leading-tight font-bold"
                             >
                                 {section.title}
-                            </h2>
+                            </h1>
                         </div>,
                     );
                 }

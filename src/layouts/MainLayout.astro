@@ -54,18 +54,18 @@ const { navActive, asideActive } = parseLayout(grid_cols);
     <body
         class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${grid_cols}`
     >
-        <header class="col-span-3"><Header /></header>
-        <nav id="nav-grid-cell">
+        <header class="col-span-3 !bg-[#f9f9f9]"><Header /></header>
+        <nav id="nav-grid-cell" class="transition-transform duration-1000">
             <SideBar category="NAV" active={navActive} client:load>
                 <slot name="nav-sidebar" />
             </SideBar>
         </nav>
         <main
-            class="page-animation flex overflow-x-hidden overflow-y-scroll shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
+            class="page-animation flex overflow-x-hidden overflow-y-scroll rounded-sm bg-white shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
         >
             <slot />
         </main>
-        <aside id="aside-grid-cell">
+        <aside id="aside-grid-cell" class="transition-transform duration-1000">
             <SideBar category="ASIDE" active={asideActive} client:load>
                 <slot name="aside-sidebar" />
             </SideBar>
@@ -73,3 +73,15 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <footer class="col-span-3"><Footer /></footer>
     </body>
 </html>
+
+<script>
+    const images = document.querySelectorAll("img");
+
+    if (images) {
+        images.forEach((image) => {
+            image.onerror = () => {
+                image.setAttribute("data-img-loading-error", "");
+            };
+        });
+    }
+</script>

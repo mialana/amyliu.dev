@@ -70,16 +70,14 @@ const ProjectExternalLinks: React.FC<Props> = ({
                         <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-200 bg-white shadow transition hover:scale-105">
                             <img
                                 src={imgSrc || getFavicon(url) || fallbackGlobe}
-                                alt="Favicon"
-                                width={32}
-                                height={32}
+                                alt={`Favicon ${label}`}
                                 loading="lazy"
                                 onError={() => setImgSrc(fallbackGlobe)}
-                                className="rounded-xl bg-white"
+                                className="rounded-xl bg-white bg-none"
                                 title={label}
                             />
                         </span>
-                        <span className="mt-1 text-center text-xs leading-tight font-medium text-neutral-900">
+                        <span className="mt-1 text-center text-xs leading-tight">
                             {label}
                         </span>
                     </a>

@@ -12,7 +12,7 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
     <!-- <Toast client:load /> -->
     <!-- <SectionLayout> -->
     <div
-        class="m-1 flex flex-grow flex-col place-content-center-safe items-center gap-6 overflow-y-scroll p-2 lg:flex-row lg:place-items-center-safe lg:justify-center lg:gap-10"
+        class="m-1 my-6 flex flex-grow flex-col place-content-center-safe items-center gap-6 overflow-y-scroll px-2 lg:flex-row lg:place-items-center-safe lg:justify-center lg:gap-10"
     >
         <div
             class="flex aspect-square h-1/2 max-h-[800px] min-h-[200px] max-w-[800px] min-w-[200px] flex-col items-center justify-center overflow-auto *:flex-grow *:rounded-full"
@@ -21,13 +21,12 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
                 src={Headshot2025_2}
                 alt="Amy Liu Headshot 2 from Barcelona, Spain"
                 width={800}
-                height={800}
             />
         </div>
 
         <div class="prose xl:prose-lg 2xl:prose-2xl px-4">
             <h4
-                class="text-center text-base leading-tight lg:text-left xl:text-lg"
+                class="text-center text-base leading-tight font-light lg:text-left xl:text-lg"
             >
                 <div id="typed-strings">
                     <p>
@@ -38,7 +37,9 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
                 </div>
                 <span id="typed"></span>
             </h4>
-            <div class="*:my-4 *:text-sm xl:*:text-base 2xl:*:text-lg">
+            <div
+                class="font-light *:my-4 *:text-sm xl:*:text-base 2xl:*:text-lg"
+            >
                 <p>
                     Hi, I'm Amy. Welcome to my website -- a one-stop shop for my
                     CG personal portfolio.
@@ -61,7 +62,7 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
                         Computer Graphics was a butterfly effect from taking AP 2D Studio Art
                         - Photography Focus, in high school. I enjoy outdoor activities
                     </p> -->
-                <p>
+                <p class="!mb-0">
                     <em>
                         "The student keeps her eyes on the sky but her feet
                         steady on the ground. She builds a staircase of books,
