@@ -135,7 +135,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 </div>
                 <img
                     src="/resources/coming_soon.gif"
-                    className="border-blue-accent/20 mx-auto w-full overflow-hidden rounded-full border-8 border-double shadow-lg shadow-neutral-400 md:w-3/4"
+                    className="border-blue-accent/20 mx-auto w-full !max-w-[1280px] overflow-hidden rounded-full border-8 border-double shadow-lg shadow-neutral-400 md:w-3/4"
                 />
             </div>
         );
