@@ -44,9 +44,9 @@ const tagTitle = tag.replaceAll("_", " ");
 
 <MainLayout title={tagTitle} layout="HIDE_BOTH">
     <div
-        class="from-blue-accent/30 to-blue-accent-lightest/30 flex size-full flex-col overflow-y-visible bg-radial px-2 pb-4 md:px-8 md:pb-8"
+        class="flex size-full flex-col overflow-y-visible px-2 pb-4 md:px-8 md:pb-8"
     >
-        <div class="absolute top-0 z-20 h-4 w-full md:h-8"></div>
+        <div class="absolute top-0 z-20 h-4 w-full bg-white md:h-8"></div>
         <div
             class="prose prose-base lg:prose-lg border-wanderer-300/25 shadow-wanderer-300/50 to-wanderer-200/90 from-green-accent/80 sticky top-2 z-20 my-0 ml-2 w-fit scale-y-90 rounded-br-lg border-t-3 border-l-4 bg-linear-to-br shadow-lg md:top-4 md:my-4 md:ml-4"
         >
@@ -65,7 +65,7 @@ const tagTitle = tag.replaceAll("_", " ");
             <div id=`${tagTitle}-top` class="size-0 shrink opacity-100"></div>
             {
                 projects.map((project: any) => (
-                    <li class="content-animation **:prose-h1:hover:scale-105 **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] mb-4 min-h-fit w-full flex-1 overflow-y-visible rounded-xl bg-white px-1 shadow-lg md:my-8 md:min-h-auto md:w-auto md:max-w-2/3 md:min-w-140 md:overflow-y-scroll md:px-0">
+                    <li class="content-animation **:prose-h1:hover:scale-105 **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] mb-4 min-h-fit w-full flex-1 overflow-y-visible rounded-xl bg-[#f9f9f9] px-1 shadow-lg md:my-8 md:min-h-auto md:w-auto md:max-w-2/3 md:min-w-140 md:overflow-y-scroll md:px-0">
                         <ProjectLayout
                             project={project}
                             showBreakdown={false}
