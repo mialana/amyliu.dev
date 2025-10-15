@@ -18,14 +18,18 @@ const { content, label } = Astro.props;
         {label}
     </div>
     {
-        content.map((tag) => (
-            <a
-                href={`/tags/${tag}/`}
-                class="hover:text-wanderer-300 size-fit !snap-start scroll-auto rounded-sm font-light text-nowrap no-underline"
-            >
-                {label == "tags" && <span>#</span>}
-                {tag.replaceAll("_", " ")}
-            </a>
-        ))
+        label != "type" && label != "category" ? (
+            content.map((tag) => (
+                <a
+                    href={`/tags/${tag}/`}
+                    class="hover:text-green-accent flex size-fit !snap-start items-center-safe gap-1 scroll-auto rounded-sm font-light text-nowrap no-underline"
+                >
+                    {label == "tags" && <span class="text-[0.6rem]">#</span>}
+                    {tag.replaceAll("_", " ")}
+                </a>
+            ))
+        ) : (
+            <div class="">{content[0]}</div>
+        )
     }
 </div>

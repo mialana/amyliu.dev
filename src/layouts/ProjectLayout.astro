@@ -53,7 +53,7 @@ const thumbnailPath = images[
         </div>
     </div>
     <div
-        class="mt-4 mb-6 w-full !max-w-[1280px] bg-neutral-200 p-2 drop-shadow-lg drop-shadow-neutral-400 lg:mt-6 lg:mb-8 lg:shadow-xl"
+        class="mt-4 mb-6 w-full !max-w-[1280px] bg-neutral-200/75 p-2 drop-shadow-lg drop-shadow-neutral-400 lg:mt-6 lg:mb-8 lg:shadow-xl"
     >
         {
             project.data.demoVideoLink ? (
@@ -73,8 +73,8 @@ const thumbnailPath = images[
         }
     </div>
     <div class="prose prose-lg xl:prose-2xl mx-auto max-w-full">
-        <Tags content={[project.data.category]} label="Category" />
-        <Tags content={[project.data.type]} label="Type" />
+        <Tags content={[project.data.category]} label="category" />
+        <Tags content={[project.data.type]} label="type" />
         <Tags content={project.data.tags} label="tags" />
         <Tags content={project.data.techStack} label="tech stack" />
     </div>

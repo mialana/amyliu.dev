@@ -121,14 +121,21 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
     }
     if (tabs.length === 1) {
         return (
-            <div className="relative mt-4 h-fit w-full">
-                <div className="absolute z-5 flex size-full flex-col items-center-safe justify-center-safe *:text-white">
-                    <h1 className="text-base font-semibold">{tabs[0].title}</h1>
-                    <p className="text-sm">{tabs[0].content}</p>
+            <div
+                id={tabs[0].id}
+                className="relative mt-4 flex h-fit w-full py-4 md:mt-4"
+            >
+                <div className="absolute z-5 flex h-fit w-full flex-col items-center-safe gap-1 place-self-center-safe justify-self-center-safe *:text-white">
+                    <h1 className="text-sm leading-none font-semibold md:text-base">
+                        {tabs[0].title}
+                    </h1>
+                    <p className="text-xs leading-none font-normal md:text-sm">
+                        {tabs[0].content}
+                    </p>
                 </div>
                 <img
                     src="/resources/coming_soon.gif"
-                    className="w-full overflow-hidden rounded-lg opacity-80"
+                    className="border-blue-accent/20 mx-auto w-full overflow-hidden rounded-full border-8 border-double shadow-lg shadow-neutral-400 md:w-3/4"
                 />
             </div>
         );
