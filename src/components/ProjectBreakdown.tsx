@@ -48,7 +48,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 tabs.push({
                     id: `updated-${today}`,
                     title: `Updated: ${today}`,
-                    content: "More details soon...",
+                    content: "More details coming soon...",
                 });
             }
 
@@ -135,7 +135,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 </div>
                 <img
                     src="/resources/coming_soon.gif"
-                    className="border-blue-accent/20 mx-auto w-full !max-w-[1280px] overflow-hidden rounded-full border-8 border-double shadow-lg shadow-neutral-400 md:w-3/4"
+                    className="border-blue-accent/20 mx-auto my-2 w-full !max-w-[1280px] overflow-hidden rounded-md border-8 border-double shadow-lg shadow-neutral-400 brightness-75 md:my-4 md:w-3/4"
                 />
             </div>
         );
