@@ -21,11 +21,12 @@
     --color-blue-accent-lighter: #c0c6f7;
     --color-blue-accent-lightest: #e1e1f8;
     --color-red-accent: #dd5555;
-    --color-green-accent: #3d8926;
+    --color-green-accent: #369e17;
 
     --color-wanderer-100: #d9ded1;
     --color-wanderer-200: #a2b7a8;
     --color-wanderer-300: #506e66;
+    --color-wanderer-400: #27423a;
     --color-wanderer-shadow: #373e3b;
     --color-wanderer-highlight: #f2eadd;
     --color-wanderer-accent: #fcd1a0;
@@ -34,6 +35,15 @@
 
     --drop-shadow-button: 0 4px 4px #000000;
     --drop-shadow-nav: 0 12px 12px #000000;
+
+    --color-dark-base: #262626;
+    --color-dark-offset: #000000;
+
+    --color-light-base: #ffffff;
+    --color-light-offset: #f9f9f9;
+
+    --color-light-shadow-offset: #a1a1a1;
+    --color-dark-shadow-offset: #d4d4d4;
 }
 
 @font-face {
@@ -49,9 +59,14 @@
         @apply **:scroll-smooth;
         hyphens: auto;
         @apply bg-[#f9f9f9];
-    }
-    h1 {
-        @apply text-neutral-900;
+
+        @apply dark:bg-dark-offset dark:**:text-light-offset;
+
+        @apply **:shadow-neutral-300;
+        @apply dark:**:shadow-neutral-600;
+
+        @apply [&_h1]:!text-dark-base [&_a]:text-dark-base;
+        @apply [&_h1]:dark:!text-light-base [&_a]:dark:text-light-base;
     }
 
     /* Hide scrollbar outlines while keeping smooth scrolling */
@@ -70,8 +85,8 @@
         display: block;
         background: url("/resources/loading.gif") center center no-repeat;
         background-size: 64px 64px;
-        background-color: #f9f9f9;
-        color: #f9f9f9;
+        @apply bg-light-offset dark:bg-dark-offset;
+        font-size: 0px;
     }
 }
 
@@ -92,11 +107,14 @@
 
 @utility prose {
     @apply prose-neutral;
+    @apply prose-code:!cursor-text;
+    @apply prose-headings:cursor-default prose-headings:dark:!text-light-base prose-a:dark:!text-light-base prose-strong:dark:!text-light-base prose-p:dark:!text-light-offset dark:text-light-offset dark:**:text-light-offset cursor-default;
     :not(pre) > code {
-        font-size: 0.75em;
-        padding: 0.125em;
+        @apply text-dark-base font-code mx-0.5 my-auto cursor-text leading-relaxed;
+        font-size: 0.7em;
+        padding: 0.25em;
         border: 1px solid;
-        border-radius: 0.25rem;
+        border-radius: 0.1rem;
         border-color: var(--color-neutral-300);
         background: var(--color-neutral-100);
         &::before,
@@ -115,7 +133,7 @@
         }
 
         code {
-            @apply !text-[0.6rem] md:!text-[0.7rem] lg:!text-[0.75rem];
+            @apply cursor-text !text-[0.6rem] md:!text-[0.7rem] lg:!text-[0.75rem];
         }
     }
 

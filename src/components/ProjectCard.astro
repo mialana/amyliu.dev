@@ -32,11 +32,11 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
     data-category={dataCategory}
 >
     <article
-        class="box relative rounded-lg border-[0.5px] border-neutral-300 bg-white shadow-lg hover:-translate-y-2 hover:shadow-neutral-300"
+        class="box bg-light-offset dark:bg-dark-offset hover:shadow-light-shadow-offset dark:hover:shadow-dark-shadow-offset hover:bg-light-base hover:dark:bg-dark-base hover:[&_img]:bg-light-offset hover:[&_img]:dark:bg-dark-offset relative rounded-lg border-[0.5px] border-neutral-300 shadow-lg hover:-translate-y-2 hover:[&_img]:saturate-175"
     >
         <div>
             <Image
-                class="rounded-t-lg border-b-[0.5px] border-neutral-300"
+                class="bg-light-base dark:bg-dark-base rounded-t-lg border-b-[0.5px] border-neutral-300"
                 src={image()}
                 alt=`Project ${project.data.title} Thumbnail`
                 width={800}

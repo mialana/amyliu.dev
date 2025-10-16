@@ -28,14 +28,14 @@ const uniqueTags = [
         Back to <span class="underline underline-offset-4">Projects</span>
     </a> -->
     <div class="prose m-auto p-8 text-center">
-        <h1 class="">Tags Index</h1>
+        <h1>Tags Index</h1>
         <div class="columns-3 leading-tight *:in-first-of-type:mt-0">
             {
                 uniqueTags.map((tag) => (
                     <p>
                         <a
                             href={`/tags/${tag}/`}
-                            class="hover:text-wanderer-300 font-thin no-underline hover:underline hover:underline-offset-2"
+                            class="hover:!text-wanderer-300 font-thin no-underline hover:underline hover:underline-offset-2"
                         >
                             {tag.replaceAll("_", " ")}
                         </a>

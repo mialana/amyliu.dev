@@ -125,7 +125,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
         return (
             <div
                 id={tabs[0].id}
-                className="coming-soon-container-breakdown relative mt-4 h-fit w-full py-4"
+                className="coming-soon-container-breakdown mt-4 h-fit w-full py-4"
             >
                 <ComingSoon />
             </div>
@@ -141,7 +141,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 className="sticky top-0 z-10 flex w-full flex-nowrap justify-center-safe gap-1 overflow-x-scroll scroll-auto lg:gap-2"
                 role="tablist"
             >
-                <div className="absolute top-0 h-2 w-full bg-white"></div>
+                <div className="bg-light-base dark:bg-dark-base absolute top-0 h-2 w-full"></div>
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
@@ -151,8 +151,8 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         onClick={() => handleTabChange(tab.id)}
                         className={`z-20 scroll-auto rounded-md px-2 py-1 text-[0.55rem] font-medium transition-colors duration-500 lg:px-4 lg:py-2 lg:text-sm ${
                             activeTabId === tab.id
-                                ? "bg-blue-accent/90 text-white"
-                                : "bg-neutral-200/90 text-neutral-600 hover:bg-neutral-300"
+                                ? "bg-blue-accent/90 hover:bg-blue-accent-light text-white"
+                                : "cursor-pointer bg-neutral-200/90 text-neutral-600 hover:bg-neutral-400"
                         }`}
                     >
                         {tab.title}
