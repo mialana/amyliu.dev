@@ -109,14 +109,14 @@
     @apply prose-neutral;
     @apply prose-code:!cursor-text;
     @apply prose-headings:cursor-default prose-headings:dark:!text-light-base prose-a:dark:!text-light-base prose-strong:dark:!text-light-base prose-p:dark:!text-light-offset dark:text-light-offset dark:**:text-light-offset cursor-default;
+
     :not(pre) > code {
-        @apply text-dark-base font-code mx-0.5 my-auto cursor-text leading-relaxed;
+        @apply text-wanderer-300 dark:text-wanderer-100 font-code bg-wanderer-200/35 border-wanderer-100/50 mx-0.5 my-auto cursor-text leading-relaxed saturate-150;
         font-size: 0.7em;
         padding: 0.25em;
-        border: 1px solid;
+        border: 0.5px solid;
         border-radius: 0.1rem;
-        border-color: var(--color-neutral-300);
-        background: var(--color-neutral-100);
+        letter-spacing: 0.075rem;
         &::before,
         &::after {
             content: none !important;
@@ -124,9 +124,16 @@
     }
 
     div.expressive-code {
-        max-width: 100ch;
         margin-top: 2rem;
         margin-bottom: 2rem;
+        @apply max-w-[100ch] px-2;
+
+        .gutter {
+            @apply !px-0;
+            .ln {
+                @apply !text-light-base/50 !px-1 !text-[8px] !leading-none md:!px-1;
+            }
+        }
 
         span.title {
             @apply !text-[0.6rem] md:!text-[0.7rem] lg:!text-[0.75rem];
