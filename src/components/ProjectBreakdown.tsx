@@ -163,7 +163,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
             {/* Tab Content */}
             <div
                 id={`tabcontent`}
-                className="prose prose-sm lg:prose-base prose-h5:font-medium relative mx-auto mt-4 min-w-full **:mx-auto *:last:!my-0 [&_img]:mx-2 [&_img]:rounded-md [&_svg]:invert"
+                className="prose prose-sm lg:prose-base prose-h5:font-medium prose-a:!text-blue-accent prose-a:**:!text-blue-accent relative mx-auto mt-4 min-w-full **:mx-auto *:last:!my-0 [&_img]:mx-auto [&_img]:rounded-md [&_svg]:invert"
                 role="tabpanel"
                 aria-labelledby={`tab-${activeTab.id}`}
                 dangerouslySetInnerHTML={{ __html: activeTab.content || "" }}
