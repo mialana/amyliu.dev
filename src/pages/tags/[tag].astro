@@ -70,12 +70,12 @@ const tagTitle = tag.replaceAll("_", " ");
                 </div>
                 {
                     projects.map((project: any) => (
-                        <li class="content-animation **:prose-h1:text-2xl **:prose-h1:hover:scale-103 **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] *:items h-fit min-h-fit w-full flex-1 snap-start overflow-y-visible rounded-xl bg-[#f9f9f9] px-1 shadow-md md:max-h-full md:min-h-fit md:min-w-2/5 md:overflow-y-scroll md:*:!m-4 md:*:!p-4 xl:min-w-1/2">
+                        <li class="content-animation **:prose-h1:text-2xl **:prose-h1:hover:scale-103 **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] *:items tag-project-card flex-1 snap-start overflow-y-visible rounded-xl px-1 shadow-md md:overflow-y-scroll md:*:!m-4 md:*:!p-4">
                             <ProjectLayout
                                 project={project}
                                 showBreakdown={false}
+                                replaceImagePlaceholder={true}
                             />
-                            {/* <hr class="border-0.5 mx-auto mt-4 mb-10 w-2/3 border-dashed border-neutral-300 xl:mt-8 xl:mb-16" /> */}
                         </li>
                     ))
                 }

@@ -8,8 +8,17 @@ import "@/styles/global.css";
     </h1>
     <div class="relative w-full p-1">
         <ul class="flex justify-center space-x-8 *:hover:underline">
-            <li><a href="/">Home</a></li>
-            <li><a href="/projects/">Projects</a></li>
+            <li class:list={[Astro.url.pathname === "/" && "font-normal"]}>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a
+                    href="/projects/"
+                    class:list={[
+                        Astro.url.pathname === "/projects/" && "font-normal",
+                    ]}>Projects</a
+                >
+            </li>
             <!-- <li><a>Blog</a></li> -->
             <!-- <li><a>Cache</a></li> -->
             <!-- <li><a>Art</a></li>

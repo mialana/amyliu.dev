@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
+import ComingSoon from "./ComingSoon";
+
 interface Tab {
     id: string;
     title: string;
@@ -123,20 +125,9 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
         return (
             <div
                 id={tabs[0].id}
-                className="relative mt-4 flex h-fit w-full py-4 md:mt-4"
+                className="coming-soon-container-breakdown relative mt-4 h-fit w-full py-4"
             >
-                <div className="absolute z-5 flex h-fit w-full flex-col items-center-safe gap-1 place-self-center-safe justify-self-center-safe *:text-white">
-                    <h1 className="text-sm leading-none font-semibold md:text-base">
-                        {tabs[0].title}
-                    </h1>
-                    <p className="text-xs leading-none font-normal md:text-sm">
-                        {tabs[0].content}
-                    </p>
-                </div>
-                <img
-                    src="/resources/coming_soon.gif"
-                    className="border-blue-accent/20 mx-auto my-2 w-full !max-w-[1280px] overflow-hidden rounded-md border-8 border-double shadow-lg shadow-neutral-400 brightness-75 md:my-4 md:w-3/4"
-                />
+                <ComingSoon />
             </div>
         );
     }
@@ -171,6 +162,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
             {/* Tab Content */}
             <div
+                id={`tabcontent`}
                 className="prose prose-sm lg:prose-base prose-h5:font-medium relative mx-auto mt-4 min-w-full **:mx-auto *:last:!my-0"
                 role="tabpanel"
                 aria-labelledby={`tab-${activeTab.id}`}

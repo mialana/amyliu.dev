@@ -181,3 +181,27 @@
     border-radius: inherit;
 } 
 */
+
+.tag-project-card {
+    @apply w-full;
+    @apply md:max-w-[400px] md:min-w-[400px];
+
+    @apply md:max-h-full;
+    @apply h-fit min-h-fit;
+}
+
+.tag-project-card .project-visual-container {
+    @apply mt-4 mb-6 aspect-16/9 overflow-hidden rounded-md p-0;
+}
+
+.tag-project-card .project-description {
+    height: 64px;
+    overflow-y: scroll;
+    @apply flex items-center-safe;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.coming-soon-container-breakdown .coming-soon-img {
+    @apply border-blue-accent/20 my-2 max-w-[1280px] rounded-xl border-8 border-double md:my-4 md:w-3/4;
+}

@@ -43,4 +43,27 @@ for (const h of headings) {
             })(root.children)
         }
     </ul>
+    <script is:inline>
+        window.addEventListener("DOMContentLoaded", () => {
+            const links = document.querySelectorAll("a[href^='#']");
+
+            function updateActiveLink() {
+                const hash = window.location.hash;
+                links.forEach((link) => {
+                    if (link.getAttribute("href") === hash) {
+                        link.classList.add("font-normal", "text-blue-accent");
+                    } else {
+                        link.classList.remove(
+                            "font-normal",
+                            "text-blue-accent",
+                        );
+                    }
+                });
+            }
+
+            // Run on load and whenever the hash changes
+            updateActiveLink();
+            window.addEventListener("hashchange", updateActiveLink);
+        });
+    </script>
 </section>
