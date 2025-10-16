@@ -43,41 +43,46 @@ const tagTitle = tag.replaceAll("_", " ");
 ---
 
 <MainLayout title={tagTitle} layout="HIDE_BOTH">
-    <div class="w-full text-center">
+    <div
+        class="flex size-full flex-col overflow-y-visible px-2 pb-4 md:px-8 md:pb-8"
+    >
         <div
-            class="prose prose-sm lg:prose-base sticky top-0 z-20 mx-auto mb-8 w-fit rounded-b-md bg-white px-2"
+            class="bg-light-base dark:bg-dark-base absolute top-0 z-20 h-4 w-full md:h-8"
         >
-            <h3>
-                PROJECTS UNDER <span
-                    class="text-wanderer-300 mx-1 rounded-sm bg-neutral-100 px-2 py-1 tracking-widest"
-                    >{tagTitle}</span
-                > TAG
+        </div>
+        <div
+            class="prose prose-base lg:prose-lg border-wanderer-300/25 shadow-wanderer-300/50 to-wanderer-200/90 from-wanderer-400/90 sticky top-2 z-20 my-0 ml-2 w-fit scale-y-90 rounded-br-lg border-t-3 border-l-4 bg-linear-to-br shadow-lg contrast-125 md:top-4 md:my-4 md:ml-4"
+        >
+            <h3 class="px-2 py-1 font-extralight uppercase">
+                <a
+                    href=`#${tagTitle}-top`
+                    class="text-wanderer-100 hover:text-wanderer-200 font-signature mx-1 !min-h-full font-normal tracking-widest normal-case underline-offset-2"
+                    >{tagTitle}</a
+                >
             </h3>
         </div>
 
-        <ul>
-            {
-                projects.map((project: any) => (
-                    <li>
-                        <a
-                            href={`/projects/${createSlug(
-                                project.data.title,
-                                project.data.slug,
-                            )}/`}
-                            class="text-red-accent text-xl font-bold underline hover:text-2xl"
-                            title="View on page"
-                        >
-                            {project.data.title}
-                        </a>
-
-                        <ProjectLayout
-                            project={project}
-                            showBreakdown={false}
-                        />
-                        <hr class="mx-auto mt-4 mb-10 w-1/2 border-1 border-neutral-300 xl:mt-8 xl:mb-16" />
-                    </li>
-                ))
-            }
-        </ul>
+        <div class="flex grow flex-col justify-center-safe overflow-y-hidden">
+            <ul
+                class="md:items-start-safe relative flex snap-y flex-col justify-center-safe gap-4 overflow-x-visible overflow-y-scroll py-4 md:snap-x md:flex-row md:gap-12 md:overflow-x-scroll md:overflow-y-hidden"
+            >
+                <div
+                    id=`${tagTitle}-top`
+                    class="absolute top-0 left-0 !m-0 size-0 shrink"
+                >
+                </div>
+                {
+                    projects.map((project: any) => (
+                        <li class="content-animation **:prose-h1:text-2xl **:prose-h1:hover:scale-103 **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] *:items tag-project-card dark:bg-dark-offset bg-light-offset flex-1 snap-start overflow-y-visible rounded-xl px-1 shadow-md md:overflow-y-scroll md:*:!m-4 md:*:!p-4">
+                            <ProjectLayout
+                                project={project}
+                                showBreakdown={false}
+                                replaceImagePlaceholder={true}
+                            />
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
     </div>
 </MainLayout>

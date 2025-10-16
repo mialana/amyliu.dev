@@ -31,10 +31,7 @@ const FilterSelect = ({
 
     return (
         <div className="space-y-2">
-            <label
-                htmlFor={id}
-                className="block text-xs font-medium text-neutral-700"
-            >
+            <label htmlFor={id} className="block text-xs font-normal">
                 {label}
             </label>
             <select
@@ -46,7 +43,7 @@ const FilterSelect = ({
                     }
                 }}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-max min-w-[120px] rounded-md border border-neutral-300 bg-white px-2 py-1 text-sm focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 focus:outline-none"
+                className="bg-light-offset dark:bg-dark-offset w-max min-w-[120px] cursor-pointer rounded-md border border-neutral-300 px-2 py-1 text-sm font-light focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 focus:outline-none"
                 style={selectStyle}
             >
                 {options.map((option) => (
@@ -151,7 +148,9 @@ export default function Search() {
 
     return (
         <section className="w-fit min-w-max space-y-4 px-1">
-            <h1 className="leading-loose font-semibold">Filter Projects</h1>
+            <h1 className="cursor-default leading-none font-normal">
+                Filter Projects
+            </h1>
 
             {/* Exclude School Projects Checkbox */}
             <div className="flex items-center space-x-2">
@@ -163,11 +162,11 @@ export default function Search() {
                         e.stopPropagation(); // Prevent click from propagating
                         setExcludeSchool(e.target.checked);
                     }}
-                    className="flex-shrink-0 focus:ring-neutral-500"
+                    className="flex-shrink-0 cursor-pointer focus:ring-neutral-500"
                 />
                 <label
                     htmlFor="excludeSchool"
-                    className="text-sm leading-relaxed whitespace-nowrap text-neutral-900"
+                    className="text-sm leading-relaxed font-light whitespace-nowrap"
                 >
                     Filter out all School projects
                 </label>
@@ -177,7 +176,7 @@ export default function Search() {
             {showRestoreAll && (
                 <div className="w-full px-4">
                     <button
-                        className="bg-wanderer-300 w-full cursor-pointer rounded-sm text-sm leading-normal text-white outline-1"
+                        className="bg-wanderer-300/75 w-full cursor-pointer rounded-sm text-sm leading-normal font-medium text-white outline-1"
                         onClick={() => {
                             setTypeFilter("all");
                             setCategoryFilter("all");
@@ -208,7 +207,7 @@ export default function Search() {
 
             <a
                 href="/tags/"
-                className="text-[10px] underline"
+                className="hover:text-red-accent cursor-pointer text-[10px] font-extralight underline"
                 onClick={(e) => e.stopPropagation()} // Prevent click from propagating
             >
                 View Tags Index

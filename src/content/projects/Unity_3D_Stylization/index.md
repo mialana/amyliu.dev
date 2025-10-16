@@ -10,6 +10,7 @@ techStack:
     - C#
     - HLSL
 tags:
+    - Year2025
     - shading
     - procedural
     - cel_shading
