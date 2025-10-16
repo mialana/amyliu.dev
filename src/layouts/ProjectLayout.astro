@@ -8,14 +8,23 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import ProjectBreakdown from "@/components/ProjectBreakdown";
 
+import ComingSoon from "@/components/ComingSoon";
+
 import createSlug from "@/lib/createSlug";
 
 interface Props {
     project: CollectionEntry<"projects">;
     showBreakdown?: boolean;
+    replaceImagePlaceholder?: boolean;
+    showTags?: boolean;
 }
 
-const { project, showBreakdown = true } = Astro.props;
+const {
+    project,
+    showBreakdown = true,
+    replaceImagePlaceholder = false,
+    showTags = true,
+} = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
     "/src/content/projects/*/assets/thumbnail.{png,webp}",
@@ -30,22 +39,32 @@ const thumbnailPath = images[
 ---
 
 <div
-    class="m-1 flex flex-grow flex-col items-center overflow-y-scroll px-2 pb-4 lg:px-16"
+    class="m-1 my-4 flex flex-grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16"
 >
-    <div class="prose prose-lg xl:prose-2xl max-w-full">
+    <div class="prose prose-lg xl:prose-2xl max-w-full text-center">
         <h1 class="!my-0 text-4xl lg:text-5xl xl:text-6xl">
-            {project.data.title}
+            <a
+                class="text-dark-base dark:text-light-base no-underline"
+                href={`/projects/${createSlug(
+                    project.data.title,
+                    project.data.slug,
+                )}/`}
+            >
+                {project.data.title}
+            </a>
         </h1>
-        <h3 class="!mt-2 !mb-4 text-sm xl:text-base">
+        <h3 class="dark:text-light-base !mt-2 !mb-4 text-sm xl:text-base">
             {format(project.data.startDate, "MMMM dd, yyyy")} -
             {format(project.data.endDate, "MMMM dd, yyyy")}
         </h3>
-        <div class="prose-custom-lg max-w-none text-sm xl:text-base">
+        <div
+            class="prose-custom-lg project-description max-w-none text-sm xl:text-base"
+        >
             {project.data.description}
         </div>
     </div>
     <div
-        class="mt-4 mb-6 w-full !max-w-[1280px] bg-neutral-200 p-2 drop-shadow-lg drop-shadow-neutral-400 lg:mt-6 lg:mb-8 lg:shadow-xl"
+        class="project-visual-container *:project-visual mt-4 mb-6 w-full !max-w-[1280px] bg-neutral-200/75 p-2 shadow-lg lg:mt-6 lg:mb-8"
     >
         {
             project.data.demoVideoLink ? (
@@ -55,21 +74,29 @@ const thumbnailPath = images[
                     posterQuality="max"
                     class="w-full min-w-full"
                 />
-            ) : (
+            ) : !replaceImagePlaceholder ? (
                 <Image
                     class="w-full"
                     src={images[thumbnailPath]()}
                     alt={`Fallback Thumbnail ${project.data.title}`}
                 />
+            ) : (
+                <div>
+                    <ComingSoon showHeader={false} />
+                </div>
             )
         }
     </div>
-    <div class="prose prose-lg xl:prose-2xl mx-auto max-w-full">
-        <Tags content={[project.data.category]} label="Category" />
-        <Tags content={[project.data.type]} label="Type" />
-        <Tags content={project.data.tags} label="tags" />
-        <Tags content={project.data.techStack} label="tech stack" />
-    </div>
+    {
+        showTags && (
+            <div class="prose prose-lg xl:prose-2xl tags-container mx-auto max-w-full">
+                <Tags content={[project.data.category]} label="category" />
+                <Tags content={[project.data.type]} label="type" />
+                <Tags content={project.data.tags} label="tags" />
+                <Tags content={project.data.techStack} label="tech stack" />
+            </div>
+        )
+    }
 
     {
         showBreakdown && (

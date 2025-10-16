@@ -54,18 +54,20 @@ const { navActive, asideActive } = parseLayout(grid_cols);
     <body
         class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${grid_cols}`
     >
-        <header class="col-span-3"><Header /></header>
-        <nav id="nav-grid-cell">
+        <header class="!bg-light-offset dark:!bg-dark-offset col-span-3">
+            <Header />
+        </header>
+        <nav id="nav-grid-cell" class="transition-transform duration-1000">
             <SideBar category="NAV" active={navActive} client:load>
                 <slot name="nav-sidebar" />
             </SideBar>
         </nav>
         <main
-            class="page-animation flex overflow-x-hidden overflow-y-scroll shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
+            class="page-animation bg-light-base dark:bg-dark-base flex overflow-x-hidden overflow-y-scroll rounded-sm shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
         >
             <slot />
         </main>
-        <aside id="aside-grid-cell">
+        <aside id="aside-grid-cell" class="transition-transform duration-1000">
             <SideBar category="ASIDE" active={asideActive} client:load>
                 <slot name="aside-sidebar" />
             </SideBar>

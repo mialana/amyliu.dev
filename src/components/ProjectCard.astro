@@ -32,19 +32,18 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
     data-category={dataCategory}
 >
     <article
-        class="relative bg-white p-6 shadow-lg hover:-translate-y-2 hover:bg-neutral-100"
+        class="box bg-light-offset dark:bg-dark-offset hover:shadow-light-shadow-offset dark:hover:shadow-dark-shadow-offset hover:bg-light-base hover:dark:bg-dark-base hover:[&_img]:bg-light-offset hover:[&_img]:dark:bg-dark-offset relative rounded-lg border-[0.5px] border-neutral-300 shadow-lg hover:-translate-y-2 hover:[&_img]:saturate-175"
     >
-        <div class="pb-2">
+        <div>
             <Image
-                class="mx-auto border-[0.5px]"
+                class="bg-light-base dark:bg-dark-base rounded-t-lg border-b-[0.5px] border-neutral-300"
                 src={image()}
                 alt=`Project ${project.data.title} Thumbnail`
-                width={400}
-                height={400}
+                width={800}
             />
         </div>
-        <div class="text-center">
-            <h1 class="mt-1 text-xl/tight font-bold">
+        <div class="px-6 py-4 text-center">
+            <h1 class="text-xl leading-none font-semibold">
                 {project.data.title}
             </h1>
             <h3 class="mt-1 text-xs">
@@ -52,16 +51,18 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
                     format(project.data.endDate, "MMMM yyyy")
                 }
             </h3>
-            <h3 class="mb-2 text-xs">
+            <h3 class="mb-0 text-[0.6rem] leading-loose">
                 {project.data.category.toUpperCase()} · {
                     project.data.type.toUpperCase()
                 }
             </h3>
-            <p class="text-sm text-pretty">{project.data.description}</p>
+            <p class="text-sm leading-snug text-pretty">
+                {project.data.description}
+            </p>
         </div>
         {
             project.data.pinned === true && (
-                <div class="bg-blue-accent pointer-events-none absolute -bottom-2 -left-2 rounded-md px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-white uppercase select-none">
+                <div class="bg-blue-accent/90 pointer-events-none absolute -bottom-2 -left-2 rounded-md px-2 py-0.5 text-[0.65rem] font-medium tracking-wide !text-white uppercase select-none">
                     pinned
                 </div>
             )

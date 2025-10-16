@@ -13,19 +13,23 @@ const { content, label } = Astro.props;
     class="my-1 flex max-w-full !snap-x !snap-mandatory items-baseline-last gap-3 !overflow-x-scroll scroll-auto pb-1 text-xs capitalize xl:text-sm"
 >
     <div
-        class="!snap-start place-self-center-safe text-[0.4rem]/none text-neutral-600 uppercase"
+        class="!snap-start place-self-center-safe text-[0.4rem]/none font-bold text-neutral-400 uppercase"
     >
         {label}
     </div>
     {
-        content.map((tag) => (
-            <a
-                href={`/tags/${tag}/`}
-                class="hover:text-wanderer-300 size-fit !snap-start scroll-auto rounded-sm text-nowrap no-underline"
-            >
-                {label == "tags" && <span>#</span>}
-                {tag.replaceAll("_", " ")}
-            </a>
-        ))
+        label != "type" && label != "category" ? (
+            content.map((tag) => (
+                <a
+                    href={`/tags/${tag}/`}
+                    class="hover:!text-wanderer-300 hover:*:!text-wanderer-300 dark:text-light-base not-prose flex size-fit !snap-start items-center-safe gap-1 scroll-auto rounded-sm font-light text-nowrap no-underline saturate-150"
+                >
+                    {label == "tags" && <span class="text-[0.6rem]">#</span>}
+                    {tag.replaceAll("_", " ")}
+                </a>
+            ))
+        ) : (
+            <div>{content[0]}</div>
+        )
     }
 </div>
