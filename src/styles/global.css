@@ -228,5 +228,5 @@
 }
 
 .coming-soon-container-breakdown .coming-soon-img {
-    @apply border-blue-accent/20 my-2 max-w-[1280px] rounded-xl border-8 border-double md:my-4 md:w-3/4;
+    @apply my-2 max-w-[1280px] rounded-xl border-8 border-double border-neutral-200/75 md:my-4 md:w-3/4;
 }
