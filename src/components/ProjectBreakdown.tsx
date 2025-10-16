@@ -182,6 +182,12 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                             link.setAttribute("target", "_blank");
                             link.setAttribute("rel", "noopener noreferrer");
                         });
+
+                        el.querySelectorAll("img").forEach((img) => {
+                            img.addEventListener("load", () => {
+                                img.classList.add("bg-none");
+                            });
+                        });
                     }
                 }}
             ></div>

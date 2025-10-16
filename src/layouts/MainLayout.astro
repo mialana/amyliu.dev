@@ -73,15 +73,3 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <footer class="col-span-3"><Footer /></footer>
     </body>
 </html>
-
-<script>
-    const images = document.querySelectorAll("img");
-
-    if (images) {
-        images.forEach((image) => {
-            image.onerror = () => {
-                image.setAttribute("data-img-loading-error", "");
-            };
-        });
-    }
-</script>

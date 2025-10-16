@@ -67,14 +67,25 @@ const ProjectExternalLinks: React.FC<Props> = ({
                         rel="noopener noreferrer"
                         className="mx-auto my-2 flex w-20 flex-col items-center gap-2"
                     >
-                        <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-200 bg-white shadow transition hover:scale-105">
+                        <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-200 p-1 shadow transition hover:scale-105">
                             <img
-                                src={imgSrc || getFavicon(url) || fallbackGlobe}
+                                src={imgSrc || getFavicon(url)}
                                 alt={`Favicon ${label}`}
                                 loading="lazy"
-                                onError={() => setImgSrc(fallbackGlobe)}
+                                onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null;
+                                    currentTarget.src =
+                                        "/resources/loading.gif";
+                                }}
                                 className="rounded-xl bg-white bg-none"
                                 title={label}
+                                ref={(img) => {
+                                    if (img) {
+                                        img.addEventListener("load", () => {
+                                            img.classList.add("bg-none");
+                                        });
+                                    }
+                                }}
                             />
                         </span>
                         <span className="mt-1 text-center text-xs leading-tight">
