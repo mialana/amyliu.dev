@@ -108,6 +108,9 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
         const newHash = `#${tabId}`;
         if (window.location.hash !== newHash) {
             window.history.replaceState(null, "", newHash);
+
+            const manualHashEvent = new HashChangeEvent("hashchange");
+            window.dispatchEvent(manualHashEvent);
         }
     };
 
