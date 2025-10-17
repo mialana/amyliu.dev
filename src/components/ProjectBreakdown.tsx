@@ -55,7 +55,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
             }
 
             setTabs(tabs);
-            setActiveTabId(tabs[0].id);
+            setActiveTabId(tabs[tabs.length - 1].id);
         };
 
         parseMarkdown();
