@@ -55,7 +55,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
             }
 
             setTabs(tabs);
-            setActiveTabId(tabs[0].id);
+            setActiveTabId(tabs[tabs.length - 1].id);
         };
 
         parseMarkdown();
@@ -108,6 +108,9 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
         const newHash = `#${tabId}`;
         if (window.location.hash !== newHash) {
             window.history.replaceState(null, "", newHash);
+
+            const manualHashEvent = new HashChangeEvent("hashchange");
+            window.dispatchEvent(manualHashEvent);
         }
     };
 
@@ -163,7 +166,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
             {/* Tab Content */}
             <div
                 id={`tabcontent`}
-                className="prose prose-sm lg:prose-base prose-h5:font-medium relative mx-auto mt-4 min-w-full **:mx-auto *:last:!my-0"
+                className="prose prose-sm lg:prose-base prose-h5:font-medium prose-a:!text-blue-accent prose-a:**:!text-blue-accent relative mx-auto mt-4 min-w-full **:mx-auto *:last:!my-0 [&_img]:mx-auto [&_img]:rounded-md [&_svg]:invert"
                 role="tabpanel"
                 aria-labelledby={`tab-${activeTab.id}`}
                 dangerouslySetInnerHTML={{ __html: activeTab.content || "" }}
@@ -177,8 +180,12 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
                         el.querySelectorAll("img").forEach((img) => {
                             img.addEventListener("load", () => {
-                                img.classList.add("bg-none");
+                                img.classList.add("bg-none", "bg-transparent");
                             });
+
+                            if (img.alt.toLowerCase().includes("mermaid")) {
+                                img.classList.add("dark:invert");
+                            }
                         });
                     }
                 }}
