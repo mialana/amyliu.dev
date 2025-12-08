@@ -27,7 +27,7 @@
         "astro": "^5.16.3",
         "astro-expressive-code": "^0.41.3",
         "date-fns": "^4.1.0",
-        "motion": "^12.23.24",
+        "motion": "^12.23.25",
         "rehype-mathjax": "^7.1.0",
         "remark-math": "^6.0.0",
         "tailwindcss": "^4.1.16",
