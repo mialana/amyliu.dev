@@ -30,7 +30,7 @@
         "motion": "^12.23.26",
         "rehype-mathjax": "^7.1.0",
         "remark-math": "^6.0.0",
-        "tailwindcss": "^4.1.16",
+        "tailwindcss": "^4.1.18",
         "typed.js": "^2.1.0"
     },
     "devDependencies": {
