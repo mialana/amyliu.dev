@@ -3,7 +3,7 @@ title: Houdini Ruins Terrain Toolset
 slug: Houdini_Ruins_Terrain_Toolset
 startDate: 2025-06-14
 endDate: 2025-07-16
-type: individual
+type: solo
 category: personal
 techStack:
     - SideFX_Houdini
@@ -18,7 +18,6 @@ tags:
 description: A toolset for creating procedural ruined terrains in SideFX Houdini.
 code: https://github.com/mialana/houdini-ruins-terrain-toolset
 demoVideoLink: https://youtu.be/pT0rpPrVpLM
-pinned: true
 ---
 
 ## Summary

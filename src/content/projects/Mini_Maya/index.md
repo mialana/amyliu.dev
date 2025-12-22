@@ -3,7 +3,7 @@ title: Mini Maya in C++
 slug: Mini_Maya
 startDate: 2023-03-01
 endDate: 2023-03-17
-type: individual
+type: solo
 category: school
 techStack:
     - Autodesk_Maya

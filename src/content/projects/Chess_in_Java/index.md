@@ -3,7 +3,7 @@ title: Chess in Java
 slug: Chess_in_Java
 startDate: 2021-11-20
 endDate: 2021-12-07
-type: individual
+type: solo
 category: school
 demoVideoLink: https://youtu.be/R_H4NLFAtWQ
 techStack:

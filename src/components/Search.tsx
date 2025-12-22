@@ -43,7 +43,7 @@ const FilterSelect = ({
                     }
                 }}
                 onChange={(e) => onChange(e.target.value)}
-                className="bg-light-offset dark:bg-dark-offset w-max min-w-[120px] cursor-pointer rounded-md border border-neutral-300 px-2 py-1 text-sm font-light focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 focus:outline-none"
+                className="bg-light-offset dark:bg-dark-offset w-max min-w-30 cursor-pointer rounded-md border border-neutral-300 px-2 py-1 text-sm font-light focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 focus:outline-none"
                 style={selectStyle}
             >
                 {options.map((option) => (
@@ -78,12 +78,16 @@ export default function Search() {
             let show = true;
 
             // Filter by type
-            if (filters.type !== "all" && type !== filters.type) {
+            if (filters.type !== "all" && !type?.startsWith(filters.type)) {
                 show = false;
             }
 
             // Filter by category
-            if (filters.category !== "all" && category !== filters.category) {
+            if (
+                category &&
+                filters.category !== "all" &&
+                category !== filters.category
+            ) {
                 show = false;
             }
 
@@ -132,8 +136,8 @@ export default function Search() {
 
     const typeOptions = [
         { value: "all", label: "All Types" },
-        { value: "individual", label: "Individual" },
-        { value: "group", label: "Group" },
+        { value: "solo", label: "Solo" },
+        { value: "team", label: "Team" },
     ];
 
     const categoryOptions = [
@@ -153,7 +157,7 @@ export default function Search() {
             </h1>
 
             {/* Exclude School Projects Checkbox */}
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
                 <input
                     type="checkbox"
                     id="excludeSchool"
@@ -162,7 +166,7 @@ export default function Search() {
                         e.stopPropagation(); // Prevent click from propagating
                         setExcludeSchool(e.target.checked);
                     }}
-                    className="flex-shrink-0 cursor-pointer focus:ring-neutral-500"
+                    className="shrink-0 cursor-pointer focus:ring-neutral-500"
                 />
                 <label
                     htmlFor="excludeSchool"
@@ -170,7 +174,7 @@ export default function Search() {
                 >
                     Filter out all School projects
                 </label>
-            </div>
+            </div> */}
 
             {/* Restore All Button */}
             {showRestoreAll && (

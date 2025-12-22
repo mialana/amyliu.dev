@@ -3,7 +3,7 @@ title: Unity Hiverunner
 slug: Unity_Hiverunner
 startDate: 2025-08-30
 endDate: 2025-09-18
-type: individual
+type: solo
 category: personal
 techStack:
     - Unity_Game_Engine

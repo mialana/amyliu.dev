@@ -3,7 +3,7 @@ title: GLSL Pathtracer
 slug: GLSL_Pathtracer
 startDate: 2025-01-17
 endDate: 2025-03-09
-type: individual
+type: solo
 category: school
 demoVideoLink: https://youtu.be/pW9bWNrxd6Y
 techStack:

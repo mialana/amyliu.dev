@@ -3,7 +3,7 @@ title: NVIDIA Omniverse ComfyUI Bridge
 slug: Omniverse_ComfyUI_Bridge
 startDate: 2024-10-17
 endDate: 2024-12-28
-type: individual
+type: solo
 category: internship
 demoVideoLink: https://youtu.be/eDHMRtDUeCI
 techStack:

@@ -3,7 +3,7 @@ title: Spotify Composite
 slug: Spotify_Composite
 startDate: 2021-12-23
 endDate: 2022-01-14
-type: individual
+type: solo
 category: personal
 demoVideoLink: https://youtu.be/6VYXeNswZCE
 techStack:

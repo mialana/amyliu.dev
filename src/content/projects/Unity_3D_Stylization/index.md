@@ -3,8 +3,8 @@ title: Unity 3D Stylization
 slug: Unity_3D_Stylization
 startDate: 2025-07-30
 endDate: 2025-08-07
-type: individual
-category: personal
+type: solo
+category: school
 techStack:
     - Unity_Game_Engine
     - C#

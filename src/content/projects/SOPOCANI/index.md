@@ -3,7 +3,7 @@ title: Sopoćani 3D Reconstruction
 slug: SOPOCANI
 startDate: 2022-01-07
 endDate: 2022-12-20
-type: group
+type: team of 3
 category: research
 demoVideoLink: https://youtu.be/emD2mKTCG5Q
 techStack:

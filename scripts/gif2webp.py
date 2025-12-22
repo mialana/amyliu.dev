@@ -1,6 +1,7 @@
 import os
 from PIL import Image
-
+import argparse
+from pathlib import Path
 
 def convert_gif_to_webp(gif_path, max_bytes=1 * 1024 * 1024):
     webp_path = os.path.splitext(gif_path)[0] + ".webp"
@@ -39,6 +40,7 @@ finished = []
 
 
 def walk_and_convert(root=".", max_bytes=5 * 1024 * 1024):
+    print(root)
     for dirpath, _, filenames in os.walk(root):
         for filename in filenames:
             if filename.lower().endswith(".gif"):
@@ -55,4 +57,9 @@ def walk_and_convert(root=".", max_bytes=5 * 1024 * 1024):
 
 
 if __name__ == "__main__":
-    walk_and_convert(".")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('dir', type=Path, help='Path to directory to convert')
+
+    args = parser.parse_args()
+
+    walk_and_convert(args.dir)

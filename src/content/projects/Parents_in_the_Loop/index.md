@@ -3,7 +3,7 @@ title: Parents in the Loop
 slug: Parents_in_the_Loop
 startDate: 2025-06-06
 endDate: 2025-06-06
-type: group
+type: team of 5
 category: personal
 demoVideoLink: https://youtu.be/OMv_ZlkKed4
 techStack:

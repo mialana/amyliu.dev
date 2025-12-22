@@ -3,7 +3,7 @@ title: PAPAYA - USD Asset Browser
 slug: PAPAYA
 startDate: 2025-03-17
 endDate: 2025-04-30
-type: group
+type: team of 14
 category: personal
 demoVideoLink: https://youtu.be/hNuHniOKjt4
 techStack:

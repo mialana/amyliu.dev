@@ -3,7 +3,7 @@ title: Synthetic Face Generation
 slug: Synthetic_Face_Generation
 startDate: 2022-05-20
 endDate: 2022-08-05
-type: individual
+type: solo
 category: research
 techStack:
     - Autodesk_Maya

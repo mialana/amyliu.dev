@@ -3,7 +3,7 @@ title: GLSL Simple Shaders
 slug: GLSL_Simple_Shaders
 startDate: 2023-02-25
 endDate: 2023-03-01
-type: individual
+type: solo
 category: school
 techStack:
     - C++

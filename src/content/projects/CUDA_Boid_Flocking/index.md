@@ -3,7 +3,7 @@ title: Boids Simulation in CUDA
 slug: CUDA_Boid_Flocking
 startDate: 2025-09-07
 endDate: 2025-09-08
-type: individual
+type: solo
 category: school
 techStack:
     - CUDA

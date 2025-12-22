@@ -3,7 +3,7 @@ title: Mini Minecraft in C++
 slug: Mini_Minecraft
 startDate: 2023-03-27
 endDate: 2023-05-08
-type: group
+type: team of 3
 category: school
 demoVideoLink: https://youtu.be/KJk70-qdE_o
 techStack:

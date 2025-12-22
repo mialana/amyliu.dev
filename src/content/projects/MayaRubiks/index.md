@@ -3,7 +3,7 @@ title: MayaRubiks
 slug: MayaRubiks
 startDate: 2023-12-20
 endDate: 2024-01-10
-type: individual
+type: solo
 category: personal
 demoVideoLink: https://youtu.be/wKXn7nVkqU4
 techStack:

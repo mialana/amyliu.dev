@@ -3,7 +3,7 @@ title: MoBi-LE
 slug: MoBi-LE
 startDate: 2023-05-10
 endDate: 2023-08-01
-type: individual
+type: solo
 category: research
 techStack:
     - UltiMaker_Cura

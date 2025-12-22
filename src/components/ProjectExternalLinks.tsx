@@ -16,6 +16,8 @@ function getFavicon(url: string) {
         const { origin, hostname } = new URL(url);
         if (hostname == "asset-browser-zeta.vercel.app")
             return `${origin}/strawberry.svg`;
+        else if (hostname.includes("webgpu.amyliu.dev"))
+            return `${origin}/favicon/favicon.svg`;
         return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
     } catch {
         return "";

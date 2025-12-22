@@ -3,7 +3,7 @@ title: Neural for USD
 slug: Neural_for_USD
 startDate: 2025-01-20
 endDate: 2025-05-02
-type: individual
+type: solo
 category: personal
 demoVideoLink: https://youtu.be/NtF7fcyY4Mk
 techStack:
