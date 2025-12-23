@@ -1,5 +1,5 @@
 {
-    "files.associations": { "*.css": "tailwindcss", "*.mdx": "markdown" },
+    "files.associations": { "*.css": "tailwindcss" },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "[astro]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
     "prettier.requireConfig": true,
