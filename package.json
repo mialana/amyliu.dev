@@ -30,6 +30,7 @@
         "motion": "^12.23.26",
         "react": "^19.2.3",
         "react-dom": "^19.2.3",
+        "react-tagcloud": "^2.3.3",
         "rehype-callouts": "^2.1.2",
         "rehype-expressive-code": "^0.41.5",
         "rehype-image-caption": "^2.1.3",

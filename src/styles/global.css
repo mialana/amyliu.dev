@@ -37,7 +37,8 @@
     --color-inverted-tertiary: #33303a;
     --color-inverted-neutral: #1f1f21;
     --color-inverted-shadow: #28242d;
-    --color-grid-background: #9b9b9b;
+    --color-inverted-important-text: #e8e8e8;
+    --color-grid-background: #c3bdbd;
 }
 
 /* dark mode overrides of main color palette */
@@ -54,7 +55,8 @@
         --color-inverted-tertiary: #a59494;
         --color-inverted-neutral: #eae3da;
         --color-inverted-shadow: #7a6c6c;
-        --color-grid-background: #434343;
+        --color-inverted-important-text: #151515;
+        --color-grid-background: #868080;
     }
 }
 
@@ -203,11 +205,7 @@
 }
 
 .tag-project-card #project-headings {
-    background: unset !important; /* first reset the background */
-    background-color: var(
-        --color-tertiary
-    ) !important; /* then set background-color */
-    @apply border-neutral-primary m-2 rounded-sm border-3 border-double px-4 pt-2 pb-4 md:pb-2;
+    @apply m-2 px-4 pt-2 pb-4 md:pb-2;
 }
 
 .tag-project-card .project-visual-container {

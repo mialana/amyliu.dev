@@ -1,47 +1,36 @@
 ---
 import { getCollection } from "astro:content";
-
 import MainLayout from "@/layouts/MainLayout.astro";
+import TagsIndex from "@/components/TagsIndex.tsx";
 
 const projects = await getCollection("projects");
 
-const uniqueTags = [
-    ...new Set(
-        projects
-            .map((project: any) => {
-                let tags = project.data.tags;
-                tags.push(...project.data.techStack); // push tech stack as additional tags
+const allTags = projects.flatMap((project: any) => [
+    ...project.data.tags,
+    ...project.data.techStack,
+]);
 
-                return [...tags];
-            })
-            .flat()
-            .sort(),
-    ),
-];
+const tagCounts = allTags.reduce((acc: Record<string, number>, tag) => {
+    acc[tag] = (acc[tag] ?? 0) + 1;
+    return acc;
+}, {});
+
+const uniqueTags = Object.keys(tagCounts).sort();
+
+const tagCloudData = uniqueTags.map((tag) => ({
+    value: tag,
+    count: tagCounts[tag],
+}));
 ---
 
 <MainLayout title="Tags Index">
-    <!-- <a
-        href="/projects/"
-        class="sticky top-0 z-1000 m-2 bg-neutral-900 py-3 pr-3 pl-6 text-xs text-white [clip-path:polygon(0%_50%,10%_0,100%_0,100%_100%,10%_100%)] hover:bg-neutral-700 md:m-4 md:text-base md:font-medium"
-    >
-        Back to <span class="underline underline-offset-4">Projects</span>
-    </a> -->
-    <div class="prose m-auto p-8 text-center">
+    <div class="prose m-auto max-w-none p-8 text-center md:max-w-3/4">
         <h1>Tags Index</h1>
-        <div class="columns-3 leading-tight *:in-first-of-type:mt-0">
-            {
-                uniqueTags.map((tag) => (
-                    <p>
-                        <a
-                            href={`/tags/${tag}/`}
-                            class="hover:text-red-accent! no-underline hover:underline hover:underline-offset-2"
-                        >
-                            {tag.replaceAll("_", " ")}
-                        </a>
-                    </p>
-                ))
-            }
-        </div>
+
+        <TagsIndex
+            uniqueTags={uniqueTags}
+            tagCloudData={tagCloudData}
+            client:load
+        />
     </div>
 </MainLayout>

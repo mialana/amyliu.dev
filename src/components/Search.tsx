@@ -43,7 +43,7 @@ const FilterSelect = ({
                     }
                 }}
                 onChange={(e) => onChange(e.target.value)}
-                className="bg-inverted-secondary/50 text-important-text w-max min-w-30 cursor-pointer rounded-md border px-2 py-1 text-sm focus:brightness-200 focus:**:brightness-200"
+                className="bg-secondary/50 text-important-text w-max min-w-30 cursor-pointer rounded-md border px-2 py-1 text-sm focus:brightness-200 focus:**:brightness-200"
                 style={selectStyle}
             >
                 {options.map((option) => (
@@ -215,10 +215,10 @@ export default function Search() {
 
             <a
                 href="/tags/"
-                className="hover:text-red-accent cursor-pointer text-[10px] font-light underline"
+                className="hover:text-red-accent cursor-pointer text-sm font-light underline"
                 onClick={(e) => e.stopPropagation()} // Prevent click from propagating
             >
-                View Tags Index
+                Go to Tags Index
             </a>
         </section>
     );
