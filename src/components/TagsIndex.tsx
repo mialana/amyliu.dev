@@ -38,25 +38,26 @@ export default function TagsIndex({
     const [luminosity, setLuminosity] = useState<"light" | "dark">("dark");
     const [cloudSizes, setCloudSizes] = useState({ min: 16, max: 32 });
 
-    /* update based on light or dark mode */
+    /* update based on `data-theme` attribute */
     useEffect(() => {
-        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const root = document.documentElement;
 
-        function updateLuminosity() {
-            if (
-                window.matchMedia &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches
-            ) {
-                setLuminosity("light");
-            } else {
-                setLuminosity("dark");
-            }
-        }
+        const updateFromTheme = () => {
+            const theme = root.getAttribute("data-theme");
+            setLuminosity(theme === "dark" ? "light" : "dark");
+        };
 
-        media.addEventListener("change", updateLuminosity);
-        updateLuminosity(); // call once at beginning
+        // Initial sync
+        updateFromTheme();
 
-        return () => media.removeEventListener("change", updateLuminosity);
+        const observer = new MutationObserver(updateFromTheme);
+
+        observer.observe(root, {
+            attributes: true,
+            attributeFilter: ["data-theme"],
+        });
+
+        return () => observer.disconnect();
     }, []);
 
     /* update based on window size */
