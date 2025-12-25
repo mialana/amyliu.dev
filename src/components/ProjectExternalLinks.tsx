@@ -66,7 +66,7 @@ const ProjectExternalLinks: React.FC<Props> = ({
                         rel="noopener noreferrer"
                         className="mx-auto my-2 flex w-20 flex-col items-center gap-2"
                     >
-                        <span className="bg-light-offset flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-200 p-1 shadow transition hover:scale-105">
+                        <span className="bg-dark-offset/50 dark:bg-light-offset/50 border-dark-neutral dark:border-light-neutral flex h-16 w-16 items-center justify-center rounded-2xl border p-1 shadow transition hover:scale-105">
                             <img
                                 src={imgSrc || getFavicon(url)}
                                 alt={`Favicon ${label}`}
@@ -76,17 +76,14 @@ const ProjectExternalLinks: React.FC<Props> = ({
                                     currentTarget.src =
                                         "/resources/loading.gif";
                                 }}
-                                className="rounded-xl"
+                                className="size-3/4 rounded-xl"
                                 title={label}
                                 ref={(img) => {
-                                    if (img) {
-                                        img.addEventListener("load", () => {
-                                            img.classList.add(
-                                                "bg-none",
-                                                "!bg-light-base",
-                                            );
-                                        });
-                                    }
+                                    img?.classList.add(
+                                        "!bg-none",
+                                        "!bg-white",
+                                        "p-2",
+                                    );
                                 }}
                             />
                         </span>

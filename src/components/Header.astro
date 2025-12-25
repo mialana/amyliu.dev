@@ -2,41 +2,33 @@
 import "@/styles/global.css";
 ---
 
-<div class="!bg-light-base dark:!bg-dark-base z-20 pt-2 shadow-md md:shadow-lg">
+<div
+    class="bg-light-secondary! dark:bg-dark-secondary! z-20 pt-2 shadow-md md:shadow-lg"
+>
     <h1 class="font-signature text-center text-4xl font-extrabold">
-        <a class="text-dark-base dark:text-light-base" href="/">AMY LIU</a>
+        <a href="/">AMY LIU</a>
     </h1>
-    <div class="relative w-full p-1">
-        <ul class="flex justify-center space-x-8 *:hover:underline">
-            <li class:list={[Astro.url.pathname === "/" && "font-normal"]}>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a
-                    href="/projects/"
-                    class:list={[
-                        Astro.url.pathname === "/projects/" && "font-normal",
-                    ]}>Projects</a
-                >
-            </li>
-            <!-- <li><a>Blog</a></li> -->
-            <!-- <li><a>Cache</a></li> -->
-            <!-- <li><a>Art</a></li>
-        <li><a>Notes</a></li> -->
-        </ul>
-        <div></div>
-    </div>
-</div>
-<div class="relative mt-1 flex w-full justify-end">
     <ul
-        class="*:bg-red-accent/90 flex font-medium *:mr-4 *:rounded-b-md *:px-3 *:py-1 *:hover:scale-105"
+        class="mx-auto flex w-fit justify-center gap-[calc(var(--default-gap)*2)] pt-1 pb-2 *:hover:underline"
     >
+        <li class:list={[Astro.url.pathname === "/" && "font-semibold"]}>
+            <a href="/">Home</a>
+        </li>
         <li>
             <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="/resume.pdf"
-                class="text-light-base">Resume</a
+                href="/projects/"
+                class:list={[
+                    Astro.url.pathname === "/projects/" && "font-semibold",
+                ]}>Projects</a
+            >
+        </li>
+    </ul>
+    <ul
+        class="*:bg-red-accent absolute right-4 bottom-2 flex gap-(--default-gap) font-medium *:rounded-md *:px-3 *:py-1 *:hover:scale-105"
+    >
+        <li>
+            <a target="_blank" rel="noopener noreferrer" href="/resume.pdf"
+                >Resume</a
             >
         </li>
     </ul>

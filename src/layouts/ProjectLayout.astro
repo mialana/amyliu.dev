@@ -39,12 +39,16 @@ const thumbnailPath = images[
 ---
 
 <div
-    class="my-4 flex flex-grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16"
+    class="my-4 flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16"
 >
-    <div class="prose prose-lg xl:prose-2xl max-w-full text-center">
-        <h1 class="!my-0 text-4xl lg:text-5xl xl:text-6xl">
+    <div
+        id="project-headings"
+        class="prose prose-lg xl:prose-2xl max-w-full text-center"
+    >
+        <h1 class="my-0! text-4xl lg:text-5xl xl:text-6xl">
             <a
-                class="text-dark-base dark:text-light-base no-underline"
+                id="project-title-link"
+                class="font-bold no-underline"
                 href={`/projects/${createSlug(
                     project.data.title,
                     project.data.slug,
@@ -53,7 +57,7 @@ const thumbnailPath = images[
                 {project.data.title}
             </a>
         </h1>
-        <h3 class="dark:text-light-base !mt-2 !mb-4 text-sm xl:text-base">
+        <h3 class="mt-2! mb-4! text-sm font-extrabold xl:text-base">
             {format(project.data.startDate, "MMMM dd, yyyy")} -
             {format(project.data.endDate, "MMMM dd, yyyy")}
         </h3>
@@ -64,7 +68,7 @@ const thumbnailPath = images[
         </div>
     </div>
     <div
-        class="project-visual-container *:project-visual mt-4 mb-6 w-full !max-w-[1280px] bg-neutral-200/75 p-2 shadow-lg lg:mt-6 lg:mb-8"
+        class="project-visual-container *:project-visual bg-light-neutral dark:bg-dark-neutral mt-4 mb-6 w-full max-w-7xl! p-2 shadow-lg lg:mt-6 lg:mb-8"
     >
         {
             project.data.demoVideoLink ? (

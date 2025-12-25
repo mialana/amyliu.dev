@@ -27,31 +27,35 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 
 <div
     id={`project-${finalizedSlug}`}
-    class="flex max-w-[400px] flex-col justify-center md:w-5/11 md:min-w-[224px]"
+    class="flex max-w-100 flex-col justify-center md:w-5/11 md:min-w-56"
     data-type={dataType}
     data-category={dataCategory}
 >
     <article
-        class="box bg-light-offset dark:bg-dark-offset hover:shadow-light-shadow-offset dark:hover:shadow-dark-shadow-offset hover:bg-light-base hover:dark:bg-dark-base hover:[&_img]:bg-light-offset hover:[&_img]:dark:bg-dark-offset relative rounded-lg border-[0.5px] border-neutral-300 shadow-lg hover:-translate-y-2 hover:[&_img]:saturate-125"
+        class="box bg-light-neutral dark:bg-dark-neutral hover:shadow-dark-shadow-offset dark:hover:shadow-light-shadow-offset [&_img]:bg-dark-neutral [&_img]:dark:bg-light-neutral hover:bg-light-offset hover:dark:bg-dark-offset border-dark-neutral dark:border-light-neutral relative rounded-lg border-[0.5px] shadow-lg hover:-translate-y-2 [&_img]:saturate-125"
     >
         <div>
             <Image
-                class="bg-light-base dark:bg-dark-base rounded-t-lg border-b-[0.5px] border-neutral-300"
+                class="bg-light-base dark:bg-dark-base border-dark-neutral dark:border-light-neutral rounded-t-lg border-b-[0.5px]"
                 src={image()}
                 alt=`Project ${project.data.title} Thumbnail`
                 width={800}
             />
         </div>
         <div class="px-6 py-4 text-center">
-            <h1 class="text-xl leading-none font-semibold">
+            <h1 class="text-xl leading-none font-bold">
                 {project.data.title}
             </h1>
-            <h3 class="mt-1 text-xs">
+            <h3
+                class="text-dark-text dark:text-light-text mt-1 text-xs font-bold"
+            >
                 {format(project.data.startDate, "MMMM yyyy")} - {
                     format(project.data.endDate, "MMMM yyyy")
                 }
             </h3>
-            <h3 class="mb-0 text-[0.6rem] leading-loose">
+            <h3
+                class="text-dark-text dark:text-light-text mb-0 text-[0.6rem] leading-loose font-bold"
+            >
                 {project.data.category.toUpperCase()} · {
                     project.data.type.toUpperCase()
                 }
@@ -62,7 +66,7 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
         </div>
         {
             project.data.pinned === true && (
-                <div class="bg-blue-accent/90 pointer-events-none absolute -bottom-2 -left-2 rounded-md px-2 py-0.5 text-[0.65rem] font-medium tracking-wide !text-white uppercase select-none">
+                <div class="bg-blue-accent/90 pointer-events-none absolute -bottom-2 -left-2 rounded-md px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-white! uppercase select-none">
                     pinned
                 </div>
             )

@@ -27,7 +27,7 @@ export default function Toast() {
                 {today}
             </div>
             <div
-                className={`absolute right-0 bottom-0 m-[2px] h-1 rounded-sm bg-white transition-[width] duration-[5000ms] ease-linear ${visible ? "visible w-0" : "invisible w-[calc(100%-4px)]"}`}
+                className={`absolute right-0 bottom-0 m-0.5 h-1 rounded-sm bg-white transition-[width] duration-5000 ease-linear ${visible ? "visible w-0" : "invisible w-[calc(100%-4px)]"}`}
             />
         </div>
     );

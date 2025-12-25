@@ -154,10 +154,10 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         role="tab"
                         aria-selected={activeTabId === tab.id}
                         onClick={() => handleTabChange(tab.id)}
-                        className={`z-20 scroll-auto rounded-md px-2 py-1 text-[0.55rem] font-medium transition-colors duration-500 lg:px-4 lg:py-2 lg:text-sm ${
+                        className={`text-dark-text dark:text-light-text z-20 scroll-auto rounded-md px-2 py-1 text-[0.55rem] font-medium transition-colors duration-500 hover:brightness-150 lg:px-4 lg:py-2 lg:text-sm ${
                             activeTabId === tab.id
-                                ? "bg-blue-accent/90 hover:bg-blue-accent-light text-white"
-                                : "cursor-pointer bg-neutral-200/90 text-neutral-600 hover:bg-neutral-400"
+                                ? "bg-blue-accent/70"
+                                : "bg-light-neutral/90 dark:bg-dark-neutral/90 cursor-pointer hover:brightness-150"
                         }`}
                     >
                         {tab.title}

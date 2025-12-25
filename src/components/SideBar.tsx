@@ -79,7 +79,7 @@ export default function SideBar({
 
     return (
         <div
-            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} bg-light-base dark:bg-dark-base ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4 shadow-lg`}
+            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} bg-light-neutral dark:bg-dark-neutral ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4 shadow-lg`}
             onClick={() => {
                 if (window.innerWidth <= 768) {
                     setOpen(false);
@@ -88,7 +88,7 @@ export default function SideBar({
         >
             <div
                 id={`${category}-button-bar`}
-                className={`invisible absolute top-0 h-4 cursor-pointer dark:brightness-75 dark:contrast-150 dark:invert ${category == "NAV" ? "bg-linear-to-l" : "bg-linear-to-r"} from-[#FEF1E3] to-[#CBD4D1] ${positionInfo["absolutePosition"]} w-full ${category === "NAV" ? "rounded-r-xs" : "rounded-l-xs"} z-30`}
+                className={`dark:from-dark-secondary dark:to-dark-base invisible absolute top-0 h-4 cursor-pointer opacity-75 ${category == "NAV" ? "bg-linear-to-l" : "bg-linear-to-r"} from-light-secondary to-light-base ${positionInfo["absolutePosition"]} w-full ${category === "NAV" ? "rounded-r-xs" : "rounded-l-xs"} z-30`}
                 onClick={(event) => {
                     event.stopPropagation(); // Prevent click from propagating
                     setOpen(!open);
@@ -105,14 +105,14 @@ export default function SideBar({
                 title={`${open ? "Close" : "Open"} ${category}`}
             >
                 <svg
-                    className={`${(category === "NAV") === open ? "rotate-180" : ""} ${open ? "" : "animate-pulse delay-1100"} text-neutral-500 transition-all duration-300 ${open ? "z-35" : "z-25"} saturate-25`}
+                    className={`${(category === "NAV") === open ? "rotate-180" : ""} ${open ? "" : "animate-pulse delay-1100"} transition-all duration-300 ${open ? "z-35" : "z-25"} saturate-25`}
                     width={18}
                     height={18}
                     viewBox="0 0 24 24"
-                    fill={`${open ? "#fff" : "#dd5555"}`}
-                    stroke={`${open ? "#fff" : "#dd5555"}`}
                     strokeWidth="0.5"
                     strokeLinecap="round"
+                    fill="currentColor"
+                    stroke="currentColor"
                 >
                     <path
                         d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"

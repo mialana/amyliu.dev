@@ -19,10 +19,8 @@ for (const h of headings) {
 ---
 
 <section>
-    <h1 class="mb-1 cursor-default leading-none font-normal">On This Page</h1>
-    <ul
-        class="w-fit px-1 text-sm leading-relaxed text-nowrap *:font-light **:border-neutral-200"
-    >
+    <h1 class="mb-1 cursor-default leading-none font-semibold">On This Page</h1>
+    <ul class="w-fit px-1 text-sm leading-relaxed text-nowrap *:font-light">
         {
             (function renderTree(nodes: Node[]): any {
                 return nodes.map((n) => (
@@ -51,10 +49,10 @@ for (const h of headings) {
                 const hash = window.location.hash;
                 links.forEach((link) => {
                     if (link.getAttribute("href") === hash) {
-                        link.classList.add("font-normal", "text-blue-accent");
+                        link.classList.add("font-semibold", "text-blue-accent");
                     } else {
                         link.classList.remove(
-                            "font-normal",
+                            "font-semibold",
                             "text-blue-accent",
                         );
                     }

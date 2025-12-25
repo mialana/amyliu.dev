@@ -52,9 +52,9 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <slot name="head" />
     </head>
     <body
-        class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-4 ${grid_cols}`
+        class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-(--default-gap) ${grid_cols}`
     >
-        <header class="!bg-light-offset dark:!bg-dark-offset col-span-3">
+        <header class="col-span-3">
             <Header />
         </header>
         <nav id="nav-grid-cell" class="transition-transform duration-1000">

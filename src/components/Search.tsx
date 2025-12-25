@@ -31,7 +31,7 @@ const FilterSelect = ({
 
     return (
         <div className="space-y-2">
-            <label htmlFor={id} className="block text-xs font-normal">
+            <label htmlFor={id} className="block text-xs font-semibold">
                 {label}
             </label>
             <select
@@ -43,7 +43,7 @@ const FilterSelect = ({
                     }
                 }}
                 onChange={(e) => onChange(e.target.value)}
-                className="bg-light-offset dark:bg-dark-offset w-max min-w-30 cursor-pointer rounded-md border border-neutral-300 px-2 py-1 text-sm font-light focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500 focus:outline-none"
+                className="bg-dark-offset/50 dark:bg-light-offset/50 text-dark-text dark:text-light-text border-dark-neutral dark:border-light-neutral w-max min-w-30 cursor-pointer rounded-md border px-2 py-1 text-sm focus:brightness-250"
                 style={selectStyle}
             >
                 {options.map((option) => (
@@ -152,7 +152,7 @@ export default function Search() {
 
     return (
         <section className="w-fit min-w-max space-y-4 px-1">
-            <h1 className="cursor-default leading-none font-normal">
+            <h1 className="cursor-default leading-none font-semibold">
                 Filter Projects
             </h1>
 
@@ -180,7 +180,7 @@ export default function Search() {
             {showRestoreAll && (
                 <div className="w-full px-4">
                     <button
-                        className="bg-wanderer-300/75 w-full cursor-pointer rounded-sm text-sm leading-normal font-medium text-white outline-1"
+                        className="bg-green-accent/50 w-full cursor-pointer rounded-sm text-sm leading-normal font-medium text-white outline-1"
                         onClick={() => {
                             setTypeFilter("all");
                             setCategoryFilter("all");
@@ -211,7 +211,7 @@ export default function Search() {
 
             <a
                 href="/tags/"
-                className="hover:text-red-accent cursor-pointer text-[10px] font-extralight underline"
+                className="hover:text-red-accent cursor-pointer text-[10px] font-light underline"
                 onClick={(e) => e.stopPropagation()} // Prevent click from propagating
             >
                 View Tags Index

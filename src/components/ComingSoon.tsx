@@ -9,11 +9,11 @@ export default function ComingSoon({ showHeader = true }: ComingSoonProps) {
         <div className="relative flex">
             <div className="absolute z-5 flex h-fit w-full flex-col items-center-safe gap-1 place-self-center-safe justify-self-center-safe *:text-white">
                 {showHeader && (
-                    <h2 className="!text-sm leading-none font-semibold md:!text-base">
+                    <h2 className="text-sm! leading-none font-semibold md:text-base!">
                         {today}
                     </h2>
                 )}
-                <p className="!text-xs leading-none font-normal md:!text-sm">
+                <p className="text-xs! leading-none md:text-sm!">
                     More details coming soon...
                 </p>
             </div>

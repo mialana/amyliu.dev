@@ -17,34 +17,29 @@
     /* --font-body: "Roboto Slab", sans-serif; */
     --font-code: "IBM Plex Mono";
 
-    --color-blue-accent: #505cda;
-    --color-blue-accent-light: #8e9af2;
-    --color-blue-accent-lighter: #c0c6f7;
-    --color-blue-accent-lightest: #e1e1f8;
-    --color-red-accent: #dd5555;
-    --color-green-accent: #369e17;
-
-    --color-wanderer-100: #d9ded1;
-    --color-wanderer-200: #a2b7a8;
-    --color-wanderer-300: #506e66;
-    --color-wanderer-400: #27423a;
-    --color-wanderer-shadow: #373e3b;
-    --color-wanderer-highlight: #f2eadd;
-    --color-wanderer-accent: #fcd1a0;
-    --color-wanderer-black: #171a19;
-    --color-wanderer-secondary: #cc6c4d;
+    --color-blue-accent: #454eb3;
+    --color-red-accent: #c54b4b;
+    --color-green-accent: #388c1e;
 
     --drop-shadow-button: 0 4px 4px #000000;
     --drop-shadow-nav: 0 12px 12px #000000;
 
-    --color-dark-base: #262626;
-    --color-dark-offset: #000000;
+    --color-dark-base: #182525;
+    --color-dark-secondary: #192933;
+    --color-dark-offset: #33303a;
+    --color-dark-neutral: #1f1f21;
+    --color-dark-text: #151515;
 
-    --color-light-base: #ffffff;
-    --color-light-offset: #f9f9f9;
+    --color-light-base: #ebe2d1;
+    --color-light-secondary: #916c64;
+    --color-light-offset: #a59494;
+    --color-light-neutral: #eae3da;
+    --color-light-text: #e8e8e8;
 
-    --color-light-shadow-offset: #a1a1a1;
-    --color-dark-shadow-offset: #d4d4d4;
+    --color-light-shadow-offset: #7a6c6c;
+    --color-dark-shadow-offset: #28242d;
+
+    --default-gap: calc(var(--spacing) * 4);
 }
 
 @font-face {
@@ -55,19 +50,19 @@
 /* Set global default styles */
 @layer base {
     html {
-        @apply font-body font-light;
-        @apply text-neutral-700;
+        @apply font-body font-normal;
+        @apply text-dark-base dark:text-light-base;
+        @apply bg-light-offset dark:bg-dark-offset;
         @apply **:scroll-smooth;
         hyphens: auto;
-        @apply bg-light-offset;
 
         @apply dark:bg-dark-offset dark:**:text-light-offset;
 
-        @apply **:shadow-neutral-300;
-        @apply dark:**:shadow-neutral-600;
+        @apply **:shadow-light-shadow-offset;
+        @apply dark:**:shadow-dark-shadow-offset;
 
-        @apply [&_h1]:text-dark-base! [&_a]:text-dark-base;
-        @apply [&_h1]:dark:text-light-base! [&_a]:dark:text-light-base;
+        @apply [&_h1]:text-dark-text! [&_a]:text-dark-text;
+        @apply [&_h1]:dark:text-light-text! [&_a]:dark:text-light-text;
     }
 
     /* Hide scrollbar outlines while keeping smooth scrolling */
@@ -86,7 +81,7 @@
         display: block;
         background: url("/resources/loading.gif") center center no-repeat;
         background-size: 64px 64px;
-        @apply bg-light-offset dark:bg-dark-offset;
+        @apply bg-light-neutral dark:bg-dark-neutral;
         font-size: 0px;
     }
 }
@@ -111,11 +106,11 @@
     @apply prose-code:cursor-text! prose-headings:cursor-default;
 
     /* dark-mode styling */
-    @apply prose-headings:dark:text-light-base! prose-a:dark:text-light-base! prose-strong:dark:text-light-base! prose-p:dark:text-light-offset!;
-    @apply dark:text-light-offset dark:**:text-light-offset cursor-default;
+    @apply prose-headings:dark:text-light-text! prose-a:dark:text-light-text! prose-strong:dark:text-light-text!;
+    @apply cursor-default;
 
     :not(pre) > code {
-        @apply text-wanderer-300 dark:text-wanderer-100 font-code bg-wanderer-200/35 border-wanderer-100/50 mx-0.5 my-auto cursor-text leading-relaxed saturate-150;
+        @apply text-green-accent font-code bg-green-accent/25 border-green-accent/50 mx-0.5 my-auto cursor-text leading-relaxed brightness-80 contrast-200;
         font-size: 0.7em;
         padding: 0.25em;
         border: 0.5px solid;
@@ -181,14 +176,43 @@
 
 .tag-project-card {
     @apply w-full;
-    @apply md:max-w-100 md:min-w-100;
+    @apply md:max-w-lg md:min-w-lg;
 
     @apply md:max-h-full;
     @apply h-fit min-h-fit;
+
+    background-size: 16px 16px;
+    background-image: radial-gradient(
+        circle,
+        #9b9b9b 0.5px,
+        rgba(0, 0, 0, 0) 0.5px
+    );
+    @media (prefers-color-scheme: dark) {
+        background-image: radial-gradient(
+            circle,
+            #434343 0.5px,
+            rgba(0, 0, 0, 0) 0.5px
+        );
+    }
+}
+
+.tag-project-card #project-headings {
+    background: unset !important; /* first reset the background */
+    background-color: var(
+        --color-light-offset
+    ) !important; /* then set background-color */
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--color-dark-offset) !important;
+    }
+    @apply border-light-neutral dark:border-dark-neutral m-2 rounded-sm border-3 border-double px-4 pt-2 pb-4 md:pb-2;
 }
 
 .tag-project-card .project-visual-container {
     @apply mt-4 mb-6 aspect-video overflow-hidden rounded-md p-0;
+}
+
+.tag-project-card #project-title-link {
+    @apply font-extrabold;
 }
 
 .tag-project-card .project-description {
@@ -200,7 +224,7 @@
 }
 
 .coming-soon-container-breakdown .coming-soon-img {
-    @apply my-2 max-w-7xl rounded-xl border-8 border-double border-neutral-200/75 md:my-4 md:w-3/4;
+    @apply border-light-neutral/75 dark:border-dark-neutral/75 my-2 max-w-7xl rounded-xl border-8 border-double md:my-4 md:w-3/4;
 }
 
 /* Style of all sections within project breakdowns */
@@ -234,6 +258,7 @@
     display: inline;
 }
 
+/* styling for TIP, INFO, etc. */
 .callout-title-text {
     font-weight: 400 !important;
 }
