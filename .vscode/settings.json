@@ -5,5 +5,6 @@
     "prettier.requireConfig": true,
     "prettier.configPath": ".prettierrc.mjs",
     "prettier.prettierPath": "./node_modules/prettier",
-    "prettier.useEditorConfig": false
+    "prettier.useEditorConfig": false,
+    "[markdown]": { "editor.insertSpaces": false }
 }

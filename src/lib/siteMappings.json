@@ -8,7 +8,11 @@
         "label": "Code (Asset Resolver)"
     },
     { "host": "webgpu.amyliu.dev", "label": "Live Deployment" },
-    { "host": "youtu.be", "label": "Extra Demo Video (Asset Resolver)" },
+    {
+        "host": "youtu.be/760CSeimXMI",
+        "label": "Extra Demo Video (Asset Resolver)"
+    },
+    { "host": "youtu.be/tQ3UcTzR-a0", "label": "Gameplay Snapshot" },
     { "host": "github.com", "label": "Code" },
     { "host": "vercel.app", "label": "Live Deployment" },
     { "host": "devpost.com", "label": "Hackathon Showcase" },

@@ -4,7 +4,11 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 import remarkMath from "remark-math";
+
 import rehypeMathJaxChtml from "rehype-mathjax/chtml";
+import rehypeExpressiveCode from "rehype-expressive-code";
+import rehypeImageCaption from "rehype-image-caption";
+import rehypeCallouts from "rehype-callouts";
 
 import astroExpressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
@@ -14,6 +18,8 @@ import { pluginCodeCaption } from "@fujocoded/expressive-code-caption";
 import react from "@astrojs/react";
 
 import tailwindcss from "@tailwindcss/vite";
+
+import d2 from "astro-d2";
 
 /**
  * @returns {import("expressive-code").ExpressiveCodePlugin}
@@ -38,6 +44,9 @@ const expressiveCodeConfig = {
     },
 };
 
+/** @type {import('rehype-expressive-code').RehypeExpressiveCodeOptions} */
+const rehypeExpressiveCodeOptions = { tabWidth: 2 };
+
 // https://astro.build/config
 export default defineConfig({
     server: { host: "0.0.0.0" },
@@ -46,6 +55,7 @@ export default defineConfig({
         sitemap(),
         astroExpressiveCode(expressiveCodeConfig),
         react(),
+        d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
@@ -61,6 +71,9 @@ export default defineConfig({
                     },
                 },
             ],
+            [rehypeExpressiveCode, rehypeExpressiveCodeOptions],
+            [rehypeImageCaption, {}],
+            [rehypeCallouts, {}],
         ],
     },
 });

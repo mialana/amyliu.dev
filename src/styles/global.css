@@ -7,6 +7,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 @import "tailwindcss";
+@import "rehype-callouts/theme/vitepress";
 @plugin "@tailwindcss/typography";
 
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
@@ -58,15 +59,15 @@
         @apply text-neutral-700;
         @apply **:scroll-smooth;
         hyphens: auto;
-        @apply bg-[#f9f9f9];
+        @apply bg-light-offset;
 
         @apply dark:bg-dark-offset dark:**:text-light-offset;
 
         @apply **:shadow-neutral-300;
         @apply dark:**:shadow-neutral-600;
 
-        @apply [&_h1]:!text-dark-base [&_a]:text-dark-base;
-        @apply [&_h1]:dark:!text-light-base [&_a]:dark:text-light-base;
+        @apply [&_h1]:text-dark-base! [&_a]:text-dark-base;
+        @apply [&_h1]:dark:text-light-base! [&_a]:dark:text-light-base;
     }
 
     /* Hide scrollbar outlines while keeping smooth scrolling */
@@ -107,8 +108,11 @@
 
 @utility prose {
     @apply prose-neutral;
-    @apply prose-code:!cursor-text;
-    @apply prose-headings:cursor-default prose-headings:dark:!text-light-base prose-a:dark:!text-light-base prose-strong:dark:!text-light-base prose-p:dark:!text-light-offset dark:text-light-offset dark:**:text-light-offset cursor-default;
+    @apply prose-code:cursor-text! prose-headings:cursor-default;
+
+    /* dark-mode styling */
+    @apply prose-headings:dark:text-light-base! prose-a:dark:text-light-base! prose-strong:dark:text-light-base! prose-p:dark:text-light-offset!;
+    @apply dark:text-light-offset dark:**:text-light-offset cursor-default;
 
     :not(pre) > code {
         @apply text-wanderer-300 dark:text-wanderer-100 font-code bg-wanderer-200/35 border-wanderer-100/50 mx-0.5 my-auto cursor-text leading-relaxed saturate-150;
@@ -123,29 +127,35 @@
         }
     }
 
+    figcaption code:not(pre code) {
+        @apply saturate-100;
+        padding: 0.2em;
+        letter-spacing: 0.05rem;
+    }
+
     div.expressive-code {
         margin-top: 2rem;
         margin-bottom: 2rem;
         @apply max-w-[100ch] px-2;
 
         .gutter {
-            @apply !px-0;
+            @apply px-0!;
             .ln {
-                @apply !text-light-base/50 !px-1 !text-[8px] !leading-none md:!px-1;
+                @apply text-light-base/50! px-1! text-[8px]! leading-none! md:px-1!;
             }
         }
 
         span.title {
-            @apply !text-[0.6rem] md:!text-[0.7rem] lg:!text-[0.75rem];
+            @apply text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
         }
 
         code {
-            @apply cursor-text !text-[0.6rem] md:!text-[0.7rem] lg:!text-[0.75rem];
+            @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
         }
     }
 
     mjx-container {
-        @apply !text-xs lg:!text-base;
+        @apply text-xs! lg:text-base!;
     }
 }
 
@@ -169,54 +179,16 @@
     animation: 1s fadeIn ease-in-out;
 }
 
-/* https://alvarotrigo.com/shadow-gradients/ */
-/* 
-.box:before {
-    content: "";
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(-90deg, #5c69ff 0%, #ff5c5c 100% );
-    transform: translate3d(0px, 10px, 0) scale(0.9);
-    filter: blur(23px);
-    opacity: 0.5;
-    transition: opacity 0.5s;
-    border-radius: inherit;
-}
-*/
-
-/* 
-* Prevents issues when the parent creates a 
-* stacking context. (For example, using the transform
-* property )
-*/
-/*
-.box::after {
-    content: "";
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: inherit;
-    border-radius: inherit;
-} 
-*/
-
 .tag-project-card {
     @apply w-full;
-    @apply md:max-w-[400px] md:min-w-[400px];
+    @apply md:max-w-100 md:min-w-100;
 
     @apply md:max-h-full;
     @apply h-fit min-h-fit;
 }
 
 .tag-project-card .project-visual-container {
-    @apply mt-4 mb-6 aspect-16/9 overflow-hidden rounded-md p-0;
+    @apply mt-4 mb-6 aspect-video overflow-hidden rounded-md p-0;
 }
 
 .tag-project-card .project-description {
@@ -228,5 +200,40 @@
 }
 
 .coming-soon-container-breakdown .coming-soon-img {
-    @apply my-2 max-w-[1280px] rounded-xl border-8 border-double border-neutral-200/75 md:my-4 md:w-3/4;
+    @apply my-2 max-w-7xl rounded-xl border-8 border-double border-neutral-200/75 md:my-4 md:w-3/4;
+}
+
+/* Style of all sections within project breakdowns */
+.project-breakdown-content {
+    @apply prose prose-sm lg:prose-base prose-h5:font-medium prose-a:text-blue-accent! prose-a:**:text-blue-accent!;
+    @apply relative mx-auto mt-4 min-w-full **:mx-auto *:last:my-0! [&_img]:mx-auto [&_img]:rounded-md;
+}
+
+/* Center figures that have an img as direct descendant */
+.project-breakdown-content figure:has(> img) {
+    @apply mx-auto w-fit;
+}
+
+/* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
+.project-breakdown-content :not(figure) img {
+    @apply mx-auto;
+}
+
+.project-breakdown-content figcaption:not(.header)::before {
+    content: "⬑";
+    @apply px-1;
+}
+
+.project-breakdown-content figcaption:not(.header) {
+    background-color: transparent !important;
+    @apply my-2! text-xs!;
+}
+
+/* expressive-code-caption inserts an extra paragraph element within figcaption */
+.project-breakdown-content figcaption > p {
+    display: inline;
+}
+
+.callout-title-text {
+    font-weight: 400 !important;
 }

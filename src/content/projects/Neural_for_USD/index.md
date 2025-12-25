@@ -74,16 +74,32 @@ The Stage Manager handles all interactions with the OpenUSD scene. It owns the U
 - **Camera frame generation** via `generateCameraFrames()`, which supports keyframe-based hemispherical sampling or manually configured free camera states.
 - **Exporting data** using `exportDataJson()` to write camera intrinsics and extrinsics to structured JSON, alongside the rendered frames.
 
-```cpp
-// src/base/stagemanager.cpp
+```cpp title="src/base/stagemanager.cpp" collapse={6-8}
 void StageManager::exportDataJson() const
 {
-QJsonObject json;
-QJsonArray frames;
+	QJsonObject json;
+	QJsonArray frames;
 
-for (const auto& frameMeta : m_allFrameMeta) {
-  frames.append(frameMeta->toJson(m_outputDataJsonPath));
+	for (const auto& frameMeta : m_allFrameMeta) {
+		frames.append(frameMeta->toJson(m_outputDataJsonPath));
+	}
+
+	float aperture, focal;
+	/* UsdGeomCamera */ m_geomCamera.GetHorizontalApertureAttr().Get(&aperture);
+	m_geomCamera.GetFocalLengthAttr().Get(&focal);
+
+	json["frames"] = frames;
+	// compute FOV x using half-angle tangent trig rule
+	json["camera_angle_x"] = 2.f * atanf(aperture / (2.f * focal));
+
+	QFile file(m_outputDataJsonPath);
+	if (file.open(QFile::WriteOnly)) {
+		file.write(QJsonDocument(json).toJson());
+	}
 }
+---
+To match the JSON format of NeRF training data, OpenUSD C++ classes & methods provide all necessary values, after minor computation.
+---
 ```
 
 ![Json Comparison](assets/json_comparison.png)
@@ -114,33 +130,37 @@ It also holds references to:
 - Current rendering parameters
 - A shared `isDirty` state flag for UI-refresh synchronization
 
-```cpp
-// src/base/renderengine.cpp
+```cpp title="src/base/renderengine.cpp" collapse={5-19}
 void RenderEngine::record(StageManager* manager)
 {
-  HgiTextureHandle textureHandle = m_imagingEngine.GetAovTexture(HdAovTokens->color);
+	HgiTextureHandle textureHandle = m_imagingEngine.GetAovTexture(HdAovTokens->color);
 
-  HioImage::StorageSpec storage;
-  storage.flipped = true;
+	HioImage::StorageSpec storage;
+	storage.flipped = true;
 
-  size_t size = 0;
-  HdStTextureUtils::AlignedBuffer<uint8_t> mappedColorTextureBuffer;
+	size_t size = 0;
+	HdStTextureUtils::AlignedBuffer<uint8_t> mappedColorTextureBuffer;
 
-  storage.width = textureHandle->GetDescriptor().dimensions[0];
-  storage.height = textureHandle->GetDescriptor().dimensions[1];
-  storage.format = HdxGetHioFormat(textureHandle->GetDescriptor().format);
+	// set buffer property values
+	storage.width = textureHandle->GetDescriptor().dimensions[0];
+	storage.height = textureHandle->GetDescriptor().dimensions[1];
+	storage.format = HdxGetHioFormat(textureHandle->GetDescriptor().format);
 
-  mappedColorTextureBuffer = HdStTextureUtils::HgiTextureReadback(m_imagingEngine.GetHgi(),
-                                  textureHandle,
-                                  &size);
-  storage.data = mappedColorTextureBuffer.get();
+	// where `Hgi` stands for "Hydra Graphics Interface"
+	mappedColorTextureBuffer = HdStTextureUtils::HgiTextureReadback(m_imagingEngine.GetHgi(),
+	                                                                textureHandle, &size);
+	storage.data = mappedColorTextureBuffer.get();
 
-  int frame = manager->getCurrentFrame();
-  QString filename = manager->getOutputImagePath(frame);
+	int frame = manager->getCurrentFrame();
+	QString filename = manager->getOutputImagePath(frame);
 
-  const HioImageSharedPtr image = HioImage::OpenForWriting(filename.toStdString());
-  const bool writeSuccess = image && image->Write(storage);
+	// where `Hio` stands for "Hydra Input/Output"
+	const HioImageSharedPtr image = HioImage::OpenForWriting(filename.toStdString());
+	const bool writeSuccess = image && image->Write(storage);
 }
+---
+After mapping the imaging engine's color aov to a storage buffer, you can write out to standard PNG format.
+---
 ```
 
 Together, these components create a tightly coupled yet extensible rendering loop that supports user-driven data collection for downstream neural rendering. The entire system is built with modular C++ and configured through CMake, enabling cross-platform compilation and integration into broader pipelines.
@@ -151,117 +171,169 @@ After extracting multi-view images and camera parameters using the Qt GUI, the s
 
 #### Input and Sampling Strategy
 
-Each input sample to the NeRF model consists of a 3D point **x** along a camera ray and the corresponding viewing direction **d**. Rays are sampled per image at a resolution of 100×100, with 64 samples per ray along the near-to-far depth range. For training, this amounts to 67,840,000 sample points per batch across 106 training images.
-
-```python
-# src/nerf/nerf.py
-def get_rays(
-  height: int, width: int, focal_length: float, c2w: torch.Tensor
-) -> Tuple[torch.Tensor, torch.Tensor]:
-  r"""
-  Find origin and direction of rays through every pixel and camera origin.
-  """
-
-  # Apply pinhole camera model to gather directions at each pixel
-  # i is a [width, height] grid with x-values of pixel at coordinate
-  # j is a [width, height] grid with x-values of pixel at coordinate
-  i, j = torch.meshgrid(
-    torch.arange(width, dtype=torch.float32).to(c2w),
-    torch.arange(height, dtype=torch.float32).to(c2w),
-    indexing="ij",
-  )
-
-  # swaps the last two dimensions (should be just 2, to get i and j shaped [height, width].
-  i, j = i.transpose(-1, -2), j.transpose(-1, -2)
-
-  # Map to [(-1, -1), (1, 1)] and then NDC (scaled by focal length):
-  #   x: (i - width/2) / focal
-  #   y: -(j - height/2) / focal
-  #   z: -1 (-1 is camera's forward)
-  directions = torch.stack(
-    [
-      (i - width * 0.5) / focal_length,
-      -(j - height * 0.5) / focal_length,
-      -torch.ones_like(i),
-    ],
-    dim=-1,
-  )
-
-  # Convert to world coords
-  # Apply camera pose to directions
-  rays_d = torch.sum(directions[..., None, :] * c2w[:3, :3], dim=-1)
-
-  # Origin is same for all directions (the optical center)
-  rays_o = c2w[:3, -1].expand(rays_d.shape)
-
-  return rays_o, rays_d
-```
-
-![Sampled View Directions](assets/sampled_view_directions.png)
-
-#### Positional Encoding
-
-To capture high-frequency variation in scene geometry and appearance, the 3D position and viewing direction vectors are passed through a **positional encoder** before entering the network:
-
-For a scalar component $p$, encoding with frequency $w$ yields:
-
-$$
-\bigl[\, p,\; \sin(\omega_{1}p),\; \cos(\omega_{1}p),\; \dots,\;
-          \sin(\omega_{5}p),\; \cos(\omega_{5}p) \,\bigr]
-$$
-
-The result is a higher-dimensional embedding that allows the MLP to approximate sharp changes in lighting or geometry without requiring excessive network depth.
-
-#### NeRF Model Architecture
-
-The core model is a fully connected MLP, implemented in `nerf.py`. It consists of:
-
-- **8 hidden layers**, each with 256 channels and ReLU activations.
-- **Residual connection** after the 4th layer to preserve low-frequency signals.
-- **Separate heads** for predicting RGB color and volume density (σ), with the density head applied after the base network and the color head applied after a fused view direction branch.
-
-```python
-# src/nerf/nerf.py
-class MLP(nn.Module):
-  r"""
-  Multilayer Perceptron module.
-  """
-
-  def __init__(
-    self,
-    d_input: int = 3,
-    n_layers: int = 8,
-    d_filter: int = 256,
-    skip: Tuple[int] = (4,),
-    d_viewdirs: Optional[int] = None,
-  ):
-```
-
-The MLP approximates a function mapping:
+At the core of NeRF is a learnable function $f_{\theta}$ that represents the scene as a continuous volumetric field.
+This function defines how any point in 3D space appears when viewed from a particular direction.
 
 $$
 \begin{align}
-(x,d)↦(σ,RGB)(x, d) \mapsto (\sigma, \text{RGB})
+f_\theta : (\mathbf{x}, \mathbf{d}) &\mapsto (\sigma, \mathbf{c})
 \end{align}
 $$
 
-Where:
+Here, $f_\theta$ maps a 3D point $\mathbf{x}$ along a camera ray and the corresponding viewing direction $\mathbf{d}$ to a volume density $\sigma$, which encodes scene geometry, and an RGB color $c$, which encodes appearance.
 
-- $σ = W_\sigma x + b_\sigma$ is the predicted volume density at point x
-- RGB is the emitted color from the point in direction d.
+Rays are generated per-image by the projection of pixels through the pinhole camera model. For each pixel, a ray origin and direction are computed using the camera intrinsics and extrinsics. Along each ray, multiple sample points are drawn between the near and far depth bounds.
+
+At a resolution of 100×100 pixels with 64 samples per ray, training on 106 images results in $100 \times 100 \times 64 \times 106 = 67{,}840{,}000$ 3D point samples per batch.
+
+```python title="src/nerf/nerf.py" collapse={8-18, }
+def get_rays(
+	height: int, width: int, focal_length: float, c2w: torch.Tensor
+) -> Tuple[torch.Tensor, torch.Tensor]:
+
+	# Create two tensors that correspond with x & y values of pixels
+	# i is a (width, height) grid where each row has same x-value
+	# j is a (width, height) grid where each column as same y-value
+	i, j = torch.meshgrid(
+		torch.arange(width, dtype=torch.float32).to(c2w),
+		torch.arange(height, dtype=torch.float32).to(c2w),
+		indexing="ij",
+	)
+
+	# Transpose to swap dimensions. Industry-standard, as images are inherently row-major (height, width).
+	i, j = i.transpose(-1, -2), j.transpose(-1, -2)
+
+	# Convert ray directions to camera-space
+	# For pinhole camera model, map to [(-1, -1), (1, 1)] and then scale by focal length
+	directions = torch.stack(
+		[
+		(i - width * 0.5) / focal_length, # x: (i - width/2) / focal
+		-(j - height * 0.5) / focal_length, # y: -(j - height/2) / focal
+		-torch.ones_like(i), # z: -1 (-1 is camera's forward)
+		],
+		dim=-1,
+	)
+
+	# Use "camera-to-world" matrix to convert ray directions to world coords
+	rays_d = torch.sum(directions[..., None, :] * c2w[:3, :3], dim=-1)
+
+	# Ray origin is uniform, extracted from the last column of "camera-to-world" matrix
+	rays_o = c2w[:3, -1].expand(rays_d.shape)
+
+	return rays_o, rays_d
+
+---
+Applies the pinhole camera model to find the origin (camera position) and direction of rays (through each pixel).
+---
+```
+
+![Sampled View Directions](assets/sampled_view_directions.png)
+_A diagram of camera positions and orientations, which follow cosine-sampling in the upper hemisphere._
+
+#### Positional Encoding
+
+A standard multilayer perceptron (MLP) is biased toward learning low-frequency, smooth functions. However, Radiance Fields should be able to represent sharp geometric features. To address this, NeRF applies a positional encoding to the input coordinates before passing them to the network.
+
+This encoding is applied to each scalar component of these vectors. So let $p$ denote a scalar input component, where:
+
+$$
+p \in \{x, y, z, d_x, d_y, d_z\}
+$$
+
+The encoding uses a fixed set of frequency bands $\{\omega_k\}$, chosen as powers of two in NeRF:
+
+$$
+\omega_k = 2^k \pi \quad \text{for} \quad k = 0, 1, \dots, L-1
+$$
+
+where $L$ is an empirically-chosen parameter. Larger values of L increase frequency, so typically in NeRF $L = 10$ for spatial positions and $L = 4$ for viewing directions, as position (which corresponds to scene geometry) requires more higher-frequency variation than direction.
+
+Then, for each scalar input $p$, the positional encoding will be computed as:
+
+$$
+\gamma(p)
+=
+\left[
+\sin(\omega_0 p), \cos(\omega_0 p),
+\sin(\omega_1 p), \cos(\omega_1 p),
+\dots,
+\sin(\omega_{L-1} p), \cos(\omega_{L-1} p)
+\right]
+$$
+
+So for position vector $\mathbf{x}$, the encoding will be:
+
+$$
+\gamma(\mathbf{x})
+=
+[
+\gamma(x),
+\gamma(y),
+\gamma(z)
+]
+$$
+
+And similar for viewing direction vector $\mathbf{d}$.
+
+These encoded vectors form the actual inputs to the MLP, effectively representing each input component as sinusoidal basis functions rather than raw $\{x, y, z\}$ and $\{d_x, d_y, d_z\}$ values.
+
+#### MLP Model Architecture
+
+In practice, NeRF parameterizes $f_{\theta}$ using a deep multilayer perceptron (MLP). The MLP acts as a continuous function approximator, allowing the scene to be queried at arbitrary spatial locations and view directions without discretizing space.
+
+The MLP architecture is designed to reflect the structure of the mapping defined by $f_{\theta}$:
+
+- **8 hidden (intermediate) layers**, each with 256 channels and ReLU (Rectified Linear Unit) activations, provide sufficient expressive capacity to model complex geometry and appearance.
+- **A residual (skip) connection** after the 4th layer helps preserve low-frequency spatial information while still enabling deeper layers.
+- **Separate output heads** are used for RGB color and volume density ($\sigma$).
+    - Density depends only on spatial position $\mathbf{x}$
+    - Color depends on both position $\mathbf{x}$ and viewing direction $\mathbf{d}$.
+    - Accordingly, density is predicted from the base network, while color is predicted from a branch that incorporates view-direction information.
+
+```python title="src/nerf/nerf.py" collapse={2-4}
+class MLP(nn.Module):
+	"""
+	Multilayer Perceptron module.
+	"""
+
+	def __init__(
+		self,
+		d_input: int = 3, # `d_` prefix commonly used for dimensions
+		n_layers: int = 8,
+		d_filter: int = 256, # dimension of hidden layers
+		skip: Tuple[int] = (4,),
+		d_viewdirs: Optional[int] = None, # do not set for view-independency, i.e. predicted color will depend only on position
+	):
+---
+The MLP class specifies its dimensions, number of layers, dimension of layers, skip layers if it has any, and dimensions of view directions.
+---
+```
 
 #### Volumetric Rendering
 
-The raw outputs of the MLP are converted into final renderings using volume rendering equations:
+NeRF renders images by querying the scene function $f_{\theta}$ along camera rays and compositing the resulting predictions using volumetric rendering. This process proceeds in two stages: a coarse pass to locate relevant regions along each ray, followed by a fine pass to refine the rendering.
 
-- **RGB map**: the accumulated color along each ray.
-- **Depth map**: the expected distance along the ray.
-- **Opacity map**: total transmittance per ray.
-- **Sample weights**: used to composite contributions.
+##### Coarse and Fine MLP Evaluation
 
-A **coarse pass** samples uniformly across each ray. These weights are then used to define a **PDF** for importance sampling in the **fine pass**, where a second set of samples is drawn via inverse transform sampling. Both passes are fed into separate MLPs (coarse and fine) to produce the final render.
+For each camera ray, a set of sample points is first drawn uniformly along the ray. These points are evaluated by a coarse MLP, which predicts volume density $\sigma$ and emitted color $c$ at each sample location. The predicted densities are used to compute per-sample weights, indicating how much each region along the ray contributes to the final image.
+
+These weights define a probability density function (_PDF_) along the ray, which is then used for importance sampling. A second set of samples is drawn from this PDF using inverse transform sampling, concentrating samples in regions of high density. These new samples are evaluated by a fine MLP, which predicts the same physical quantities -- density and color -- but at more informative locations.
+
+The coarse and fine MLPs therefore represent the same underlying scene function, evaluated at different sets of sample points, with the coarse pass guiding where the fine pass should sample more densely.
+
+##### Final Volumetric Compositing
+
+The raw outputs of the MLP—density and color predictions at sampled points—are converted into final renderings using the volume rendering equation. For each ray, this produces:
+
+- **an RGB map**, obtained by accumulating color contributions along the ray,
+- **a depth map**, computed as the expected distance along the ray,
+- **an opacity map**, representing the accumulated opacity (one minus transmittance),
+- **and sample weights**, which quantify each sample’s contribution.
+
+The final rendered outputs are computed using the predictions from the fine pass, while the coarse pass serves to guide sampling during training.
 
 ![Psnr Dev](assets/psnr_dev.webp)
+_NeRF training over time, illustrating 1. improving render quality, 2. increasing PSNR, and 3. the balance of uniform stratified sampling (via the coarse MLP pass) to focused hierarchical sampling (fine pass) along rays._
 
 #### Python CLI and Workflow
 

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 
 import ComingSoon from "./ComingSoon";
 
+import postprocessMarkdown from "@/lib/postprocessMarkdown";
+
 interface Tab {
     id: string;
     title: string;
@@ -138,7 +140,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
     const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
 
     return (
-        <div className="prose xl:prose-lg mx-auto mt-4 w-full max-w-[1024px] **:scroll-mt-20 lg:mt-8 lg:**:scroll-mt-22">
+        <div className="prose xl:prose-lg mx-auto mt-4 w-full max-w-5xl **:scroll-mt-20 lg:mt-8 lg:**:scroll-mt-22">
             {/* Tab Navigation */}
             <div
                 className="sticky top-0 z-10 flex w-full flex-nowrap justify-center-safe gap-1 overflow-x-scroll scroll-auto lg:gap-2"
@@ -166,29 +168,11 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
             {/* Tab Content */}
             <div
                 id={`tabcontent`}
-                className="prose prose-sm lg:prose-base prose-h5:font-medium prose-a:!text-blue-accent prose-a:**:!text-blue-accent relative mx-auto mt-4 min-w-full **:mx-auto *:last:!my-0 [&_img]:mx-auto [&_img]:rounded-md [&_svg]:invert"
+                className="project-breakdown-content"
                 role="tabpanel"
                 aria-labelledby={`tab-${activeTab.id}`}
                 dangerouslySetInnerHTML={{ __html: activeTab.content || "" }}
-                ref={(el) => {
-                    if (el) {
-                        // set all links to open to new tab
-                        el.querySelectorAll("a").forEach((link) => {
-                            link.setAttribute("target", "_blank");
-                            link.setAttribute("rel", "noopener noreferrer");
-                        });
-
-                        el.querySelectorAll("img").forEach((img) => {
-                            img.addEventListener("load", () => {
-                                img.classList.add("bg-none", "bg-transparent");
-                            });
-
-                            if (img.alt.toLowerCase().includes("mermaid")) {
-                                img.classList.add("dark:invert");
-                            }
-                        });
-                    }
-                }}
+                ref={postprocessMarkdown}
             ></div>
 
             {/* Hidden content for parsing - this won't be visible */}

@@ -71,7 +71,48 @@ I focused on core infrastructure to support asset resolution, storage, and inter
 
 Firstly, an unique goal of this project was to simulate the graphics pipeline within a small studio team. We organized work around sprint cycles, beginning with individual MVP proposals and culminating in a shared architecture that balanced backend reliability with frontend usability.
 
-![Mermaid Diagram Timeline](./assets/mermaid_timeline.svg)
+```d2
+direction: right
+
+(*** -> ***)[*]: {
+	style.animated: true
+}
+
+I: {
+	shape: class
+	style.fill: "#d45017"
+	label: "Individual MVP proposals"
+	+Research: "Research desired tech stack"
+	+MVP: "Develop & deploy\npresentable MVP"
+}
+
+S: {
+	shape: class
+	style.fill: "#8753b8"
+	label: "'Studio' design session"
+	+Tech: "Choose optimal tech stack"
+	+Roles: "Team / role divisions"
+	+Goals: "Define all goals & final deliverables"
+}
+
+P: {
+	shape: class
+	style.fill: "#9fb800"
+	label: "Sprint"
+	+Standups: "Weekly standups"
+	+Collab: "Cross-team collaboration (as needed)"
+}
+
+R: {
+	shape: class
+	style.fill: "#0d92ba"
+	label: "Sprint review"
+	+Assess: "Assess achievement of deliverables"
+	+Next: "Establish next steps"
+}
+
+I -> S -> P -> R
+```
 
 ### Versioned Asset Resolver
 
@@ -85,11 +126,68 @@ The primary bottleneck was the lack of consistent versioning among our different
 
 To address this, I worked on optimizing the data format in what appeared to be three coordinated layers:
 
-![Mermaid Diagram Workflow Concrete](./assets/mermaid_workflow_concrete.svg)
+```d2 layout=dagre theme=300
+	direction: right
+
+	(*** -> ***)[*]: {
+		style.animated: true
+	}
+
+	MySQL.style.fill: "#194d80"
+	S3: "S3 Bucket" {
+		style.fill: "#e6bd45"
+	}
+	Django: "Django Models/Views" {
+		style.fill: "#ee964b"
+	}
+	Astro: "Astro Frontend" {
+		style.fill: "#f95738"
+	}
+
+	MySQL->Django
+	S3->Django
+	Django->Astro
+```
 
 Though ultimately, I realized that everything within the systems, Django included, were heavily interconnected, so my workflow started to look more like this:
 
-![Mermaid Diagram Workflow Reality](./assets/mermaid_workflow_reality.svg)
+```d2 layout=dagre theme=300
+	direction: right
+
+	(*** -> ***)[*]: {
+		style.animated: true
+	}
+
+	clang: clang {
+		style.text-transform: lowercase
+
+		label.near: top-center
+
+		# inner object styling
+		MySQL.style.fill: "#194d80"
+		S3: "S3 Bucket" {
+			style.fill: "#e6bd45"
+		}
+		Django: "Django Models/Views" {
+			style.fill: "#ee964b"
+		}
+
+		MySQL -> Django
+		Django -> MySQL
+
+		S3 -> Django
+		Django -> S3
+
+		MySQL -> S3
+		S3 -> MySQL
+	}
+
+	Astro: "Astro Frontend" {
+		style.fill: "#f95738"
+	}
+
+	clang -> Astro
+```
 
 (Get it? Because clang... is clang?)
 
@@ -97,7 +195,47 @@ The following three sections cover the specifics of refactoring each system.
 
 #### MySQL "Sublayer" Structure
 
-![Mysql Visual](./assets/mysql-visual.png)
+```d2
+(*** -> ***)[*]: {
+	style.animated: true
+}
+Sublayer: {
+	shape: sql_table
+	style.fill: "#e3c9c9"
+	id: char(32) { constraint: primary_key }
+	version: varchar(32)
+	sublayerName: varchar(200)
+	filepath: varchar(200)
+	asset_id: char(32) { constraint: foreign_key }
+	checkedOutBy_id: bigint
+	s3_versionID: varchar(64)
+	previousVersion_id: char(32)
+}
+
+Commit: {
+	shape: sql_table
+	style.fill: "#cecbcb"
+	id: char(32) { constraint: primary_key }
+	version: varchar(32)
+	timestamp: datetime
+	note: longtext
+	asset_id: char(32) { constraint: foreign_key }
+	author_id: bigint
+}
+
+Asset: {
+	shape: sql_table
+	style.fill: "#cbdadb"
+	id: char(32) { constraint: primary_key }
+	assetName: varchar(200)
+	hasTexture: boolean
+	thumbnailKey: varchar(200)
+	checkedOutBy_id: bigint
+}
+
+Sublayer.asset_id -> Asset.id
+Commit.asset_id -> Asset.id
+```
 
 Initially, at our class-wide MVP disccussions, we considered version tracking at either the `Asset` or `Commit` level. However, after downloading and looking through example datasets such as Disney's [Moana](https://www.disneyanimation.com/data-sets/?drawer=/resources/moana-island-scene/) and Pixar's [da Vinci's workshop](https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/davinci_workshop.html) , I realized that tracking version history at the `Sublayer` level would be necessary, allowing us to track changes in individual files (e.g., a LOD variant or material file) between commits. Thus, the `Sublayer` table was introduced to the MySQL schema.
 
@@ -136,7 +274,24 @@ Total Objects: 817
 
 In building this segment of the resolver pipeline, I collaborated closely with teammates who developed the core S3 interface in the backend. Their implementation of a centralized `S3Manager` class provided a clean abstraction over AWS SDK calls and significantly improved maintainability:
 
-![Mermaid Diagram S3 Manager Class](./assets/mermaid_s3manager_class.svg)
+```d2
+style.double-border: true
+
+S3Manager: S3Manager Class {
+	shape: class
+	style.fill: "#e6bd45"
+
+	+generate_presigned_url(key, bucket, expires_in): str
+	+update_file(file, key, bucket)
+	+upload_fileobj(file, key, bucket)
+	+delete_file(key, bucket)
+	+list_s3_files(prefix, bucket): 'list[str]'
+	+download_s3_file(key, bucket, versionId): bytes
+	+get_s3_versionID(key, bucket, n): str
+	+delete_object(key, bucket)
+	+thumbnail_key_to_url(thumbnailKey, expires_in): str
+}
+```
 
 This wrapper pattern reinforced the importance of modular backend design. It also allowed me to streamline resolver logic and maintain a consistent interface between asset metadata and its physical representation in storage.
 
