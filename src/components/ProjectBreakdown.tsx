@@ -156,8 +156,8 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         onClick={() => handleTabChange(tab.id)}
                         className={`text-important-text z-20 scroll-auto rounded-md px-2 py-1 text-[0.55rem] font-medium transition-colors duration-500 hover:brightness-150 lg:px-4 lg:py-2 lg:text-sm ${
                             activeTabId === tab.id
-                                ? "bg-blue-accent/70"
-                                : "bg-neutral-primary/90 cursor-pointer hover:brightness-150"
+                                ? "bg-blue-accent/80"
+                                : "bg-inverted-neutral/20 cursor-pointer hover:brightness-150"
                         }`}
                     >
                         {tab.title}

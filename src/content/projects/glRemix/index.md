@@ -9,6 +9,7 @@ techStack:
     - C++
     - Direct3D12
     - Win32_API
+    - OpenGL
 tags:
     - Year2025
     - data_transfer

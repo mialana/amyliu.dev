@@ -10,6 +10,11 @@
 @import "rehype-callouts/theme/vitepress";
 @plugin "@tailwindcss/typography";
 
+@font-face {
+    font-family: "BestermindRegular";
+    src: url("/font/BestermindRegular.ttf");
+}
+
 /* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
     --font-signature: "Fredericka the Great", serif;
@@ -60,9 +65,40 @@
     }
 }
 
-@font-face {
-    font-family: "BestermindRegular";
-    src: url("/font/BestermindRegular.ttf");
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --color-primary: #182525;
+    --color-secondary: #192933;
+    --color-tertiary: #33303a;
+    --color-neutral-primary: #1f1f21;
+    --color-important-text: #e8e8e8;
+    --color-primary-shadow: #28242d;
+    --color-inverted-primary: #ebe2d1;
+    --color-inverted-secondary: #916c64;
+    --color-inverted-tertiary: #a59494;
+    --color-inverted-neutral: #eae3da;
+    --color-inverted-shadow: #7a6c6c;
+    --color-inverted-important-text: #151515;
+    --color-grid-background: #868080;
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+
+    --color-primary: #ebe2d1;
+    --color-secondary: #916c64;
+    --color-tertiary: #a59494;
+    --color-neutral-primary: #eae3da;
+    --color-important-text: #151515;
+    --color-primary-shadow: #7a6c6c;
+    --color-inverted-primary: #182525;
+    --color-inverted-secondary: #192933;
+    --color-inverted-tertiary: #33303a;
+    --color-inverted-neutral: #1f1f21;
+    --color-inverted-shadow: #28242d;
+    --color-inverted-important-text: #e8e8e8;
+    --color-grid-background: #c3bdbd;
 }
 
 /* Set global default styles */

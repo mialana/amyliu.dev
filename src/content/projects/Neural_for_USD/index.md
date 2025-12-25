@@ -359,7 +359,7 @@ Choose from the following options:
 
 ![360 Render](assets/360_render.webp)
 
-![Results](assets/results.webp)
+![Results](assets/thumbnail.webp)
 
 - Randomized novel views
 

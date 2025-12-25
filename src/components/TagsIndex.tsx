@@ -3,14 +3,20 @@ import { TagCloud } from "react-tagcloud";
 
 interface TagLinkProps {
     tag: string;
+    count?: number;
     style?: React.CSSProperties;
     className?: string;
 }
 
-function TagLink({ tag, style, className }: TagLinkProps) {
+function TagLink({ tag, count, style, className }: TagLinkProps) {
     return (
         <a
             href={`/tags/${tag}/`}
+            title={
+                count !== undefined
+                    ? `${count} ${count > 1 ? "Mentions" : "Mention"}`
+                    : undefined
+            }
             style={style}
             className={`not-prose inline-block font-semibold no-underline hover:underline hover:underline-offset-2 ${className}`}
         >
@@ -98,6 +104,7 @@ export default function TagsIndex({
                             <TagLink
                                 key={tag.value}
                                 tag={tag.value}
+                                count={tag.count}
                                 className={`text-[${color}]! hover:brightness-150!`}
                                 style={{
                                     color,
@@ -111,10 +118,11 @@ export default function TagsIndex({
             ) : (
                 <div className="columns-3 leading-tight *:in-first-of-type:mt-0">
                     {/* List View */}
-                    {uniqueTags.map((tag) => (
-                        <p key={tag}>
+                    {tagCloudData.map((tag) => (
+                        <p key={tag.value}>
                             <TagLink
-                                tag={tag}
+                                tag={tag.value}
+                                count={tag.count}
                                 className={"hover:text-red-accent!"}
                             />
                         </p>
