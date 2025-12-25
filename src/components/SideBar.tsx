@@ -79,7 +79,7 @@ export default function SideBar({
 
     return (
         <div
-            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} bg-light-neutral dark:bg-dark-neutral ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4 shadow-lg`}
+            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} bg-neutral-primary ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4 shadow-lg`}
             onClick={() => {
                 if (window.innerWidth <= 768) {
                     setOpen(false);
@@ -88,7 +88,7 @@ export default function SideBar({
         >
             <div
                 id={`${category}-button-bar`}
-                className={`dark:from-dark-secondary dark:to-dark-base invisible absolute top-0 h-4 cursor-pointer opacity-75 ${category == "NAV" ? "bg-linear-to-l" : "bg-linear-to-r"} from-light-secondary to-light-base ${positionInfo["absolutePosition"]} w-full ${category === "NAV" ? "rounded-r-xs" : "rounded-l-xs"} z-30`}
+                className={`invisible absolute top-0 h-4 cursor-pointer opacity-75 ${category == "NAV" ? "bg-linear-to-l" : "bg-linear-to-r"} from-secondary to-base ${positionInfo["absolutePosition"]} w-full ${category === "NAV" ? "rounded-r-xs" : "rounded-l-xs"} z-30`}
                 onClick={(event) => {
                     event.stopPropagation(); // Prevent click from propagating
                     setOpen(!open);

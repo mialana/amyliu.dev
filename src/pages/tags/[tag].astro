@@ -47,13 +47,10 @@ const tagTitle = tag.replaceAll("_", " ");
         class="flex size-full flex-col overflow-y-visible px-2 pb-4 md:px-8 md:pb-8"
     >
         <!-- background for sticky positioning -->
-        <div
-            class="bg-light-base dark:bg-dark-base absolute top-0 z-20 h-2 w-full md:h-8"
-        >
-        </div>
+        <div class="bg-primary absolute top-0 z-20 h-2 w-full md:h-8"></div>
         <!-- tag banner -->
         <div
-            class="prose prose-base lg:prose-lg bg-light-neutral dark:bg-dark-neutral sticky top-4 z-20 my-0 ml-2 w-fit scale-y-90 rounded-md shadow-lg contrast-125 md:top-6 md:my-6 md:ml-0"
+            class="prose prose-base lg:prose-lg bg-neutral-primary sticky top-4 z-20 my-0 ml-2 w-fit scale-y-90 rounded-md shadow-lg contrast-125 md:top-6 md:my-6 md:ml-0"
         >
             <h3 class="p-2">
                 <a
@@ -75,7 +72,7 @@ const tagTitle = tag.replaceAll("_", " ");
                 </div>
                 {
                     projects.map((project: any) => (
-                        <li class="content-animation **:prose-h1:text-2xl **:prose-h1:hover:scale-103 **:a:font-extrabold! **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] tag-project-card dark:bg-dark-neutral bg-light-neutral flex-1 overflow-y-visible rounded-sm px-1 shadow-md md:snap-start md:overflow-y-scroll md:*:m-4! md:*:p-4!">
+                        <li class="content-animation **:prose-h1:text-2xl **:prose-h1:hover:scale-103 **:a:font-extrabold! **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] tag-project-card bg-neutral-primary flex-1 overflow-y-visible rounded-sm px-1 shadow-md md:snap-start md:overflow-y-scroll md:*:m-4! md:*:p-4!">
                             <ProjectLayout
                                 project={project}
                                 showBreakdown={false}

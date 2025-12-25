@@ -24,22 +24,38 @@
     --drop-shadow-button: 0 4px 4px #000000;
     --drop-shadow-nav: 0 12px 12px #000000;
 
-    --color-dark-base: #182525;
-    --color-dark-secondary: #192933;
-    --color-dark-offset: #33303a;
-    --color-dark-neutral: #1f1f21;
-    --color-dark-text: #151515;
-
-    --color-light-base: #ebe2d1;
-    --color-light-secondary: #916c64;
-    --color-light-offset: #a59494;
-    --color-light-neutral: #eae3da;
-    --color-light-text: #e8e8e8;
-
-    --color-light-shadow-offset: #7a6c6c;
-    --color-dark-shadow-offset: #28242d;
-
     --default-gap: calc(var(--spacing) * 4);
+
+    --color-primary: #ebe2d1;
+    --color-secondary: #916c64;
+    --color-tertiary: #a59494;
+    --color-neutral-primary: #eae3da;
+    --color-important-text: #151515;
+    --color-primary-shadow: #7a6c6c;
+    --color-inverted-primary: #182525;
+    --color-inverted-secondary: #192933;
+    --color-inverted-tertiary: #33303a;
+    --color-inverted-neutral: #1f1f21;
+    --color-inverted-shadow: #28242d;
+    --color-grid-background: #9b9b9b;
+}
+
+/* dark mode overrides of main color palette */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-primary: #182525;
+        --color-secondary: #192933;
+        --color-tertiary: #33303a;
+        --color-neutral-primary: #1f1f21;
+        --color-important-text: #e8e8e8;
+        --color-primary-shadow: #28242d;
+        --color-inverted-primary: #ebe2d1;
+        --color-inverted-secondary: #916c64;
+        --color-inverted-tertiary: #a59494;
+        --color-inverted-neutral: #eae3da;
+        --color-inverted-shadow: #7a6c6c;
+        --color-grid-background: #434343;
+    }
 }
 
 @font-face {
@@ -51,18 +67,17 @@
 @layer base {
     html {
         @apply font-body font-normal;
-        @apply text-dark-base dark:text-light-base;
-        @apply bg-light-offset dark:bg-dark-offset;
         @apply **:scroll-smooth;
         hyphens: auto;
 
-        @apply dark:bg-dark-offset dark:**:text-light-offset;
+        /* background color */
+        @apply bg-tertiary;
+        /* text color */
+        @apply **:text-inverted-tertiary;
 
-        @apply **:shadow-light-shadow-offset;
-        @apply dark:**:shadow-dark-shadow-offset;
+        @apply **:shadow-primary-shadow;
 
-        @apply [&_h1]:text-dark-text! [&_a]:text-dark-text;
-        @apply [&_h1]:dark:text-light-text! [&_a]:dark:text-light-text;
+        @apply [&_h1]:text-important-text! [&_a]:text-important-text;
     }
 
     /* Hide scrollbar outlines while keeping smooth scrolling */
@@ -81,7 +96,7 @@
         display: block;
         background: url("/resources/loading.gif") center center no-repeat;
         background-size: 64px 64px;
-        @apply bg-light-neutral dark:bg-dark-neutral;
+        @apply bg-neutral-primary;
         font-size: 0px;
     }
 }
@@ -104,9 +119,7 @@
 @utility prose {
     @apply prose-neutral;
     @apply prose-code:cursor-text! prose-headings:cursor-default;
-
-    /* dark-mode styling */
-    @apply prose-headings:dark:text-light-text! prose-a:dark:text-light-text! prose-strong:dark:text-light-text!;
+    @apply prose-headings:text-important-text! prose-a:text-important-text! prose-strong:text-important-text!;
     @apply cursor-default;
 
     :not(pre) > code {
@@ -136,7 +149,7 @@
         .gutter {
             @apply px-0!;
             .ln {
-                @apply text-light-base/50! px-1! text-[8px]! leading-none! md:px-1!;
+                @apply text-inverted-primary/50! px-1! text-[8px]! leading-none! md:px-1!;
             }
         }
 
@@ -184,27 +197,17 @@
     background-size: 16px 16px;
     background-image: radial-gradient(
         circle,
-        #9b9b9b 0.5px,
+        var(--color-grid-background) 0.5px,
         rgba(0, 0, 0, 0) 0.5px
     );
-    @media (prefers-color-scheme: dark) {
-        background-image: radial-gradient(
-            circle,
-            #434343 0.5px,
-            rgba(0, 0, 0, 0) 0.5px
-        );
-    }
 }
 
 .tag-project-card #project-headings {
     background: unset !important; /* first reset the background */
     background-color: var(
-        --color-light-offset
+        --color-tertiary
     ) !important; /* then set background-color */
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--color-dark-offset) !important;
-    }
-    @apply border-light-neutral dark:border-dark-neutral m-2 rounded-sm border-3 border-double px-4 pt-2 pb-4 md:pb-2;
+    @apply border-neutral-primary m-2 rounded-sm border-3 border-double px-4 pt-2 pb-4 md:pb-2;
 }
 
 .tag-project-card .project-visual-container {
@@ -224,7 +227,7 @@
 }
 
 .coming-soon-container-breakdown .coming-soon-img {
-    @apply border-light-neutral/75 dark:border-dark-neutral/75 my-2 max-w-7xl rounded-xl border-8 border-double md:my-4 md:w-3/4;
+    @apply border-neutral-primary/75 my-2 max-w-7xl rounded-xl border-8 border-double md:my-4 md:w-3/4;
 }
 
 /* Style of all sections within project breakdowns */

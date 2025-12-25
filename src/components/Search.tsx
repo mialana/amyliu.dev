@@ -43,11 +43,15 @@ const FilterSelect = ({
                     }
                 }}
                 onChange={(e) => onChange(e.target.value)}
-                className="bg-dark-offset/50 dark:bg-light-offset/50 text-dark-text dark:text-light-text border-dark-neutral dark:border-light-neutral w-max min-w-30 cursor-pointer rounded-md border px-2 py-1 text-sm focus:brightness-250"
+                className="bg-inverted-secondary/50 text-important-text w-max min-w-30 cursor-pointer rounded-md border px-2 py-1 text-sm focus:brightness-200 focus:**:brightness-200"
                 style={selectStyle}
             >
                 {options.map((option) => (
-                    <option key={option.value} value={option.value}>
+                    <option
+                        key={option.value}
+                        value={option.value}
+                        className="bg-primary/50! text-important-text!"
+                    >
                         {option.label}
                     </option>
                 ))}

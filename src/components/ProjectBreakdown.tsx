@@ -146,7 +146,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 className="sticky top-0 z-10 flex w-full flex-nowrap justify-center-safe gap-1 overflow-x-scroll scroll-auto lg:gap-2"
                 role="tablist"
             >
-                <div className="bg-light-base dark:bg-dark-base absolute top-0 h-2 w-full"></div>
+                <div className="bg-primary absolute top-0 h-2 w-full"></div>
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
@@ -154,10 +154,10 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         role="tab"
                         aria-selected={activeTabId === tab.id}
                         onClick={() => handleTabChange(tab.id)}
-                        className={`text-dark-text dark:text-light-text z-20 scroll-auto rounded-md px-2 py-1 text-[0.55rem] font-medium transition-colors duration-500 hover:brightness-150 lg:px-4 lg:py-2 lg:text-sm ${
+                        className={`text-important-text z-20 scroll-auto rounded-md px-2 py-1 text-[0.55rem] font-medium transition-colors duration-500 hover:brightness-150 lg:px-4 lg:py-2 lg:text-sm ${
                             activeTabId === tab.id
                                 ? "bg-blue-accent/70"
-                                : "bg-light-neutral/90 dark:bg-dark-neutral/90 cursor-pointer hover:brightness-150"
+                                : "bg-neutral-primary/90 cursor-pointer hover:brightness-150"
                         }`}
                     >
                         {tab.title}
