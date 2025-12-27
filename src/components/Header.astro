@@ -4,12 +4,12 @@ import "@/styles/global.css";
 const headerList = ["Home", "Projects", "Tags"];
 ---
 
-<div class="bg-secondary! z-20 pt-2 shadow-md md:shadow-lg">
-    <h1 class="font-signature text-center text-4xl font-extrabold">
+<div class="bg-secondary">
+    <h1 class="font-signature">
         <a href="/">AMY LIU</a>
     </h1>
     <ul
-        class="mx-auto flex w-fit justify-center gap-[calc(var(--default-gap)*2)] pt-1 pb-2 *:hover:underline"
+        class=""
     >
         {
             headerList.map((h) => {
@@ -27,7 +27,7 @@ const headerList = ["Home", "Projects", "Tags"];
         }
     </ul>
     <ul
-        class="*:bg-red-accent absolute right-4 bottom-2 flex gap-(--default-gap) font-medium contrast-150 saturate-75 *:rounded-md *:px-3 *:py-1 *:hover:scale-105"
+        class=""
     >
         <li>
             <a target="_blank" rel="noopener noreferrer" href="/resume.pdf"

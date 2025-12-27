@@ -4,9 +4,9 @@ import "@/styles/global.css";
 import ThemeToggle from "./ThemeToggle";
 ---
 
-<div class="bg-secondary pb-2 shadow-[0_10px_15px_3px]">
+<div class="bg-secondary">
     <ul
-        class="flex justify-center gap-(--default-gap) pt-2 pb-1 *:hover:underline"
+        class=""
     >
         <li>
             <a
@@ -30,15 +30,15 @@ import ThemeToggle from "./ThemeToggle";
             >
         </li>
     </ul>
-    <div class="text-center text-sm">
+    <div class="">
         © 2025 · developed by Amy Liu · powered by <a
-            class="font-medium"
+            class=""
             target="_blank"
             rel="noopener noreferrer"
             href="https://astro.build/">Astro</a
         >
     </div>
-    <div class="absolute right-4 bottom-4">
+    <div class="">
         <ThemeToggle client:load />
     </div>
 </div>

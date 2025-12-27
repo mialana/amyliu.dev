@@ -5,6 +5,15 @@ import {
 
 interface Props {}
 
-export function AppSidebar(props: Props) {
-    return <Sidebar variant="inset" collapsible="offcanvas" />;
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    return (
+        <Sidebar
+            variant="inset"
+            collapsible="offcanvas"
+            {...props}
+            className="top-(--header-height)"
+        >
+            <SidebarContent>This is the content</SidebarContent>
+        </Sidebar>
+    );
 }

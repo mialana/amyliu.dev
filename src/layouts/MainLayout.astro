@@ -1,30 +1,32 @@
 ---
-import "@/styles/main.css";
+// import SideBar from "@/components/SideBar";
+
+// import parseLayout from "@/lib/parseLayout";
+
+// const LayoutMap = {
+//     DEFAULT: "grid-cols-[auto_minmax(0,1fr)_auto]",
+//     HIDE_NAV: "grid-cols-[0px_minmax(0,1fr)_auto]",
+//     HIDE_ASIDE: "grid-cols-[auto_minmax(0,1fr)_0px]",
+//     HIDE_BOTH: "grid-cols-[0px_minmax(0,1fr)_0px]",
+// };
+
+// const grid_cols = LayoutMap[layout];
+
+// const { navActive, asideActive } = parseLayout(grid_cols);
+
+import "@/styles/global.css";
+import Page from "@/components/page";
 import Header from "@/components/Header.astro";
-import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
 import ThemeClient from "@/lib/ThemeClient.astro";
-import Page from "@/components/Page";
-
-import parseLayout from "@/lib/parseLayout";
-
-const LayoutMap = {
-    DEFAULT: "grid-cols-[auto_minmax(0,1fr)_auto]",
-    HIDE_NAV: "grid-cols-[0px_minmax(0,1fr)_auto]",
-    HIDE_ASIDE: "grid-cols-[auto_minmax(0,1fr)_0px]",
-    HIDE_BOTH: "grid-cols-[0px_minmax(0,1fr)_0px]",
-};
 
 interface Props {
     title: string;
-    layout?: keyof typeof LayoutMap;
+    navVisible?: boolean;
+    asideVisible?: boolean;
 }
 
-const { title, layout = "DEFAULT" } = Astro.props;
-
-const grid_cols = LayoutMap[layout];
-
-const { navActive, asideActive } = parseLayout(grid_cols);
+const { title, navVisible = false, asideVisible = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -52,30 +54,25 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <meta name="generator" content={Astro.generator} />
         <title>{title} · Amy Liu</title>
         <slot name="head" />
-        <ThemeClient />
     </head>
+    <ThemeClient />
 
-    <body
-        id="main-body"
-        class=`grid *:relative grid-rows-[auto_minmax(0,1fr)_auto] ${grid_cols}`
-    >
-        <Page client:load defaultSidebarOpen={true}>
-            <header id="header-grid-cell" class="col-span-3">
-                <Header />
-            </header>
-            <nav id="nav-grid-cell" class="transition-transform duration-1000">
-            </nav>
-
-            <main id="main-grid-cell" class="page-animation">
-                <slot />
-            </main>
-
-            <aside
-                id="aside-grid-cell"
-                class="transition-transform duration-1000"
-            >
-            </aside>
-            <footer id="footer-grid-cell" class="col-span-3"><Footer /></footer>
-        </Page>
+    <body id="main-body" class="">
+        <div class="bg-tertiary h-dvh [--header-height:calc(--spacing(14))]">
+            <Page client:load>
+                <div
+                    id="app-header"
+                    class="sticky top-0 z-100 **:w-full w-full bg-black h-(--header-height)! overflow-hidden"
+                >
+                    <Header />
+            </div>
+                <main id="app-main" class="page-animation bg-primary">
+                    <slot />
+                </main>
+                <footer id="app-footer" class=""><Footer /></footer>
+            </Page>
+        </div>
     </body>
+
+
 </html>
