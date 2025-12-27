@@ -140,6 +140,11 @@
         @apply bg-neutral-primary;
         font-size: 0px;
     }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
 }
 
 @utility debug {
