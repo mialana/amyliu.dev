@@ -1,12 +1,13 @@
 ---
 import "@/styles/global.css";
+import "@/styles/main.css";
 import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
 
 import parseLayout from "@/lib/parseLayout";
 
-export const LayoutMap = {
+const LayoutMap = {
     DEFAULT: "grid-cols-[auto_minmax(0,1fr)_auto]",
     HIDE_NAV: "grid-cols-[0px_minmax(0,1fr)_auto]",
     HIDE_ASIDE: "grid-cols-[auto_minmax(0,1fr)_0px]",
@@ -23,6 +24,8 @@ const { title, layout = "DEFAULT" } = Astro.props;
 const grid_cols = LayoutMap[layout];
 
 const { navActive, asideActive } = parseLayout(grid_cols);
+
+import ThemeClient from "@/lib/ThemeClient.astro";
 ---
 
 <!doctype html>
@@ -50,11 +53,14 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <meta name="generator" content={Astro.generator} />
         <title>{title} · Amy Liu</title>
         <slot name="head" />
+        <ThemeClient />
     </head>
+
     <body
-        class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-(--default-gap) ${grid_cols}`
+        id="main-body"
+        class=`grid *:relative grid-rows-[auto_minmax(0,1fr)_auto] ${grid_cols}`
     >
-        <header class="col-span-3">
+        <header id="header-grid-cell" class="col-span-3">
             <Header />
         </header>
         <nav id="nav-grid-cell" class="transition-transform duration-1000">
@@ -62,9 +68,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 <slot name="nav-sidebar" />
             </SideBar>
         </nav>
-        <main
-            class="page-animation bg-primary flex overflow-x-hidden overflow-y-scroll rounded-sm shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
-        >
+        <main id="main-grid-cell" class="page-animation">
             <slot />
         </main>
         <aside id="aside-grid-cell" class="transition-transform duration-1000">
@@ -72,6 +76,6 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 <slot name="aside-sidebar" />
             </SideBar>
         </aside>
-        <footer class="col-span-3"><Footer /></footer>
+        <footer id="footer-grid-cell" class="col-span-3"><Footer /></footer>
     </body>
 </html>

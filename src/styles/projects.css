@@ -1,0 +1,41 @@
+@import "./global.css";
+
+/* styling for content localized to `projects` pages */
+
+@layer defaults {
+    .project-card-container {
+        @apply bg-neutral-primary;
+        @apply border-inverted-neutral;
+
+        @apply max-w-lg min-w-md;
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: calc(
+            var(--spacing) / 4
+        ); /* 1px usually, 0.5px after breakpoint */
+
+        &:hover {
+            @apply bg-tertiary shadow-inverted-shadow -translate-y-2;
+        }
+    }
+
+    .project-card-pinned-banner {
+        @apply bg-blue-accent/90 pointer-events-none absolute -bottom-2 -left-2 rounded-md px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-white! uppercase select-none;
+    }
+
+    .project-card-text {
+        @apply text-center;
+    }
+
+    .project-card-image {
+        @apply border-inverted-neutral bg-inverted-neutral rounded-t-lg border-b saturate-125;
+    }
+
+    /* Style of all sections within project breakdowns */
+    .project-breakdown-content {
+        @apply prose prose-sm horizontal:prose-base prose-defaults mx-auto max-w-none py-4;
+    }
+}

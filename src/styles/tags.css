@@ -1,0 +1,57 @@
+@import "./global.css";
+
+/* styling for content localized to `tags` pages */
+
+#per-tag-container {
+    @apply size-full overflow-y-visible; /* page should always be the container that y-scrolls */
+}
+
+#per-tag-banner {
+    @apply font-signature bg-neutral-primary sticky z-20 rounded-md font-semibold normal-case underline-offset-2 shadow-lg contrast-125;
+}
+
+#per-tag-project-list {
+    /* @apply md:snap-x md:flex-row md:items-start md:gap-12 md:overflow-x-scroll md:overflow-y-hidden; */
+    @apply flex flex-col justify-center-safe gap-8;
+}
+
+.per-tag-project-card {
+    /* parent styles */
+    @apply w-full max-w-xl flex-1 shrink;
+
+    @apply bg-inverted-secondary/50 border-inverted-neutral/75 h-fit md:max-h-full;
+
+    @apply rounded-md border-4 border-double shadow-md md:snap-start!;
+
+    background-size: 16px 16px;
+    background-image: radial-gradient(
+        circle,
+        var(--color-grid-background) 0.5px,
+        rgba(0, 0, 0, 0) 0.5px
+    );
+
+    #project-title-link {
+        @apply font-extrabold;
+    }
+
+    #project-title-h1 {
+        @apply pt-2 text-2xl font-extrabold underline underline-offset-2;
+        @apply after:cursor-pointer after:content-['→'] hover:scale-103;
+    }
+
+    #project-headings {
+        @apply m-2 px-4 pt-2 pb-4 md:pb-2;
+    }
+
+    .project-visual-container {
+        @apply mt-4 mb-6 aspect-video overflow-hidden rounded-md p-0;
+    }
+
+    .project-description {
+        height: 64px;
+        overflow-y: scroll;
+        @apply flex items-center-safe;
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

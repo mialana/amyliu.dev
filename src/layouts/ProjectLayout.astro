@@ -36,15 +36,14 @@ const thumbnailPath = images[
 ]
     ? `/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`
     : `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
+
+console.log(project);
 ---
 
 <div
-    class="my-4 flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16"
+    class="mx-auto max-w-5xl flex-col items-center-safe justify-center-safe px-2 py-4"
 >
-    <div
-        id="project-headings"
-        class="prose prose-lg xl:prose-2xl max-w-full text-center"
-    >
+    <div id="project-headings" class="prose text-center">
         <h1 class="my-0! text-4xl lg:text-5xl xl:text-6xl">
             <a
                 id="project-title-link"
@@ -67,30 +66,29 @@ const thumbnailPath = images[
             {project.data.description}
         </div>
     </div>
-    <div
-        class="project-visual-container *:project-visual bg-neutral-primary mt-4 mb-6 w-full max-w-7xl! p-2 shadow-lg lg:mt-6 lg:mb-8"
-    >
+
+    <div class="shadow-lg">
         {
             project.data.demoVideoLink ? (
                 <YouTube
                     id={project.data.demoVideoLink}
                     params="autoplay=1&color=white&rel=0"
                     posterQuality="max"
-                    class="w-full min-w-full"
                 />
             ) : !replaceImagePlaceholder ? (
                 <Image
-                    class="w-full"
                     src={images[thumbnailPath]()}
                     alt={`Fallback Thumbnail ${project.data.title}`}
                 />
             ) : (
-                <div>
-                    <ComingSoon showHeader={false} />
-                </div>
+                <ComingSoon showHeader={false} />
             )
         }
     </div>
+
+    <ComingSoon showHeader={false} />
+
+    <!--
     {
         showTags && (
             <div class="prose prose-lg xl:prose-2xl tags-container mx-auto max-w-full">
@@ -108,5 +106,5 @@ const thumbnailPath = images[
                 <slot />
             </ProjectBreakdown>
         )
-    }
+    } -->
 </div>

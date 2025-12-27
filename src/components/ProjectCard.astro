@@ -1,5 +1,5 @@
 ---
-import "@/styles/global.css";
+import "@/styles/projects.css";
 
 import { format } from "date-fns";
 
@@ -25,52 +25,45 @@ const {
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 ---
 
-<div
-    id={`project-${finalizedSlug}`}
-    class="flex max-w-100 flex-col justify-center md:w-5/11 md:min-w-56"
-    data-type={dataType}
-    data-category={dataCategory}
->
+{/* Wrap card in a passthrough link */}
+<a href={`/projects/${finalizedSlug}/`} class="contents">
     <article
-        class="box bg-neutral-primary hover:shadow-inverted-shadow [&_img]:bg-inverted-neutral hover:bg-tertiary border-inverted-neutral relative rounded-lg border-[0.5px] shadow-lg hover:-translate-y-2 [&_img]:saturate-125"
+        id={`project-${finalizedSlug}`}
+        {/* keep like so to allow table of contents scroll-to */}
+        data-type={dataType}
+        data-category={dataCategory}
+        class="project-card-container"
     >
         <div>
             <Image
-                class="bg-primary border-inverted-neutral rounded-t-lg border-b-[0.5px]"
+                class="project-card-image"
                 src={image()}
                 alt=`Project ${project.data.title} Thumbnail`
                 width={800}
             />
         </div>
-        <div class="px-6 py-4 text-center">
-            <h1 class="text-xl leading-none font-bold">
+        <div class="project-card-text">
+            <h1>
                 {project.data.title}
             </h1>
-            <h3 class="text-important-text mt-1 text-xs font-bold">
+            <h3>
                 {format(project.data.startDate, "MMMM yyyy")} - {
                     format(project.data.endDate, "MMMM yyyy")
                 }
             </h3>
-            <h3
-                class="text-important-text mb-0 text-[0.6rem] leading-loose font-bold"
-            >
+            <h3">
                 {project.data.category.toUpperCase()} · {
                     project.data.type.toUpperCase()
                 }
-            </h3>
-            <p class="text-sm leading-snug text-pretty">
+            </h3">
+            <p>
                 {project.data.description}
             </p>
         </div>
         {
             project.data.pinned === true && (
-                <div class="bg-blue-accent/90 pointer-events-none absolute -bottom-2 -left-2 rounded-md px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-white! uppercase select-none">
-                    pinned
-                </div>
+                <div class="project-card-pinned-banner">pinned</div>
             )
         }
-        <a
-            href={`/projects/${finalizedSlug}/`}
-            class="absolute top-0 left-0 h-full w-full"></a>
     </article>
-</div>
+</a>

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
-import TagsIndex from "@/components/TagsIndex.tsx";
+import TagsIndex from "@/components/TagsIndex";
 
 const projects = await getCollection("projects");
 
@@ -24,13 +24,12 @@ const tagCloudData = uniqueTags.map((tag) => ({
 ---
 
 <MainLayout title="Tags Index">
-    <div class="prose m-auto max-w-none p-8 text-center md:max-w-3/4">
-        <h1>Tags Index</h1>
-
-        <TagsIndex
-            uniqueTags={uniqueTags}
-            tagCloudData={tagCloudData}
-            client:load
-        />
+    <div class="size-full p-4 text-center">
+        <span class="prose">
+            <h1 class="px-4 leading-relaxed">Tags Index</h1>
+        </span>
+        <div class="mx-auto max-w-5xl">
+            <TagsIndex tagCloudData={tagCloudData} client:load />
+        </div>
     </div>
 </MainLayout>

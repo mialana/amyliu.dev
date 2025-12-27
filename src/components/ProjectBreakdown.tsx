@@ -1,3 +1,5 @@
+import "@/styles/projects.css";
+
 import { useState, useEffect, useRef } from "react";
 
 import ComingSoon from "./ComingSoon";
@@ -116,21 +118,25 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
         }
     };
 
+    {
+        /* just in case earlier push didn't work */
+    }
     if (tabs.length === 0) {
         return (
-            <div
-                ref={contentRef}
-                className="prose prose-lg xl:prose-xl max-w-none"
-            >
+            <div ref={contentRef} className="project-breakdown-content">
                 {children}
             </div>
         );
+    }
+
+    {
+        /* account for faux coming soon "tab" */
     }
     if (tabs.length === 1) {
         return (
             <div
                 id={tabs[0].id}
-                className="coming-soon-container-breakdown mt-4 h-fit w-full py-4"
+                className="coming-soon-container-breakdown project-breakdown-content"
             >
                 <ComingSoon />
             </div>
@@ -140,13 +146,13 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
     const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
 
     return (
-        <div className="prose xl:prose-lg mx-auto mt-4 w-full max-w-5xl **:scroll-mt-20 lg:mt-8 lg:**:scroll-mt-22">
-            {/* Tab Navigation */}
-            <div
-                className="sticky top-0 z-10 flex w-full flex-nowrap justify-center-safe gap-1 overflow-x-scroll scroll-auto lg:gap-2"
+        <div className="w-full py-8">
+            {/* sticky tab topbar */}
+            <ul
+                className="sticky top-0 z-10 flex flex-nowrap justify-center-safe gap-1 overflow-x-scroll scroll-auto"
                 role="tablist"
             >
-                <div className="bg-primary absolute top-0 h-2 w-full"></div>
+                {/* Mapped tabs (absolute) */}
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
@@ -154,7 +160,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         role="tab"
                         aria-selected={activeTabId === tab.id}
                         onClick={() => handleTabChange(tab.id)}
-                        className={`text-important-text z-20 scroll-auto rounded-md px-2 py-1 text-[0.55rem] font-medium transition-colors duration-500 hover:brightness-150 lg:px-4 lg:py-2 lg:text-sm ${
+                        className={`text-important-text text-3xs z-20 scroll-auto rounded-md px-4 py-2 transition-colors duration-500 hover:brightness-150 ${
                             activeTabId === tab.id
                                 ? "bg-blue-accent/80"
                                 : "bg-inverted-neutral/20 cursor-pointer hover:brightness-150"
@@ -163,7 +169,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                         {tab.title}
                     </button>
                 ))}
-            </div>
+            </ul>
 
             {/* Tab Content */}
             <div
@@ -176,7 +182,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
             ></div>
 
             {/* Hidden content for parsing - this won't be visible */}
-            <div ref={contentRef} className="hidden">
+            <div id="test-id-is-here" ref={contentRef} className="hidden">
                 {children}
             </div>
         </div>
