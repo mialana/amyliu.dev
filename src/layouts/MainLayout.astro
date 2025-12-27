@@ -1,9 +1,10 @@
 ---
-import "@/styles/global.css";
 import "@/styles/main.css";
 import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
+import ThemeClient from "@/lib/ThemeClient.astro";
+import Page from "@/components/Page";
 
 import parseLayout from "@/lib/parseLayout";
 
@@ -24,8 +25,6 @@ const { title, layout = "DEFAULT" } = Astro.props;
 const grid_cols = LayoutMap[layout];
 
 const { navActive, asideActive } = parseLayout(grid_cols);
-
-import ThemeClient from "@/lib/ThemeClient.astro";
 ---
 
 <!doctype html>
@@ -60,22 +59,23 @@ import ThemeClient from "@/lib/ThemeClient.astro";
         id="main-body"
         class=`grid *:relative grid-rows-[auto_minmax(0,1fr)_auto] ${grid_cols}`
     >
-        <header id="header-grid-cell" class="col-span-3">
-            <Header />
-        </header>
-        <nav id="nav-grid-cell" class="transition-transform duration-1000">
-            <SideBar category="NAV" active={navActive} client:load>
-                <slot name="nav-sidebar" />
-            </SideBar>
-        </nav>
-        <main id="main-grid-cell" class="page-animation">
-            <slot />
-        </main>
-        <aside id="aside-grid-cell" class="transition-transform duration-1000">
-            <SideBar category="ASIDE" active={asideActive} client:load>
-                <slot name="aside-sidebar" />
-            </SideBar>
-        </aside>
-        <footer id="footer-grid-cell" class="col-span-3"><Footer /></footer>
+        <Page client:load defaultSidebarOpen={true}>
+            <header id="header-grid-cell" class="col-span-3">
+                <Header />
+            </header>
+            <nav id="nav-grid-cell" class="transition-transform duration-1000">
+            </nav>
+
+            <main id="main-grid-cell" class="page-animation">
+                <slot />
+            </main>
+
+            <aside
+                id="aside-grid-cell"
+                class="transition-transform duration-1000"
+            >
+            </aside>
+            <footer id="footer-grid-cell" class="col-span-3"><Footer /></footer>
+        </Page>
     </body>
 </html>

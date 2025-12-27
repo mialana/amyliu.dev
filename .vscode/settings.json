@@ -6,5 +6,6 @@
     "prettier.configPath": ".prettierrc.mjs",
     "prettier.prettierPath": "./node_modules/prettier",
     "prettier.useEditorConfig": false,
-    "[markdown]": { "editor.insertSpaces": false }
+    "[markdown]": { "editor.insertSpaces": false },
+    "typescript.inlayHints.parameterNames.enabled": "all"
 }
