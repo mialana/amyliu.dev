@@ -47,6 +47,8 @@ const expressiveCodeConfig = {
 /** @type {import('rehype-expressive-code').RehypeExpressiveCodeOptions} */
 const rehypeExpressiveCodeOptions = { tabWidth: 2 };
 
+const isCloudflare = process.env.CLOUDFLARE_WORKER === "1";
+
 // https://astro.build/config
 export default defineConfig({
     server: { host: "0.0.0.0" },
@@ -55,7 +57,12 @@ export default defineConfig({
         sitemap(),
         astroExpressiveCode(expressiveCodeConfig),
         react(),
-        d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
+        d2({
+            layout: "elk",
+            theme: { default: "300" },
+            sketch: true,
+            skipGeneration: isCloudflare, // disable build of astro-d2 in CI
+        }),
     ],
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },

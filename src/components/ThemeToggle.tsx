@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+import { Button } from "@/external/shadcn/components/ui/button";
+import { Moon, Sun } from "lucide-react";
+
 type Theme = "light" | "dark";
 
 export default function ThemeToggle() {
@@ -47,14 +50,16 @@ export default function ThemeToggle() {
     }, []);
 
     return (
-        <button
+        <Button
+            variant="outline"
+            size="icon-sm"
             onClick={() =>
                 setTheme((prev) => (prev === "dark" ? "light" : "dark"))
             }
-            className="bg-tertiary cursor-pointer rounded-md border px-2 py-1 text-sm hover:brightness-125"
-            aria-label="Toggle color theme"
+            className="bg-tertiary"
         >
-            Toggle {theme === "dark" ? "Light" : "Dark"} Mode
-        </button>
+            <Sun className={`${theme === "light" && "hidden"}`} />
+            <Moon className={`${theme === "dark" && "hidden"}`} />
+        </Button>
     );
 }

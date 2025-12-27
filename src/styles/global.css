@@ -113,6 +113,11 @@
             display: none; /* Hide scrollbar outlines for WebKit browsers */
         }
     }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
 }
 
 @layer utilities {
