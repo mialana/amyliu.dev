@@ -57,9 +57,13 @@ export default defineConfig({
         sitemap(),
         astroExpressiveCode(expressiveCodeConfig),
         react(),
-        !isCloudflare && // disable build of astro-d2 in CI
-            d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
-    ].filter(Boolean),
+        d2({
+            layout: "elk",
+            theme: { default: "300" },
+            sketch: true,
+            skipGeneration: isCloudflare, // disable build of astro-d2 in CI
+        }),
+    ],
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
