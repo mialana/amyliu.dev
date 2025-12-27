@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "astro dev",
         "build": "astro build",
+        "build:cloudflare": "CLOUDFLARE_WORKER=1 astro build",
         "deploy": "astro build && wrangler deploy",
         "preview": "astro build && wrangler dev",
         "astro": "astro",
