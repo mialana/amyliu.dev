@@ -273,9 +273,12 @@
     --tw-prose-links: var(--color-blue-accent);
     --tw-prose-bold: var(--a2-emphasized-text-color);
     --tw-prose-code: var(--a2-code-text-color);
+    --tw-prose-counters: var(--a2-emphasized-text-color);
+    --tw-prose-bullets: var(--a2-emphasized-text-color);
 
     :where(:not(.not-prose, .not-prose *)) {
-        &:where(code:not(pre code)) {
+        &:where(code):not(.expressive-code pre code),
+        &:is(.ec-code-caption code) {
             &::before,
             &::after {
                 content: none; /* inline code */
@@ -285,6 +288,89 @@
             color: var(--a2-code-text-color);
             border: var(--a2-code-border-width) solid var(--a2-code-border-color);
             @apply p-xdouble-y-0.5;
+        }
+
+        .expressive-code:not(div.expressive-code) figcaption.ec-code-caption code {
+            background-color: black;
+        }
+
+        :where(figcaption) {
+            &:not(.ec-code-caption) {
+                &::before {
+                    content: "⬑";
+                }
+            }
+
+            &:is(.ec-code-caption) {
+                display: flex !important;
+                flex-direction: row;
+
+                & > :first-child {
+                    &::before {
+                        content: "⬑";
+                    }
+                }
+            }
+        }
+
+        /* styling for TIP, INFO, etc. */
+        &:where(.callout) {
+            font-weight: 500;
+            font-family: var(--font-github-code);
+        }
+
+        /* styling for LaTeX */
+        &:where(mjx-container) {
+            color: var(--a2-emphasized-text-color);
+
+            /* display blocks */
+            &[display="true"] {
+                font-size: 0.875em;
+                color: red;
+            }
+
+            /* inline math */
+            &:not([display="true"]) {
+                color: blue;
+            }
+        }
+
+        /* expressive-code-caption inserts an extra paragraph element within figcaption */
+        figcaption > p {
+            display: inline;
+        }
+
+        /*     styleOverrides: { borderRadius: "0.375rem", codePaddingInline: "0.5rem" }, */
+
+        div.expressive-code {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            @apply max-w-[100ch] px-2;
+
+            .gutter {
+                @apply px-0!;
+                .ln {
+                    @apply text-inverted-primary/50! px-1! text-[8px]! leading-none! md:px-1!;
+                }
+            }
+
+            span.title {
+                @apply text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
+            }
+
+            code {
+                @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
+            }
+        }
+
+        /* Center figures that have an img as direct descendant */
+        figure:has(> img) {
+            @apply mx-auto w-fit;
+        }
+
+        /* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
+        :not(figure) img {
+            @apply mx-auto;
         }
     }
 }
@@ -309,89 +395,7 @@
 
 /* allow leading to accept variable values */
 @utility leading-* {
-    line-height: --value(*);
-}
-
-/* global settings for prose */
-@utility prose-defaults {
-    :not(pre) > code {
-        @apply text-green-accent font-code bg-green-accent/25 border-green-accent/50 mx-0.5 my-auto cursor-text leading-relaxed brightness-80 contrast-200;
-        font-size: 0.7em;
-        padding: 0.25em;
-        border: 0.5px solid;
-        border-radius: 0.1rem;
-        letter-spacing: 0.075rem;
-        &::before,
-        &::after {
-            content: none !important;
-        }
-    }
-
-    figcaption code:not(pre code) {
-        @apply saturate-100;
-        padding: 0.2em;
-        letter-spacing: 0.05rem;
-    }
-
-    * {
-        @apply mx-auto rounded-md;
-    }
-
-    /* Center figures that have an img as direct descendant */
-    figure:has(> img) {
-        @apply mx-auto w-fit;
-    }
-
-    /* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
-    :not(figure) img {
-        @apply mx-auto;
-    }
-
-    figcaption:not(.header)::before {
-        content: "⬑";
-        @apply px-1;
-    }
-
-    figcaption:not(.header) {
-        background-color: transparent !important;
-        @apply my-2! text-xs!;
-    }
-
-    /* expressive-code-caption inserts an extra paragraph element within figcaption */
-    figcaption > p {
-        display: inline;
-    }
-
-    /* styling for TIP, INFO, etc. */
-    .callout-title-text {
-        font-weight: 400 !important;
-    }
-
-    /* styling for LaTeX */
-    mjx-container {
-        @apply text-xs! lg:text-base!;
-    }
-
-    div.expressive-code {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        @apply max-w-[100ch] px-2;
-
-        .gutter {
-            @apply px-0!;
-            .ln {
-                @apply text-inverted-primary/50! px-1! text-[8px]! leading-none! md:px-1!;
-            }
-        }
-
-        span.title {
-            @apply text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
-        }
-
-        code {
-            @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
-        }
-    }
+    line-height: --value([integer]);
 }
 
 @layer overrides {
@@ -404,5 +408,9 @@
 
     html[data-theme="dark"] {
         @apply dark-palette; /* apply dark-palette when root element has dark-theme in its class list */
+    }
+
+    .expressive-code figcaption.ec-code-caption code {
+        background-color: black;
     }
 }
