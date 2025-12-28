@@ -5,9 +5,10 @@ export default {
     plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
 
     // Global default options for all files
-    printWidth: 80,
+    printWidth: 120,
     tabWidth: 4,
     useTabs: false,
     semi: true,
     objectWrap: "collapse",
+    overrides: [{ files: "*.css", options: { printWidth: 200 } }],
 };

@@ -1,4 +1,3 @@
-import "@/styles/global.css";
 import { useState, useLayoutEffect } from "react";
 import { hasSlotReact } from "@/lib/hasSlot";
 

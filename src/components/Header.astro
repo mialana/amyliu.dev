@@ -1,6 +1,4 @@
 ---
-import "@/styles/global.css";
-
 const headerList = ["Home", "Projects", "Tags"];
 ---
 
@@ -9,7 +7,7 @@ const headerList = ["Home", "Projects", "Tags"];
         <a href="/">AMY LIU</a>
     </h1>
     <ul
-        class="mx-auto flex w-fit justify-center gap-[calc(var(--default-gap)*2)] pt-1 pb-2 *:hover:underline"
+        class="mx-auto flex w-fit justify-center gap-lg pt-1 pb-2 *:hover:underline"
     >
         {
             headerList.map((h) => {
@@ -27,7 +25,7 @@ const headerList = ["Home", "Projects", "Tags"];
         }
     </ul>
     <ul
-        class="*:bg-red-accent absolute right-4 bottom-2 flex gap-(--default-gap) font-medium contrast-150 saturate-75 *:rounded-md *:px-3 *:py-1 *:hover:scale-105"
+        class="*:bg-red-accent absolute right-4 bottom-2 flex gap-md font-medium contrast-150 saturate-75 *:rounded-md *:px-3 *:py-1 *:hover:scale-105"
     >
         <li>
             <a target="_blank" rel="noopener noreferrer" href="/resume.pdf"

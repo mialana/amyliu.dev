@@ -1,36 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+/* tailwind layers are 'theme', 'base', 'components', and 'utilities' */
+@layer theme, base, resets, globals, components, defaults, utilities, overrides;
 
 @import "tailwindcss";
-@import "rehype-callouts/theme/vitepress";
 @plugin "@tailwindcss/typography";
+@import "rehype-callouts/theme/vitepress" layer(utils);
 
-@font-face {
-    font-family: "BestermindRegular";
-    src: url("/font/BestermindRegular.ttf");
+@custom-variant horizontal {
+    @media (min-width: 1024px) {
+        @slot;
+    }
 }
 
-/* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
+    --font-words: "Roboto condensed", sans-serif; /* default font for app, `words` to avoid clash */
     --font-signature: "Fredericka the Great", serif;
-    --font-body: "Roboto condensed", sans-serif;
-    /* --font-body: "Roboto Slab", sans-serif; */
-    --font-code: "IBM Plex Mono";
+    --font-code: "JetBrains Mono", monospace;
+    --font-github-code: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
     --color-blue-accent: #454eb3;
     --color-red-accent: #c54b4b;
     --color-green-accent: #388c1e;
+    --color-aqua-accent: #34b3b9;
 
-    --drop-shadow-button: 0 4px 4px #000000;
-    --drop-shadow-nav: 0 12px 12px #000000;
-
-    --default-gap: calc(var(--spacing) * 4);
-
+    /* main color palette */
     --color-primary: #ebe2d1;
     --color-secondary: #916c64;
     --color-tertiary: #a59494;
@@ -44,30 +41,213 @@
     --color-inverted-shadow: #28242d;
     --color-inverted-important-text: #e8e8e8;
     --color-grid-background: #c3bdbd;
+
+    --container-3xs: 198px;
+    --min-height-3xs: var(--container-3xs); /* extends min-h-* */
+
+    --text-2xs: 10px;
+    --text-3xs: 10px;
+    --font-size-2xs: var(--text-2xs);
+    --font-size-3xs: var(--text-3xs); /* extends text-* */
+
+    --gap-sm: calc(var(--spacing) * 2);
+    --gap-md: calc(var(--spacing) * 4);
+    --gap-lg: calc(var(--spacing) * 8); /* extends gap-* */
+
+    --border-sm: 0.5px;
+    --border-md: 1px;
 }
 
-/* dark mode overrides of main color palette */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-primary: #182525;
-        --color-secondary: #192933;
-        --color-tertiary: #33303a;
-        --color-neutral-primary: #1f1f21;
-        --color-important-text: #e8e8e8;
-        --color-primary-shadow: #28242d;
-        --color-inverted-primary: #ebe2d1;
-        --color-inverted-secondary: #916c64;
-        --color-inverted-tertiary: #a59494;
-        --color-inverted-neutral: #eae3da;
-        --color-inverted-shadow: #7a6c6c;
-        --color-inverted-important-text: #151515;
-        --color-grid-background: #868080;
+@layer resets {
+    /* Use a more-intuitive box-sizing model and remove default margin */
+    :where(*, *::before, *::after) {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Improve media defaults */
+    :where(img, picture, video, canvas, svg) {
+        display: block;
+        max-width: 100%;
+    }
+
+    /* Remove list styles */
+    :where(ul[role="list"], ol[role="list"]) {
+        list-style: none;
+    }
+
+    /* Inherit fonts for form controls  */
+    :where(input, button, textarea, select) {
+        font: inherit;
+    }
+
+    /* Avoid text overflows and add auto hyphenation */
+    :where(p, h1, h2, h3, h4, h5, h6) {
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* Improve line wrapping */
+    :where(p) {
+        text-wrap: pretty;
+    }
+    :where(h1, h2, h3, h4, h5, h6) {
+        text-wrap: balance;
+    }
+
+    /* Improve text rendering and ensure text size is never adjusted */
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-text-size-adjust: none;
+        -webkit-text-size-adjust: none;
+        text-size-adjust: none;
+    }
+
+    /* Hide scrollbars on all browser types */
+    :where(*) {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge, Opera */
+        }
     }
 }
 
-:root[data-theme="dark"] {
-    color-scheme: dark;
+/* Personal global variables and behavior-related defaults */
+@layer globals {
+    :root {
+        --a2-rem-size: 16px; /* in case of desired override */
 
+        /* typography */
+        --a2-font-family: var(--font-words);
+        --a2-font-size: 16px;
+        --a2-font-weight: 450;
+        --a2-text-color: var(--color-inverted-tertiary); /* text color */
+        --a2-emphasized-text-color: var(--color-important-text);
+        --a2-code-text-color: var(--color-red-accent);
+        --a2-link-text-color: var(--color-blue-accent);
+        --a2-line-height: 1.5; /* line-height */
+        --a2-line-height-form-controls: 1.2;
+        --a2-line-height-atoms: 1.1;
+
+        /* inline code styling */
+        --a2-code-font-family: var(--font-code);
+        --a2-code-relative-font-size: 0.875em;
+        --a2-code-line-weight: 600;
+        --a2-code-line-height: 1; /* none */
+
+        --a2-code-background-color: --alpha(var(--color-inverted-important-text) / 75%); /* 75% opacity */
+        --a2-code-border-color: var(--color-aqua-accent);
+        --a2-code-border-width: var(--border-md);
+
+        /* preferences */
+        --a2-semantics-cursor: default;
+        --a2-scroll-behavior: smooth;
+
+        /* shadow color */
+        --a2-shadow-color: var(--color-primary-shadow);
+    }
+
+    html {
+        scroll-behavior: var(--a2-scroll-behavior);
+
+        /* set size of rem units */
+        font-size: var(--a2-rem-size);
+    }
+
+    #root {
+        isolation: isolate; /* Create a root stacking context for app */
+    }
+}
+
+@layer defaults {
+    /* set generic typography values */
+    :where(body) {
+        font-family: var(--a2-font-family);
+        font-size: var(--a2-font-size);
+        font-weight: var(--a2-font-weight);
+        line-height: var(--a2-line-height);
+        color: var(--a2-text-color);
+    }
+
+    /* set text color for elements that need emphasis */
+    :where(h1, h2, h3, h4, h5, h6, a, b, q, em, strong, mark, var, kbd, samp) {
+        color: var(--a2-emphasized-text-color);
+    }
+
+    /* running list of elements that should have preferred "semantics" cursor */
+    :where(div, p, h1, h2, h3, h4, h5, h6, b, strong, em, i, span, small, mark, abbr, q, sup, sub, del, ins, s, u, kbd, var, li, dd, figcaption) {
+        cursor: var(--a2-semantics-cursor);
+    }
+
+    /* running list of elements that should have pointer cursor */
+    :where(a, button) {
+        cursor: pointer;
+    }
+
+    /* apply loading gif as background to all images */
+    /* https://loading.io/spinner/spinner/ */
+    :where(img) {
+        background: url("/resources/loading.gif") center center no-repeat; /* centered icon */
+        background-size: 64px 64px; /* icon size */
+        @apply bg-neutral-primary; /* filler color */
+        font-size: 0px;
+    }
+
+    /* Set line height of form-controls  */
+    :where(button, input, select, textarea) {
+        line-height: var(--a2-line-height-form-controls);
+    }
+
+    /* Set line height of element types that will contain text but will have container-like styling  */
+    :where(code, kbd, samp) {
+        line-height: var(--a2-line-height-atoms);
+    }
+
+    /* code styling */
+    :where(code, var) {
+        @apply codelike;
+    }
+
+    :where(samp) {
+        font-family: var(--font-github-code);
+        font-weight: var(--a2-code-line-weight);
+    }
+
+    :where(*) {
+        @apply shadow-(--a2-shadow-color); /* --tw-shadow-color: var(--a2-shadow-color); */
+    }
+
+    :where(q) {
+        font-style: italic;
+    }
+}
+
+@layer utilities {
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        30% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .page-animation {
+        animation: 0.25s fadeIn ease-in-out;
+    }
+
+    .content-animation {
+        animation: 1s fadeIn ease-in-out;
+    }
+}
+
+@utility dark-palette {
+    /* dark mode overrides of main color palette */
     --color-primary: #182525;
     --color-secondary: #192933;
     --color-tertiary: #33303a;
@@ -83,88 +263,57 @@
     --color-grid-background: #868080;
 }
 
-:root[data-theme="light"] {
-    color-scheme: light;
+/* 
+ * All `utility` declarations are in "utilities" layer, 
+ * effectively overriding `.prose` definition in "components layer 
+ */
+@utility prose {
+    --tw-prose-body: var(--a2-text-color);
+    --tw-prose-headings: var(--a2-emphasized-text-color);
+    --tw-prose-links: var(--color-blue-accent);
+    --tw-prose-bold: var(--a2-emphasized-text-color);
+    --tw-prose-code: var(--a2-code-text-color);
 
-    --color-primary: #ebe2d1;
-    --color-secondary: #916c64;
-    --color-tertiary: #a59494;
-    --color-neutral-primary: #eae3da;
-    --color-important-text: #151515;
-    --color-primary-shadow: #7a6c6c;
-    --color-inverted-primary: #182525;
-    --color-inverted-secondary: #192933;
-    --color-inverted-tertiary: #33303a;
-    --color-inverted-neutral: #1f1f21;
-    --color-inverted-shadow: #28242d;
-    --color-inverted-important-text: #e8e8e8;
-    --color-grid-background: #c3bdbd;
-}
+    :where(:not(.not-prose, .not-prose *)) {
+        &:where(code:not(pre code)) {
+            &::before,
+            &::after {
+                content: none; /* inline code */
+            }
 
-/* Set global default styles */
-@layer base {
-    html {
-        @apply font-body font-normal;
-        @apply **:scroll-smooth;
-        hyphens: auto;
-
-        /* background color */
-        @apply bg-tertiary;
-        /* text color */
-        @apply **:text-inverted-tertiary;
-
-        @apply **:shadow-primary-shadow;
-
-        @apply [&_h1]:text-important-text! [&_a]:text-important-text;
-    }
-
-    /* Hide scrollbar outlines while keeping smooth scrolling */
-    * {
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* Internet Explorer 10+ */
-    }
-
-    *::-webkit-scrollbar {
-        display: none; /* WebKit browsers */
-    }
-
-    /* https://loading.io/spinner/spinner/ */
-    img {
-        @apply text-xs;
-        display: block;
-        background: url("/resources/loading.gif") center center no-repeat;
-        background-size: 64px 64px;
-        @apply bg-neutral-primary;
-        font-size: 0px;
-    }
-
-    button:not(:disabled),
-    [role="button"]:not(:disabled) {
-        cursor: pointer;
+            background-color: var(--a2-code-background-color);
+            color: var(--a2-code-text-color);
+            border: var(--a2-code-border-width) solid var(--a2-code-border-color);
+            @apply p-xdouble-y-0.5;
+        }
     }
 }
 
 @utility debug {
-    & {
-        outline-color: black;
-        @apply outline;
-        @apply bg-red-200/25;
-    }
+    outline-color: black;
+    @apply outline;
+    @apply bg-purple-500/25;
 }
 
-@utility transition-default-* {
-    & {
-        @apply transition-all ease-linear;
-        transition-duration: calc(--value(integer) * 1ms);
-    }
+@utility p-xdouble-y-* {
+    padding-inline: calc(--value(number) * 2px);
+    padding-block: calc(--value(number) * 1px); /* Use `calc(... * _px)` to assign units */
 }
 
-@utility prose {
-    @apply prose-neutral;
-    @apply prose-code:cursor-text! prose-headings:cursor-default;
-    @apply prose-headings:text-important-text! prose-a:text-important-text! prose-strong:text-important-text!;
-    @apply cursor-default;
+@utility codelike {
+    font-family: var(--a2-code-font-family);
+    font-size: var(--a2-code-relative-font-size);
+    font-weight: var(--a2-code-line-weight);
+    line-height: var(--a2-code-line-height);
+}
 
+/* allow leading to accept variable values */
+@utility leading-* {
+    line-height: --value(*);
+}
+
+/* global settings for prose */
+@utility prose-defaults {
     :not(pre) > code {
         @apply text-green-accent font-code bg-green-accent/25 border-green-accent/50 mx-0.5 my-auto cursor-text leading-relaxed brightness-80 contrast-200;
         font-size: 0.7em;
@@ -182,6 +331,45 @@
         @apply saturate-100;
         padding: 0.2em;
         letter-spacing: 0.05rem;
+    }
+
+    * {
+        @apply mx-auto rounded-md;
+    }
+
+    /* Center figures that have an img as direct descendant */
+    figure:has(> img) {
+        @apply mx-auto w-fit;
+    }
+
+    /* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
+    :not(figure) img {
+        @apply mx-auto;
+    }
+
+    figcaption:not(.header)::before {
+        content: "⬑";
+        @apply px-1;
+    }
+
+    figcaption:not(.header) {
+        background-color: transparent !important;
+        @apply my-2! text-xs!;
+    }
+
+    /* expressive-code-caption inserts an extra paragraph element within figcaption */
+    figcaption > p {
+        display: inline;
+    }
+
+    /* styling for TIP, INFO, etc. */
+    .callout-title-text {
+        font-weight: 400 !important;
+    }
+
+    /* styling for LaTeX */
+    mjx-container {
+        @apply text-xs! lg:text-base!;
     }
 
     div.expressive-code {
@@ -204,103 +392,17 @@
             @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
         }
     }
+}
 
-    mjx-container {
-        @apply text-xs! lg:text-base!;
+@layer overrides {
+    :root {
+        @media screen and (max-device-width: 768px) {
+            /* tailwind md container breakpoint */
+            --spacing: 2px;
+        }
     }
-}
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
+    html[data-theme="dark"] {
+        @apply dark-palette; /* apply dark-palette when root element has dark-theme in its class list */
     }
-    30% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.page-animation {
-    animation: 0.25s fadeIn ease-in-out;
-}
-
-.content-animation {
-    animation: 1s fadeIn ease-in-out;
-}
-
-.tag-project-card {
-    @apply w-full;
-    @apply md:max-w-lg md:min-w-lg;
-
-    @apply md:max-h-full;
-    @apply h-fit min-h-fit;
-
-    background-size: 16px 16px;
-    background-image: radial-gradient(
-        circle,
-        var(--color-grid-background) 0.5px,
-        rgba(0, 0, 0, 0) 0.5px
-    );
-}
-
-.tag-project-card #project-headings {
-    @apply m-2 px-4 pt-2 pb-4 md:pb-2;
-}
-
-.tag-project-card .project-visual-container {
-    @apply mt-4 mb-6 aspect-video overflow-hidden rounded-md p-0;
-}
-
-.tag-project-card #project-title-link {
-    @apply font-extrabold;
-}
-
-.tag-project-card .project-description {
-    height: 64px;
-    overflow-y: scroll;
-    @apply flex items-center-safe;
-    font-size: 14px;
-    line-height: 16px;
-}
-
-.coming-soon-container-breakdown .coming-soon-img {
-    @apply border-neutral-primary/75 my-2 max-w-7xl rounded-xl border-8 border-double md:my-4 md:w-3/4;
-}
-
-/* Style of all sections within project breakdowns */
-.project-breakdown-content {
-    @apply prose prose-sm lg:prose-base prose-h5:font-medium prose-a:text-blue-accent! prose-a:**:text-blue-accent!;
-    @apply relative mx-auto mt-4 min-w-full **:mx-auto *:last:my-0! [&_img]:mx-auto [&_img]:rounded-md;
-}
-
-/* Center figures that have an img as direct descendant */
-.project-breakdown-content figure:has(> img) {
-    @apply mx-auto w-fit;
-}
-
-/* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
-.project-breakdown-content :not(figure) img {
-    @apply mx-auto;
-}
-
-.project-breakdown-content figcaption:not(.header)::before {
-    content: "⬑";
-    @apply px-1;
-}
-
-.project-breakdown-content figcaption:not(.header) {
-    background-color: transparent !important;
-    @apply my-2! text-xs!;
-}
-
-/* expressive-code-caption inserts an extra paragraph element within figcaption */
-.project-breakdown-content figcaption > p {
-    display: inline;
-}
-
-/* styling for TIP, INFO, etc. */
-.callout-title-text {
-    font-weight: 400 !important;
 }
