@@ -29,6 +29,7 @@ const expressiveCodeConfig = {
     themes: ["gruvbox-dark-hard"],
     minSyntaxHighlightingColorContrast: 7.5,
     defaultProps: { wrap: true, showLineNumbers: true, collapseStyle: "collapsible-auto" },
+    cascadeLayer: "defaults", // place ec styles into "defaults" cascade layer
 };
 
 /** @type {import('rehype-expressive-code').RehypeExpressiveCodeOptions} */

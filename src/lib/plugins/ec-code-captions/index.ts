@@ -1,3 +1,8 @@
+/* 
+ * Ported from https://github.com/FujoWebDev/fujocoded-plugins/blob/main/expressive-code-caption/index.ts
+ * with some additional classing logic for easier css selection.
+ */
+
 import { definePlugin, AttachedPluginData, type ExpressiveCodePlugin } from "expressive-code";
 import { h, type Element as HastElement } from "astro-expressive-code/hast";
 import { fromMarkdown } from "mdast-util-from-markdown";
