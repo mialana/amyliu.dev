@@ -4,6 +4,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 import remarkMath from "remark-math";
+import remarkSectionizeHeadings from "@/lib/plugins/remark-sectionize-headings"
 
 import rehypeMathJaxChtml from "rehype-mathjax/chtml";
 import rehypeExpressiveCode from "rehype-expressive-code";
@@ -13,8 +14,7 @@ import rehypeCallouts from "rehype-callouts";
 import astroExpressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-
-import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions";
+import { pluginCodeCaptions } from "@/lib/plugins/ec-code-captions";
 
 import react from "@astrojs/react";
 
@@ -61,7 +61,7 @@ export default defineConfig({
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
-        remarkPlugins: [[remarkMath, { singleDollarTextMath: true }]],
+        remarkPlugins: [[remarkMath, { singleDollarTextMath: true }], [remarkSectionizeHeadings, {addClass: "section"}]],
         rehypePlugins: [
             [
                 rehypeMathJaxChtml,
