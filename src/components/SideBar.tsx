@@ -14,16 +14,8 @@ const ArrowRight = ({ size = 12 }: { size?: number }) => (
 );
 
 const PositionMap = {
-    NAV: {
-        absolutePosition: "left-0",
-        arrowShow: <ArrowLeft />,
-        arrowHide: <ArrowRight />,
-    },
-    ASIDE: {
-        absolutePosition: "right-0",
-        arrowShow: <ArrowRight />,
-        arrowHide: <ArrowLeft />,
-    },
+    NAV: { absolutePosition: "left-0", arrowShow: <ArrowLeft />, arrowHide: <ArrowRight /> },
+    ASIDE: { absolutePosition: "right-0", arrowShow: <ArrowRight />, arrowHide: <ArrowLeft /> },
 };
 
 interface SideBarProps {
@@ -32,11 +24,7 @@ interface SideBarProps {
     children?: any;
 }
 
-export default function SideBar({
-    category = "NAV",
-    active = false,
-    children,
-}: SideBarProps) {
+export default function SideBar({ category = "NAV", active = false, children }: SideBarProps) {
     const [open, setOpen] = useState(false);
     const positionInfo = PositionMap[category];
 
@@ -55,12 +43,8 @@ export default function SideBar({
                 setOpen(active && window.innerWidth > 768);
 
                 if (active) {
-                    const button = document.getElementById(
-                        `${category}-button`,
-                    );
-                    const buttonBar = document.getElementById(
-                        `${category}-button-bar`,
-                    );
+                    const button = document.getElementById(`${category}-button`);
+                    const buttonBar = document.getElementById(`${category}-button-bar`);
                     button?.classList.remove("invisible");
                     buttonBar?.classList.remove("invisible");
                 }
@@ -113,15 +97,9 @@ export default function SideBar({
                     fill="currentColor"
                     stroke="currentColor"
                 >
-                    <path
-                        d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"
-                        transform="translate(3, 0)"
-                    />
+                    <path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z" transform="translate(3, 0)" />
 
-                    <path
-                        d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"
-                        transform="translate(-5, 0)"
-                    />
+                    <path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z" transform="translate(-5, 0)" />
                 </svg>
             </button>
             <div

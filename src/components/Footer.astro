@@ -1,31 +1,17 @@
 ---
-import ThemeToggle from "./ThemeToggle";
+import ThemeButton from "./ThemeButton";
 ---
 
 <div class="bg-secondary pb-2 shadow-[0_10px_15px_3px]">
-    <ul
-        class="flex justify-center gap-md pt-2 pb-1 *:hover:underline"
-    >
+    <ul class="gap-md flex justify-center pt-2 pb-1 *:hover:underline">
         <li>
-            <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://github.com/mialana/">GitHub</a
-            >
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/mialana/">GitHub</a>
         </li>
         <li>
-            <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.linkedin.com/in/miyalana/">LinkedIn</a
-            >
+            <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/miyalana/">LinkedIn</a>
         </li>
         <li>
-            <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="mailto:liu.amy05@gmail.com">Contact</a
-            >
+            <a target="_blank" rel="noopener noreferrer" href="mailto:liu.amy05@gmail.com">Contact</a>
         </li>
     </ul>
     <div class="text-center text-sm">
@@ -37,6 +23,6 @@ import ThemeToggle from "./ThemeToggle";
         >
     </div>
     <div class="absolute right-4 bottom-4">
-        <ThemeToggle client:load />
+        <ThemeButton client:load />
     </div>
 </div>

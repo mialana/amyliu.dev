@@ -12,24 +12,16 @@ import createSlug from "@/lib/createSlug";
 
 // Query pinned projects using collection filters; then sort by startDate value
 type ProjectEntry = CollectionEntry<"projects">;
-const pinnedProjects: ProjectEntry[] = (
-    await getCollection("projects", ({ data }) => data.pinned === true)
-).sort(
-    (a: ProjectEntry, b: ProjectEntry) =>
-        b.data.startDate.valueOf() - a.data.startDate.valueOf(),
+const pinnedProjects: ProjectEntry[] = (await getCollection("projects", ({ data }) => data.pinned === true)).sort(
+    (a: ProjectEntry, b: ProjectEntry) => b.data.startDate.valueOf() - a.data.startDate.valueOf(),
 );
 
 // Query all other projects using collection filters; then sort by startDate desc
-const projects: ProjectEntry[] = (
-    await getCollection("projects", ({ data }) => data.pinned !== true)
-).sort(
-    (a: ProjectEntry, b: ProjectEntry) =>
-        b.data.startDate.valueOf() - a.data.startDate.valueOf(),
+const projects: ProjectEntry[] = (await getCollection("projects", ({ data }) => data.pinned !== true)).sort(
+    (a: ProjectEntry, b: ProjectEntry) => b.data.startDate.valueOf() - a.data.startDate.valueOf(),
 );
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/content/projects/*/assets/thumbnail.{png,webp}",
-);
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/content/projects/*/assets/thumbnail.{png,webp}");
 
 // Group projects by year
 const projectsByYear: Record<number, ProjectEntry[]> = projects.reduce(
@@ -54,11 +46,7 @@ if (pinnedProjects.length > 0) {
 Object.entries(projectsByYear)
     .sort(([a], [b]) => Number(b) - Number(a))
     .forEach(([year, yearProjects]) => {
-        sections.push({
-            id: `year-${year}`,
-            title: String(year),
-            projects: yearProjects,
-        });
+        sections.push({ id: `year-${year}`, title: String(year), projects: yearProjects });
     });
 
 // Create headings from sections
@@ -85,10 +73,7 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
                 if (section.id != "pinned") {
                     projectElementsArr.push(
                         <div class="w-full text-center first-of-type:collapse first-of-type:h-0">
-                            <h1
-                                id={section.id}
-                                class="mt-4 mb-0 text-2xl leading-tight font-bold"
-                            >
+                            <h1 id={section.id} class="mt-4 mb-0 text-2xl leading-tight font-bold">
                                 {section.title}
                             </h1>
                         </div>,
@@ -99,13 +84,8 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
                     // Section heading
                     // Section projects
                     ...section.projects.map((project) => {
-                        const finalizedSlug = createSlug(
-                            project.data.title,
-                            project.data?.slug,
-                        );
-                        const thumbnailPath = images[
-                            `/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`
-                        ]
+                        const finalizedSlug = createSlug(project.data.title, project.data?.slug);
+                        const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`]
                             ? `/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`
                             : `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
                         return (

@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
+import ThemeClient from "@/lib/ThemeClient.astro";
 
 import parseLayout from "@/lib/parseLayout";
 
@@ -30,19 +31,10 @@ const { navActive, asideActive } = parseLayout(grid_cols);
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <link
-            rel="icon"
-            type="image/png"
-            href="/favicon/favicon-96x96.png"
-            sizes="96x96"
-        />
+        <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/favicon/apple-touch-icon.png"
-        />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="amyliu.dev" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
         <link rel="sitemap" href="/sitemap-index.xml" />
@@ -50,6 +42,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <meta name="generator" content={Astro.generator} />
         <title>{title} · Amy Liu</title>
         <slot name="head" />
+        <ThemeClient />
     </head>
     <body
         class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-md ${grid_cols}`

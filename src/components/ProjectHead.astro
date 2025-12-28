@@ -14,12 +14,9 @@ const { project } = Astro.props;
 
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 
-const normalizeTag = (t: string) =>
-    t.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
+const normalizeTag = (t: string) => t.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
 
-const keywords = [...project.data.tags, ...project.data.techStack].map(
-    normalizeTag,
-);
+const keywords = [...project.data.tags, ...project.data.techStack].map(normalizeTag);
 const url = new URL(Astro.url.pathname, Astro.site).href;
 
 const jsonLd = JSON.stringify({
@@ -33,11 +30,7 @@ const jsonLd = JSON.stringify({
 });
 ---
 
-{
-    project.data.description && (
-        <meta name="description" content={project.data.description} />
-    )
-}
+{project.data.description && <meta name="description" content={project.data.description} />}
 
 {
     keywords.length > 0 && (

@@ -14,10 +14,8 @@ interface Props {
 function getFavicon(url: string) {
     try {
         const { origin, hostname } = new URL(url);
-        if (hostname == "asset-browser-zeta.vercel.app")
-            return `${origin}/strawberry.svg`;
-        else if (hostname.includes("webgpu.amyliu.dev"))
-            return `${origin}/favicon/favicon.svg`;
+        if (hostname == "asset-browser-zeta.vercel.app") return `${origin}/strawberry.svg`;
+        else if (hostname.includes("webgpu.amyliu.dev")) return `${origin}/favicon/favicon.svg`;
         return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
     } catch {
         return "";
@@ -27,9 +25,7 @@ function getFavicon(url: string) {
 function getLabel(url: string) {
     try {
         const { href, hostname } = new URL(url);
-        const match = siteMappings.find((mapping) =>
-            href.includes(mapping.host),
-        );
+        const match = siteMappings.find((mapping) => href.includes(mapping.host));
         if (match) return match.label;
         else
             return hostname
@@ -42,10 +38,7 @@ function getLabel(url: string) {
     }
 }
 
-const ProjectExternalLinks: React.FC<Props> = ({
-    code,
-    externalLinks = [],
-}) => {
+const ProjectExternalLinks: React.FC<Props> = ({ code, externalLinks = [] }) => {
     const links: LinkItem[] = [];
     if (code) {
         links.push({ url: code, label: getLabel(code) });
@@ -73,23 +66,16 @@ const ProjectExternalLinks: React.FC<Props> = ({
                                 loading="lazy"
                                 onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src =
-                                        "/resources/loading.gif";
+                                    currentTarget.src = "/resources/loading.gif";
                                 }}
                                 className="size-3/4 rounded-xl"
                                 title={label}
                                 ref={(img) => {
-                                    img?.classList.add(
-                                        "!bg-none",
-                                        "!bg-white",
-                                        "p-2",
-                                    );
+                                    img?.classList.add("!bg-none", "!bg-white", "p-2");
                                 }}
                             />
                         </span>
-                        <span className="mt-1 text-center text-xs leading-tight">
-                            {label}
-                        </span>
+                        <span className="mt-1 text-center text-xs leading-tight">{label}</span>
                     </a>
                 );
             })}

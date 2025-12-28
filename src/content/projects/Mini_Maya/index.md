@@ -151,14 +151,7 @@ For example:
         "name": "Joint_1",
         "pos": [-1, 0, 0],
         "rot": [0, 1, 0, 0],
-        "children": [
-            {
-                "name": "Joint_2",
-                "pos": [2, 0, 0],
-                "rot": [0, 1, 0, 0],
-                "children": []
-            }
-        ]
+        "children": [{ "name": "Joint_2", "pos": [2, 0, 0], "rot": [0, 1, 0, 0], "children": [] }]
     }
 }
 ```

@@ -14,13 +14,7 @@ interface FilterSelectProps {
     options: { value: string; label: string }[];
 }
 
-const FilterSelect = ({
-    id,
-    label,
-    value,
-    onChange,
-    options,
-}: FilterSelectProps) => {
+const FilterSelect = ({ id, label, value, onChange, options }: FilterSelectProps) => {
     const selectStyle = {
         appearance: "none" as const,
         backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e")`,
@@ -47,11 +41,7 @@ const FilterSelect = ({
                 style={selectStyle}
             >
                 {options.map((option) => (
-                    <option
-                        key={option.value}
-                        value={option.value}
-                        className="bg-primary/50! text-important-text!"
-                    >
+                    <option key={option.value} value={option.value} className="bg-primary/50! text-important-text!">
                         {option.label}
                     </option>
                 ))}
@@ -67,9 +57,7 @@ export default function Search() {
 
     // Filter projects function
     const filterProjects = (filters: FilterOptions) => {
-        const projectCards = document.querySelectorAll(
-            "[data-type][data-category]",
-        );
+        const projectCards = document.querySelectorAll("[data-type][data-category]");
 
         projectCards.forEach((card) => {
             const type = card.getAttribute("data-type");
@@ -87,11 +75,7 @@ export default function Search() {
             }
 
             // Filter by category
-            if (
-                category &&
-                filters.category !== "all" &&
-                category !== filters.category
-            ) {
+            if (category && filters.category !== "all" && category !== filters.category) {
                 show = false;
             }
 
@@ -123,19 +107,13 @@ export default function Search() {
 
     // Filter projects whenever filters change
     useLayoutEffect(() => {
-        filterProjects({
-            type: typeFilter,
-            category: categoryFilter,
-            excludeSchool: excludeSchool,
-        });
+        filterProjects({ type: typeFilter, category: categoryFilter, excludeSchool: excludeSchool });
     }, [typeFilter, categoryFilter, excludeSchool]);
 
     // Get available categories based on excludeSchool setting
     const getAvailableCategories = () => {
         const categories = ["personal", "research", "internship", "school"];
-        return excludeSchool
-            ? categories.filter((cat) => cat !== "school")
-            : categories;
+        return excludeSchool ? categories.filter((cat) => cat !== "school") : categories;
     };
 
     const typeOptions = [
@@ -156,9 +134,7 @@ export default function Search() {
 
     return (
         <section className="w-fit min-w-max space-y-4 px-1">
-            <h1 className="cursor-default leading-none font-semibold">
-                Filter Projects
-            </h1>
+            <h1 className="cursor-default leading-none font-semibold">Filter Projects</h1>
 
             {/* Exclude School Projects Checkbox */}
             {/* <div className="flex items-center space-x-2">

@@ -76,20 +76,14 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 if (tabExists) {
                     setActiveTabId(hash);
 
-                    section?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                    });
+                    section?.scrollIntoView({ behavior: "smooth", block: "start" });
                 } else {
                     setActiveTabId("method");
 
                     if (timer) clearTimeout(timer); // clear previous
                     timer = setTimeout(() => {
                         section = document.getElementById(hash);
-                        section?.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                        });
+                        section?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }, 300);
                 }
             }
@@ -118,20 +112,14 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
 
     if (tabs.length === 0) {
         return (
-            <div
-                ref={contentRef}
-                className="prose prose-lg xl:prose-xl max-w-none"
-            >
+            <div ref={contentRef} className="prose prose-lg xl:prose-xl max-w-none">
                 {children}
             </div>
         );
     }
     if (tabs.length === 1) {
         return (
-            <div
-                id={tabs[0].id}
-                className="coming-soon-container-breakdown mt-4 h-fit w-full py-4"
-            >
+            <div id={tabs[0].id} className="coming-soon-container-breakdown mt-4 h-fit w-full py-4">
                 <ComingSoon />
             </div>
         );

@@ -19,28 +19,17 @@ var PANZOOM_OPTIONS: Panzoom.PanzoomGlobalOptions = {
 };
 
 /* Wait for element to be successfully added to DOM */
-function waitForElement(
-    targetEle: Element,
-    callback: (waitedForEle: Element, context: Element) => void,
-) {
+function waitForElement(targetEle: Element, callback: (waitedForEle: Element, context: Element) => void) {
     const observer = new MutationObserver((mutationsList, observer) => {
         for (const mutation of mutationsList) {
             // Check if nodes were added
-            if (
-                mutation.type === "childList" &&
-                mutation.addedNodes.length > 0
-            ) {
+            if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
                 for (const node of mutation.addedNodes) {
                     // Check if the added node matches the selector
                     if (node.nodeType === Node.ELEMENT_NODE) {
                         const ele = node as Element;
-                        const wrapper = ele.closest(
-                            `.${SVG_WRAPPER_CLASS_NAME}`,
-                        );
-                        if (
-                            (ele === targetEle || ele.contains(targetEle)) &&
-                            wrapper
-                        ) {
+                        const wrapper = ele.closest(`.${SVG_WRAPPER_CLASS_NAME}`);
+                        if ((ele === targetEle || ele.contains(targetEle)) && wrapper) {
                             // Element found, call the callback function
                             callback(targetEle, wrapper);
                             // Stop observing once the element is found to prevent performance issues
@@ -62,9 +51,7 @@ function attachPanzoomToSvgCallback(waitedForEle: Element, context: Element) {
         return;
     }
     if (!context.matches(`.${SVG_WRAPPER_CLASS_NAME}`)) {
-        console.log(
-            `Expected element with classname ${SVG_WRAPPER_CLASS_NAME}, got: ${context}. Aborting...`,
-        );
+        console.log(`Expected element with classname ${SVG_WRAPPER_CLASS_NAME}, got: ${context}. Aborting...`);
         return;
     }
 
@@ -127,8 +114,7 @@ export default function postprocessMarkdown(el: HTMLDivElement | null) {
 
                     const template = document.createElement("template");
                     template.innerHTML = svgText.trim();
-                    const svg = template.content
-                        .firstElementChild as SVGSVGElement;
+                    const svg = template.content.firstElementChild as SVGSVGElement;
 
                     if (!svg || svg.tagName.toLowerCase() !== "svg") continue;
 

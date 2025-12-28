@@ -1,9 +1,6 @@
 // Adapted from https://equk.co.uk/2023/02/02/generating-slug-from-title-in-astro/
 
-export default function (
-    title: string,
-    staticSlug: string | undefined = undefined,
-) {
+export default function (title: string, staticSlug: string | undefined = undefined) {
     return staticSlug
         ? staticSlug
         : title

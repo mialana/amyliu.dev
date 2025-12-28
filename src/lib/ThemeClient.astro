@@ -1,0 +1,37 @@
+{/* Inline script for detecting theme immediately on page load and watching for theme changes in media */}
+<script is:inline>
+    const ROOT_DATA_ATTRIBUTE = "data-theme";
+    const LOCAL_STORAGE_VARNAME = "theme";
+    const LIGHT_THEME_TEXT = "light";
+    const DARK_THEME_TEXT = "dark";
+
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function commitThemeChange(desiredTheme) {
+        document.documentElement.setAttribute(ROOT_DATA_ATTRIBUTE, desiredTheme);
+        localStorage.setItem(LOCAL_STORAGE_VARNAME, desiredTheme);
+    }
+
+    const getThemeFromDetectedMedia = () => {
+        return media.matches ? DARK_THEME_TEXT : LIGHT_THEME_TEXT;
+    };
+
+    const setThemeFromDetectedMedia = () => {
+        const nextTheme = getThemeFromDetectedMedia();
+
+        commitThemeChange(nextTheme);
+    };
+
+    media.addEventListener("change", setThemeFromDetectedMedia); // watch for if media changes
+
+    const theme = (() => {
+        if (typeof localStorage !== "undefined") {
+            const foundTheme = localStorage.getItem(LOCAL_STORAGE_VARNAME);
+            if (foundTheme && (foundTheme == LIGHT_THEME_TEXT || foundTheme == DARK_THEME_TEXT)) return foundTheme;
+        }
+
+        return getThemeFromDetectedMedia(); // defer to media detetion IF no item found in localStorage
+    })();
+
+    commitThemeChange(theme); // commit the initial theme detected on mount
+</script>

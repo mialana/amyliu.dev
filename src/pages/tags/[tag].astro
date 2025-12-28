@@ -11,27 +11,13 @@ export async function getStaticPaths() {
 
     // Include tech stack as honorary tags
     const uniqueRawTags = [
-        ...new Set(
-            projects
-                .map((project: any) => [
-                    ...project.data.tags,
-                    ...project.data.techStack,
-                ])
-                .flat(),
-        ),
+        ...new Set(projects.map((project: any) => [...project.data.tags, ...project.data.techStack]).flat()),
     ];
 
     return uniqueRawTags.map((tag) => {
         const filteredProjects = projects
-            .filter(
-                (project: any) =>
-                    project.data.tags.includes(tag) ||
-                    project.data.techStack.includes(tag),
-            )
-            .sort(
-                (a, b) =>
-                    b.data.startDate.valueOf() - a.data.startDate.valueOf(),
-            );
+            .filter((project: any) => project.data.tags.includes(tag) || project.data.techStack.includes(tag))
+            .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
         return { params: { tag: tag }, props: { projects: filteredProjects } };
     });
 }
@@ -43,9 +29,7 @@ const tagTitle = tag.replaceAll("_", " ");
 ---
 
 <MainLayout title={tagTitle} layout="HIDE_BOTH">
-    <div
-        class="flex size-full flex-col overflow-y-visible px-2 pb-4 md:px-8 md:pb-8"
-    >
+    <div class="flex size-full flex-col overflow-y-visible px-2 pb-4 md:px-8 md:pb-8">
         <!-- background for sticky positioning -->
         <div class="bg-primary absolute top-0 z-20 h-2 w-full md:h-8"></div>
         <!-- tag banner -->
@@ -65,19 +49,11 @@ const tagTitle = tag.replaceAll("_", " ");
             <ul
                 class="md:items-start-safe relative flex flex-col justify-center-safe gap-4 overflow-x-visible overflow-y-scroll pb-4 md:snap-x md:flex-row md:gap-12 md:overflow-x-scroll md:overflow-y-hidden"
             >
-                <div
-                    id=`${tagTitle}-top`
-                    class="absolute top-0 left-0 m-0! size-0 shrink"
-                >
-                </div>
+                <div id=`${tagTitle}-top` class="absolute top-0 left-0 m-0! size-0 shrink"></div>
                 {
                     projects.map((project: any) => (
                         <li class="content-animation **:prose-h1:text-2xl **:prose-h1:hover:scale-103 **:a:font-extrabold! **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] tag-project-card bg-inverted-secondary/50 border-inverted-neutral/75 flex-1 overflow-y-visible rounded-md border-4 border-double px-1 shadow-md md:snap-start md:overflow-y-scroll md:*:m-4! md:*:p-4!">
-                            <ProjectLayout
-                                project={project}
-                                showBreakdown={false}
-                                replaceImagePlaceholder={true}
-                            />
+                            <ProjectLayout project={project} showBreakdown={false} replaceImagePlaceholder={true} />
                         </li>
                     ))
                 }

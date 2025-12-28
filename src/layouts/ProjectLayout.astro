@@ -19,40 +19,23 @@ interface Props {
     showTags?: boolean;
 }
 
-const {
-    project,
-    showBreakdown = true,
-    replaceImagePlaceholder = false,
-    showTags = true,
-} = Astro.props;
+const { project, showBreakdown = true, replaceImagePlaceholder = false, showTags = true } = Astro.props;
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/content/projects/*/assets/thumbnail.{png,webp}",
-);
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/content/projects/*/assets/thumbnail.{png,webp}");
 
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
-const thumbnailPath = images[
-    `/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`
-]
+const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`]
     ? `/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`
     : `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
-<div
-    class="my-4 flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16"
->
-    <div
-        id="project-headings"
-        class="prose prose-lg xl:prose-2xl max-w-full text-center"
-    >
+<div class="my-4 flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16">
+    <div id="project-headings" class="prose prose-lg xl:prose-2xl max-w-full text-center">
         <h1 class="my-0! text-4xl lg:text-5xl xl:text-6xl">
             <a
                 id="project-title-link"
                 class="font-bold no-underline"
-                href={`/projects/${createSlug(
-                    project.data.title,
-                    project.data.slug,
-                )}/`}
+                href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}
             >
                 {project.data.title}
             </a>
@@ -61,9 +44,7 @@ const thumbnailPath = images[
             {format(project.data.startDate, "MMMM dd, yyyy")} -
             {format(project.data.endDate, "MMMM dd, yyyy")}
         </h3>
-        <div
-            class="prose-custom-lg project-description max-w-none text-sm xl:text-base"
-        >
+        <div class="prose-custom-lg project-description max-w-none text-sm xl:text-base">
             {project.data.description}
         </div>
     </div>
@@ -79,11 +60,7 @@ const thumbnailPath = images[
                     class="w-full min-w-full"
                 />
             ) : !replaceImagePlaceholder ? (
-                <Image
-                    class="w-full"
-                    src={images[thumbnailPath]()}
-                    alt={`Fallback Thumbnail ${project.data.title}`}
-                />
+                <Image class="w-full" src={images[thumbnailPath]()} alt={`Fallback Thumbnail ${project.data.title}`} />
             ) : (
                 <div>
                     <ComingSoon showHeader={false} />

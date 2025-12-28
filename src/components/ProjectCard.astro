@@ -13,12 +13,7 @@ interface Props {
     "data-category"?: string;
 }
 
-const {
-    project,
-    image,
-    "data-type": dataType,
-    "data-category": dataCategory,
-} = Astro.props;
+const { project, image, "data-type": dataType, "data-category": dataCategory } = Astro.props;
 
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 ---
@@ -45,16 +40,10 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
                 {project.data.title}
             </h1>
             <h3 class="text-important-text mt-1 text-xs font-bold">
-                {format(project.data.startDate, "MMMM yyyy")} - {
-                    format(project.data.endDate, "MMMM yyyy")
-                }
+                {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}
             </h3>
-            <h3
-                class="text-important-text mb-0 text-[0.6rem] leading-loose font-bold"
-            >
-                {project.data.category.toUpperCase()} · {
-                    project.data.type.toUpperCase()
-                }
+            <h3 class="text-important-text mb-0 text-[0.6rem] leading-loose font-bold">
+                {project.data.category.toUpperCase()} · {project.data.type.toUpperCase()}
             </h3>
             <p class="text-sm leading-snug text-pretty">
                 {project.data.description}
@@ -67,8 +56,6 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
                 </div>
             )
         }
-        <a
-            href={`/projects/${finalizedSlug}/`}
-            class="absolute top-0 left-0 h-full w-full"></a>
+        <a href={`/projects/${finalizedSlug}/`} class="absolute top-0 left-0 h-full w-full"></a>
     </article>
 </div>

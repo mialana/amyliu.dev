@@ -17,6 +17,9 @@ export const codeCaptionsStyleSettings = new PluginStyleSettings({ defaultValues
 
 export function getCodeCaptionsStyleSettings({ cssVar }: ResolverContext, options: CodeCaptionsOptions) {
     const result = `
+        .${options.captionClass}, .${options.captionClass} * {
+            all: revert-layer; /* the figcapture element should not abide by .expressive-code styles */
+        }
     `;
 
     return result;

@@ -1,4 +1,4 @@
-/* 
+/*
  * Ported from https://github.com/FujoWebDev/fujocoded-plugins/blob/main/expressive-code-caption/index.ts
  * with some additional classing logic for easier css selection.
  */

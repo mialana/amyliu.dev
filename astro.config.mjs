@@ -29,7 +29,13 @@ const expressiveCodeConfig = {
     themes: ["gruvbox-dark-hard"],
     minSyntaxHighlightingColorContrast: 7.5,
     defaultProps: { wrap: true, showLineNumbers: true, collapseStyle: "collapsible-auto" },
-    cascadeLayer: "defaults", // place ec styles into "defaults" cascade layer
+    cascadeLayer: "ecLayer", // place ec styles into a named cascade layer
+    styleOverrides: {
+        uiFontFamily: "inherit",
+        uiFontSize: "inherit",
+        uiFontWeight: "inherit",
+        uiLineHeight: "inherit",
+    },
 };
 
 /** @type {import('rehype-expressive-code').RehypeExpressiveCodeOptions} */

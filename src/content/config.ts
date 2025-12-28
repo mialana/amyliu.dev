@@ -14,14 +14,10 @@ const projectsSchema = z.object({
     externalLinks: z.array(z.string()).optional(),
     techStack: z
         .array(z.string())
-        .refine((items) => new Set(items).size === items.length, {
-            message: "Tech used must be unique",
-        }),
+        .refine((items) => new Set(items).size === items.length, { message: "Tech used must be unique" }),
     tags: z
         .array(z.string())
-        .refine((items) => new Set(items).size === items.length, {
-            message: "Tags must be unique",
-        }),
+        .refine((items) => new Set(items).size === items.length, { message: "Tags must be unique" }),
     slug: z.string().optional(),
 });
 

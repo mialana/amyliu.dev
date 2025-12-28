@@ -26,16 +26,11 @@ for (const h of headings) {
                 return nodes.map((n) => (
                     <li data-slug={n.slug}>
                         <div class={`relative w-fit pr-2 pb-1`}>
-                            <a
-                                href={`#${n.slug}`}
-                                class="x-1 relative top-1 hover:underline active:underline"
-                            >
+                            <a href={`#${n.slug}`} class="x-1 relative top-1 hover:underline active:underline">
                                 {n.text}
                             </a>
                         </div>
-                        {n.children.length > 0 && (
-                            <ul class="pl-3">{renderTree(n.children)}</ul>
-                        )}
+                        {n.children.length > 0 && <ul class="pl-3">{renderTree(n.children)}</ul>}
                     </li>
                 ));
             })(root.children)
@@ -51,10 +46,7 @@ for (const h of headings) {
                     if (link.getAttribute("href") === hash) {
                         link.classList.add("font-semibold", "text-blue-accent");
                     } else {
-                        link.classList.remove(
-                            "font-semibold",
-                            "text-blue-accent",
-                        );
+                        link.classList.remove("font-semibold", "text-blue-accent");
                     }
                 });
             }

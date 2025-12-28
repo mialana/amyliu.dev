@@ -4,7 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
 /* tailwind layers are 'theme', 'base', 'components', and 'utilities' */
-@layer theme, base, resets, globals, components, defaults, utilities, overrides;
+@layer theme, base, resets, globals, components, defaults, utilities, ecLayer, overrides;
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
@@ -156,7 +156,7 @@
         font-size: var(--a2-rem-size);
     }
 
-    #root {
+    #app {
         isolation: isolate; /* Create a root stacking context for app */
     }
 }
@@ -290,25 +290,35 @@
             @apply p-xdouble-y-0.5;
         }
 
-        .expressive-code:not(div.expressive-code) figcaption.ec-code-caption code {
-            background-color: black;
-        }
-
-        :where(figcaption) {
-            &:not(.ec-code-caption) {
-                &::before {
-                    content: "⬑";
-                }
+        &:is(figcaption:not(.expressive-code .header)) {
+            font-size: 0.75em;
+            &::before {
+                content: "⬑";
+                line-height: 1em;
+                height: 1em; /* match height of parent */
+                padding-inline: 0.5em;
             }
 
             &:is(.ec-code-caption) {
-                display: flex !important;
-                flex-direction: row;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                align-items: center;
+                justify-items: start;
+                row-gap: 0.25em;
 
-                & > :first-child {
-                    &::before {
-                        content: "⬑";
-                    }
+                &::before {
+                    grid-column: 1;
+                    grid-row: 1;
+                }
+
+                /* Put every child element into column 2 */
+                & > * {
+                    grid-column: 2;
+                }
+
+                /* Remove margin between blocks (p, ul, pre, etc.). Relay on grid gap for consistent spacing. */
+                & > * {
+                    margin: 0;
                 }
             }
         }
@@ -335,17 +345,11 @@
             }
         }
 
-        /* expressive-code-caption inserts an extra paragraph element within figcaption */
-        figcaption > p {
-            display: inline;
-        }
-
         /*     styleOverrides: { borderRadius: "0.375rem", codePaddingInline: "0.5rem" }, */
 
         div.expressive-code {
             margin-top: 2rem;
             margin-bottom: 2rem;
-            @apply max-w-[100ch] px-2;
 
             .gutter {
                 @apply px-0!;
@@ -361,16 +365,6 @@
             code {
                 @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
             }
-        }
-
-        /* Center figures that have an img as direct descendant */
-        figure:has(> img) {
-            @apply mx-auto w-fit;
-        }
-
-        /* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
-        :not(figure) img {
-            @apply mx-auto;
         }
     }
 }
@@ -408,9 +402,5 @@
 
     html[data-theme="dark"] {
         @apply dark-palette; /* apply dark-palette when root element has dark-theme in its class list */
-    }
-
-    .expressive-code figcaption.ec-code-caption code {
-        background-color: black;
     }
 }

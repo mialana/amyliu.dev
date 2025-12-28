@@ -49,11 +49,7 @@ if (!headings.length) {
     {
         (project.data.code || project.data.externalLinks) && (
             <section slot="aside-sidebar">
-                <ProjectExternalLinks
-                    code={project.data.code}
-                    externalLinks={project.data.externalLinks}
-                    client:load
-                />
+                <ProjectExternalLinks code={project.data.code} externalLinks={project.data.externalLinks} client:load />
             </section>
         )
     }
