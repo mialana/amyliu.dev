@@ -1,9 +1,25 @@
 import { definePlugin, AttachedPluginData, type ExpressiveCodePlugin } from "expressive-code";
-import { h } from "astro-expressive-code/hast";
+import { h, type Element as HastElement } from "astro-expressive-code/hast";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { toHast } from "mdast-util-to-hast";
 
 import { codeCaptionsStyleSettings, getCodeCaptionsStyleSettings } from "./styles";
+
+const addClassToHast = (node: HastElement, newClassName: string): HastElement => {
+    if (node.properties) {
+        // Ensure properties.className is an array, then push
+        if (Array.isArray(node.properties.className)) {
+            node.properties.className.push(newClassName);
+        } else if (typeof node.properties.className === "string") {
+            // If it's a string, convert to array first
+            node.properties.className = node.properties.className.split(" ").filter(Boolean);
+            node.properties.className.push(newClassName);
+        } else {
+            node.properties.className = [newClassName];
+        }
+    }
+    return node;
+};
 
 export interface CodeCaptionsOptions {
     /**
@@ -41,7 +57,7 @@ export function pluginCodeCaptions(options: CodeCaptionsOptions = {}): Expressiv
     return definePlugin({
         name: "Code captions",
         styleSettings: codeCaptionsStyleSettings,
-        baseStyles: (context) => getCodeCaptionsStyleSettings(context),
+        baseStyles: (context) => getCodeCaptionsStyleSettings(context, options),
         hooks: {
             preprocessCode: (context) => {
                 const allLines = [...context.codeBlock.getLines()];
@@ -85,7 +101,11 @@ export function pluginCodeCaptions(options: CodeCaptionsOptions = {}): Expressiv
                 if (!captionBlock) {
                     return;
                 }
-                const oldRoot = renderData.groupAst;
+                const root = renderData.groupAst;
+
+                /* convert root to figure element and add a class to it */
+                root.tagName = "figure";
+                addClassToHast(root, parsedOptions.figureClass);
 
                 const caption = captionData.getOrCreateFor(captionBlock.codeBlock).caption!;
 
@@ -96,8 +116,8 @@ export function pluginCodeCaptions(options: CodeCaptionsOptions = {}): Expressiv
                     toHast(fromMarkdown(caption)),
                 );
 
-                /* Replace `oldRoot` with a figure element that has `oldRoot` as child */
-                renderData.groupAst = h("figure", { className: [parsedOptions.figureClass] }, [oldRoot, figcaption]);
+                /* Push new figcaption HAST into children */
+                root.children.push(figcaption);
             },
         },
     });

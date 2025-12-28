@@ -20,16 +20,16 @@ export const codeCaptionsStyleSettings = new PluginStyleSettings({
     defaultValues: { codeCaptions: { innerDivInlineMargin: "auto" } },
 });
 
-export function getCodeCaptionsStyleSettings({ cssVar }: ResolverContext) {
+export function getCodeCaptionsStyleSettings({ cssVar }: ResolverContext, options: CodeCaptionsOptions) {
     const result = `
-
-        .expressive-code {
+        .${options.figureClass} {
             margin-inline: ${cssVar("codeCaptions.innerDivInlineMargin")};
         }
 
+        .${options.captionClass}, .${options.captionClass} * {
+            all: revert-layer; /* ensure expressive-code styles don't affect the figcaption */
+        }
     `;
-
-    console.log(result)
 
     return result;
 }
