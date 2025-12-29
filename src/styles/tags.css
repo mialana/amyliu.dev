@@ -1,0 +1,44 @@
+@import "./global.css";
+
+/* styling for content localized to `tags` pages */
+
+.tag-project-card {
+    /* parent styles */
+    @apply w-full;
+    @apply md:max-w-lg md:min-w-lg;
+
+    @apply md:max-h-full;
+    @apply h-fit min-h-fit;
+
+    background-size: 16px 16px;
+    background-image: radial-gradient(
+        circle,
+        var(--color-grid-background) 0.5px,
+        rgba(0, 0, 0, 0) 0.5px
+    );
+
+    #project-title-link {
+        @apply font-extrabold;
+    }
+
+    #project-title-h1 {
+        @apply pt-2 text-2xl font-extrabold underline underline-offset-2;
+        @apply after:cursor-pointer after:content-['→'] hover:scale-103;
+    }
+
+    #project-headings {
+        @apply m-2 px-4 pt-2 pb-4 md:pb-2;
+    }
+
+    .project-visual-container {
+        @apply mt-4 mb-6 aspect-video overflow-hidden rounded-md p-0;
+    }
+
+    .project-description {
+        height: 64px;
+        overflow-y: scroll;
+        @apply flex items-center-safe;
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

@@ -1,0 +1,61 @@
+@import "./global.css";
+
+/* styling for content localized to `projects` pages */
+
+.default-project-card {
+    @apply bg-neutral-primary;
+    @apply border-inverted-neutral;
+
+    @apply max-w-lg min-w-md;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: calc(var(--spacing) / 4); /* 1px usually, 0.5px after breakpoint */
+
+    &:hover {
+        @apply bg-tertiary shadow-inverted-shadow -translate-y-2;
+    }
+}
+
+/* Style of all sections within project breakdowns */
+.project-breakdown-content {
+    @apply prose prose-sm lg:prose-base prose-h5:font-medium prose-a:text-blue-accent! prose-a:**:text-blue-accent!;
+    @apply relative mx-auto mt-4 min-w-full **:mx-auto *:last:my-0! [&_img]:mx-auto [&_img]:rounded-md;
+
+    /* Center figures that have an img as direct descendant */
+    figure:has(> img) {
+        @apply mx-auto w-fit;
+    }
+
+    /* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
+    :not(figure) img {
+        @apply mx-auto;
+    }
+
+    figcaption:not(.header)::before {
+        content: "⬑";
+        @apply px-1;
+    }
+
+    figcaption:not(.header) {
+        background-color: transparent !important;
+        @apply my-2! text-xs!;
+    }
+
+    /* expressive-code-caption inserts an extra paragraph element within figcaption */
+    figcaption > p {
+        display: inline;
+    }
+
+    /* styling for TIP, INFO, etc. */
+    .callout-title-text {
+        font-weight: 400 !important;
+    }
+
+    /* styling for LaTeX */
+    mjx-container {
+        @apply text-xs! lg:text-base!;
+    }
+}

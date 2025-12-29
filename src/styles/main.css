@@ -1,0 +1,45 @@
+@import "./global.css";
+
+/* styling for content localized to `MainLayout` */
+
+@layer defaults {
+    #main-body {
+        @apply bg-tertiary; /* background color */
+
+        /* height and width are clamped to 100% in device unit */
+        height: 100dvh;
+        width: 100dvw;
+        max-height: 100dvh;
+        max-width: 100dvw;
+
+        gap: var(--default-gap); /* gap in between all grid cells */
+
+        & > * {
+            @apply default-shadow default-rounded-sm; /* shadow applied to all grid cells */
+        }
+    }
+
+    #main-grid-cell {
+        @apply bg-primary; /* background color */
+        display: flex;
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        @apply px-2 py-4; /* default padding */
+
+        /* styles applied to direct children */
+        & > * {
+            overflow: visible; /* both should be visible to ensure it is the main grid cell that scrolls */
+        }
+    }
+
+    #header-grid-cell,
+    #footer-grid-cell {
+        @apply bg-secondary; /* background color */
+    }
+
+    #NAV-container,
+    #ASIDE-container {
+        @apply bg-neutral-primary; /* background color */
+    }
+}
