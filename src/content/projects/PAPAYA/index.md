@@ -438,64 +438,8 @@ To assist all project contributors in adopting this structure, I took some type 
 - A visual [workflow presentation](https://amyliu.dev/materials/CIS_7000_USD_Workflows.pdf) outlining what is possible with this structure. Namely, walks through a "check-in/check-out" workflow, and details the thought process of a potential **geometry artist** as well as a **material artist**.
 
 ![Workflow Presentation Preview](./assets/workflow-presentation-preview.png)
-\*this is the presentation preview with some `code` here as well \n and two paragraphs.
 
--
-
-> [!INFO]
-> here is an info tip
-
-$$
-\begin{align}
-f_\theta : (\mathbf{x}, \mathbf{d}) &\mapsto (\sigma, \mathbf{c})
-\end{align}
-$$
-
-```math
-\begin{align}
-f_\theta : (\mathbf{x}, \mathbf{d}) &\mapsto (\sigma, \mathbf{c})
-\end{align}
-```
-
-```python
-
-// Assets/campfire/contrib/material/material.usda
-def Scope "MaterialClasses"
-	{
-		over "class_Default"
-		{
-			prepend rel material:binding = </campfire/Materials/mat_Default>
-		}
-		over "class_Rocks"
-		{
-			prepend rel material:binding = </campfire/Materials/mat_Rocks>
-		}
-		over "class_Logs"
-		{
-			prepend rel material:binding = </campfire/Materials/mat_Logs>
-		}
-	}
----
-this is a figcaption test with inline `code`.
-
-and two paragraphs.
----
-```
-
-<figure>
-<figcaption class="ec-code-caption">
-<p>
-this is a figcaption test with inline <code>code</code>.
-</p>
-
-<p>
-and two paragraphs.
-</p>
-</figcaption>
-
-</figure>
-
-- A [GitHub reference repo](https://github.com/CIS-7000-sp25/usd-structure) $f_{\theta}$ containing dummy assets, layer templates, example Python scripting routes, and an extensive README tailored towards my fellow contributors.
+- A [GitHub reference repo](https://github.com/CIS-7000-sp25/usd-structure) containing dummy assets, layer templates, example Python scripting routes, and an extensive README tailored towards my fellow contributors.
 
 ### Three.JS Web Viewer
 

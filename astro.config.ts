@@ -1,20 +1,20 @@
-// @ts-check
 import { defineConfig } from "astro/config";
 
 import sitemap from "@astrojs/sitemap";
 
 import remarkMath from "remark-math";
-import remarkSectionizeHeadings from "@/lib/plugins/remark-sectionize-headings"
+import remarkSectionizeHeadings from "./src/lib/plugins/remark-sectionize-headings";
 
 import rehypeMathJaxChtml from "rehype-mathjax/chtml";
 import rehypeExpressiveCode from "rehype-expressive-code";
-import rehypeImageCaption from "rehype-image-caption";
+// import rehypeImageCaption from "rehype-image-caption";
 import rehypeCallouts from "rehype-callouts";
+import rehypeImageCaption from "./src/lib/plugins/rehype-image-captions";
 
-import astroExpressiveCode from "astro-expressive-code";
+import astroExpressiveCode, {type AstroExpressiveCodeOptions} from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import { pluginCodeCaptions } from "@/lib/plugins/ec-code-captions";
+import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions";
 
 import react from "@astrojs/react";
 
@@ -22,8 +22,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 import d2 from "astro-d2";
 
-/** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
-const expressiveCodeConfig = {
+const expressiveCodeConfig: AstroExpressiveCodeOptions = {
     plugins: [pluginLineNumbers(), pluginCollapsibleSections(), pluginCodeCaptions()],
     shiki: { langAlias: { usda: "bash" } },
     themes: ["gruvbox-dark-hard"],
@@ -61,7 +60,10 @@ export default defineConfig({
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
-        remarkPlugins: [[remarkMath, { singleDollarTextMath: true }], [remarkSectionizeHeadings, {addClass: "section"}]],
+        remarkPlugins: [
+            [remarkMath, { singleDollarTextMath: true }],
+            [remarkSectionizeHeadings, { addClass: "section" }],
+        ],
         rehypePlugins: [
             [
                 rehypeMathJaxChtml,
