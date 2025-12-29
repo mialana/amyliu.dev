@@ -19,7 +19,7 @@ export default function ComingSoon({ showHeader = true }: ComingSoonProps) {
             </div>
             <img
                 src="/resources/coming_soon.gif"
-                className="coming-soon-img mx-auto w-full overflow-hidden shadow-md md:shadow-lg"
+                className="coming-soon-img border-neutral-primary/75 md:w-3/4; mx-auto my-2 w-full max-w-7xl overflow-hidden rounded-xl border-8 border-double shadow-md md:my-4 md:shadow-lg"
             />
         </div>
     );

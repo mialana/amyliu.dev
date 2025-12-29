@@ -2,37 +2,56 @@
 import "@/styles/global.css";
 
 const headerList = ["Home", "Projects", "Tags"];
+
+const importantContentMap = { Resume: "/resume.pdf" };
 ---
 
-<div class="bg-secondary! z-20 pt-2 shadow-md md:shadow-lg">
-    <h1 class="font-signature text-center text-4xl font-extrabold">
-        <a href="/">AMY LIU</a>
-    </h1>
+<div
+    class="grid grid-cols-[1fr_auto_1fr] grid-rows-1 items-end-safe justify-center"
+>
+    <div class="col-span-1 col-start-2">
+        <h1 class="font-signature text-center text-4xl font-extrabold">
+            <a href="/">AMY LIU</a>
+        </h1>
+        <ul class="mx-auto flex w-fit justify-center *:hover:underline">
+            {
+                headerList.map((h) => {
+                    let pathname = h === "Home" ? "/" : `/${h.toLowerCase()}/`;
+                    return (
+                        <li
+                            class:list={[
+                                Astro.url.pathname === pathname &&
+                                    "font-semibold",
+                            ]}
+                        >
+                            <a
+                                class="p-1 text-[clamp(0.5rem,4vw,1rem)]"
+                                href={pathname}
+                            >
+                                {h}
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    </div>
     <ul
-        class="mx-auto flex w-fit justify-center gap-[calc(var(--default-gap)*2)] pt-1 pb-2 *:hover:underline"
+        class="col-span-1 col-start-3 flex flex-col gap-(--default-gap) justify-self-end-safe font-medium contrast-150 saturate-75"
     >
         {
-            headerList.map((h) => {
-                let pathname = h === "Home" ? "/" : `/${h.toLowerCase()}/`;
-                return (
-                    <li
-                        class:list={[
-                            Astro.url.pathname === pathname && "font-semibold",
-                        ]}
+            Object.entries(importantContentMap).map(([label, href]) => (
+                <li>
+                    <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="bg-red-accent rounded-md hover:scale-105"
                     >
-                        <a href={pathname}>{h}</a>
-                    </li>
-                );
-            })
+                        {label}
+                    </a>
+                </li>
+            ))
         }
-    </ul>
-    <ul
-        class="*:bg-red-accent absolute right-4 bottom-2 flex gap-(--default-gap) font-medium contrast-150 saturate-75 *:rounded-md *:px-3 *:py-1 *:hover:scale-105"
-    >
-        <li>
-            <a target="_blank" rel="noopener noreferrer" href="/resume.pdf"
-                >Resume</a
-            >
-        </li>
     </ul>
 </div>

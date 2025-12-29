@@ -10,16 +10,12 @@
 @import "rehype-callouts/theme/vitepress";
 @plugin "@tailwindcss/typography";
 
-@font-face {
-    font-family: "BestermindRegular";
-    src: url("/font/BestermindRegular.ttf");
-}
+@layer base, components, resets, globals, defaults, utilities, overrides; /* tailwind layer is 'base' */
 
-/* inspo: https://www.design-seeds.com/2024/08/color-wander.html */
 @theme {
     --font-signature: "Fredericka the Great", serif;
     --font-body: "Roboto condensed", sans-serif;
-    /* --font-body: "Roboto Slab", sans-serif; */
+
     --font-code: "IBM Plex Mono";
 
     --color-blue-accent: #454eb3;
@@ -31,6 +27,7 @@
 
     --default-gap: calc(var(--spacing) * 4);
 
+    /* main color palette */
     --color-primary: #ebe2d1;
     --color-secondary: #916c64;
     --color-tertiary: #a59494;
@@ -44,28 +41,13 @@
     --color-inverted-shadow: #28242d;
     --color-inverted-important-text: #e8e8e8;
     --color-grid-background: #c3bdbd;
+
+    --container-3xs: 198px;
+    --min-height-3xs: var(--container-3xs); /* extends min-h-* */
 }
 
-/* dark mode overrides of main color palette */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-primary: #182525;
-        --color-secondary: #192933;
-        --color-tertiary: #33303a;
-        --color-neutral-primary: #1f1f21;
-        --color-important-text: #e8e8e8;
-        --color-primary-shadow: #28242d;
-        --color-inverted-primary: #ebe2d1;
-        --color-inverted-secondary: #916c64;
-        --color-inverted-tertiary: #a59494;
-        --color-inverted-neutral: #eae3da;
-        --color-inverted-shadow: #7a6c6c;
-        --color-inverted-important-text: #151515;
-        --color-grid-background: #868080;
-    }
-}
-
-:root[data-theme="dark"] {
+@utility dark-palette {
+    /* dark mode overrides of main color palette */
     color-scheme: dark;
 
     --color-primary: #182525;
@@ -83,51 +65,66 @@
     --color-grid-background: #868080;
 }
 
-:root[data-theme="light"] {
-    color-scheme: light;
-
-    --color-primary: #ebe2d1;
-    --color-secondary: #916c64;
-    --color-tertiary: #a59494;
-    --color-neutral-primary: #eae3da;
-    --color-important-text: #151515;
-    --color-primary-shadow: #7a6c6c;
-    --color-inverted-primary: #182525;
-    --color-inverted-secondary: #192933;
-    --color-inverted-tertiary: #33303a;
-    --color-inverted-neutral: #1f1f21;
-    --color-inverted-shadow: #28242d;
-    --color-inverted-important-text: #e8e8e8;
-    --color-grid-background: #c3bdbd;
+@custom-variant HORIZONTAL {
+    @media (min-width: 1024px) {
+        @slot;
+    }
 }
 
-/* Set global default styles */
-@layer base {
-    html {
-        @apply font-body font-normal;
-        @apply **:scroll-smooth;
+@utility DEBUG {
+    outline-color: black;
+    @apply outline;
+    @apply bg-red-200/25;
+}
+
+@utility container {
+    @apply rounded-md shadow-md;
+
+    @media (min-width: 768px) {
+        @apply rounded-lg shadow-lg;
+    }
+}
+
+@layer components {
+    .CARD {
+        @apply bg-primary rounded-md p-4 shadow-sm;
+    }
+
+    @media (min-width: 768px) {
+        .CARD {
+            @apply rounded-lg shadow-md;
+        }
+    }
+
+    /* Cards in a vertical list */
+    .CARD + .CARD {
+        @apply mt-4;
+    }
+}
+
+@layer globals {
+    /* applied to all children i.e. all elements */
+    * {
         hyphens: auto;
 
-        /* background color */
-        @apply bg-tertiary;
-        /* text color */
-        @apply **:text-inverted-tertiary;
+        /* scrolling */
+        scroll-behavior: smooth;
 
-        @apply **:shadow-primary-shadow;
-
-        @apply [&_h1]:text-important-text! [&_a]:text-important-text;
+        scrollbar-width: none; /* Hide scrollbar outlines for Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar outlines for Internet Explorer 10+ */
+        &::-webkit-scrollbar {
+            /* & means to target parent */
+            display: none; /* Hide scrollbar outlines for WebKit browsers */
+        }
     }
+}
 
-    /* Hide scrollbar outlines while keeping smooth scrolling */
-    * {
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* Internet Explorer 10+ */
+@layer defaults {
+    :root {
+        @apply font-body font-normal;
+        @apply text-inverted-tertiary shadow-primary-shadow;
     }
-
-    *::-webkit-scrollbar {
-        display: none; /* WebKit browsers */
-    }
-
+    /* apply loading gif as background to all images */
     /* https://loading.io/spinner/spinner/ */
     img {
         @apply text-xs;
@@ -139,26 +136,61 @@
     }
 }
 
-@utility debug {
-    & {
-        outline-color: black;
-        @apply outline;
-        @apply bg-red-200/25;
+@layer utilities {
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        30% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .page-animation {
+        animation: 0.25s fadeIn ease-in-out;
+    }
+
+    .content-animation {
+        animation: 1s fadeIn ease-in-out;
     }
 }
 
-@utility transition-default-* {
-    & {
-        @apply transition-all ease-linear;
-        transition-duration: calc(--value(integer) * 1ms);
+@layer overrides {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a,
+    strong {
+        @apply text-important-text;
+    }
+
+    :root {
+        /* tailwind md container breakpoint */
+        @media screen and (max-device-width: 768px) {
+            --spacing: 2px;
+        }
+
+        &[data-theme="dark"] {
+            @apply dark-palette; /* apply dark-palette when root element has dark-theme in its class list */
+        }
     }
 }
 
+/* override prose styling */
 @utility prose {
-    @apply prose-neutral;
-    @apply prose-code:cursor-text! prose-headings:cursor-default;
-    @apply prose-headings:text-important-text! prose-a:text-important-text! prose-strong:text-important-text!;
-    @apply cursor-default;
+    @apply prose-neutral cursor-default; /* global settings for prose */
+
+    prose-headings,
+    prose-a,
+    prose-strong {
+        @apply text-important-text;
+    }
 
     :not(pre) > code {
         @apply text-green-accent font-code bg-green-accent/25 border-green-accent/50 mx-0.5 my-auto cursor-text leading-relaxed brightness-80 contrast-200;
@@ -199,103 +231,4 @@
             @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
         }
     }
-
-    mjx-container {
-        @apply text-xs! lg:text-base!;
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    30% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.page-animation {
-    animation: 0.25s fadeIn ease-in-out;
-}
-
-.content-animation {
-    animation: 1s fadeIn ease-in-out;
-}
-
-.tag-project-card {
-    @apply w-full;
-    @apply md:max-w-lg md:min-w-lg;
-
-    @apply md:max-h-full;
-    @apply h-fit min-h-fit;
-
-    background-size: 16px 16px;
-    background-image: radial-gradient(
-        circle,
-        var(--color-grid-background) 0.5px,
-        rgba(0, 0, 0, 0) 0.5px
-    );
-}
-
-.tag-project-card #project-headings {
-    @apply m-2 px-4 pt-2 pb-4 md:pb-2;
-}
-
-.tag-project-card .project-visual-container {
-    @apply mt-4 mb-6 aspect-video overflow-hidden rounded-md p-0;
-}
-
-.tag-project-card #project-title-link {
-    @apply font-extrabold;
-}
-
-.tag-project-card .project-description {
-    height: 64px;
-    overflow-y: scroll;
-    @apply flex items-center-safe;
-    font-size: 14px;
-    line-height: 16px;
-}
-
-.coming-soon-container-breakdown .coming-soon-img {
-    @apply border-neutral-primary/75 my-2 max-w-7xl rounded-xl border-8 border-double md:my-4 md:w-3/4;
-}
-
-/* Style of all sections within project breakdowns */
-.project-breakdown-content {
-    @apply prose prose-sm lg:prose-base prose-h5:font-medium prose-a:text-blue-accent! prose-a:**:text-blue-accent!;
-    @apply relative mx-auto mt-4 min-w-full **:mx-auto *:last:my-0! [&_img]:mx-auto [&_img]:rounded-md;
-}
-
-/* Center figures that have an img as direct descendant */
-.project-breakdown-content figure:has(> img) {
-    @apply mx-auto w-fit;
-}
-
-/* center img elements that are not a descendant of a figure (i.e. do not have a caption) */
-.project-breakdown-content :not(figure) img {
-    @apply mx-auto;
-}
-
-.project-breakdown-content figcaption:not(.header)::before {
-    content: "⬑";
-    @apply px-1;
-}
-
-.project-breakdown-content figcaption:not(.header) {
-    background-color: transparent !important;
-    @apply my-2! text-xs!;
-}
-
-/* expressive-code-caption inserts an extra paragraph element within figcaption */
-.project-breakdown-content figcaption > p {
-    display: inline;
-}
-
-/* styling for TIP, INFO, etc. */
-.callout-title-text {
-    font-weight: 400 !important;
 }

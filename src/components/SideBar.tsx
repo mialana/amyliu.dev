@@ -1,4 +1,3 @@
-import "@/styles/global.css";
 import { useState, useLayoutEffect } from "react";
 import { hasSlotReact } from "@/lib/hasSlot";
 
@@ -79,13 +78,15 @@ export default function SideBar({
 
     return (
         <div
-            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} bg-neutral-primary ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4 shadow-lg`}
+            id={`${category}-container`}
+            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4`}
             onClick={() => {
                 if (window.innerWidth <= 768) {
                     setOpen(false);
                 }
             }}
         >
+            {/* sidebar button top bar */}
             <div
                 id={`${category}-button-bar`}
                 className={`invisible absolute top-0 h-4 cursor-pointer opacity-75 ${category == "NAV" ? "bg-linear-to-l" : "bg-linear-to-r"} from-secondary to-base ${positionInfo["absolutePosition"]} w-full ${category === "NAV" ? "rounded-r-xs" : "rounded-l-xs"} z-30`}
