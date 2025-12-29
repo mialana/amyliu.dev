@@ -19,6 +19,7 @@ tags:
     - hardware
 description: A study on human-computer interaction through a 3D-printed robot "companion" for grade school children.
 demoVideoLink: https://youtu.be/Uwcz0tO4J1A
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

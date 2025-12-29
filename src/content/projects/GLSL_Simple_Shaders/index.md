@@ -18,6 +18,7 @@ tags:
 description: A collection of surface and post-process shaders to demonstrate GLSL best practices and common CG toolbox functions.
 # code: https://github.com/mialana/glsl-simple-shaders
 demoVideoLink: https://youtu.be/YqdRmfLVsiI
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

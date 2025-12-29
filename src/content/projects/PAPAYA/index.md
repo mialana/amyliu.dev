@@ -27,6 +27,7 @@ externalLinks:
     - https://github.com/CIS-7000-sp25/backend
     - https://youtu.be/760CSeimXMI
     - https://asset-browser-zeta.vercel.app/
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

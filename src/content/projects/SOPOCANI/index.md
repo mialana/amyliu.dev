@@ -20,6 +20,7 @@ tags:
 description: An important collaboration between digitalization and art history -- using modern computer shading and rendering techniques to reconstruct lost artifacts and murals of Medieval Serbia.
 externalLinks:
     - https://www.academia.edu/89482337/The_Fictive_Mosaics_of_Medieval_Serbia
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

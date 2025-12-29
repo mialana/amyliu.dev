@@ -7,7 +7,6 @@ import remarkSectionizeHeadings from "./src/lib/plugins/remark-sectionize-headin
 
 import rehypeMathJaxChtml from "rehype-mathjax/chtml";
 import rehypeExpressiveCode from "rehype-expressive-code";
-// import rehypeImageCaption from "rehype-image-caption";
 import rehypeCallouts from "rehype-callouts";
 import rehypeImageCaption from "./src/lib/plugins/rehype-image-captions";
 
@@ -37,7 +36,6 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
     },
 };
 
-/** @type {import('rehype-expressive-code').RehypeExpressiveCodeOptions} */
 const rehypeExpressiveCodeOptions = { tabWidth: 2 };
 
 const isCloudflare = process.env.CLOUDFLARE_WORKER === "1";
@@ -62,7 +60,7 @@ export default defineConfig({
     markdown: {
         remarkPlugins: [
             [remarkMath, { singleDollarTextMath: true }],
-            [remarkSectionizeHeadings, { addClass: "section" }],
+            [remarkSectionizeHeadings, { addClass: "md-section" }],
         ],
         rehypePlugins: [
             [

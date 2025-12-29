@@ -16,6 +16,7 @@ tags:
     - graphical_user_interface
 description: A simple chess application with state-saving and move-hints / limitations.
 code: https://github.com/mialana/chess
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

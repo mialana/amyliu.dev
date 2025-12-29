@@ -28,6 +28,7 @@ externalLinks:
     - https://devpost.com/software/parent-in-the-loop
     - https://www.linkedin.com/posts/pioneering-minds-ai_mcp-hackforimpact-aiforgood-activity-7337825872734814208-VP1g
     - https://www.linkedin.com/posts/pioneering-minds-ai_agentboostr-demoday-aiforgood-activity-7338354287523086337-pNHc
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

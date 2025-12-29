@@ -23,4 +23,5 @@ description: A GPU optimization-focused implementation of advanced rendering tec
 code: https://github.com/mialana/GPU-Programming-Project4-WebGPU-Forward-Plus-and-Clustered-Deferred
 externalLinks:
     - https://advanced-forward-deferred.webgpu.amyliu.dev/
+thumbnail: ./assets/thumbnail.webp
 ---

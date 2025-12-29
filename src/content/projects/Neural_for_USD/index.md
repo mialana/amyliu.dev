@@ -26,6 +26,7 @@ tags:
 description: A comprehensive interface to solve data collection for Neural Radiance Fields and Novel View Synthesis for the Pixar OpenUSD framework.
 code: https://github.com/mialana/neural-for-usd
 pinned: true
+thumbnail: ./assets/thumbnail.webp
 ---
 
 ## Summary

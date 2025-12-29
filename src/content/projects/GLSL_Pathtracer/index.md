@@ -19,6 +19,7 @@ tags:
     - lighting
 description: A GLSL-based application to showcase different rendering methods associated with the Monte Carlo Light Transport algorithm.
 # code: https://github.com/mialana/glsl-pathtracer.git
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary
