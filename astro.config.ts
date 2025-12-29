@@ -1,16 +1,16 @@
 import { defineConfig } from "astro/config";
+import type { RemarkPlugin } from "@astrojs/markdown-remark";
 
 import sitemap from "@astrojs/sitemap";
 
 import remarkMath from "remark-math";
-import remarkSectionizeHeadings from "./src/lib/plugins/remark-sectionize-headings";
-
+import remarkSectionizeHeadings, { type Options as RemarkSectionizeHeadingsOptions } from "remark-sectionize-headings";
 import rehypeMathJaxChtml from "rehype-mathjax/chtml";
 import rehypeExpressiveCode from "rehype-expressive-code";
 import rehypeCallouts from "rehype-callouts";
-import rehypeImageCaption from "./src/lib/plugins/rehype-image-captions";
+import rehypeCaptions from "./src/lib/plugins/rehype-captions";
 
-import astroExpressiveCode, {type AstroExpressiveCodeOptions} from "astro-expressive-code";
+import astroExpressiveCode, { type AstroExpressiveCodeOptions } from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions";
@@ -56,11 +56,11 @@ export default defineConfig({
         }),
     ],
     vite: { plugins: [tailwindcss()] },
-    devToolbar: { enabled: false },
+    devToolbar: { enabled: true },
     markdown: {
         remarkPlugins: [
             [remarkMath, { singleDollarTextMath: true }],
-            [remarkSectionizeHeadings, { addClass: "md-section" }],
+            [remarkSectionizeHeadings as RemarkPlugin<[RemarkSectionizeHeadingsOptions?]>, { addClass: "md-section" }],
         ],
         rehypePlugins: [
             [
@@ -68,7 +68,7 @@ export default defineConfig({
                 { chtml: { fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2" } },
             ],
             [rehypeExpressiveCode, rehypeExpressiveCodeOptions],
-            [rehypeImageCaption, { wrapImagesWithoutCaptions: false }],
+            [rehypeCaptions, {}],
             [rehypeCallouts, {}],
         ],
     },

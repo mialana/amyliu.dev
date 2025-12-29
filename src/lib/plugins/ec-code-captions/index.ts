@@ -1,30 +1,11 @@
-/*
- * Ported from https://github.com/FujoWebDev/fujocoded-plugins/blob/main/expressive-code-caption/index.ts
- * with some additional classing logic for easier css selection.
- */
-
 import { definePlugin, AttachedPluginData, type ExpressiveCodePlugin } from "expressive-code";
-import { h, type Element as HastElement } from "astro-expressive-code/hast";
+import { h } from "astro-expressive-code/hast";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { toHast } from "mdast-util-to-hast";
 
 import { codeCaptionsStyleSettings, getCodeCaptionsStyleSettings } from "./styles";
 
-const addClassToHast = (node: HastElement, newClassName: string): HastElement => {
-    if (node.properties) {
-        // Ensure properties.className is an array, then push
-        if (Array.isArray(node.properties.className)) {
-            node.properties.className.push(newClassName);
-        } else if (typeof node.properties.className === "string") {
-            // If it's a string, convert to array first
-            node.properties.className = node.properties.className.split(" ").filter(Boolean);
-            node.properties.className.push(newClassName);
-        } else {
-            node.properties.className = [newClassName];
-        }
-    }
-    return node;
-};
+import { addClassToHast } from "../utils";
 
 export interface CodeCaptionsOptions {
     /**
