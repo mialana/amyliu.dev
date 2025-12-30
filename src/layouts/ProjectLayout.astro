@@ -30,8 +30,8 @@ const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thum
 ---
 
 <div class="my-4 flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16">
-    <div id="project-headings" class="prose prose-lg xl:prose-2xl max-w-full text-center">
-        <h1 class="my-0! text-4xl lg:text-5xl xl:text-6xl">
+    <div id="project-headings" class="prose max-w-full text-center">
+        <h1>
             <a
                 id="project-title-link"
                 class="font-bold no-underline"
@@ -40,16 +40,19 @@ const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thum
                 {project.data.title}
             </a>
         </h1>
-        <h3 class="mt-2! mb-4! text-sm font-extrabold xl:text-base">
-            {format(project.data.startDate, "MMMM dd, yyyy")} -
+        <time datetime={project.data.startDate.toISOString()}>
+            {format(project.data.startDate, "MMMM dd, yyyy")}
+        </time>
+        {" – "}
+        <time datetime={project.data.endDate.toISOString()}>
             {format(project.data.endDate, "MMMM dd, yyyy")}
-        </h3>
-        <div class="prose-custom-lg project-description max-w-none text-sm xl:text-base">
+        </time>
+        <samp>
             {project.data.description}
-        </div>
+        </samp>
     </div>
     <div
-        class="project-visual-container *:project-visual bg-neutral-primary mt-4 mb-6 w-full max-w-7xl! p-2 shadow-lg lg:mt-6 lg:mb-8"
+        class="project-visual-container *:project-visual bg-primary-neutral mt-4 mb-6 w-full max-w-7xl! p-2 shadow-lg lg:mt-6 lg:mb-8"
     >
         {
             project.data.demoVideoLink ? (
@@ -79,11 +82,7 @@ const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thum
         )
     }
 
-    {
-        showBreakdown && (
-            <ProjectBreakdown client:load>
-                <slot />
-            </ProjectBreakdown>
-        )
-    }
+    <div class="prose">
+        <slot />
+    </div>
 </div>

@@ -1,4 +1,4 @@
-/*
+/**
  * Currently unused, but useful for setting css within expressive-code stylesheet.
  */
 
