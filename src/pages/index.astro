@@ -10,9 +10,9 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
 
 <MainLayout title="Home" layout="DEFAULT">
     <div
-        class="horizontal:flex-row horizontal:justify-center-safe mx-auto flex flex-col items-center-safe justify-start gap-8 px-4 py-8"
+        class="horizontal:flex-row horizontal:justify-center-safe horizontal:gap-16 flex flex-col items-center-safe justify-start gap-8"
     >
-        <div class="min-h-3xs flex aspect-square max-w-md flex-col items-center justify-center overflow-visible">
+        <div class="min-h-3xs min-w-3xs flex aspect-square max-w-md flex-col items-center justify-center overflow-visible">
             <Image
                 src={Headshot2025_2}
                 alt="Amy Liu Headshot 2 from Barcelona, Spain"
@@ -21,41 +21,39 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
             />
         </div>
 
-        <div>
-            <div class="prose horizontal:text-left max-w-3xl px-4 text-center">
-                <div id="typed-strings">
-                    <p class="codelike">
-                        › Computer Graphics Engineer ^1000
-                        <br />› Game Developer ^1000
-                        <br />› Technical Artist ^1000
-                        <br />› Code Junkie
-                    </p>
-                </div>
-                <samp id="typed" class="block w-(--a2-line-height) leading-(--a2-line-height)"></samp>
+        <div class="prose horizontal:text-left max-w-xl text-center">
+            <div id="typed-strings">
                 <p>
-                    Hi, I'm <b class="text-green-accent">Amy</b>. Welcome to my website -- a one-stop shop for my CG
-                    personal portfolio.
+                    › Computer Graphics Engineer ^1000
+                    <br />› Game Developer ^1000
+                    <br />› Technical Artist ^1000
+                    <br />› Code Junkie
                 </p>
-                <p>
-                    I'm currently an undergrad at the University of Pennsylvania pursuing a <b class="text-blue-accent"
-                        >BSE in Digital Media Design</b
-                    > (Computer Graphics) and an <b class="text-red-accent"
-                        >Accelerated Master's in Computer Graphics and Game Technology</b
-                    >. I will be graduating in <b>May 2026</b>.
-                </p>
-                <p>
-                    Here, you can easily scroll and filter through my past
-                    <b>projects</b>, watch their corresponding <b>demo videos</b>, and read through each <b
-                        >project breakdown</b
-                    > for more information. I am also gradually expanding on the content, such as including my work in 3D-modeling
-                    and 2D art.
-                </p>
-
-                <q>
-                    The student keeps her eyes on the sky but her feet steady on the ground. She builds a staircase of
-                    books, all the way to the stars.
-                </q>
             </div>
+            <samp id="typed"></samp>
+            <p>
+                Hi, I'm <b class="text-green-accent">Amy</b>. Welcome to my website -- a one-stop shop for my CG
+                personal portfolio.
+            </p>
+            <p>
+                I'm currently an undergrad at the University of Pennsylvania pursuing a <b class="text-blue-accent"
+                    >BSE in Digital Media Design</b
+                > (Computer Graphics) and an <b class="text-red-accent"
+                    >Accelerated Master's in Computer Graphics and Game Technology</b
+                >. I will be graduating in <b>May 2026</b>.
+            </p>
+            <p>
+                Here, you can easily scroll and filter through my past
+                <b>projects</b>, watch their corresponding <b>demo videos</b>, and read through each <b
+                    >project breakdown</b
+                > for more information. I am also gradually expanding on the content, such as including my work in 3D-modeling
+                and 2D art.
+            </p>
+
+            <q>
+                The student keeps her eyes on the sky but her feet steady on the ground. She builds a staircase of
+                books, all the way to the stars.
+            </q>
         </div>
     </div>
 </MainLayout>

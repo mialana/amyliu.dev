@@ -62,7 +62,7 @@ export default function SideBar({ category = "NAV", active = false, children }: 
 
     return (
         <div
-            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} bg-neutral-primary ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4 shadow-lg`}
+            className={`absolute w-screen transition-[max-width] duration-1000 md:relative md:w-auto ${open ? "z-20 max-w-screen md:max-w-[40vw]" : "z-5 max-w-0"} bg-primary-neutral ${category == "NAV" ? "left-0 md:rounded-r-sm" : "right-0 md:rounded-l-sm"} h-full overflow-x-visible pt-8 pb-4 shadow-lg`}
             onClick={() => {
                 if (window.innerWidth <= 768) {
                     setOpen(false);

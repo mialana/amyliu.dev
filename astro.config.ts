@@ -3,9 +3,10 @@ import type { RemarkPlugin } from "@astrojs/markdown-remark";
 
 import sitemap from "@astrojs/sitemap";
 
-import remarkMath from "remark-math";
 import remarkSectionizeHeadings, { type Options as RemarkSectionizeHeadingsOptions } from "remark-sectionize-headings";
-import rehypeMathJaxChtml from "rehype-mathjax/chtml";
+import remarkMath from "remark-math"; /* converts to 'language-math' */
+
+import rehypeMathML from "@daiji256/rehype-mathml"; /* converts 'language-math' to mathML via temml */
 import rehypeExpressiveCode from "rehype-expressive-code";
 import rehypeCallouts from "rehype-callouts";
 import rehypeCaptions from "./src/lib/plugins/rehype-captions";
@@ -19,7 +20,7 @@ import react from "@astrojs/react";
 
 import tailwindcss from "@tailwindcss/vite";
 
-import d2 from "astro-d2";
+import d2 from "astro-d2"; /* modern alternative to mermaid? */
 
 const expressiveCodeConfig: AstroExpressiveCodeOptions = {
     plugins: [pluginLineNumbers(), pluginCollapsibleSections(), pluginCodeCaptions()],
@@ -56,17 +57,14 @@ export default defineConfig({
         }),
     ],
     vite: { plugins: [tailwindcss()] },
-    devToolbar: { enabled: true },
+    devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [
             [remarkMath, { singleDollarTextMath: true }],
             [remarkSectionizeHeadings as RemarkPlugin<[RemarkSectionizeHeadingsOptions?]>, { addClass: "md-section" }],
         ],
         rehypePlugins: [
-            [
-                rehypeMathJaxChtml,
-                { chtml: { fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2" } },
-            ],
+            rehypeMathML,
             [rehypeExpressiveCode, rehypeExpressiveCodeOptions],
             [rehypeCaptions, {}],
             [rehypeCallouts, {}],

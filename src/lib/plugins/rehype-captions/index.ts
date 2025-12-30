@@ -33,12 +33,12 @@ export const isImageOrTopLevelSvg = (node: ElementContent, parent: Element): boo
 
 export interface RehypeCaptionsOptions {
     /**
-     * @default `figure-image`
+     * @default `rehyped-figure`
      */
     figureClass?: string;
 
     /**
-     * @default `figcaption-image`
+     * @default `rehyped-figcaption`
      */
     figcaptionClass?: string;
 }
@@ -49,7 +49,7 @@ export interface RehypeCaptionsOptions {
  *
  */
 const rehypeCaptions: Plugin<[RehypeCaptionsOptions?], Root> = (options: RehypeCaptionsOptions = {}) => {
-    const { figureClass = "figure-image", figcaptionClass = "figcaption-image" } = options;
+    const { figureClass = "rehyped-figure", figcaptionClass = "rehyped-figcaption" } = options;
 
     /**
      * Transformer
@@ -61,6 +61,8 @@ const rehypeCaptions: Plugin<[RehypeCaptionsOptions?], Root> = (options: RehypeC
             if (!firstChild) return;
 
             if (!isImageOrTopLevelSvg(firstChild, node)) return;
+            if (node.children.length === 1) return; /* return if no other children are found */
+
             node.tagName = "figure"; // convert to figure
             addClassToHast(node, figureClass);
 

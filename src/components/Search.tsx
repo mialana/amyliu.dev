@@ -37,11 +37,15 @@ const FilterSelect = ({ id, label, value, onChange, options }: FilterSelectProps
                     }
                 }}
                 onChange={(e) => onChange(e.target.value)}
-                className="bg-secondary/50 text-important-text w-max min-w-30 cursor-pointer rounded-md border px-2 py-1 text-sm focus:brightness-200 focus:**:brightness-200"
+                className="bg-secondary-shade/50 text-important-text w-max min-w-30 cursor-pointer rounded-md border px-2 py-1 text-sm focus:brightness-200 focus:**:brightness-200"
                 style={selectStyle}
             >
                 {options.map((option) => (
-                    <option key={option.value} value={option.value} className="bg-primary/50! text-important-text!">
+                    <option
+                        key={option.value}
+                        value={option.value}
+                        className="bg-primary-shade/50! text-important-text!"
+                    >
                         {option.label}
                     </option>
                 ))}

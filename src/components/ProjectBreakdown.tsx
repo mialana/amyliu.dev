@@ -134,7 +134,7 @@ export default function ProjectBreakdown({ children }: ProjectBreakdownProps) {
                 className="sticky top-0 z-10 flex w-full flex-nowrap justify-center-safe gap-1 overflow-x-scroll scroll-auto lg:gap-2"
                 role="tablist"
             >
-                <div className="bg-primary absolute top-0 h-2 w-full"></div>
+                <div className="bg-primary-shade absolute top-0 h-2 w-full"></div>
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}

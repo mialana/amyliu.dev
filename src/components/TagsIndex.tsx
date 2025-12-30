@@ -55,7 +55,7 @@ export default function TagsIndex({ tagCloudData }: TagsIndexProps) {
             {/* Button */}
             <button
                 onClick={() => setWordCloudView(!wordCloudView)}
-                className="bg-inverted-tertiary/50 text-inverted-important-text mb-6 cursor-pointer rounded-md border px-2 py-1 text-sm hover:brightness-150"
+                className="bg-inverted-tertiary-shade/50 text-inverted-important-text mb-6 cursor-pointer rounded-md border px-2 py-1 text-sm hover:brightness-150"
             >
                 Switch to {wordCloudView ? "Alphabetical List View" : "Wordcloud View"}
             </button>

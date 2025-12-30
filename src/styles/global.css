@@ -3,18 +3,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
+@import url("/vendor/temml/Temml-NotoSans.css") layer(math);
+
 /* tailwind layers are 'theme', 'base', 'components', and 'utilities' */
-@layer theme, base, resets, globals, components, defaults, utilities, ecLayer, overrides;
+@layer theme, base, resets, globals, components, defaults, utilities, ecLayer, math, overrides;
 
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 @import "rehype-callouts/theme/vitepress" layer(utils);
-
-@custom-variant horizontal {
-    @media (min-width: 1024px) {
-        @slot;
-    }
-}
+@plugin "@tailwindcss/typography";
 
 @theme {
     --font-words: "Roboto condensed", sans-serif; /* default font for app, `words` to avoid clash */
@@ -26,17 +22,18 @@
     --color-red-accent: #c54b4b;
     --color-green-accent: #388c1e;
     --color-aqua-accent: #34b3b9;
+    --color-orange-accent: #c34a09;
 
     /* main color palette */
-    --color-primary: #ebe2d1;
-    --color-secondary: #916c64;
-    --color-tertiary: #a59494;
-    --color-neutral-primary: #eae3da;
+    --color-primary-shade: #ebe2d1;
+    --color-secondary-shade: #916c64;
+    --color-tertiary-shade: #a59494;
+    --color-primary-neutral: #eae3da;
     --color-important-text: #151515;
     --color-primary-shadow: #7a6c6c;
     --color-inverted-primary: #182525;
     --color-inverted-secondary: #192933;
-    --color-inverted-tertiary: #33303a;
+    --color-inverted-tertiary-shade: #33303a;
     --color-inverted-neutral: #1f1f21;
     --color-inverted-shadow: #28242d;
     --color-inverted-important-text: #e8e8e8;
@@ -56,6 +53,14 @@
 
     --border-sm: 0.5px;
     --border-md: 1px;
+
+    --breakpoint-horizontal: 960px;
+}
+
+@custom-variant horizontal {
+    @media (min-width: theme(--breakpoint-horizontal)) {
+        @slot;
+    }
 }
 
 @layer resets {
@@ -123,7 +128,7 @@
         --a2-font-family: var(--font-words);
         --a2-font-size: 16px;
         --a2-font-weight: 450;
-        --a2-text-color: var(--color-inverted-tertiary); /* text color */
+        --a2-text-color: var(--color-inverted-tertiary-shade); /* text color */
         --a2-emphasized-text-color: var(--color-important-text);
         --a2-code-text-color: var(--color-red-accent);
         --a2-link-text-color: var(--color-blue-accent);
@@ -131,22 +136,20 @@
         --a2-line-height-form-controls: 1.2;
         --a2-line-height-atoms: 1.1;
 
-        /* inline code styling */
-        --a2-code-font-family: var(--font-code);
-        --a2-code-relative-font-size: 0.875em;
-        --a2-code-line-weight: 600;
-        --a2-code-line-height: 1; /* none */
-
-        --a2-code-background-color: --alpha(var(--color-inverted-important-text) / 75%); /* 75% opacity */
-        --a2-code-border-color: var(--color-aqua-accent);
-        --a2-code-border-width: var(--border-md);
-
         /* preferences */
         --a2-semantics-cursor: default;
         --a2-scroll-behavior: smooth;
 
         /* shadow color */
         --a2-shadow-color: var(--color-primary-shadow);
+        --a2-border-color: var(--color-inverted-shadow);
+
+        /* main-content-cell styling */
+        --a2-main-content-padding-inline: calc(var(--spacing) * 6);
+        --a2-main-content-padding-block: calc(var(--spacing) * 12);
+
+        --a2-accent-dark-luminance-adjust: 10;
+        --a2-accent-dark-saturation-adjust: 50;
     }
 
     html {
@@ -191,7 +194,7 @@
     :where(img) {
         background: url("/resources/loading.gif") center center no-repeat; /* centered icon */
         background-size: 64px 64px; /* icon size */
-        @apply bg-neutral-primary; /* filler color */
+        @apply bg-primary-neutral; /* filler color */
         font-size: 0px;
     }
 
@@ -212,11 +215,14 @@
 
     :where(samp) {
         font-family: var(--font-github-code);
-        font-weight: var(--a2-code-line-weight);
+        font-weight: var(--a2-code-font-weight);
+        line-height: var(--a2-line-height);
+        display: block;
     }
 
     :where(*) {
-        @apply shadow-(--a2-shadow-color); /* --tw-shadow-color: var(--a2-shadow-color); */
+        @apply shadow-(--a2-shadow-color);
+        border-color: var(--a2-border-color);
     }
 
     :where(q) {
@@ -248,125 +254,25 @@
 
 @utility dark-palette {
     /* dark mode overrides of main color palette */
-    --color-primary: #182525;
-    --color-secondary: #192933;
-    --color-tertiary: #33303a;
-    --color-neutral-primary: #1f1f21;
+    --color-primary-shade: #182525;
+    --color-secondary-shade: #192933;
+    --color-tertiary-shade: #33303a;
+    --color-primary-neutral: #1f1f21;
     --color-important-text: #e8e8e8;
     --color-primary-shadow: #28242d;
     --color-inverted-primary: #ebe2d1;
     --color-inverted-secondary: #916c64;
-    --color-inverted-tertiary: #a59494;
+    --color-inverted-tertiary-shade: #a59494;
     --color-inverted-neutral: #eae3da;
     --color-inverted-shadow: #7a6c6c;
     --color-inverted-important-text: #151515;
     --color-grid-background: #868080;
-}
 
-/* 
- * All `utility` declarations are in "utilities" layer, 
- * effectively overriding `.prose` definition in "components layer 
- */
-@utility prose {
-    --tw-prose-body: var(--a2-text-color);
-    --tw-prose-headings: var(--a2-emphasized-text-color);
-    --tw-prose-links: var(--color-blue-accent);
-    --tw-prose-bold: var(--a2-emphasized-text-color);
-    --tw-prose-code: var(--a2-code-text-color);
-    --tw-prose-counters: var(--a2-emphasized-text-color);
-    --tw-prose-bullets: var(--a2-emphasized-text-color);
-
-    :where(:not(.not-prose, .not-prose *)) {
-        &:where(code):not(.expressive-code pre code),
-        &:is(.ec-code-caption code) {
-            &::before,
-            &::after {
-                content: none; /* inline code */
-            }
-
-            background-color: var(--a2-code-background-color);
-            color: var(--a2-code-text-color);
-            border: var(--a2-code-border-width) solid var(--a2-code-border-color);
-            @apply p-xdouble-y-0.5;
-        }
-
-        &:is(figcaption:not(.expressive-code .header)) {
-            font-size: 0.75em;
-            &::before {
-                content: "⬑";
-                line-height: 1em;
-                height: 1em; /* match height of parent */
-                padding-inline: 0.5em;
-            }
-
-            &:is(.ec-code-caption) {
-                display: grid;
-                grid-template-columns: auto 1fr;
-                align-items: center;
-                justify-items: start;
-                row-gap: 0.25em;
-
-                &::before {
-                    grid-column: 1;
-                    grid-row: 1;
-                }
-
-                /* Put every child element into column 2 */
-                & > * {
-                    grid-column: 2;
-                }
-
-                /* Remove margin between blocks (p, ul, pre, etc.). Relay on grid gap for consistent spacing. */
-                & > * {
-                    margin: 0;
-                }
-            }
-        }
-
-        /* styling for TIP, INFO, etc. */
-        &:where(.callout) {
-            font-weight: 500;
-            font-family: var(--font-github-code);
-        }
-
-        /* styling for LaTeX */
-        &:where(mjx-container) {
-            color: var(--a2-emphasized-text-color);
-
-            /* display blocks */
-            &[display="true"] {
-                font-size: 0.875em;
-                color: red;
-            }
-
-            /* inline math */
-            &:not([display="true"]) {
-                color: blue;
-            }
-        }
-
-        /*     styleOverrides: { borderRadius: "0.375rem", codePaddingInline: "0.5rem" }, */
-
-        div.expressive-code {
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-
-            .gutter {
-                @apply px-0!;
-                .ln {
-                    @apply text-inverted-primary/50! px-1! text-[8px]! leading-none! md:px-1!;
-                }
-            }
-
-            span.title {
-                @apply text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
-            }
-
-            code {
-                @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
-            }
-        }
-    }
+    --color-blue-accent: hsl(from #454eb3 h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
+    --color-red-accent: hsl(from #c54b4b h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
+    --color-green-accent: hsl(from #388c1e h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
+    --color-aqua-accent: hsl(from #34b3b9 h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
+    --color-orange-accent: hsl(from #c34a09 h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
 }
 
 @utility debug {
@@ -380,11 +286,26 @@
     padding-block: calc(--value(number) * 1px); /* Use `calc(... * _px)` to assign units */
 }
 
+@utility match-height-in-line-* {
+    line-height: 1;
+    height: 1em; /* match height of parent */
+}
+
 @utility codelike {
+    /* inline code styling */
+    --a2-code-font-family: var(--font-code);
+    /* calculated line height and height based off this to ensure overall height equals parents' fontsize */
+    --a2-code-relative-font-size: 0.8;
+    --a2-code-font-weight: 600;
+
+    --a2-code-background-color: --alpha(var(--color-inverted-important-text) / 75%); /* 75% opacity */
+    --a2-code-border-color: var(--color-aqua-accent);
+    --a2-code-border-width: var(--border-md);
+
     font-family: var(--a2-code-font-family);
-    font-size: var(--a2-code-relative-font-size);
-    font-weight: var(--a2-code-line-weight);
-    line-height: var(--a2-code-line-height);
+    font-weight: var(--a2-code-font-weight);
+    font-size: calc(var(--a2-code-relative-font-size) * 1em);
+    line-height: calc(1 / var(--a2-code-relative-font-size));
 }
 
 /* allow leading to accept variable values */
@@ -392,15 +313,123 @@
     line-height: --value([integer]);
 }
 
+/* styling for the center cell of the app */
+@utility main-content-cell {
+    /* remove specificity via `where` */
+    :where(&) {
+        padding-inline: var(--a2-main-content-padding-inline);
+        padding-block: var(--a2-main-content-padding-block);
+        margin: auto;
+    }
+}
+
 @layer overrides {
     :root {
-        @media screen and (max-device-width: 768px) {
-            /* tailwind md container breakpoint */
-            --spacing: 2px;
+        @media (max-width: theme(--breakpoint-horizontal)) {
+            --spacing: 2px; /* reduce global spacing */
+        }
+        @media (min-width: theme(--breakpoint-horizontal)) {
+            --a2-main-content-padding-inline: calc(var(--spacing) * 8); /* increase inline padding of main content cell */
         }
     }
 
     html[data-theme="dark"] {
         @apply dark-palette; /* apply dark-palette when root element has dark-theme in its class list */
+    }
+
+    /* override the default .prose class defined in "utilities" layer */
+    .prose {
+        --tw-prose-body: var(--a2-text-color);
+        --tw-prose-headings: var(--a2-emphasized-text-color);
+        --tw-prose-links: var(--color-blue-accent);
+        --tw-prose-bold: var(--a2-emphasized-text-color);
+        --tw-prose-code: var(--a2-code-text-color);
+        --tw-prose-counters: var(--a2-emphasized-text-color);
+        --tw-prose-bullets: var(--a2-emphasized-text-color);
+
+        :where(:not(.not-prose, .not-prose *)) {
+            /* inline code */
+            &:where(code):not(.expressive-code pre code),
+            &:is(.ec-code-caption code) {
+                &::before,
+                &::after {
+                    content: none; /* remove ticks that prose always adds */
+                }
+                @apply codelike;
+
+                background-color: var(--a2-code-background-color);
+                color: var(--a2-code-text-color);
+                border: var(--a2-code-border-width) solid var(--a2-code-border-color);
+                padding-inline: var(--spacing);
+            }
+
+            /* figcaption styling */
+            &:is(figcaption.ec-code-caption, figcaption.rehyped-figcaption) {
+                font-size: 0.75em;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                align-items: center;
+                justify-items: start;
+                row-gap: 0.25em;
+
+                &::before {
+                    content: "⬑"; /* styling for "before" arrow */
+                    line-height: 1;
+                    height: 1em; /* match height of parent */
+                    padding-inline: 0.5em;
+                    grid-column: 1;
+                    grid-row: 1;
+                    align-self: first baseline; /* override parent's `align-items: center` */
+                }
+
+                & > * {
+                    grid-column: 2; /* Put every child element into column 2 */
+                    /* Remove margin between blocks (p, ul, pre, etc.). Relay on grid gap for consistent spacing. */
+                    margin: 0;
+                }
+            }
+
+            /* styling for TIP, INFO, etc. */
+            &:where(.callout) {
+                font-weight: 500;
+                font-family: var(--font-github-code);
+            }
+
+            /* styling for LaTeX */
+            &:where(math) {
+                color: var(--a2-emphasized-text-color);
+                font-size: 0.875em;
+                line-height: 0.875em;
+                color: var(--color-orange-accent);
+
+                /* increase distinguishability for non-display (inline) math */
+                &:not(.tml-display) {
+                    filter: brightness(125%);
+                    filter: contrast(125%);
+                }
+            }
+
+            /*     styleOverrides: { borderRadius: "0.375rem", codePaddingInline: "0.5rem" }, */
+
+            div.expressive-code {
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+
+                .gutter {
+                    @apply px-0!;
+                    .ln {
+                        @apply text-inverted-primary/50! px-1! text-[8px]! leading-none! md:px-1!;
+                    }
+                }
+
+                span.title {
+                    @apply text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
+                }
+
+                code {
+                    @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
+                }
+            }
+        }
     }
 }

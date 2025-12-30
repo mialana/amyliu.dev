@@ -44,27 +44,30 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <slot name="head" />
         <ThemeClient />
     </head>
-    <body
-        class=`grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-md ${grid_cols}`
-    >
-        <header class="col-span-3">
-            <Header />
-        </header>
-        <nav id="nav-grid-cell" class="transition-transform duration-1000">
-            <SideBar category="NAV" active={navActive} client:load>
-                <slot name="nav-sidebar" />
-            </SideBar>
-        </nav>
-        <main
-            class="page-animation bg-primary flex overflow-x-hidden overflow-y-scroll rounded-sm shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
+    <body>
+        <div
+            id="app"
+            class=`bg-tertiary-shade grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-md ${grid_cols}`
         >
-            <slot />
-        </main>
-        <aside id="aside-grid-cell" class="transition-transform duration-1000">
-            <SideBar category="ASIDE" active={asideActive} client:load>
-                <slot name="aside-sidebar" />
-            </SideBar>
-        </aside>
-        <footer class="col-span-3"><Footer /></footer>
+            <header class="col-span-3">
+                <Header />
+            </header>
+            <nav id="nav-grid-cell" class="transition-transform duration-1000">
+                <SideBar category="NAV" active={navActive} client:load>
+                    <slot name="nav-sidebar" />
+                </SideBar>
+            </nav>
+            <main
+                class="page-animation bg-primary-shade *:main-content-cell flex overflow-x-hidden overflow-y-scroll rounded-sm shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
+            >
+                <slot />
+            </main>
+            <aside id="aside-grid-cell" class="transition-transform duration-1000">
+                <SideBar category="ASIDE" active={asideActive} client:load>
+                    <slot name="aside-sidebar" />
+                </SideBar>
+            </aside>
+            <footer class="col-span-3"><Footer /></footer>
+        </div>
     </body>
 </html>

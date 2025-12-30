@@ -65,7 +65,7 @@ export default function ThemeToggle() {
     }
 
     return (
-        <Button variant="outline" size="icon-sm" onClick={toggle} className="bg-tertiary">
+        <Button variant="outline" size="icon-sm" onClick={toggle} className="bg-tertiary-shade">
             <Sun className={`${theme === LIGHT_THEME_TEXT && "hidden"}`} />
             <Moon className={`${theme === DARK_THEME_TEXT && "hidden"}`} />
         </Button>

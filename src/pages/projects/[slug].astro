@@ -39,6 +39,7 @@ if (!headings.length) {
 
 <MainLayout title={project.data.title} layout="DEFAULT">
     <ProjectHead slot="head" project={project} />
+    <script is:inline slot="head" src="/vendor/temml/temml.min.js"></script>
 
     <TableOfContents headings={headings} slot="nav-sidebar" />
 
