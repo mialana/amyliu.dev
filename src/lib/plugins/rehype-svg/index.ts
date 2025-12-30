@@ -46,8 +46,6 @@ const rehypeSvg: Plugin<[RehypeSvgOptions?], Root> = (options: RehypeSvgOptions 
 
         const filePath = file.path;
 
-        const isTestDoc = filePath.includes("PAPAYA_copy");
-
         visit(tree, "element", (node: Element, index?: number, parent?: Parent) => {
             if (!isImage(node) || !parent) return;
 
@@ -106,12 +104,6 @@ const rehypeSvg: Plugin<[RehypeSvgOptions?], Root> = (options: RehypeSvgOptions 
                         }
 
                         addClassToHast(wrapperElement, svgWrapperClass);
-
-                        if (isTestDoc) {
-                            console.log(svgElement);
-                            console.log(wrapperElement);
-                            console.log(parent);
-                        }
                     } catch (err) {
                         console.log(`[rehype-svg] Error processing image with src "${imageSrc}": ${err}`);
                     }
@@ -120,8 +112,6 @@ const rehypeSvg: Plugin<[RehypeSvgOptions?], Root> = (options: RehypeSvgOptions 
         });
 
         await Promise.all(jobs);
-
-        if (isTestDoc) console.log(tree.children[2])
     };
 
     return transformer;

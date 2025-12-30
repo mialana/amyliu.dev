@@ -40,13 +40,6 @@ if (!headings.length) {
 <MainLayout title={project.data.title} layout="DEFAULT">
     <ProjectHead slot="head" project={project} />
     <script is:inline slot="head" src="/vendor/temml/temml.min.js"></script>
-    {
-        project.data.slug === "PAPAYA_copy" && (
-            <script is:inline slot="head">
-                document.documentElement.dataset.isTestDoc = true;
-            </script>
-        )
-    }
 
     <TableOfContents headings={headings} slot="nav-sidebar" />
 
