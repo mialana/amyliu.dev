@@ -10,13 +10,14 @@ import rehypeRaw from "rehype-raw";
 import rehypeMathML from "@daiji256/rehype-mathml"; /* converts 'language-math' to mathML via temml */
 import rehypeExpressiveCode, { ExpressiveCodeTheme } from "rehype-expressive-code";
 import rehypeCallouts from "rehype-callouts";
-import rehypeCaptions from "./src/lib/plugins/rehype-captions";
-import rehypeSvg from "./src/lib/plugins/rehype-svg";
+import rehypeCaptions from "./src/lib/plugins/rehype-captions"; /* custom */
+import rehypeSvg from "./src/lib/plugins/rehype-svg"; /* custom */
 
 import astroExpressiveCode, { type AstroExpressiveCodeOptions } from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions";
+import { pluginLanguageBadge } from "expressive-code-language-badge";
+import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions"; /* custom */
 
 import react from "@astrojs/react";
 
@@ -32,22 +33,20 @@ const expressiveCodeThemeSelector = (theme: ExpressiveCodeTheme) => {
 };
 
 const expressiveCodeConfig: AstroExpressiveCodeOptions = {
-    plugins: [pluginLineNumbers(), pluginCollapsibleSections(), pluginCodeCaptions()],
-    shiki: { langAlias: { usda: "bash", math: "bash" } },
-    themes: ["gruvbox-dark-hard", "material-theme-lighter"],
+    plugins: [
+        pluginLineNumbers(),
+        pluginCollapsibleSections(),
+        pluginLanguageBadge(),
+        pluginCodeCaptions(),
+    ],
+    shiki: { langAlias: { usd: "python", usda: "python", math: "ini" } } /* math is included as a fallback */,
+    themes: ["andromeeda", "light-plus"],
     themeCssRoot: ":root" /* already the default, but just in case */,
     themeCssSelector: expressiveCodeThemeSelector,
-    minSyntaxHighlightingColorContrast: 7.5,
     useDarkModeMediaQuery: false /* false because it should depend on my custom theme state */,
     useThemedSelectionColors: true /* themes can set selection colors */,
     defaultProps: { wrap: true, showLineNumbers: true, collapseStyle: "collapsible-auto" },
     cascadeLayer: "ecLayer", // place ec styles into a named cascade layer
-    styleOverrides: {
-        uiFontFamily: "inherit",
-        uiFontSize: "inherit",
-        uiFontWeight: "inherit",
-        uiLineHeight: "inherit",
-    },
 };
 
 const isCloudflare = process.env.CLOUDFLARE_WORKER === "1";

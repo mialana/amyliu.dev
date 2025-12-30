@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "scripts": {
         "dev": "astro dev",
+        "redev": "astro dev --force",
         "build": "astro build",
         "build:cloudflare": "cross-env CLOUDFLARE_WORKER=1 astro build",
         "deploy": "astro build && wrangler deploy",
@@ -18,6 +19,7 @@
         "@astrojs/sitemap": "^3.6.0",
         "@daiji256/rehype-mathml": "^1.2.2",
         "@expressive-code/plugin-collapsible-sections": "^0.41.5",
+        "@expressive-code/plugin-frames": "^0.41.5",
         "@expressive-code/plugin-line-numbers": "^0.41.5",
         "@mathjax/mathjax-dejavu-font": "^4.1.0",
         "@panzoom/panzoom": "^4.6.1",
@@ -31,6 +33,7 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",
+        "expressive-code-language-badge": "^1.1.0",
         "install": "^0.13.0",
         "lucide-react": "^0.562.0",
         "mermaid": "^11.12.2",

@@ -448,8 +448,15 @@
             }
 
             /*     styleOverrides: { borderRadius: "0.375rem", codePaddingInline: "0.5rem" }, */
+/* 
+                styleOverrides: {
+                    uiFontFamily: "inherit",
+                    uiFontSize: "inherit",
+                    uiFontWeight: "inherit",
+                    uiLineHeight: "inherit",
+                } */
 
-            div.expressive-code {
+            /* div.expressive-code {
                 margin-top: 2rem;
                 margin-bottom: 2rem;
 
@@ -467,7 +474,7 @@
                 code {
                     @apply cursor-text text-[0.6rem]! md:text-[0.7rem]! lg:text-[0.75rem]!;
                 }
-            }
+            } */
         }
     }
 }
