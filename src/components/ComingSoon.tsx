@@ -12,7 +12,7 @@ export default function ComingSoon({ showHeader = true }: ComingSoonProps) {
                 <p className="text-xs! leading-none md:text-sm!">More details coming soon...</p>
             </div>
             <img
-                src="/resources/coming_soon.gif"
+                src="/resources/gif/coming_soon.gif"
                 className="coming-soon-img mx-auto w-full overflow-hidden shadow-md md:shadow-lg"
             />
         </div>

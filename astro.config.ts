@@ -7,9 +7,11 @@ import remarkSectionizeHeadings, { type Options as RemarkSectionizeHeadingsOptio
 import remarkMath from "remark-math"; /* converts to 'language-math' */
 
 import rehypeRaw from "rehype-raw";
+import rehypeSlug from "rehype-slug";
 import rehypeMathML from "@daiji256/rehype-mathml"; /* converts 'language-math' to mathML via temml */
 import rehypeExpressiveCode, { ExpressiveCodeTheme } from "rehype-expressive-code";
 import rehypeCallouts from "rehype-callouts";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeCaptions from "./src/lib/plugins/rehype-captions"; /* custom */
 import rehypeSvg from "./src/lib/plugins/rehype-svg"; /* custom */
 
@@ -23,7 +25,9 @@ import react from "@astrojs/react";
 
 import tailwindcss from "@tailwindcss/vite";
 
-import d2 from "astro-d2"; /* modern alternative to mermaid? */
+import d2 from "astro-d2"; /* modern alternative to mermaid */
+
+import RehypeAutolinkHeadingsSettings from "./src/lib/RehypeAutolinkHeadingsSettings";
 
 const expressiveCodeThemeSelector = (theme: ExpressiveCodeTheme) => {
     if (expressiveCodeConfig.themes && theme.name === expressiveCodeConfig.themes[0]) {
@@ -33,12 +37,7 @@ const expressiveCodeThemeSelector = (theme: ExpressiveCodeTheme) => {
 };
 
 const expressiveCodeConfig: AstroExpressiveCodeOptions = {
-    plugins: [
-        pluginLineNumbers(),
-        pluginCollapsibleSections(),
-        pluginLanguageBadge(),
-        pluginCodeCaptions(),
-    ],
+    plugins: [pluginLineNumbers(), pluginCollapsibleSections(), pluginLanguageBadge(), pluginCodeCaptions()],
     shiki: { langAlias: { usd: "python", usda: "python", math: "ini" } } /* math is included as a fallback */,
     themes: ["andromeeda", "light-plus"],
     themeCssRoot: ":root" /* already the default, but just in case */,
@@ -77,6 +76,8 @@ export default defineConfig({
             rehypeRaw /* must run before `rehypeSvg` */,
             rehypeMathML /* must run before `rehypeExpressiveCode */,
             [rehypeExpressiveCode, { tabWidth: 2 }],
+            rehypeSlug /* must run before `rehypeAutolinkHeadings */,
+            [rehypeAutolinkHeadings, RehypeAutolinkHeadingsSettings] /* add generated link to `heading-anchor` class */,
             rehypeCaptions,
             rehypeSvg,
             rehypeCallouts,

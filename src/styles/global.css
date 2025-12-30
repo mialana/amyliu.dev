@@ -47,7 +47,7 @@
     /* light accent colors adjusted by saturation and luminance variables */
     --color-dark-blue-accent: hsl(from var(--color-light-blue-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
     --color-dark-red-accent: hsl(from var(--color-light-red-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
-    --color-dark-green-accent: hsl(from var(--color-light-green-accent)e h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-dark-luminance-adjust)));
+    --color-dark-green-accent: hsl(from var(--color-light-green-accent) e h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-dark-luminance-adjust)));
     --color-dark-aqua-accent: hsl(from var(--color-light-aqua-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
     --color-dark-orange-accent: hsl(from var(--color-light-orange-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
 
@@ -169,7 +169,9 @@
         --a2-link-text-color: var(--color-blue-accent);
         --a2-line-height: 1.5; /* line-height */
         --a2-line-height-form-controls: 1.2;
+
         --a2-line-height-atoms: 1.1;
+        --a2-spacing-atoms: 0.35em;
 
         /* preferences */
         --a2-semantics-cursor: default;
@@ -185,6 +187,8 @@
 
         --a2-accent-dark-luminance-adjust: 10;
         --a2-accent-dark-saturation-adjust: 50;
+
+        --a2-item-transition-duration: 0.75s;
     }
 
     html {
@@ -232,10 +236,10 @@
     /* apply loading gif as background to all images */
     /* https://loading.io/spinner/spinner/ */
     :where(img) {
-        background: url("/resources/loading.gif") center center no-repeat; /* centered icon */
+        background: url("/resources/gif/loading.gif") center center no-repeat; /* centered icon */
         background-size: 64px 64px; /* icon size */
-        @apply bg-primary-neutral; /* filler color */
-        font-size: 0px;
+        background-color: var(--color-primary-neutral); /* filler color */
+        font-size: 0px; /* hide unloaded image text */
     }
 
     /* Set line height of form-controls  */
@@ -408,7 +412,7 @@
                 grid-template-columns: auto 1fr;
                 align-items: center;
                 justify-items: start;
-                row-gap: 0.25em;
+                row-gap: var(--a2-spacing-atoms);
 
                 &::before {
                     content: "⬑"; /* styling for "before" arrow */
@@ -447,8 +451,57 @@
                 }
             }
 
+            /* style heading anchor link */
+            &:where(.heading-anchor) {
+                display: none; /* hide by default */
+                padding-inline: var(--a2-spacing-atoms);
+                transform: rotate(45deg);
+                transition: transform var(--a2-item-transition-duration) ease-in-out;
+
+                --outline-color-luminance-adjust: 10;
+                --outline-color-saturation-adjust: 50; /* local variables */
+
+                /* set color variables for svg content  */
+                --a2-anchor-icon-connector: var(--color-inverted-neutral);
+                --a2-anchor-icon-body: --alpha(var(--color-important-text) / 25%);
+                --a2-anchor-icon-outline: hsl(from var(--color-light-blue-accent) h calc(s + var(--outline-color-saturation-adjust)) calc(l + var(--outline-color-luminance-adjust)));
+                --a2-anchor-icon-outline-width: calc(var(--spacing) / 2);
+
+                
+                &,
+                & > svg {
+                    height: 0.75em;
+                    aspect-ratio: square;
+                }
+
+                &:hover {
+                    --outline-color-luminance-adjust: -10;
+                    --outline-color-saturation-adjust: 75; /* adjust hsl value of outline */
+                    
+                    /* apply rotation transform with transition */
+                    transform: rotate(180deg);
+                }
+
+                /* style the headings that contain the anchor */
+                :where(h2, h3, h4, h5, h6):has(&) {
+                    display: inline-flex;
+                    align-items: center;
+                }
+
+                :where(h2, h3, h4, h5, h6):has(&):hover & {
+                    display: block;
+                }
+            }
+
+            /*     styleOverrides: {
+        uiFontFamily: "inherit",
+        uiFontSize: "inherit",
+        uiFontWeight: "inherit",
+        uiLineHeight: "inherit",
+    },
+    */
             /*     styleOverrides: { borderRadius: "0.375rem", codePaddingInline: "0.5rem" }, */
-/* 
+            /* 
                 styleOverrides: {
                     uiFontFamily: "inherit",
                     uiFontSize: "inherit",

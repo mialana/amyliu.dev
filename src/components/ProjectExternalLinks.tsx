@@ -66,7 +66,7 @@ const ProjectExternalLinks: React.FC<Props> = ({ code, externalLinks = [] }) => 
                                 loading="lazy"
                                 onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = "/resources/loading.gif";
+                                    currentTarget.src = "/resources/gif/loading.gif";
                                 }}
                                 className="size-3/4 rounded-xl"
                                 title={label}
