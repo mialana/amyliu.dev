@@ -8,7 +8,7 @@ import remarkMath from "remark-math"; /* converts to 'language-math' */
 
 import rehypeRaw from "rehype-raw";
 import rehypeMathML from "@daiji256/rehype-mathml"; /* converts 'language-math' to mathML via temml */
-import rehypeExpressiveCode from "rehype-expressive-code";
+import rehypeExpressiveCode, { ExpressiveCodeTheme } from "rehype-expressive-code";
 import rehypeCallouts from "rehype-callouts";
 import rehypeCaptions from "./src/lib/plugins/rehype-captions";
 import rehypeSvg from "./src/lib/plugins/rehype-svg";
@@ -24,11 +24,22 @@ import tailwindcss from "@tailwindcss/vite";
 
 import d2 from "astro-d2"; /* modern alternative to mermaid? */
 
+const expressiveCodeThemeSelector = (theme: ExpressiveCodeTheme) => {
+    if (expressiveCodeConfig.themes && theme.name === expressiveCodeConfig.themes[0]) {
+        return "[data-theme='dark']";
+    }
+    return "[data-theme='light']"; /* default light */
+};
+
 const expressiveCodeConfig: AstroExpressiveCodeOptions = {
     plugins: [pluginLineNumbers(), pluginCollapsibleSections(), pluginCodeCaptions()],
     shiki: { langAlias: { usda: "bash", math: "bash" } },
-    themes: ["gruvbox-dark-hard"],
+    themes: ["gruvbox-dark-hard", "material-theme-lighter"],
+    themeCssRoot: ":root" /* already the default, but just in case */,
+    themeCssSelector: expressiveCodeThemeSelector,
     minSyntaxHighlightingColorContrast: 7.5,
+    useDarkModeMediaQuery: false /* false because it should depend on my custom theme state */,
+    useThemedSelectionColors: true /* themes can set selection colors */,
     defaultProps: { wrap: true, showLineNumbers: true, collapseStyle: "collapsible-auto" },
     cascadeLayer: "ecLayer", // place ec styles into a named cascade layer
     styleOverrides: {
@@ -64,8 +75,8 @@ export default defineConfig({
             [remarkSectionizeHeadings as RemarkPlugin<[RemarkSectionizeHeadingsOptions?]>, { addClass: "md-section" }],
         ],
         rehypePlugins: [
-            rehypeRaw, /* must run before `rehypeSvg` */
-            rehypeMathML, /* must run before `rehypeExpressiveCode */
+            rehypeRaw /* must run before `rehypeSvg` */,
+            rehypeMathML /* must run before `rehypeExpressiveCode */,
             [rehypeExpressiveCode, { tabWidth: 2 }],
             rehypeCaptions,
             rehypeSvg,

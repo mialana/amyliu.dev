@@ -31,15 +31,15 @@ const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thum
 
 <div class="my-4 flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16">
     <div id="project-headings" class="prose max-w-full text-center">
-        <h1>
-            <a
-                id="project-title-link"
-                class="font-bold no-underline"
-                href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}
-            >
+        <a
+            id="project-title-link"
+            class="no-underline"
+            href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}
+        >
+            <h1>
                 {project.data.title}
-            </a>
-        </h1>
+            </h1>
+        </a>
         <time datetime={project.data.startDate.toISOString()}>
             {format(project.data.startDate, "MMMM dd, yyyy")}
         </time>
