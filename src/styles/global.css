@@ -13,6 +13,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
+    --breakpoint-horizontal: 768px;
+
     --font-words: "Roboto condensed", sans-serif; /* default font for app, `words` to avoid clash */
     --font-signature: "Fredericka the Great", serif;
     --font-code: "JetBrains Mono", monospace;
@@ -53,8 +55,6 @@
 
     --border-sm: 0.5px;
     --border-md: 1px;
-
-    --breakpoint-horizontal: 960px;
 }
 
 @custom-variant horizontal {
@@ -214,8 +214,9 @@
     }
 
     :where(samp) {
+        @apply codelike;
+        --a2-code-relative-font-size: 0.9; /* override font-size (and line-height follows) */
         font-family: var(--font-github-code);
-        font-weight: var(--a2-code-font-weight);
         line-height: var(--a2-line-height);
         display: block;
     }
