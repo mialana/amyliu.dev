@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap");
@@ -47,9 +46,10 @@
     /* light accent colors adjusted by saturation and luminance variables */
     --color-dark-blue-accent: hsl(from var(--color-light-blue-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
     --color-dark-red-accent: hsl(from var(--color-light-red-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
-    --color-dark-green-accent: hsl(from var(--color-light-green-accent) e h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-dark-luminance-adjust)));
+    --color-dark-green-accent: hsl(from var(--color-light-green-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
     --color-dark-aqua-accent: hsl(from var(--color-light-aqua-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
     --color-dark-orange-accent: hsl(from var(--color-light-orange-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
+    --color-dark-violet-accent: hsl(from var(--color-light-violet-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
 
     /**
      * Controller variables for color palette.
@@ -62,9 +62,12 @@
     --color-primary-neutral: var(--color-light-primary-neutral);
     --color-important-text: var(--color-light-important-text);
     --color-primary-shadow: var(--color-light-primary-shadow);
-    --color-inverted-primary: var(--color-dark-primary-shade);
-    --color-inverted-secondary: var(--color-dark-secondary-shade);
-    --color-inverted-tertiary: var(--color-dark-tertiary-shade);
+
+    /* adjust the light mode inverted color variables as they are hard to see in this environment */
+    --color-inverted-primary: hsl(from var(--color-dark-primary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * 0.4)) calc(l + (var(--a2-accent-dark-luminance-adjust) * 0.85)));
+    --color-inverted-secondary: hsl(from var(--color-dark-secondary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * 0.4)) calc(l + (var(--a2-accent-dark-luminance-adjust) * 0.85)));
+    --color-inverted-tertiary: hsl(from var(--color-dark-tertiary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * 0.4)) calc(l + (var(--a2-accent-dark-luminance-adjust) * 0.85)));
+
     --color-inverted-neutral: var(--color-dark-primary-neutral);
     --color-inverted-shadow: var(--color-dark-primary-shadow);
     --color-inverted-important-text: var(--color-dark-important-text);
@@ -91,6 +94,7 @@
     --gap-sm: calc(var(--spacing) * 2);
     --gap-md: calc(var(--spacing) * 4);
     --gap-lg: calc(var(--spacing) * 8); /* extends gap-* */
+    --gap-xl: calc(var(--spacing) * 12); /* extends gap-* */
 
     --border-sm: 0.5px;
     --border-md: 1px;
@@ -176,18 +180,9 @@
         --a2-line-height-atoms: 1.1;
         --a2-spacing-atoms: 0.35em;
 
-        /* preferences */
-        --a2-semantics-cursor: default;
-        --a2-scroll-behavior: smooth;
-
-        /* shadow color */
-        --a2-shadow-color: var(--color-primary-shadow);
-        --a2-outline-border-color: var(--color-inverted-shadow);
-
         --a2-accent-dark-luminance-adjust: 10;
         --a2-accent-dark-saturation-adjust: 50;
 
-        --a2-transition-duration-item: 250ms;
         --a2-transform-scale-adjust: 15%;
 
         --a2-is-dark-theme: 0; /* boolean-like-variable */
@@ -199,6 +194,7 @@
 
         /* set size of rem units */
         font-size: var(--a2-rem-size);
+        overflow: clip; /* html element should never scroll */
     }
 
     #app {
@@ -223,14 +219,6 @@
     /* set text color for elements that need emphasis */
     :where(h1, h2, h3, h4, h5, h6, a, b, q, em, strong, mark, var, kbd, samp) {
         color: var(--a2-emphasized-text-color);
-    }
-
-    /** 
-     * running list of elements that should have preferred "semantics" cursor 
-     * (when they are not direct descendants of one's that should have pointer cursor)
-     */
-    :not(a, button) > :where(div, p, h1, h2, h3, h4, h5, h6, b, strong, em, i, span, small, mark, abbr, q, sup, sub, del, ins, s, u, kbd, var, li, dd, figcaption) {
-        cursor: var(--a2-semantics-cursor);
     }
 
     /* running list of elements that should have pointer cursor */
@@ -271,9 +259,13 @@
     }
 
     :where(*) {
-        @apply shadow-(--a2-shadow-color);
-        border-color: var(--a2-outline-border-color);
-        outline-color: var(--a2-outline-border-color);
+        --tw-shadow-color: var(--color-primary-shadow);
+        &:hover {
+            --tw-shadow-color: var(--color-inverted-shadow);
+        }
+
+        border-color: var(--color-inverted-shadow);
+        outline-color: var(--a2-inverted-shadow);
         &::selection {
             background-color: --alpha(var(--color-aqua-accent) / 50%);
         }
@@ -327,6 +319,7 @@
     --color-green-accent: var(--color-dark-green-accent);
     --color-aqua-accent: var(--color-dark-aqua-accent);
     --color-orange-accent: var(--color-dark-orange-accent);
+    --color-violet-accent: var(--color-dark-violet-accent);
 }
 
 @utility debug {
@@ -340,9 +333,11 @@
     padding-block: calc(--value(number) * 1px); /* Use `calc(... * _px)` to assign units */
 }
 
-@utility match-height-in-line-* {
-    line-height: 1;
-    height: 1em; /* match height of parent */
+@utility inverted-shadow {
+    @apply shadow-inverted-shadow;
+    &:hover {
+        @apply shadow-primary-shadow;
+    }
 }
 
 @utility codelike {

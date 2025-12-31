@@ -25,4 +25,5 @@ tags:
 description: In a voxel-based world, play an ant who must balance risk vs. reward to escape from the honey-filled bee hive.
 demoVideoLink: https://youtu.be/UpFucJPhbws
 code: https://github.com/mialana/unity-hiverunner
+thumbnail: ./assets/thumbnail.png
 ---

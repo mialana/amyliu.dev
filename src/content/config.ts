@@ -8,6 +8,7 @@ const projectsCollection = defineCollection({
             title: z.string(),
             startDate: z.date(),
             endDate: z.date(),
+            thumbnail: image(),
             type: z.string(),
             category: z.string(),
             description: z.string(),
@@ -22,7 +23,6 @@ const projectsCollection = defineCollection({
                 .array(z.string())
                 .refine((items) => new Set(items).size === items.length, { message: "Tags must be unique" }),
             slug: z.string().optional(),
-            thumbnail: image().optional(),
         }),
 });
 

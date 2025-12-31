@@ -46,42 +46,27 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <ThemeClient />
     </head>
     <body>
-        <div id="app" class=`bg-tertiary-shade h-dvh gap-md grid grid-rows-[auto_minmax(0,1fr)_auto] ${grid_cols}`>
+        <div id="app" class=`bg-tertiary-shade h-dvh gap-md grid grid-rows-[auto_minmax(0,1fr)_auto]  ${grid_cols}`>
             <header class="bg-secondary-shade col-span-3 pt-2">
                 <Header />
             </header>
-            <nav id="nav-grid-cell" class="transition-transform duration-1000">
-                <!-- <SideBar category="NAV" active={navActive} client:load>
+            <nav id="nav-grid-cell" class="shadow-md transition-transform duration-500">
+                <SideBar category="NAV" active={navActive} client:load>
                     <slot name="nav-sidebar" />
-                </SideBar> -->
+                </SideBar>
             </nav>
             <main
-                class="page-animation bg-primary-shade @container/main flex overflow-x-clip overflow-y-scroll rounded-sm p-6 shadow-lg *:m-auto *:max-w-4xl"
+                class="page-animation bg-primary-shade flex overflow-x-clip overflow-y-scroll rounded-sm p-6 shadow-md *:m-auto *:max-w-4xl"
             >
                 <slot />
             </main>
-            <aside id="aside-grid-cell" class="transition-transform duration-1000">
-                <!-- <SideBar category="ASIDE" active={asideActive} client:load>
+            <aside id="aside-grid-cell" class="shadow-md transition-transform duration-500">
+                <SideBar category="ASIDE" active={asideActive} client:load>
                     <slot name="aside-sidebar" />
-                </SideBar> -->
+                </SideBar>
             </aside>
             <footer class="bg-secondary-shade col-span-3 py-1"><Footer /></footer>
         </div>
         <slot name="body" />
     </body>
 </html>
-
-<!-- /* styling for the center cell of the app */ -->
-<!-- @utility main-content-cell {
-
-            /* main-content-cell styling */
-        --a2-main-content-padding-inline: calc(var(--spacing) * 6);
-        --a2-main-content-padding-block: calc(var(--spacing) * 12);
-
-    /* remove specificity via `where` */
-    :where(&) {
-        padding-inline: var(--a2-main-content-padding-inline);
-        padding-block: var(--a2-main-content-padding-block);
-        margin: auto;
-    }
-} -->

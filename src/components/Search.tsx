@@ -195,7 +195,7 @@ export default function Search() {
 
             <a
                 href="/tags/"
-                className="hover:text-red-accent cursor-pointer text-sm font-light underline"
+                className="hover:text-red-accent text-sm font-light underline"
                 onClick={(e) => e.stopPropagation()} // Prevent click from propagating
             >
                 Go to Tags Index
