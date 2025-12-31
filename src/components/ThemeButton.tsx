@@ -33,7 +33,7 @@ export const updateFromDOM = (callback: (theme: Theme) => void, mutationList?: M
     }
 };
 
-export default function ThemeToggle() {
+export default function ThemeButton() {
     const [theme, setTheme] = useState<Theme>(LIGHT_THEME_TEXT);
 
     useEffect(() => {
@@ -65,9 +65,9 @@ export default function ThemeToggle() {
     }
 
     return (
-        <Button variant="outline" size="icon-sm" onClick={toggle} className="bg-tertiary-shade">
-            <Sun className={`${theme === LIGHT_THEME_TEXT && "hidden"}`} />
-            <Moon className={`${theme === DARK_THEME_TEXT && "hidden"}`} />
-        </Button>
+        <span
+            onClick={toggle}
+            className={`${theme === LIGHT_THEME_TEXT ? "fa-moon" : "fa-sun"} fa-solid u-fa-icon text-inverted-primary cursor-pointer text-lg`}
+        />
     );
 }

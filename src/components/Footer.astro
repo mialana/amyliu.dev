@@ -8,28 +8,28 @@ const footerMap = [
 ];
 ---
 
-    <ul class="gap-md flex justify-center">
-        {
-            footerMap.map(({ label, href, icon }) => (
-                <li>
-                    <a href={href} target="_blank" rel="noopener noreferrer" title={`Find me on ${label}`}>
-                        <i class={`u-fa-icon ${icon}`} />
-                    </a>
-                </li>
-            ))
-        }
-    </ul>
+<ul class="gap-lg flex justify-center">
+    {
+        footerMap.map(({ label, href, icon }) => (
+            <li>
+                <a href={href} target="_blank" rel="noopener noreferrer" title={`Find me on ${label}`}>
+                    <span class={`u-fa-icon ${icon}`} />
+                </a>
+            </li>
+        ))
+    }
+</ul>
 
-    <div class="prose prose-xs horizontal:prose-sm max-w-none text-center">
-        <code>
-            © 2025 · developed by Amy Liu · powered by <a
-                class="font-medium"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://astro.build/">Astro</a
-            >
-        </code>
-    </div>
-    <!-- <div class="justify-self-end-safe">
+<div class="prose prose-xs horizontal:prose-sm max-w-none text-center">
+    <code>
+        © 2025 · developed by Amy Liu · powered by <a
+            class="font-medium"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://astro.build/">Astro</a
+        >
+    </code>
+    <div class="float-right inline-block px-2">
         <ThemeButton client:load />
-    </div> -->
+    </div>
+</div>

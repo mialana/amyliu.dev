@@ -40,7 +40,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
-        <script src="https://kit.fontawesome.com/4c79a437cb.js" crossorigin="anonymous"></script>
+        <script is:inline src="https://kit.fontawesome.com/4c79a437cb.js" crossorigin="anonymous"></script>
         <title>{title} · Amy Liu</title>
         <slot name="head" />
         <ThemeClient />

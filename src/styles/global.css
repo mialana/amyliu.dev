@@ -385,10 +385,13 @@
 }
 
 @utility u-fa-icon {
-    color: var(--color-dark-important-text);
+    :where(&) {
+        color: var(--color-dark-important-text);
+        font-size: 1em;
 
-    &:hover {
-        scale: calc(100% + var(--a2-transform-scale-adjust));
+        &:hover {
+            scale: calc(100% + var(--a2-transform-scale-adjust));
+        }
     }
 }
 
@@ -455,7 +458,6 @@
 
     /* style heading anchor link */
     & > .heading-anchor {
-        display: none; /* start invisible */
         /* set size of anchor link and inner svg element */
         height: 0.75em;
         aspect-ratio: 1 / 1;
@@ -466,7 +468,11 @@
         --saturation-adjust: 0;
 
         --a2-anchor-icon-body: hsl(from currentColor h calc(s + var(--saturation-adjust)) calc(l + var(--luminance-adjust)));
-        --a2-anchor-icon-stroke-width: 3px;
+        --a2-anchor-icon-stroke-width: 2.5px;
+
+        @media (min-width: theme(--breakpoint-horizontal)) {
+            display: none; /* start invisible if on desktop */
+        }
 
         &:hover {
             --saturation-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
