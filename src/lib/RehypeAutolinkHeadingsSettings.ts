@@ -2,105 +2,69 @@ import { type Options as RehypeAutoLinkOptions } from "rehype-autolink-headings"
 
 import type { Element } from "hast";
 
-const WRAPPER_CLASSNAME = "heading-with-anchor-wrapper";
+const HEADER_CLASSNAME = "heading-with-anchor";
 const ANCHOR_CLASSNAME = "heading-anchor";
 const ANCHOR_ICON_CLASSNAME = "heading-anchor-icon";
 
 const CSS_VARIABLE_PREFIX = "--a2-";
-const ANCHOR_ICON_OUTLINE_NAME = "anchor-icon-outline";
-const ANCHOR_ICON_OUTLINE_WIDTH_NAME = "anchor-icon-outline-width";
-const ANCHOR_ICON_BODY_NAME = "anchor-icon-body";
-const ANCHOR_ICON_CONNECTOR_NAME = "anchor-icon-connector";
+const ANCHOR_ICON_BODY_VARNAME = "anchor-icon-body";
+const ANCHOR_ICON_STROKE_WIDTH_VARNAME = "anchor-icon-stroke-width";
 
-export const HeadingAnchorIconElement: Element = {
+export const HeadingAnchorBasicIconElement: Element = {
     type: "element",
     tagName: "svg",
     properties: {
-        fill: "#000000",
-        viewBox: "-0.72 -0.72 25.44 25.44",
-        id: "link-alt",
-        dataName: "Flat Color",
         xmlns: "http://www.w3.org/2000/svg",
-        className: ["icon", "flat-color", ANCHOR_ICON_CLASSNAME],
-        stroke: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_CONNECTOR_NAME}, #000000)`,
-        strokeWidth: "0.00024000000000000003",
+        className: [ANCHOR_ICON_CLASSNAME],
         ariaHidden: "true",
-        focusable: "false",
+        fill: "none",
+        viewBox: "0 0 24 24",
     },
     children: [
-        { type: "element", tagName: "g", properties: { id: "SVGRepo_bgCarrier", strokeWidth: "0" }, children: [] },
-
         {
             type: "element",
-            tagName: "g",
+            tagName: "path",
             properties: {
-                id: "SVGRepo_tracerCarrier",
+                d: "M14,16 L17,16 C19.2091,16 21,14.2091 21,12 C21,9.79086 19.2091,8 17,8 L14,8",
+                stroke: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_BODY_VARNAME}, #000000)`,
+                strokeWidth: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_STROKE_WIDTH_VARNAME}, 2)`,
                 strokeLinecap: "round",
-                strokeLinejoin: "round",
-                stroke: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_OUTLINE_NAME}, #000000)`,
-                strokeWidth: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_OUTLINE_WIDTH_NAME}, 3)`,
-                fill: "none"
             },
-            children: [
-                {
-                    type: "element",
-                    tagName: "path",
-                    properties: {
-                        id: "primary",
-                        d: "M20.67,3.33a4.53,4.53,0,0,0-6.41,0l-2.5,2.5A4.47,4.47,0,0,0,10.43,9a4.52,4.52,0,0,0,.35,1.75,4.54,4.54,0,0,0-4.95,1l-2.5,2.5A4.54,4.54,0,0,0,6.54,22a4.48,4.48,0,0,0,3.2-1.33l2.5-2.5A4.47,4.47,0,0,0,13.57,15a4.52,4.52,0,0,0-.35-1.75,4.58,4.58,0,0,0,1.74.35,4.49,4.49,0,0,0,3.21-1.33l2.5-2.5a4.53,4.53,0,0,0,0-6.41Z",
-                        className: [ANCHOR_ICON_OUTLINE_NAME, "primary"],
-                    },
-                    children: [],
-                },
-                {
-                    type: "element",
-                    tagName: "path",
-                    properties: {
-                        id: "secondary",
-                        d: "M10,15a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42l4-4a1,1,0,0,1,1.42,1.42l-4,4A1,1,0,0,1,10,15Z",
-                        className: [ANCHOR_ICON_OUTLINE_NAME, "secondary"],
-                    },
-                    children: [],
-                },
-            ],
+            children: [],
         },
-
         {
             type: "element",
-            tagName: "g",
-            properties: { id: "SVGRepo_iconCarrier" },
-            children: [
-                {
-                    type: "element",
-                    tagName: "path",
-                    properties: {
-                        id: "primary",
-                        d: "M20.67,3.33a4.53,4.53,0,0,0-6.41,0l-2.5,2.5A4.47,4.47,0,0,0,10.43,9a4.52,4.52,0,0,0,.35,1.75,4.54,4.54,0,0,0-4.95,1l-2.5,2.5A4.54,4.54,0,0,0,6.54,22a4.48,4.48,0,0,0,3.2-1.33l2.5-2.5A4.47,4.47,0,0,0,13.57,15a4.52,4.52,0,0,0-.35-1.75,4.58,4.58,0,0,0,1.74.35,4.49,4.49,0,0,0,3.21-1.33l2.5-2.5a4.53,4.53,0,0,0,0-6.41Z",
-                        style: `fill: var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_BODY_NAME}, #000000);`,
-                        className: [ANCHOR_ICON_BODY_NAME, "primary"],
-                    },
-                    children: [],
-                },
-                {
-                    type: "element",
-                    tagName: "path",
-                    properties: {
-                        id: "secondary",
-                        d: "M10,15a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42l4-4a1,1,0,0,1,1.42,1.42l-4,4A1,1,0,0,1,10,15Z",
-                        style: `fill: var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_CONNECTOR_NAME}, #ffffff);`,
-                        className: [ANCHOR_ICON_CONNECTOR_NAME, "secondary"],
-                    },
-                    children: [],
-                },
-            ],
+            tagName: "path",
+            properties: {
+                d: "M10,16 L7,16 C4.79086,16 3,14.2091 3,12 C3,9.79086 4.79086,8 7,8 L10,8",
+                stroke: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_BODY_VARNAME}, #000000)`,
+                strokeWidth: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_STROKE_WIDTH_VARNAME}, 2)`,
+                strokeLinecap: "round",
+            },
+            children: [],
+        },
+        {
+            type: "element",
+            tagName: "line",
+            properties: {
+                x1: "7.5",
+                y1: "12",
+                x2: "16.5",
+                y2: "12",
+                stroke: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_BODY_VARNAME}, #000000)`,
+                strokeWidth: `var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_STROKE_WIDTH_VARNAME}, 2)`,
+                strokeLinecap: "round",
+            },
+            children: [],
         },
     ],
 };
 
 const RehypeAutoLinkSettings: RehypeAutoLinkOptions = {
     behavior: "append",
-    properties: { className: [ANCHOR_CLASSNAME] },
-    content: HeadingAnchorIconElement,
+    properties: { className: [ANCHOR_CLASSNAME], title: "Link to this heading", ariaHidden: true },
+    headingProperties: { className: [HEADER_CLASSNAME] },
+    content: HeadingAnchorBasicIconElement,
 };
 
 export default RehypeAutoLinkSettings;

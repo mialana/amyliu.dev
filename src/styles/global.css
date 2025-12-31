@@ -9,7 +9,7 @@
 @layer theme, base, resets, globals, components, defaults, utilities, ecLayer, math, overrides;
 
 @import "tailwindcss";
-@import "rehype-callouts/theme/vitepress" layer(utils);
+@import "rehype-callouts/theme/vitepress" layer(utilities);
 @plugin "@tailwindcss/typography";
 
 @theme {
@@ -188,7 +188,9 @@
         --a2-accent-dark-luminance-adjust: 10;
         --a2-accent-dark-saturation-adjust: 50;
 
-        --a2-item-transition-duration: 0.75s;
+        --a2-item-transition-duration: 0.25s;
+
+        --a2-is-dark-theme: 0; /* boolean-like-variable */
     }
 
     html {
@@ -368,6 +370,91 @@
     }
 }
 
+@utility styled-inline-code {
+    &::before,
+    &::after {
+        content: none; /* remove ticks that prose always adds */
+    }
+    @apply codelike;
+
+    background-color: var(--a2-code-background-color);
+    color: var(--a2-code-text-color);
+    border: var(--a2-code-border-width) solid var(--a2-code-border-color);
+    padding-inline: var(--spacing);
+}
+
+@utility styled-figcaption {
+    font-size: 0.75em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: start;
+    row-gap: var(--a2-spacing-atoms);
+
+    &::before {
+        content: "⬑"; /* styling for "before" arrow */
+        line-height: 1;
+        height: 1em; /* match height of parent */
+        padding-inline: 0.5em;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: first baseline; /* override parent's `align-items: center` */
+    }
+
+    & > * {
+        grid-column: 2; /* Put every child element into column 2 */
+        /* Remove margin between blocks (p, ul, pre, etc.). Relay on grid gap for consistent spacing. */
+        margin: 0;
+    }
+}
+
+@utility styled-callout {
+    font-weight: 500;
+    font-family: var(--font-github-code);
+}
+
+@utility styled-math {
+    color: var(--a2-emphasized-text-color);
+    font-size: 0.875em;
+    line-height: 0.875em;
+    color: var(--color-orange-accent);
+
+    /* increase distinguishability for non-display (inline) math */
+    &:not(.tml-display) {
+        filter: brightness(125%);
+        filter: contrast(125%);
+    }
+}
+
+@utility styled-heading-with-anchor {
+    display: inline-flex;
+    align-items: center;
+
+    /* style heading anchor link */
+    & > .heading-anchor {
+        padding-inline: var(--a2-spacing-atoms);
+
+        /* create local variables to adjust color on hover */
+        --luminance-adjust: 0;
+        --saturation-adjust: 0;
+
+        --a2-anchor-icon-body: hsl(from currentColor h calc(s + var(--saturation-adjust)) calc(l + var(--luminance-adjust)));
+        --a2-anchor-icon-stroke-width: calc(var(--spacing) / 2);
+
+        /* set size of anchor link and inner svg element */
+        &,
+        & > .heading-anchor-icon {
+            height: 0.75em;
+            aspect-ratio: square;
+        }
+
+        &:hover {
+            --saturation-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
+            --luminance-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
+        }
+    }
+}
+
 @layer overrides {
     :root {
         @media (max-width: theme(--breakpoint-horizontal)) {
@@ -376,6 +463,7 @@
 
         &[data-theme="dark"] {
             @apply dark-palette; /* apply dark-palette when root element has dark-theme in its class list */
+            --a2-is-dark-theme: 1;
         }
     }
 
@@ -393,104 +481,27 @@
             /* inline code */
             &:where(code):not(.expressive-code pre code),
             &:is(.ec-code-caption code) {
-                &::before,
-                &::after {
-                    content: none; /* remove ticks that prose always adds */
-                }
-                @apply codelike;
-
-                background-color: var(--a2-code-background-color);
-                color: var(--a2-code-text-color);
-                border: var(--a2-code-border-width) solid var(--a2-code-border-color);
-                padding-inline: var(--spacing);
+                @apply styled-inline-code;
             }
 
-            /* figcaption styling */
+            /* figcaption */
             &:is(figcaption.ec-code-caption, figcaption.rehyped-figcaption) {
-                font-size: 0.75em;
-                display: grid;
-                grid-template-columns: auto 1fr;
-                align-items: center;
-                justify-items: start;
-                row-gap: var(--a2-spacing-atoms);
-
-                &::before {
-                    content: "⬑"; /* styling for "before" arrow */
-                    line-height: 1;
-                    height: 1em; /* match height of parent */
-                    padding-inline: 0.5em;
-                    grid-column: 1;
-                    grid-row: 1;
-                    align-self: first baseline; /* override parent's `align-items: center` */
-                }
-
-                & > * {
-                    grid-column: 2; /* Put every child element into column 2 */
-                    /* Remove margin between blocks (p, ul, pre, etc.). Relay on grid gap for consistent spacing. */
-                    margin: 0;
-                }
+                @apply styled-figcaption;
             }
 
-            /* styling for TIP, INFO, etc. */
+            /* Github-style TIP, INFO, QUESTION, etc. */
             &:where(.callout) {
-                font-weight: 500;
-                font-family: var(--font-github-code);
+                @apply styled-callout;
             }
 
             /* styling for LaTeX */
             &:where(math) {
-                color: var(--a2-emphasized-text-color);
-                font-size: 0.875em;
-                line-height: 0.875em;
-                color: var(--color-orange-accent);
-
-                /* increase distinguishability for non-display (inline) math */
-                &:not(.tml-display) {
-                    filter: brightness(125%);
-                    filter: contrast(125%);
-                }
+                @apply styled-math;
             }
 
-            /* style heading anchor link */
-            &:where(.heading-anchor) {
-                display: none; /* hide by default */
-                padding-inline: var(--a2-spacing-atoms);
-                transform: rotate(45deg);
-                transition: transform var(--a2-item-transition-duration) ease-in-out;
-
-                --outline-color-luminance-adjust: 10;
-                --outline-color-saturation-adjust: 50; /* local variables */
-
-                /* set color variables for svg content  */
-                --a2-anchor-icon-connector: var(--color-inverted-neutral);
-                --a2-anchor-icon-body: --alpha(var(--color-important-text) / 25%);
-                --a2-anchor-icon-outline: hsl(from var(--color-light-blue-accent) h calc(s + var(--outline-color-saturation-adjust)) calc(l + var(--outline-color-luminance-adjust)));
-                --a2-anchor-icon-outline-width: calc(var(--spacing) / 2);
-
-                
-                &,
-                & > svg {
-                    height: 0.75em;
-                    aspect-ratio: square;
-                }
-
-                &:hover {
-                    --outline-color-luminance-adjust: -10;
-                    --outline-color-saturation-adjust: 75; /* adjust hsl value of outline */
-                    
-                    /* apply rotation transform with transition */
-                    transform: rotate(180deg);
-                }
-
-                /* style the headings that contain the anchor */
-                :where(h2, h3, h4, h5, h6):has(&) {
-                    display: inline-flex;
-                    align-items: center;
-                }
-
-                :where(h2, h3, h4, h5, h6):has(&):hover & {
-                    display: block;
-                }
+            /* style headings that contain an anchor */
+            &:where(.heading-with-anchor) {
+                @apply styled-heading-with-anchor;
             }
 
             /*     styleOverrides: {
