@@ -20,16 +20,18 @@ const footerMap = [
     }
 </ul>
 
-<div class="prose prose-xs horizontal:prose-sm max-w-none text-center">
-    <code>
-        © 2025 · developed by Amy Liu · powered by <a
-            class="font-medium"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://astro.build/">Astro</a
-        >
-    </code>
-    <div class="float-right inline-block px-2">
+<div class="grid grid-cols-[1fr_auto_1fr]">
+    <div class="prose prose-xs horizontal:prose-sm col-start-2 text-center">
+        <code>
+            © 2025 · developed by Amy Liu · powered by <a
+                class="font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://astro.build/">Astro</a
+            >
+        </code>
+    </div>
+    <div class="px-2 justify-self-end-safe">
         <ThemeButton client:load />
     </div>
 </div>
