@@ -86,6 +86,7 @@
     --font-size-2xs: var(--text-2xs);
     --font-size-3xs: var(--text-3xs); /* extends text-* */
 
+    --gap-xs: var(--spacing);
     --gap-sm: calc(var(--spacing) * 2);
     --gap-md: calc(var(--spacing) * 4);
     --gap-lg: calc(var(--spacing) * 8); /* extends gap-* */
@@ -190,6 +191,7 @@
         --a2-accent-dark-saturation-adjust: 50;
 
         --a2-transition-duration-item: 250ms;
+        --a2-transform-scale-adjust: 15%;
 
         --a2-is-dark-theme: 0; /* boolean-like-variable */
     }
@@ -377,7 +379,20 @@
     }
 }
 
-@utility styled-inline-code {
+@utility prose-xs {
+    /* create a new variant for prose */
+    font-size: var(--text-xs);
+}
+
+@utility u-fa-icon {
+    color: var(--color-dark-important-text);
+
+    &:hover {
+        scale: calc(100% + var(--a2-transform-scale-adjust));
+    }
+}
+
+@utility u-inline-code {
     &::before,
     &::after {
         content: none; /* remove ticks that prose always adds */
@@ -390,7 +405,7 @@
     padding-inline: var(--spacing);
 }
 
-@utility styled-figcaption {
+@utility u-figcaption {
     font-size: 0.75em;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -415,12 +430,12 @@
     }
 }
 
-@utility styled-callout {
+@utility u-callout {
     font-weight: 500;
     font-family: var(--font-github-code);
 }
 
-@utility styled-math {
+@utility u-math {
     color: var(--a2-emphasized-text-color);
     font-size: 0.875em;
     line-height: 0.875em;
@@ -433,7 +448,7 @@
     }
 }
 
-@utility styled-heading-with-anchor {
+@utility u-heading-with-anchor {
     display: inline-flex;
     align-items: center;
     gap: var(--a2-spacing-atoms);
@@ -451,7 +466,7 @@
         --saturation-adjust: 0;
 
         --a2-anchor-icon-body: hsl(from currentColor h calc(s + var(--saturation-adjust)) calc(l + var(--luminance-adjust)));
-        --a2-anchor-icon-stroke-width: 2px;
+        --a2-anchor-icon-stroke-width: 3px;
 
         &:hover {
             --saturation-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
@@ -459,7 +474,7 @@
         }
 
         &:active {
-            scale: 85%;
+            scale: calc(100% - var(--a2-transform-scale-adjust));
         }
     }
 
@@ -491,30 +506,34 @@
         --tw-prose-bullets: var(--a2-emphasized-text-color);
 
         :where(:not(.not-prose, .not-prose *)) {
+            & {
+                margin-inline: auto;
+            }
+
             /* inline code */
             &:where(code):not(.expressive-code pre code),
             &:is(.ec-code-caption code) {
-                @apply styled-inline-code;
+                @apply u-inline-code;
             }
 
             /* figcaption */
             &:is(figcaption.ec-code-caption, figcaption.rehyped-figcaption) {
-                @apply styled-figcaption;
+                @apply u-figcaption;
             }
 
             /* Github-style TIP, INFO, QUESTION, etc. */
             &:where(.callout) {
-                @apply styled-callout;
+                @apply u-callout;
             }
 
             /* styling for LaTeX */
             &:where(math) {
-                @apply styled-math;
+                @apply u-math;
             }
 
             /* style headings that contain an anchor */
             &:where(.heading-with-anchor) {
-                @apply styled-heading-with-anchor;
+                @apply u-heading-with-anchor;
             }
 
             /*     styleOverrides: {

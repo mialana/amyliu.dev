@@ -1,26 +1,35 @@
 ---
 import ThemeButton from "./ThemeButton";
+
+const footerMap = [
+    { label: "GitHub", href: "https://github.com/mialana/", icon: "fa-brands fa-github" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/miyalana/", icon: "fa-brands fa-linkedin" },
+    { label: "Email", href: "mailto:liu.amy05@gmail.com", icon: "fa-solid fa-envelope" },
+];
 ---
 
-<ul class="gap-md flex justify-center pt-2 pb-1 *:hover:underline">
-    <li>
-        <a target="_blank" rel="noopener noreferrer" href="https://github.com/mialana/">GitHub</a>
-    </li>
-    <li>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/miyalana/">LinkedIn</a>
-    </li>
-    <li>
-        <a target="_blank" rel="noopener noreferrer" href="mailto:liu.amy05@gmail.com">Email</a>
-    </li>
-</ul>
-<div class="text-center text-sm">
-    © 2025 · developed by Amy Liu · powered by <a
-        class="font-medium"
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://astro.build/">Astro</a
-    >
-</div>
-<div class="absolute right-4 bottom-4">
-    <ThemeButton client:load />
-</div>
+    <ul class="gap-md flex justify-center">
+        {
+            footerMap.map(({ label, href, icon }) => (
+                <li>
+                    <a href={href} target="_blank" rel="noopener noreferrer" title={`Find me on ${label}`}>
+                        <i class={`u-fa-icon ${icon}`} />
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+
+    <div class="prose prose-xs horizontal:prose-sm max-w-none text-center">
+        <code>
+            © 2025 · developed by Amy Liu · powered by <a
+                class="font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://astro.build/">Astro</a
+            >
+        </code>
+    </div>
+    <!-- <div class="justify-self-end-safe">
+        <ThemeButton client:load />
+    </div> -->
