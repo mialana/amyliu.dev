@@ -47,25 +47,25 @@ const { navActive, asideActive } = parseLayout(grid_cols);
     <body>
         <div
             id="app"
-            class=`bg-tertiary-shade grid *:relative h-dvh w-dvw max-h-dvh max-w-dvw grid-rows-[auto_minmax(0,1fr)_auto] gap-md ${grid_cols}`
+            class=`bg-tertiary-shade h-dvh grid *:relative grid-rows-[auto_minmax(0,1fr)_auto] gap-md ${grid_cols}`
         >
-            <header class="col-span-3">
+            <header class="col-span-3 bg-secondary-shade pt-2">
                 <Header />
             </header>
             <nav id="nav-grid-cell" class="transition-transform duration-1000">
-                <SideBar category="NAV" active={navActive} client:load>
+                <!-- <SideBar category="NAV" active={navActive} client:load>
                     <slot name="nav-sidebar" />
-                </SideBar>
+                </SideBar> -->
             </nav>
             <main
                 class="page-animation bg-primary-shade *:main-content-cell flex overflow-x-hidden overflow-y-scroll rounded-sm shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
             >
-                <slot />
+                <!-- <slot /> -->
             </main>
             <aside id="aside-grid-cell" class="transition-transform duration-1000">
-                <SideBar category="ASIDE" active={asideActive} client:load>
+                <!-- <SideBar category="ASIDE" active={asideActive} client:load>
                     <slot name="aside-sidebar" />
-                </SideBar>
+                </SideBar> -->
             </aside>
             <footer class="col-span-3"><Footer /></footer>
         </div>

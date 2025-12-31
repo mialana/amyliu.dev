@@ -1,28 +1,30 @@
 ---
 const headerList = ["Home", "Projects", "Tags"];
+
+const astroPathname = Astro.url.pathname;
 ---
 
-<div class="bg-secondary-shade! z-20 pt-2 shadow-md md:shadow-lg">
-    <h1 class="font-signature text-center text-4xl font-extrabold">
-        <a href="/">AMY LIU</a>
-    </h1>
-    <ul class="gap-lg mx-auto flex w-fit justify-center pt-1 pb-2 *:hover:underline">
-        {
-            headerList.map((h) => {
-                let pathname = h === "Home" ? "/" : `/${h.toLowerCase()}/`;
-                return (
-                    <li class:list={[Astro.url.pathname === pathname && "font-semibold"]}>
-                        <a href={pathname}>{h}</a>
-                    </li>
-                );
-            })
-        }
-    </ul>
-    <ul
-        class="*:bg-red-accent gap-md absolute right-4 bottom-2 flex font-medium contrast-150 saturate-75 *:rounded-md *:px-3 *:py-1 *:hover:scale-105"
-    >
-        <li>
-            <a target="_blank" rel="noopener noreferrer" href="/resume.pdf">Resume</a>
-        </li>
-    </ul>
-</div>
+<a href="/" class="prose font-signature text-center"><h1>AMY LIU</h1></a>
+
+<ul class="gap-lg mx-auto flex justify-center">
+    {/* Map headers and apply styling based on current path in site */}
+    {
+        headerList.map((h) => {
+            let pathname = h === "Home" ? "/" : `/${h.toLowerCase()}/`;
+            return (
+                <li>
+                    <a href={pathname}>
+                        <h3 class={`${astroPathname === pathname && "text-violet-accent font-bold"} hover:underline`}>{h}</h3>
+                    </a>
+                </li>
+            );
+        })
+    }
+</ul>
+<ul
+    class="gap-md flex justify-end-safe backdrop-brightness-85 text-sm"
+>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" href="/resume.pdf"><h4 class="contrast-150 border-l border-r px-2 text-dark-important-text">Resume</h4></a>
+    </li>
+</ul>

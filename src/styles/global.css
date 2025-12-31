@@ -34,6 +34,7 @@
     --color-light-green-accent: #388c1e;
     --color-light-aqua-accent: #34b3b9;
     --color-light-orange-accent: #c34a09;
+    --color-light-violet-accent: #9f2b68;
 
     /* dark color palette */
     --color-dark-primary-shade: #182525;
@@ -75,6 +76,7 @@
     --color-green-accent: var(--color-light-green-accent);
     --color-aqua-accent: var(--color-light-aqua-accent);
     --color-orange-accent: var(--color-light-orange-accent);
+    --color-violet-accent: var(--color-light-violet-accent);
 
     --container-3xs: 198px;
     --min-height-3xs: var(--container-3xs); /* extends min-h-* */
@@ -147,7 +149,6 @@
     /* Hide scrollbars on all browser types */
     :where(*) {
         scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* Internet Explorer 10+ */
         &::-webkit-scrollbar {
             display: none; /* Chrome, Safari, Edge, Opera */
         }
@@ -188,7 +189,7 @@
         --a2-accent-dark-luminance-adjust: 10;
         --a2-accent-dark-saturation-adjust: 50;
 
-        --a2-item-transition-duration: 0.25s;
+        --a2-item-transition-duration: 250ms;
 
         --a2-is-dark-theme: 0; /* boolean-like-variable */
     }
@@ -217,7 +218,6 @@
 
     :where(#app) {
         --a2-main-cell-bg-color: var(--color-primary-shade);
-        --a2-head-foot-cell-bg-color: var(--);
     }
 
     /* set text color for elements that need emphasis */
@@ -225,8 +225,11 @@
         color: var(--a2-emphasized-text-color);
     }
 
-    /* running list of elements that should have preferred "semantics" cursor */
-    :where(div, p, h1, h2, h3, h4, h5, h6, b, strong, em, i, span, small, mark, abbr, q, sup, sub, del, ins, s, u, kbd, var, li, dd, figcaption) {
+    /** 
+     * running list of elements that should have preferred "semantics" cursor 
+     * (when they are not direct descendants of one's that should have pointer cursor)
+     */
+    :not(a, button) > :where(div, p, h1, h2, h3, h4, h5, h6, b, strong, em, i, span, small, mark, abbr, q, sup, sub, del, ins, s, u, kbd, var, li, dd, figcaption) {
         cursor: var(--a2-semantics-cursor);
     }
 
