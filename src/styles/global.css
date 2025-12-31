@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap");
 
 @import url("/vendor/temml/Temml-NotoSans.css") layer(math);
 
@@ -13,9 +14,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-    --breakpoint-horizontal: 768px;
-
-    --font-words: "Roboto condensed", sans-serif; /* default font for app, `words` to avoid clash */
+    --font-words: "Atkinson Hyperlegible Next", sans-serif; /* default font for app, `words` to avoid clash */
     --font-signature: "Fredericka the Great", serif;
     --font-code: "JetBrains Mono", monospace;
     --font-github-code: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -77,6 +76,8 @@
     --color-aqua-accent: var(--color-light-aqua-accent);
     --color-orange-accent: var(--color-light-orange-accent);
     --color-violet-accent: var(--color-light-violet-accent);
+
+    --breakpoint-horizontal: 768px;
 
     --container-3xs: 198px;
     --min-height-3xs: var(--container-3xs); /* extends min-h-* */
@@ -183,10 +184,6 @@
         --a2-shadow-color: var(--color-primary-shadow);
         --a2-outline-border-color: var(--color-inverted-shadow);
 
-        /* main-content-cell styling */
-        --a2-main-content-padding-inline: calc(var(--spacing) * 6);
-        --a2-main-content-padding-block: calc(var(--spacing) * 12);
-
         --a2-accent-dark-luminance-adjust: 10;
         --a2-accent-dark-saturation-adjust: 50;
 
@@ -197,6 +194,7 @@
     }
 
     html {
+        font-optical-sizing: auto;
         scroll-behavior: var(--a2-scroll-behavior);
 
         /* set size of rem units */
@@ -369,16 +367,6 @@
     line-height: --value([integer]);
 }
 
-/* styling for the center cell of the app */
-@utility main-content-cell {
-    /* remove specificity via `where` */
-    :where(&) {
-        padding-inline: var(--a2-main-content-padding-inline);
-        padding-block: var(--a2-main-content-padding-block);
-        margin: auto;
-    }
-}
-
 @utility prose-xs {
     /* create a new variant for prose */
     font-size: var(--text-xs);
@@ -512,8 +500,13 @@
         --tw-prose-bullets: var(--a2-emphasized-text-color);
 
         :where(:not(.not-prose, .not-prose *)) {
-            & {
-                margin-inline: auto;
+            margin-inline: auto;
+
+            &:where(a) {
+                text-decoration: none;
+                :not(h1, h2, h3, h4, h5, h6) > &:hover {
+                    text-decoration: underline;
+                }
             }
 
             /* inline code */

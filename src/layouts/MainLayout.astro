@@ -56,7 +56,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 </SideBar> -->
             </nav>
             <main
-                class="page-animation bg-primary-shade *:main-content-cell flex overflow-x-hidden overflow-y-scroll rounded-sm shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
+                class="page-animation bg-primary-shade @container/main flex overflow-x-clip overflow-y-scroll rounded-sm p-6 shadow-lg *:m-auto *:max-w-4xl"
             >
                 <slot />
             </main>
@@ -70,3 +70,18 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <slot name="body" />
     </body>
 </html>
+
+<!-- /* styling for the center cell of the app */ -->
+<!-- @utility main-content-cell {
+
+            /* main-content-cell styling */
+        --a2-main-content-padding-inline: calc(var(--spacing) * 6);
+        --a2-main-content-padding-block: calc(var(--spacing) * 12);
+
+    /* remove specificity via `where` */
+    :where(&) {
+        padding-inline: var(--a2-main-content-padding-inline);
+        padding-block: var(--a2-main-content-padding-block);
+        margin: auto;
+    }
+} -->

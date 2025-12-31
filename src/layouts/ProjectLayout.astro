@@ -31,11 +31,7 @@ const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thum
 
 <div class="my-4 flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll px-4 lg:my-12 lg:px-16">
     <div id="project-headings" class="prose max-w-full text-center">
-        <a
-            id="project-title-link"
-            class="no-underline"
-            href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}
-        >
+        <a id="project-title-link" href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}>
             <h1>
                 {project.data.title}
             </h1>
