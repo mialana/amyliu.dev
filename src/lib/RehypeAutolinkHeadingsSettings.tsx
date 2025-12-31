@@ -30,10 +30,7 @@ export const HeadingAnchorIconElement: Element | undefined = (() => {
 })();
 
 /* alternative FontAwesome option */
-const HeadingAnchorFaIconElement: Element = parseSelector(
-    `.${ANCHOR_ICON_CLASSNAME}.fa-solid.fa-link`,
-    "i",
-);
+const HeadingAnchorFaIconElement: Element = parseSelector(`.${ANCHOR_ICON_CLASSNAME}.fa-solid.fa-link`, "i");
 
 const RehypeAutoLinkSettings: RehypeAutoLinkOptions = {
     behavior: "append",

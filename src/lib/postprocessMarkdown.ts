@@ -3,13 +3,13 @@ import * as Panzoom from "@panzoom/panzoom";
 const SVG_SELECTOR = "img[src$='svg']"; // naive search: any <img> with 'svg' in their src attribute
 const SVG_CLASS_NAME = "rehyped-inline-svg";
 const SVG_INNER_CLASS_NAME = "rehyped-inline-svg-child";
-const SVG_WRAPPER_CLASS_NAME = "rehyped-inline-svg-wrapper"
+const SVG_WRAPPER_CLASS_NAME = "rehyped-inline-svg-wrapper";
 
 // const PANZOOM_PAN_CURSOR = "grabbing"
 const PANZOOM_PAN_CURSOR = "url('/resources/png/drag.png'), auto";
 const PANZOOM_ZOOM_IN_CURSOR = "zoom-in";
 const PANZOOM_ZOOM_OUT_CURSOR = "zoom-out";
-const PANZOOM_ZOOM_CURSOR = "url('/resources/png/magnifying_glass.png'), auto"
+const PANZOOM_ZOOM_CURSOR = "url('/resources/png/magnifying_glass.png'), auto";
 const PANZOOM_OPTIONS: Panzoom.PanzoomGlobalOptions = {
     canvas: true,
     minScale: 0.75,

@@ -22,7 +22,7 @@ export function normalizeClassName(value: unknown): string[] {
 /**
  * If source is local (i.e. in 'public' folder), reads the file
  * Otherwise, fetches the remote URL
- * 
+ *
  * @param filePathOfOrigin In most cases, the markdown file that the `src` string was referenced in.
  */
 export async function readOrFetchSource(src: string, filePathOfOrigin?: string): Promise<string | null> {

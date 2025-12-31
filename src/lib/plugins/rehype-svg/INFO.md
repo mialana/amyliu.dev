@@ -45,7 +45,7 @@ Then, `astro-d2` will use Remark to create this:
 Which would usually just render to a normal `img` in HTML:
 
 ```html
-<img src="/d2/index-0.svg">
+<img src="/d2/index-0.svg" />
 ```
 
 But with `rehype-svg`, it appears like this in the DOM:
