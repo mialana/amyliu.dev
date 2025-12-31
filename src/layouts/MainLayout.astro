@@ -45,11 +45,8 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <ThemeClient />
     </head>
     <body>
-        <div
-            id="app"
-            class=`bg-tertiary-shade h-dvh grid *:relative grid-rows-[auto_minmax(0,1fr)_auto] gap-md ${grid_cols}`
-        >
-            <header class="col-span-3 bg-secondary-shade pt-2">
+        <div id="app" class=`bg-tertiary-shade h-dvh gap-md grid grid-rows-[auto_minmax(0,1fr)_auto] ${grid_cols}`>
+            <header class="bg-secondary-shade col-span-3 pt-2">
                 <Header />
             </header>
             <nav id="nav-grid-cell" class="transition-transform duration-1000">
@@ -60,14 +57,15 @@ const { navActive, asideActive } = parseLayout(grid_cols);
             <main
                 class="page-animation bg-primary-shade *:main-content-cell flex overflow-x-hidden overflow-y-scroll rounded-sm shadow-lg *:overflow-x-hidden *:overflow-y-scroll"
             >
-                <!-- <slot /> -->
+                <slot />
             </main>
             <aside id="aside-grid-cell" class="transition-transform duration-1000">
                 <!-- <SideBar category="ASIDE" active={asideActive} client:load>
                     <slot name="aside-sidebar" />
                 </SideBar> -->
             </aside>
-            <footer class="col-span-3"><Footer /></footer>
+            <footer class="bg-secondary-shade col-span-3 pb-2"><Footer /></footer>
         </div>
+        <slot name="body" />
     </body>
 </html>

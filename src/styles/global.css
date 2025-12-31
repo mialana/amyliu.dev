@@ -180,7 +180,7 @@
 
         /* shadow color */
         --a2-shadow-color: var(--color-primary-shadow);
-        --a2-border-color: var(--color-inverted-shadow);
+        --a2-outline-border-color: var(--color-inverted-shadow);
 
         /* main-content-cell styling */
         --a2-main-content-padding-inline: calc(var(--spacing) * 6);
@@ -189,7 +189,7 @@
         --a2-accent-dark-luminance-adjust: 10;
         --a2-accent-dark-saturation-adjust: 50;
 
-        --a2-item-transition-duration: 250ms;
+        --a2-transition-duration-item: 250ms;
 
         --a2-is-dark-theme: 0; /* boolean-like-variable */
     }
@@ -272,7 +272,11 @@
 
     :where(*) {
         @apply shadow-(--a2-shadow-color);
-        border-color: var(--a2-border-color);
+        border-color: var(--a2-outline-border-color);
+        outline-color: var(--a2-outline-border-color);
+        &::selection {
+            background-color: --alpha(var(--color-aqua-accent) / 50%);
+        }
     }
 
     :where(q) {
@@ -432,29 +436,35 @@
 @utility styled-heading-with-anchor {
     display: inline-flex;
     align-items: center;
+    gap: var(--a2-spacing-atoms);
 
     /* style heading anchor link */
     & > .heading-anchor {
-        padding-inline: var(--a2-spacing-atoms);
+        display: none; /* start invisible */
+        /* set size of anchor link and inner svg element */
+        height: 0.75em;
+        aspect-ratio: 1 / 1;
+        rotate: 45deg;
 
         /* create local variables to adjust color on hover */
         --luminance-adjust: 0;
         --saturation-adjust: 0;
 
         --a2-anchor-icon-body: hsl(from currentColor h calc(s + var(--saturation-adjust)) calc(l + var(--luminance-adjust)));
-        --a2-anchor-icon-stroke-width: calc(var(--spacing) / 2);
-
-        /* set size of anchor link and inner svg element */
-        &,
-        & > .heading-anchor-icon {
-            height: 0.75em;
-            aspect-ratio: square;
-        }
+        --a2-anchor-icon-stroke-width: 2px;
 
         &:hover {
             --saturation-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
             --luminance-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
         }
+
+        &:active {
+            scale: 85%;
+        }
+    }
+
+    &:hover > .heading-anchor {
+        display: block; /* show anchor when heading is hovered */
     }
 }
 

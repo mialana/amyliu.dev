@@ -14,17 +14,24 @@ const astroPathname = Astro.url.pathname;
             return (
                 <li>
                     <a href={pathname}>
-                        <h3 class={`${astroPathname === pathname && "text-violet-accent font-bold"} hover:underline`}>{h}</h3>
+                        <h3
+                            title={`Go to ${h}`}
+                            class={`${astroPathname === pathname && "text-violet-accent font-bold"} hover:underline`}
+                        >
+                            {h}
+                        </h3>
                     </a>
                 </li>
             );
         })
     }
 </ul>
-<ul
-    class="gap-md flex justify-end-safe backdrop-brightness-85 text-sm"
->
+<ul class="flex justify-end-safe text-sm backdrop-brightness-75">
     <li>
-        <a target="_blank" rel="noopener noreferrer" href="/resume.pdf"><h4 class="contrast-150 border-l border-r px-2 text-dark-important-text">Resume</h4></a>
+        <a target="_blank" rel="noopener noreferrer" href="/resume.pdf"
+            ><h4 title="Open Resume" class="bg-primary-shade border-l-2 border-dotted px-2 hover:contrast-150">
+                Resume
+            </h4></a
+        >
     </li>
 </ul>
