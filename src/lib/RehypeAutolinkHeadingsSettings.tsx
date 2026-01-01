@@ -2,7 +2,6 @@ import { type Options as RehypeAutoLinkOptions } from "rehype-autolink-headings"
 
 import type { Element } from "hast";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Link } from "lucide-react";
 import { fromHtml } from "hast-util-from-html";
 import { isElement } from "hast-util-is-element";
 import { parseSelector } from "hast-util-parse-selector";
@@ -16,7 +15,7 @@ const CSS_VARIABLE_PREFIX = "--a2-";
 const ANCHOR_ICON_BODY_VARNAME = "anchor-icon-body";
 const ANCHOR_ICON_STROKE_WIDTH_VARNAME = "anchor-icon-stroke-width";
 
-/* keeping a few different methods to create a hast element of a desired icon */
+/* keeping two different methods to create a hast element of a desired icon */
 
 /* 1. From raw html */
 const LucideLinkIconHtml = `
@@ -47,22 +46,7 @@ export const HeadingAnchorIconElementFromHtml: Element | undefined = (() => {
     return svgElement;
 })();
 
-/* 2. render to static from lucide-react `Link` icon */
-export const HeadingAnchorIconElement: Element | undefined = (() => {
-    const svgString = renderToStaticMarkup(
-        <Link
-            className={`${ANCHOR_ICON_CLASSNAME} h-full w-full`}
-            stroke={`var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_BODY_VARNAME}, #000000)`}
-            strokeWidth={`var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_STROKE_WIDTH_VARNAME}, 2)`}
-        />,
-    );
-
-    const root = fromHtml(svgString, { fragment: true });
-
-    return root.children.find((node) => isElement(node, "svg"));
-})();
-
-/* 3. alternative FontAwesome option using `parseSelector` hast util */
+/* 2. alternative FontAwesome option using `parseSelector` hast util */
 export const HeadingAnchorFaIconElement: Element = parseSelector(`.${ANCHOR_ICON_CLASSNAME}.fa-solid.fa-link`, "i");
 
 export const HeadingAnchorWrapper: Element = parseSelector(`.${WRAPPER_CLASSNAME}`);

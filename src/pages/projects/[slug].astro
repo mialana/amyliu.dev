@@ -53,5 +53,33 @@ if (!headings.length) {
         )
     }
 
-    <script is:inline slot="body" src="/resources/js/copyHeadingLinkToClipboard.js"></script>
+    <script>
+        import { handleScrollToAnchorTarget } from "../../lib/projects/handleScrollBehavior.ts";
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("main-grid-cell");
+            if (!container) return;
+
+            const anchors = document.querySelectorAll<HTMLAnchorElement>(".heading-anchor");
+
+            /* add event listener for all anchors */
+            anchors.forEach((anchor) => {
+                anchor.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    // manually scroll into view
+                    handleScrollToAnchorTarget(anchor, container);
+                    copyLink(anchor);
+                });
+            });
+
+            /* copies heading anchor links to clipboard on click */
+            function copyLink(anchor: HTMLAnchorElement) {
+                const href = anchor.getAttribute("href");
+                if (!href) return;
+                const url = new URL(href, window.location.href).toString();
+                navigator.clipboard?.writeText(url);
+            }
+        });
+    </script>
 </MainLayout>

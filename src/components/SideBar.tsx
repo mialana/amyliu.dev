@@ -80,7 +80,7 @@ export default function SideBar({ category = "NAV", active = false, children }: 
             {/* sidebar button */}
             <button
                 id={`${category}-button`}
-                className={`invisible absolute top-0 flex h-4 w-4 cursor-pointer items-center justify-center text-[8px] ${positionInfo["absolutePosition"]}`}
+                className={`text-3xs invisible absolute top-0 flex h-4 w-4 cursor-pointer items-center justify-center ${positionInfo["absolutePosition"]}`}
                 onClick={(event) => {
                     event.stopPropagation(); // Prevent click from propagating
                     setOpen(!open);

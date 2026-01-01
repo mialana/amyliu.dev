@@ -203,7 +203,7 @@
 
     html {
         font-optical-sizing: auto;
-        scroll-behavior: var(--a2-scroll-behavior);
+        /* scroll-behavior: var(--a2-scroll-behavior); */
 
         /* set size of rem units */
         font-size: var(--a2-rem-size);
@@ -211,12 +211,7 @@
         word-spacing: normal;
     }
 
-    body {
-        overflow: clip;
-    }
-
     #app {
-        overflow: clip;
         isolation: isolate; /* Create a root stacking context for app */
     }
 }
@@ -608,6 +603,7 @@
         &:hover {
             --saturation-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
             --luminance-adjust: calc((var(--a2-is-dark-theme) * 2 - 1) * 20);
+            rotate: 270deg;
         }
 
         &:active {

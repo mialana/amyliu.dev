@@ -1,8 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
-import { Button } from "@/external/shadcn/components/ui/button";
-import { Moon, Sun } from "lucide-react";
-
 import { z } from "zod";
 
 export const ROOT_DATA_ATTRIBUTE = "data-theme";

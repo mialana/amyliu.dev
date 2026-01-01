@@ -6,58 +6,95 @@ interface Props {
 }
 const { headings = [] } = Astro.props;
 
+/* Headings are given as a flat list */
+/* create a `Node` type that is a MarkdownHeading combined with other headings that are within that heading */
 type Node = MarkdownHeading & { children: Node[] };
 const root: Node = { depth: 0, slug: "", text: "", children: [] };
 const stack: Node[] = [root];
 
 for (const h of headings) {
-    while (stack.length && h.depth <= stack.at(-1)!.depth) stack.pop();
+    let p = stack.at(-1);
+    while (stack.length && h.depth <= p!.depth) {
+        /* pop until we reach the headings "parent". 
+        popping also means this heading has no more children */
+        stack.pop();
+        p = stack.at(-1);
+    }
     const node: Node = { ...h, children: [] };
-    stack.at(-1)!.children.push(node);
-    stack.push(node);
+    p!.children.push(node);
+    stack.push(node); /* push this node onto stack as a non-processed node */
 }
 ---
 
 <section>
-    <h1 class="mb-1 cursor-default leading-none font-semibold">On This Page</h1>
-    <ul class="w-fit px-1 text-sm leading-relaxed text-nowrap *:font-light">
+    <h1>On This Page</h1>
+    <ul class="*:font-light">
         {
             (function renderTree(nodes: Node[]): any {
-                return nodes.map((n) => (
-                    <li data-slug={n.slug}>
-                        <div class={`relative w-fit pr-2 pb-1`}>
-                            <a
-                                href={`#${n.slug}`}
-                                class="x-1 relative top-1 hover:underline active:underline"
-                                onclick="myclickevent()"
-                            >
-                                {n.text}
+                return nodes.map((node) => (
+                    <li data-slug={node.slug}>
+                        <div class={`relative`}>
+                            <a href={`#${node.slug}`} class="toc-heading-anchor relative hover:underline">
+                                {node.text}
                             </a>
                         </div>
-                        {n.children.length > 0 && <ul class="pl-3">{renderTree(n.children)}</ul>}
+                        {node.children.length > 0 && <ul class="pl-3">{renderTree(node.children)}</ul>}
                     </li>
                 ));
             })(root.children)
         }
     </ul>
-    <script is:inline>
-        window.addEventListener("DOMContentLoaded", () => {
-            const links = document.querySelectorAll("a[href^='#']");
+    <script>
+        import { handleScrollToAnchorTarget } from "../lib/projects/handleScrollBehavior.ts";
 
-            function updateActiveLink() {
+        window.addEventListener(
+            "scroll",
+            (e) => {
+                console.log("viewport scrolled");
+                console.log(document.documentElement.scrollTop);
+                console.log(document.body.scrollTop);
+
+                document.scroll
+            },
+            false,
+        );
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("main-grid-cell");
+            if (!container) return;
+
+            const anchors = document.querySelectorAll<HTMLAnchorElement>(".toc-heading-anchor");
+
+            /* add event listener for all anchors */
+            anchors.forEach((anchor) => {
+                anchor.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    // manually scroll into view
+                    handleScrollToAnchorTarget(anchor, container);
+                });
+            });
+
+            function lazyUpdateActiveHeading() {
+                if (!container) return;
+                history.replaceState(null, "", location.pathname + location.search);
+
                 const hash = window.location.hash;
-                links.forEach((link) => {
-                    if (link.getAttribute("href") === hash) {
-                        link.classList.add("font-semibold", "text-blue-accent");
+
+                anchors.forEach((anchor) => {
+                    if (anchor.getAttribute("href") === hash) {
+                        anchor.classList.add("font-semibold", "text-blue-accent");
+
+                        handleScrollToAnchorTarget(anchor, container);
                     } else {
-                        link.classList.remove("font-semibold", "text-blue-accent");
+                        anchor.classList.remove("font-semibold", "text-blue-accent");
                     }
                 });
             }
 
             // Run on load and whenever the hash changes
-            updateActiveLink();
-            window.addEventListener("hashchange", updateActiveLink);
+            lazyUpdateActiveHeading();
+            window.addEventListener("hashchange", lazyUpdateActiveHeading);
         });
     </script>
 </section>
