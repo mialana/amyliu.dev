@@ -8,10 +8,10 @@ const { content, label } = Astro.props;
 ---
 
 <div class="text-important-text gap-sm flex flex-row items-baseline justify-start justify-items-start">
-    <span class="text-inverted-neutral text-3xs snap-start text-nowrap">
+    <span class="text-inverted-secondary text-2xs snap-start text-nowrap">
         {label}
     </span>
-    <ul class="gap-x-sm flex snap-x snap-mandatory overflow-x-scroll text-xs font-semibold">
+    <ul class="gap-x-sm flex snap-x snap-mandatory overflow-x-scroll text-xs font-medium">
         {
             content.map((tag) =>
                 label === "tags" || label === "tech stack" ? (

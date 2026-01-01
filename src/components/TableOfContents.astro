@@ -54,7 +54,9 @@ for (const h of headings) {
                 console.log(document.documentElement.scrollTop);
                 console.log(document.body.scrollTop);
 
-                document.scroll
+                if (document.documentElement.scrollTop > 0) {
+                    window.scrollTo(0, 0);
+                }
             },
             false,
         );

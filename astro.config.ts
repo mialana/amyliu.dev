@@ -37,14 +37,19 @@ const expressiveCodeThemeSelector = (theme: ExpressiveCodeTheme) => {
 };
 
 const expressiveCodeConfig: AstroExpressiveCodeOptions = {
-    plugins: [pluginLineNumbers(), pluginCollapsibleSections(), pluginLanguageBadge(), pluginCodeCaptions()],
+    plugins: [pluginLanguageBadge(), pluginCodeCaptions(), pluginLineNumbers(), pluginCollapsibleSections()],
     shiki: { langAlias: { usd: "python", usda: "python", math: "ini" } } /* math is included as a fallback */,
-    themes: ["andromeeda", "light-plus"],
+    themes: ["andromeeda", "slack-ochin"],
     themeCssRoot: ":root" /* already the default, but just in case */,
     themeCssSelector: expressiveCodeThemeSelector,
     useDarkModeMediaQuery: false /* false because it should depend on my custom theme state */,
     useThemedSelectionColors: true /* themes can set selection colors */,
-    defaultProps: { wrap: true, showLineNumbers: true, collapseStyle: "collapsible-auto" },
+    defaultProps: {
+        wrap: true,
+        showLineNumbers: true,
+        collapseStyle: "collapsible-auto",
+        collapsePreserveIndent: true,
+    },
     cascadeLayer: "ecLayer", // place ec styles into a named cascade layer
 };
 
@@ -73,14 +78,14 @@ export default defineConfig({
             [remarkSectionizeHeadings as RemarkPlugin<[RemarkSectionizeHeadingsOptions?]>, { addClass: "md-section" }],
         ],
         rehypePlugins: [
-            rehypeRaw /* must run before `rehypeSvg` */,
             rehypeMathML /* must run before `rehypeExpressiveCode */,
             [rehypeExpressiveCode, { tabWidth: 2 }],
             rehypeSlug /* must run before `rehypeAutolinkHeadings */,
             [rehypeAutolinkHeadings, RehypeAutolinkHeadingsSettings] /* add generated link to `heading-anchor` class */,
             rehypeCaptions,
-            rehypeSvg,
             rehypeCallouts,
+            rehypeRaw /* must run before `rehypeSvg` but after rehypeExpressiveCode */,
+            rehypeSvg,
         ],
     },
 });
