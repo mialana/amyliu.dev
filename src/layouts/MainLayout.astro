@@ -46,7 +46,10 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <ThemeClient />
     </head>
     <body>
-        <div id="app" class=`bg-tertiary-shade h-dvh gap-md grid grid-rows-[auto_minmax(0,1fr)_auto]  ${grid_cols}`>
+        <div
+            id="app"
+            class=`bg-tertiary-shade h-svh overflow-clip gap-md grid grid-rows-[auto_minmax(0,1fr)_auto]  ${grid_cols}`
+        >
             <header class="bg-secondary-shade col-span-3 pt-2">
                 <Header />
             </header>
@@ -56,6 +59,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 </SideBar>
             </nav>
             <main
+                id="main-grid-cell"
                 class="page-animation bg-primary-shade flex overflow-x-clip overflow-y-scroll rounded-sm p-6 shadow-md *:m-auto *:max-w-4xl"
             >
                 <slot />
@@ -68,5 +72,6 @@ const { navActive, asideActive } = parseLayout(grid_cols);
             <footer class="bg-secondary-shade col-span-3 py-1"><Footer /></footer>
         </div>
         <slot name="body" />
+        <script is:inline src="/resources/js/preventOverflowOnHashChange.js"></script>
     </body>
 </html>

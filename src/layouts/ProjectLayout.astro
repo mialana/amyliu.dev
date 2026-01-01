@@ -21,7 +21,10 @@ interface Props {
 const { project, showBreakdown = true, replaceImagePlaceholder = false, showTags = true } = Astro.props;
 ---
 
-<div class="prose flex flex-col justify-center-safe" style="max-width: var(--container-3xl); width: 100%;">
+<div
+    class="prose prose-sm horizontal:prose-base flex flex-col justify-center-safe"
+    style="max-width: var(--container-3xl); width: 100%;"
+>
     <section id="project-headings" class="prose-sm md:prose-base text-center">
         <h1>
             <a id="project-h1-anchor" href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}>

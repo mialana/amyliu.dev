@@ -11,16 +11,16 @@ const { content, label } = Astro.props;
     <span class="text-inverted-neutral text-3xs snap-start text-nowrap">
         {label}
     </span>
-    <ul class="text-xs gap-x-sm flex snap-x snap-mandatory overflow-x-scroll font-semibold">
+    <ul class="gap-x-sm flex snap-x snap-mandatory overflow-x-scroll text-xs font-semibold">
         {
             content.map((tag) =>
                 label === "tags" || label === "tech stack" ? (
-                    
                     <a
                         href={`/tags/${tag}/`}
                         class={`hover:text-red-accent cursor-grabbing snap-start text-nowrap no-underline`}
                     >
-                        {label==="tags" && <span>#</span>}{tag.replaceAll("_", " ")}
+                        {label === "tags" && <span>#</span>}
+                        {tag.replaceAll("_", " ")}
                     </a>
                 ) : (
                     <span>{tag}</span>

@@ -9,6 +9,8 @@
         const anchor = e.target.closest(".heading-anchor");
         if (!anchor) return;
 
+        e.preventDefault();
+
         copyLink(anchor);
     });
 })();

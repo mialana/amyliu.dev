@@ -26,7 +26,7 @@ for (const h of headings) {
                 return nodes.map((n) => (
                     <li data-slug={n.slug}>
                         <div class={`relative w-fit pr-2 pb-1`}>
-                            <a href={`#${n.slug}`} class="x-1 relative top-1 hover:underline active:underline">
+                            <a href={`#${n.slug}`} class="x-1 relative top-1 hover:underline active:underline" onclick="myclickevent()">
                                 {n.text}
                             </a>
                         </div>
