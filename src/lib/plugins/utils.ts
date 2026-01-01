@@ -1,7 +1,6 @@
 import type { Element } from "hast";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
 export const addClassToHast = (node: Element, newClassName: string): Element => {
     node.properties ??= {};

@@ -423,6 +423,8 @@
 }
 
 @utility u-math {
+    margin-inline: auto;
+    width: max-content;
     color: var(--a2-emphasized-text-color);
     font-size: 0.875em;
     line-height: 0.875em;
@@ -432,6 +434,16 @@
     &:not(.tml-display) {
         filter: brightness(125%);
         filter: contrast(125%);
+    }
+}
+
+@utility u-math-wrapper {
+    width: 100%;
+    overflow-x: scroll;
+    padding-block: var(--a2-spacing-atoms);
+
+    & *::selection {
+        background-color: initial; /* some parts do not get customized so revert to initial */
     }
 }
 
@@ -572,7 +584,7 @@
         --luminance-adjust: 0;
         --saturation-adjust: 0;
 
-        --a2-anchor-icon-body: hsl(from currentColor h calc(s + var(--saturation-adjust)) calc(l + var(--luminance-adjust)));
+        --a2-anchor-icon-body: hsl(from var(--color-violet-accent) h calc(s + var(--saturation-adjust)) calc(l + var(--luminance-adjust)));
         --a2-anchor-icon-stroke-width: 2.5px;
 
         &:hover {
@@ -618,7 +630,7 @@
         :where(:not(.not-prose, .not-prose *)) {
             @apply u-headings;
 
-            &:where(img, svg, .expressive-code):not(.expressive-code, .expressive-code *) {
+            &:where(img, svg):not(.expressive-code, .expressive-code *) {
                 margin-inline: auto;
                 max-width: 100%;
                 border-radius: var(--radius-md);
@@ -652,6 +664,9 @@
             /* styling for LaTeX */
             &:where(math) {
                 @apply u-math;
+            }
+            &:where(.math-wrapper) {
+                @apply u-math-wrapper;
             }
 
             /* style headings that contain an anchor */
