@@ -13,8 +13,7 @@ export async function getStaticPaths() {
     const projects = await getCollection("projects");
 
     return projects.map((project) => {
-        let slug = createSlug(project.data.title, project.data?.slug);
-        return { params: { slug: slug }, props: { project } };
+        return { params: { slug: project.data.slug }, props: { project } };
     });
 }
 

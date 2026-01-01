@@ -26,6 +26,7 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
     >
         <Image class="bg-inverted-primary" src={project.data.thumbnail} alt=`Project ${project.data.title} Thumbnail` />
         {
+            /* "pinned" banner */
             project.data.pinned === true && (
                 <span class="bg-green-accent text-2xs p-xdouble-y-2 text-inverted-important-text font-code absolute top-0 rounded-br-sm font-bold saturate-150 group-hover:hidden">
                     PINNED

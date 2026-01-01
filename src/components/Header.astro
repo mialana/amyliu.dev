@@ -4,7 +4,9 @@ const headerList = ["Home", "Projects", "Tags"];
 const astroPathname = Astro.url.pathname;
 ---
 
-<a href="/" class="prose font-signature text-center"><h1>AMY LIU</h1></a>
+<a href="/" class="prose">
+    <h1 class="font-signature mx-auto max-w-none text-center">AMY LIU</h1>
+</a>
 
 <ul class="gap-lg mx-auto flex justify-center">
     {/* Map headers and apply styling based on current path in site */}
@@ -13,14 +15,15 @@ const astroPathname = Astro.url.pathname;
             let pathname = h === "Home" ? "/" : `/${h.toLowerCase()}/`;
             return (
                 <li>
-                    <a href={pathname}>
-                        <h3
+                    <h3>
+                        <a
+                            href={pathname}
                             title={`Go to ${h}`}
                             class={`${astroPathname === pathname && "text-violet-accent font-bold"} hover:underline`}
                         >
                             {h}
-                        </h3>
-                    </a>
+                        </a>
+                    </h3>
                 </li>
             );
         })

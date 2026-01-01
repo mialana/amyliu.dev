@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("/vendor/temml/Temml-NotoSans.css") layer(math);
 
 /* tailwind layers are 'theme', 'base', 'components', and 'utilities' */
@@ -16,7 +16,7 @@
     --font-words: "Atkinson Hyperlegible Next", sans-serif; /* default font for app, `words` to avoid clash */
     --font-signature: "Fredericka the Great", serif;
     --font-code: "JetBrains Mono", monospace;
-    --font-github-code: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-github-code: "Courier Prime", monospace;
 
     /* light color palette */
     --color-light-primary-shade: #eae3da;
@@ -64,9 +64,9 @@
     --color-primary-shadow: var(--color-light-primary-shadow);
 
     /* adjust the light mode inverted color variables as they are hard to see in this environment */
-    --color-inverted-primary: hsl(from var(--color-dark-primary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * 0.4)) calc(l + (var(--a2-accent-dark-luminance-adjust) * 0.85)));
-    --color-inverted-secondary: hsl(from var(--color-dark-secondary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * 0.4)) calc(l + (var(--a2-accent-dark-luminance-adjust) * 0.85)));
-    --color-inverted-tertiary: hsl(from var(--color-dark-tertiary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * 0.4)) calc(l + (var(--a2-accent-dark-luminance-adjust) * 0.85)));
+    --color-inverted-primary: hsl(from var(--color-dark-primary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * var(--a2-main-dark-saturation-scalar))) calc(l + (var(--a2-accent-dark-luminance-adjust) * var(--a2-main-dark-luminance-scalar))));
+    --color-inverted-secondary: hsl(from var(--color-dark-secondary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * var(--a2-main-dark-saturation-scalar))) calc(l + (var(--a2-accent-dark-luminance-adjust) * var(--a2-main-dark-luminance-scalar))));
+    --color-inverted-tertiary: hsl(from var(--color-dark-tertiary-shade) h calc(s + (var(--a2-accent-dark-saturation-adjust) * var(--a2-main-dark-saturation-scalar))) calc(l + (var(--a2-accent-dark-luminance-adjust) * var(--a2-main-dark-luminance-scalar))));
 
     --color-inverted-neutral: var(--color-dark-primary-neutral);
     --color-inverted-shadow: var(--color-dark-primary-shadow);
@@ -82,11 +82,12 @@
 
     --breakpoint-horizontal: 768px;
 
+    --container-horizontal: var(--breakpoint-horizontal);
     --container-3xs: 198px;
     --min-height-3xs: var(--container-3xs); /* extends min-h-* */
 
     --text-2xs: 10px;
-    --text-3xs: 10px;
+    --text-3xs: 8px;
     --font-size-2xs: var(--text-2xs);
     --font-size-3xs: var(--text-3xs); /* extends text-* */
 
@@ -180,6 +181,9 @@
         --a2-line-height-atoms: 1.1;
         --a2-spacing-atoms: 0.35em;
 
+        --a2-main-dark-luminance-scalar: 0.9;
+        --a2-main-dark-saturation-scalar: 0.5;
+
         --a2-accent-dark-luminance-adjust: 10;
         --a2-accent-dark-saturation-adjust: 50;
 
@@ -195,6 +199,7 @@
         /* set size of rem units */
         font-size: var(--a2-rem-size);
         overflow: clip; /* html element should never scroll */
+        word-spacing: normal;
     }
 
     #app {
@@ -472,6 +477,72 @@
     }
 }
 
+@utility u-headings {
+    /* tweak the layout of prose headings */
+    &:where(h1) {
+        font-size: 2em;
+
+        &:not(*:last-child) {
+            margin-top: 0;
+            margin-bottom: 0.75em;
+        }
+    }
+
+    &:where(h2) {
+        font-size: 1.75em;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+    }
+    &:where(h3) {
+        font-size: 1.6em;
+        margin-top: 1.3em;
+        margin-bottom: 0.3em;
+    }
+    &:where(h4) {
+        font-size: 1.4em;
+        margin-top: 1.2em;
+        margin-bottom: 0.2em;
+    }
+    &:where(h5) {
+        font-size: 1.3em;
+        margin-top: 1.1em;
+        margin-bottom: 0.1em;
+        font-weight: 550;
+    }
+    &:where(h6) {
+        font-size: 1.2em;
+        margin-top: 1.1em;
+        margin-bottom: 0.1em;
+        font-weight: 500;
+    }
+    &:where(h5 + *, h6 + *) {
+        margin-top: 0;
+    }
+
+    &:has(+ section),
+    &:is(section :last-child) {
+        margin-bottom: 0em;
+    }
+}
+
+@utility u-anchor {
+    text-decoration: none;
+
+    /* underline on hover unless a child of or parent of a heading element */
+    &:not(*:has(h1, h2, h3, h4, h5, h6)):not(h1, h2, h3, h4, h5, h6 > *):hover {
+        text-decoration: underline;
+    }
+
+    /* if IS child of or parent of a heading element, but NOT a heading-anchor, inherit typography attributes */
+    &:not(*.heading-anchor):has(h1, h2, h3, h4, h5, h5, h6),
+    :where(h1, h2, h3, h4, h5, h6) > &:not(.heading-anchor) {
+        font-weight: inherit;
+        color: inherit;
+        line-height: inherit;
+        margin: inherit;
+    }
+}
+
 @layer overrides {
     :root {
         @media (max-width: theme(--breakpoint-horizontal)) {
@@ -493,15 +564,24 @@
         --tw-prose-code: var(--a2-code-text-color);
         --tw-prose-counters: var(--a2-emphasized-text-color);
         --tw-prose-bullets: var(--a2-emphasized-text-color);
+        --tw-prose-captions: var(--a2-emphasized-text-color);
+        --tw-prose-hr: --alpha(var(--color-inverted-neutral) / 50%);
 
         :where(:not(.not-prose, .not-prose *)) {
-            margin-inline: auto;
+            @apply u-headings;
+
+            &:not(.expressive-code, .expressive-code *) {
+                margin-inline: auto;
+                max-width: 100%;
+            }
+
+            &:where(hr) {
+                border-style: dotted;
+                border-width: var(--border-md);
+            }
 
             &:where(a) {
-                text-decoration: none;
-                :not(h1, h2, h3, h4, h5, h6) > &:hover {
-                    text-decoration: underline;
-                }
+                @apply u-anchor;
             }
 
             /* inline code */

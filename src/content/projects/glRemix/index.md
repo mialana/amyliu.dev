@@ -22,7 +22,7 @@ tags:
     - raytracing
     - performance_analysis
     - algorithm_implementation
-description: A platform to completely remaster decades-old, 32-bit, fixed-pipeline OpenGL games using modern real-time D3D12 raytraced lighting techniques and featuring in-game asset replacement.
+description: A platform to completely remaster decades-old, 32-bit, fixed-pipeline OpenGL games using modern real-time D3D12 raytraced lighting techniques.
 pinned: true
 code: https://github.com/glRemix/glRemix/
 thumbnail: ./assets/thumbnail.webp

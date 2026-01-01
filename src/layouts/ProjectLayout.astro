@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import Tags from "@/components/Tags.astro";
 import { YouTube } from "@astro-community/astro-embed-youtube";
 import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
 import ProjectBreakdown from "@/components/ProjectBreakdown";
 
 import ComingSoon from "@/components/ComingSoon";
@@ -20,23 +19,17 @@ interface Props {
 }
 
 const { project, showBreakdown = true, replaceImagePlaceholder = false, showTags = true } = Astro.props;
-
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/content/projects/*/assets/thumbnail.{png,webp}");
-
-const finalizedSlug = createSlug(project.data.title, project.data?.slug);
-const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`]
-    ? `/src/content/projects/${finalizedSlug}/assets/thumbnail.webp`
-    : `/src/content/projects/${finalizedSlug}/assets/thumbnail.png`;
 ---
 
-<div class="flex grow flex-col items-center-safe justify-center-safe overflow-y-scroll">
-    <div id="project-headings" class="prose max-w-full text-center">
-        <a id="project-title-link" href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}>
-            <h1>
+<div class="prose flex flex-col justify-center-safe" style="max-width: var(--container-3xl); width: 100%;">
+    <section id="project-headings" class="prose-sm md:prose-base text-center">
+        <h1>
+            <a id="project-h1-anchor" href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}>
                 {project.data.title}
-            </h1>
-        </a>
-        <h4>
+            </a>
+        </h1>
+
+        <figcaption class="inline-block">
             <time datetime={project.data.startDate.toISOString()}>
                 {format(project.data.startDate, "MMMM dd, yyyy")}
             </time>
@@ -44,34 +37,29 @@ const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thum
             <time datetime={project.data.endDate.toISOString()}>
                 {format(project.data.endDate, "MMMM dd, yyyy")}
             </time>
-        </h4>
-        <samp>
-            {project.data.description}
-        </samp>
-    </div>
-    <div
-        class="project-visual-container *:project-visual bg-primary-neutral mt-4 mb-6 w-full max-w-7xl! p-2 shadow-lg lg:mt-6 lg:mb-8"
-    >
+
+            <p>
+                {project.data.description}
+            </p>
+        </figcaption>
+    </section>
+    <div class="not-prose my-4">
         {
             project.data.demoVideoLink ? (
                 <YouTube
                     id={project.data.demoVideoLink}
                     params="autoplay=1&color=white&rel=0"
                     posterQuality="max"
-                    class="w-full min-w-full"
+                    class="block min-w-full"
                 />
-            ) : !replaceImagePlaceholder ? (
-                <Image class="w-full" src={images[thumbnailPath]()} alt={`Fallback Thumbnail ${project.data.title}`} />
             ) : (
-                <div>
-                    <ComingSoon showHeader={false} />
-                </div>
+                <Image src={project.data.thumbnail} alt={`Project ${project.data.title} Fallback Thumbnail`} />
             )
         }
     </div>
     {
         showTags && (
-            <div class="prose prose-lg xl:prose-2xl tags-container mx-auto max-w-full">
+            <div class="not-prose">
                 <Tags content={[project.data.category]} label="category" />
                 <Tags content={[project.data.type]} label="type" />
                 <Tags content={project.data.tags} label="tags" />
@@ -80,7 +68,8 @@ const thumbnailPath = images[`/src/content/projects/${finalizedSlug}/assets/thum
         )
     }
 
-    <div class="prose">
+    <article>
+        <hr />
         <slot />
-    </div>
+    </article>
 </div>
