@@ -5,24 +5,23 @@ import { Image } from "astro:assets";
 
 import { type CollectionEntry } from "astro:content";
 
-import createSlug from "@/lib/createSlug";
+import createSlug from "@/lib/projects/createSlug";
 interface Props {
     project: CollectionEntry<"projects">;
-    dataType: string;
-    dataCategory: string;
+    idPrefix: string;
 }
 
-const { project, dataType, dataCategory } = Astro.props;
+const { project, idPrefix } = Astro.props;
 
 const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 ---
 
 <a href={`/projects/${finalizedSlug}/`}>
     <article
-        id={`project-${finalizedSlug}`}
+        id={`${idPrefix}${finalizedSlug}`}
         class="bg-primary-neutral hover:bg-tertiary-shade group relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2"
-        data-type={dataType}
-        data-category={dataCategory}
+        data-type={project.data.type}
+        data-category={project.data.category}
     >
         <Image class="bg-inverted-primary" src={project.data.thumbnail} alt=`Project ${project.data.title} Thumbnail` />
         {

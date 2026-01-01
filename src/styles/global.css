@@ -505,7 +505,7 @@
 
     /* if IS child of or parent of a heading element, but NOT a heading-anchor, inherit typography attributes */
     &:not(*.heading-anchor):has(h1, h2, h3, h4, h5, h5, h6),
-    :where(h1, h2, h3, h4, h5, h6) > &:not(.heading-anchor) {
+    :where(h1) > &:not(.heading-anchor) {
         @apply inherit-typography;
         margin: inherit;
         color: inherit;
@@ -589,7 +589,7 @@
     & .heading-anchor-icon {
         @apply inherit-typography;
         display: inline;
-        height: 0.875em;
+        height: 0.75em;
         aspect-ratio: 1 / 1;
         vertical-align: baseline;
         margin-left: var(--a2-spacing-atoms);

@@ -7,54 +7,13 @@ import ProjectCard from "@/components/ProjectCard.astro";
 import Search from "@/components/Search";
 import TableOfContents from "@/components/TableOfContents.astro";
 
-import createSlug from "@/lib/createSlug";
+import { getProjectIndexData, type ProjectIndexData, type ProjectSection } from "@/lib/projects/query";
 
-type ProjectEntry = CollectionEntry<"projects">;
+/* a prefix to add to the id of the project cards to prevent clashing with the slug of the real project page */
+const idPrefix = "card-";
 
-// query pinned projects using collection filters; then sort by startDate value
-const pinnedProjects: ProjectEntry[] = (await getCollection("projects", ({ data }) => data.pinned === true)).sort(
-    (a: ProjectEntry, b: ProjectEntry) => b.data.startDate.valueOf() - a.data.startDate.valueOf(),
-);
-
-// query all other projects using collection filters; then sort by startDate value
-const projects: ProjectEntry[] = (await getCollection("projects", ({ data }) => data.pinned !== true)).sort(
-    (a: ProjectEntry, b: ProjectEntry) => b.data.startDate.valueOf() - a.data.startDate.valueOf(),
-);
-
-// group projects by year
-const projectsByYear: Record<number, ProjectEntry[]> = projects.reduce(
-    (r: Record<number, ProjectEntry[]>, project: ProjectEntry) => {
-        const year = project.data.startDate.getFullYear();
-        if (!r[year]) {
-            r[year] = [];
-        }
-        r[year].push(project);
-        return r;
-    },
-    {},
-);
-
-// build sections
-const sections: { id: string; title: string; projects: ProjectEntry[] }[] = [];
-if (pinnedProjects.length > 0) {
-    sections.push({ id: "pinned", title: "Pinned", projects: pinnedProjects });
-}
-
-Object.entries(projectsByYear)
-    .sort(([a], [b]) => Number(b) - Number(a)) /* sort by year */
-    .forEach(([year, yearProjects]) => {
-        sections.push({ id: `year-${year}`, title: String(year), projects: yearProjects });
-    });
-
-// create headings from sections
-const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
-    { depth: 1, slug: section.id, text: section.title },
-    ...section.projects.map((project) => ({
-        depth: 2,
-        slug: `project-${createSlug(project.data.title, project.data?.slug)}`,
-        text: project.data.title,
-    })),
-]);
+/* separate out data parsing into separate module in lib */
+const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(idPrefix);
 ---
 
 <MainLayout title="Projects" layout="DEFAULT">
@@ -62,12 +21,16 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
 
     <div class="gap-xl flex flex-wrap items-start justify-center">
         {
-            sections.flatMap((section) => {
+            sections.flatMap((section: ProjectSection) => {
                 let projectElementsArr = [];
 
+                {
+                    /* Only display the section if it is not `pinned` as that is a bit redundant */
+                }
                 if (section.id != "pinned") {
                     projectElementsArr.push(
                         <div class="prose prose-sm basis-full text-center">
+                            {/* basis-ful ensures the header takes up the full flex row */}
                             <h1 id={section.id}>{section.title}</h1>
                         </div>,
                     );
@@ -75,13 +38,7 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
 
                 projectElementsArr.push(
                     ...section.projects.map((project) => {
-                        return (
-                            <ProjectCard
-                                project={project}
-                                dataType={project.data.type}
-                                dataCategory={project.data.category}
-                            />
-                        );
+                        return <ProjectCard project={project} idPrefix={idPrefix} />;
                     }),
                 );
 
@@ -89,5 +46,5 @@ const projectHeadings: MarkdownHeading[] = sections.flatMap((section) => [
             })
         }
     </div>
-    <TableOfContents slot="aside-sidebar" headings={projectHeadings} />
+    <TableOfContents slot="aside-sidebar" headings={tocHeadings} />
 </MainLayout>

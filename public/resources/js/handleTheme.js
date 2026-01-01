@@ -1,5 +1,5 @@
-{/* Inline script for detecting theme immediately on page load and watching for theme changes in media */}
-<script is:inline>
+/* Inline script for detecting theme immediately on page load and watching for theme changes in media */
+(() => {
     const ROOT_DATA_ATTRIBUTE = "data-theme";
     const LOCAL_STORAGE_VARNAME = "theme";
     const LIGHT_THEME_TEXT = "light";
@@ -34,4 +34,4 @@
     })();
 
     commitThemeChange(theme); // commit the initial theme detected on mount
-</script>
+})();

@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectLayout from "@/layouts/ProjectLayout.astro";
 
-import createSlug from "@/lib/createSlug";
+import createSlug from "@/lib/projects/createSlug";
 
 export async function getStaticPaths() {
     const projects = await getCollection("projects");
