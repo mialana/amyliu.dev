@@ -6,6 +6,9 @@ interface Props {
 }
 const { headings = [] } = Astro.props;
 
+const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
+const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
+
 /* Headings are given as a flat list */
 /* create a `Node` type that is a MarkdownHeading combined with other headings that are within that heading */
 type Node = MarkdownHeading & { children: Node[] };
@@ -34,7 +37,10 @@ for (const h of headings) {
                 return nodes.map((node) => (
                     <li data-slug={node.slug}>
                         <div class={`relative`}>
-                            <a href={`#${node.slug}`} class="toc-heading-anchor relative hover:underline">
+                            <a
+                                href={`#${node.slug}`}
+                                class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
+                            >
                                 {node.text}
                             </a>
                         </div>
@@ -45,58 +51,12 @@ for (const h of headings) {
         }
     </ul>
     <script>
-        import { handleScrollToAnchorTarget } from "../lib/projects/handleScrollBehavior.ts";
-
-        window.addEventListener(
-            "scroll",
-            (e) => {
-                console.log("viewport scrolled");
-                console.log(document.documentElement.scrollTop);
-                console.log(document.body.scrollTop);
-
-                if (document.documentElement.scrollTop > 0) {
-                    window.scrollTo(0, 0);
-                }
-            },
-            false,
-        );
+        import { updateActiveHeading } from "../lib/projects/handleScrollBehavior.ts";
 
         window.addEventListener("DOMContentLoaded", () => {
-            const container = document.getElementById("main-grid-cell");
-            if (!container) return;
-
-            const anchors = document.querySelectorAll<HTMLAnchorElement>(".toc-heading-anchor");
-
-            /* add event listener for all anchors */
-            anchors.forEach((anchor) => {
-                anchor.addEventListener("click", (e) => {
-                    e.preventDefault();
-
-                    // manually scroll into view
-                    handleScrollToAnchorTarget(anchor, container);
-                });
-            });
-
-            function lazyUpdateActiveHeading() {
-                if (!container) return;
-                history.replaceState(null, "", location.pathname + location.search);
-
-                const hash = window.location.hash;
-
-                anchors.forEach((anchor) => {
-                    if (anchor.getAttribute("href") === hash) {
-                        anchor.classList.add("font-semibold", "text-blue-accent");
-
-                        handleScrollToAnchorTarget(anchor, container);
-                    } else {
-                        anchor.classList.remove("font-semibold", "text-blue-accent");
-                    }
-                });
-            }
-
             // Run on load and whenever the hash changes
-            lazyUpdateActiveHeading();
-            window.addEventListener("hashchange", lazyUpdateActiveHeading);
+            updateActiveHeading();
+            window.addEventListener("hashchange", () => updateActiveHeading());
         });
     </script>
 </section>

@@ -1,7 +1,6 @@
 import { type Options as RehypeAutoLinkOptions } from "rehype-autolink-headings";
 
 import type { Element } from "hast";
-import { renderToStaticMarkup } from "react-dom/server";
 import { fromHtml } from "hast-util-from-html";
 import { isElement } from "hast-util-is-element";
 import { parseSelector } from "hast-util-parse-selector";
@@ -9,6 +8,7 @@ import { parseSelector } from "hast-util-parse-selector";
 const WRAPPER_CLASSNAME = "heading-with-anchor-wrapper";
 const HEADER_CLASSNAME = "heading-with-anchor";
 const ANCHOR_CLASSNAME = "heading-anchor";
+const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
 const ANCHOR_ICON_CLASSNAME = "heading-anchor-icon";
 
 const CSS_VARIABLE_PREFIX = "--a2-";
@@ -53,7 +53,11 @@ export const HeadingAnchorWrapper: Element = parseSelector(`.${WRAPPER_CLASSNAME
 
 const RehypeAutoLinkSettings: RehypeAutoLinkOptions = {
     behavior: "append",
-    properties: { className: [ANCHOR_CLASSNAME], title: "Copy link to clipboard", ariaHidden: true },
+    properties: {
+        className: [ANCHOR_CLASSNAME, ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME],
+        title: "Copy link to clipboard",
+        ariaHidden: true,
+    },
     headingProperties: { className: [HEADER_CLASSNAME] },
     content: HeadingAnchorIconElementFromHtml,
 };

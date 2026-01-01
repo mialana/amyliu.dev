@@ -54,21 +54,14 @@ if (!headings.length) {
     }
 
     <script>
-        import { handleScrollToAnchorTarget } from "../../lib/projects/handleScrollBehavior.ts";
+        // inline script to copy anchor href to clipboard when `heading-anchor` is clicked
 
         window.addEventListener("DOMContentLoaded", () => {
-            const container = document.getElementById("main-grid-cell");
-            if (!container) return;
-
             const anchors = document.querySelectorAll<HTMLAnchorElement>(".heading-anchor");
 
             /* add event listener for all anchors */
             anchors.forEach((anchor) => {
                 anchor.addEventListener("click", (e) => {
-                    e.preventDefault();
-
-                    // manually scroll into view
-                    handleScrollToAnchorTarget(anchor, container);
                     copyLink(anchor);
                 });
             });

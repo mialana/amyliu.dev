@@ -216,6 +216,10 @@
     #app {
         isolation: isolate; /* Create a root stacking context for app */
     }
+
+    #app > * {
+        min-height: 0;
+    }
 }
 
 @layer defaults {
