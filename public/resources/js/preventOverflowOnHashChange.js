@@ -4,10 +4,13 @@
 
 /* ported from https://stackoverflow.com/a/68283646 */
 (() => {
-
-    window.addEventListener("scroll", (e) => {
-        console.log("called")
-    }, false);
+    window.addEventListener(
+        "scroll",
+        (e) => {
+            console.log("called");
+        },
+        false,
+    );
 
     function handleHashScroll() {
         if (!location.hash) return;

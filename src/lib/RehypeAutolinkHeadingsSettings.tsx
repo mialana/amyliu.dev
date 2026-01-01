@@ -72,7 +72,6 @@ const RehypeAutoLinkSettings: RehypeAutoLinkOptions = {
     properties: { className: [ANCHOR_CLASSNAME], title: "Copy link to clipboard", ariaHidden: true },
     headingProperties: { className: [HEADER_CLASSNAME] },
     content: HeadingAnchorIconElementFromHtml,
-    // group: HeadingAnchorWrapper
 };
 
 export default RehypeAutoLinkSettings;

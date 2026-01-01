@@ -194,7 +194,7 @@
         --a2-main-dark-saturation-scalar: 0.5;
 
         --a2-accent-dark-luminance-adjust: 10;
-        --a2-accent-dark-saturation-adjust: 50;
+        --a2-accent-dark-saturation-adjust: 40;
 
         --a2-transform-scale-adjust: 15%;
 
@@ -483,12 +483,23 @@
         margin-bottom: 0em;
     }
 }
+/*
+    &:not(*.heading-anchor):has(h1, h2, h3, h4, h5, h5, h6),
+    :where(h1, h2, h3, h4, h5, h6) > &:not(.heading-anchor) {
+        @apply inherit-typography;
+        margin: inherit;
+        color: inherit;
+
+        &:hover {
+            text-decoration: none;
+        }
+    } */
 
 @utility u-anchor {
     text-decoration: none;
 
     /* underline on hover unless a child of or parent of a heading element */
-    &:not(*:has(h1, h2, h3, h4, h5, h6)):not(h1, h2, h3, h4, h5, h6 > *):hover {
+    &:not(:has(h1, h2, h3, h4, h5, h6)):not(:where(h1, h2, h3, h4, h5, h6) > a):hover {
         text-decoration: underline;
     }
 

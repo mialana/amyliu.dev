@@ -4,9 +4,10 @@ const headerList = ["Home", "Projects", "Tags"];
 const astroPathname = Astro.url.pathname;
 ---
 
-<a href="/" class="prose">
-    <h1 class="font-signature mx-auto max-w-none text-center">AMY LIU</h1>
-</a>
+{/* Create a wrapper div as prose is applied to descendants */}
+<div class="prose font-signature mx-auto text-center">
+    <h1><a href="/">AMY LIU</a></h1>
+</div>
 
 <ul class="gap-lg mx-auto flex justify-center">
     {/* Map headers and apply styling based on current path in site */}
