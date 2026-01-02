@@ -29,35 +29,23 @@ const tagTitle = tag.replaceAll("_", " ");
 ---
 
 <MainLayout title={tagTitle} layout="HIDE_BOTH">
-    <div class="flex size-full flex-col overflow-y-visible px-2 pb-4 md:px-8 md:pb-8">
-        <!-- background for sticky positioning -->
-        <div class="bg-primary-shade absolute top-0 z-20 h-2 w-full md:h-8"></div>
+    <div id="per-tag-container">
         <!-- tag banner -->
-        <div
-            class="prose prose-base lg:prose-lg bg-primary-neutral sticky top-4 z-20 my-0 ml-2 w-fit scale-y-90 rounded-md shadow-lg contrast-125 md:top-6 md:my-6 md:ml-0"
-        >
-            <h3 class="p-2">
-                <a
-                    href=`#${tagTitle}-top`
-                    class="font-signature mx-1 min-h-full! font-semibold tracking-wide normal-case underline-offset-2"
-                    >{tagTitle}</a
-                >
-            </h3>
-        </div>
+        <a id="per-tag-banner" href=`#${tagTitle}-top`>{tagTitle}</a>
 
-        <div class="flex grow flex-col justify-center-safe overflow-y-hidden">
-            <ul
-                class="md:items-start-safe relative flex flex-col justify-center-safe gap-4 overflow-x-visible overflow-y-scroll pb-4 md:snap-x md:flex-row md:gap-12 md:overflow-x-scroll md:overflow-y-hidden"
-            >
-                <div id=`${tagTitle}-top` class="absolute top-0 left-0 m-0! size-0 shrink"></div>
-                {
-                    projects.map((project: any) => (
-                        <li class="content-animation **:prose-h1:text-2xl **:prose-h1:hover:scale-103 **:a:font-extrabold! **:prose-h1:underline **:prose-h1:underline-offset-2 **:prose-h1:hover:underline **:prose-h1:pt-2 **:prose-h1:after:cursor-pointer **:prose-h1:after:content-['→'] tag-project-card bg-inverted-secondary/50 border-inverted-neutral/75 flex-1 overflow-y-visible rounded-md border-4 border-double px-1 shadow-md md:snap-start md:overflow-y-scroll md:*:m-4! md:*:p-4!">
-                            <ProjectLayout project={project} showBreakdown={false} replaceImagePlaceholder={true} />
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
+        <ul id="per-tag-project-list" class="gap-lg desktop:flex-row desktop:overflow-x-scroll flex">
+            {
+                projects.map((project: any) => (
+                    <li class="content-animation per-tag-project-card bg-primary-neutral w-2xl flex-1 shrink rounded-md p-4">
+                        <ProjectLayout
+                            project={project}
+                            showBreakdown={false}
+                            replaceImagePlaceholder={true}
+                            showTags={false}
+                        />
+                    </li>
+                ))
+            }
+        </ul>
     </div>
 </MainLayout>

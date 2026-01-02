@@ -89,9 +89,9 @@
     --color-orange-accent: var(--color-light-orange-accent);
     --color-violet-accent: var(--color-light-violet-accent);
 
-    --breakpoint-horizontal: 768px;
+    --breakpoint-desktop: 768px;
 
-    --container-horizontal: var(--breakpoint-horizontal);
+    --container-desktop: var(--breakpoint-desktop);
     --container-3xs: 198px;
     --min-height-3xs: var(--container-3xs); /* extends min-h-* */
 
@@ -108,12 +108,6 @@
 
     --border-sm: 0.5px;
     --border-md: 1px;
-}
-
-@custom-variant horizontal {
-    @media (min-width: theme(--breakpoint-horizontal)) {
-        @slot;
-    }
 }
 
 @layer resets {
@@ -576,7 +570,7 @@
         vertical-align: baseline;
         margin-left: calc(var(--a2-spacing-atoms) * 1.5);
 
-        @media (min-width: theme(--breakpoint-horizontal)) {
+        @media (min-width: theme(--breakpoint-desktop)) {
             display: none; /* start invisible if on desktop */
         }
 
@@ -605,7 +599,7 @@
 
 @layer overrides {
     :root {
-        @media (max-width: theme(--breakpoint-horizontal)) {
+        @media (max-width: theme(--breakpoint-desktop)) {
             --spacing: 2px; /* reduce global spacing */
         }
 
