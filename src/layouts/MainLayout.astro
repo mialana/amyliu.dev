@@ -51,26 +51,26 @@ const asideInitialState = asideActive ? "open" : "closed";
             <header id="header-grid-cell" class="bg-secondary-shade col-span-full pt-2">
                 <Header />
             </header>
-            <menu id="toolbar-grid-cell" class="bg-secondary-shade col-span-full brightness-75">
+            <menu id="toolbar-grid-cell" class="bg-secondary-shade desktop:mb-4 col-span-full shadow-md brightness-75">
                 <ToolBar />
             </menu>
-            <nav id="nav-grid-cell" class="shadow-md">
-                <SideBar type="nav" active={navActive} client:load>
+            <nav id="nav-grid-cell" class="bg-primary-neutral shadow-md">
+                <SideBar sideBarType="nav" active={navActive} client:load>
                     <slot name="nav-sidebar" />
                 </SideBar>
             </nav>
             <main
                 id="main-grid-cell"
-                class="page-animation bg-primary-shade mx-(--gap-md) flex overflow-x-clip overflow-y-scroll rounded-sm p-6 shadow-md *:m-auto *:max-w-4xl"
+                class="page-animation bg-primary-shade desktop:rounded-sm desktop:mx-4 flex overflow-x-clip overflow-y-scroll p-6 shadow-md *:m-auto *:max-w-4xl"
             >
                 <slot />
             </main>
-            <aside id="aside-grid-cell" class="shadow-md">
-                <SideBar type="aside" active={asideActive} client:load>
+            <aside id="aside-grid-cell" class="bg-primary-neutral shadow-md">
+                <SideBar sideBarType="aside" active={asideActive} client:load>
                     <slot name="aside-sidebar" />
                 </SideBar>
             </aside>
-            <footer id="footer-grid-cell" class="bg-secondary-shade col-span-full py-1"><Footer /></footer>
+            <footer id="footer-grid-cell" class="bg-secondary-shade desktop:mt-4 col-span-full py-1"><Footer /></footer>
         </div>
         <slot name="body" />
         <script>
