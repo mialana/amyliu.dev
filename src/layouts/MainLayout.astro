@@ -42,14 +42,12 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <script is:inline src="https://kit.fontawesome.com/4c79a437cb.js" crossorigin="anonymous"></script>
         <title>{title} · Amy Liu</title>
         <slot name="head" />
+        {/* put in head to minimize latency */}
         <script is:inline src="/resources/js/handleTheme.js"></script>
     </head>
     <body>
-        <div
-            id="app"
-            class=`bg-tertiary-shade h-svh overflow-clip gap-md grid grid-rows-[auto_minmax(0,1fr)_auto] ${grid_cols}`
-        >
-            <header class="bg-secondary-shade col-span-3 pt-2">
+        <div id="app" data-layout={layout} class=`bg-tertiary-shade h-svh overflow-clip grid`>
+            <header id="header-grid-cell" class="bg-secondary-shade col-span-full pt-2">
                 <Header />
             </header>
             <nav id="nav-grid-cell" class="shadow-md transition-transform duration-500">
@@ -68,12 +66,14 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                     <slot name="aside-sidebar" />
                 </SideBar>
             </aside>
-            <footer class="bg-secondary-shade col-span-3 py-1"><Footer /></footer>
+            <footer id="footer-grid-cell" class="bg-secondary-shade col-span-full py-1"><Footer /></footer>
         </div>
         <slot name="body" />
         <script>
             import handleScrollBehavior from "../lib/projects/handleScrollBehavior.ts";
+            import handleLayout from "../lib/handleLayout.ts";
             handleScrollBehavior();
+            handleLayout();
         </script>
     </body>
 </html>
