@@ -28,7 +28,7 @@ const { projects } = Astro.props;
 const tagTitle = tag.replaceAll("_", " ");
 ---
 
-<MainLayout title={tagTitle} layout="HIDE_BOTH">
+<MainLayout title={tagTitle} layout="NONE">
     <div id="per-tag-container">
         <!-- tag banner -->
         <a id="per-tag-banner" href=`#${tagTitle}-top`>{tagTitle}</a>

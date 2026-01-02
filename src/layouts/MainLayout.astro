@@ -5,25 +5,19 @@ import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
 import ToolBar from "@/components/ToolBar.astro";
 
-import parseLayout from "@/lib/parseLayout";
-
-export const LayoutMap = {
-    DEFAULT: "grid-cols-[auto_minmax(0,1fr)_auto]",
-    HIDE_NAV: "grid-cols-[0px_minmax(0,1fr)_auto]",
-    HIDE_ASIDE: "grid-cols-[auto_minmax(0,1fr)_0px]",
-    HIDE_BOTH: "grid-cols-[0px_minmax(0,1fr)_0px]",
-};
-
+type Layout = "BOTH" | "NO_NAV" | "NO_ASIDE" | "NONE";
 interface Props {
     title: string;
-    layout?: keyof typeof LayoutMap;
+    layout?: Layout;
 }
 
-const { title, layout = "DEFAULT" } = Astro.props;
+const { title, layout = "BOTH" } = Astro.props;
 
-const grid_cols = LayoutMap[layout];
+const navActive = layout === "BOTH" || layout === "NO_ASIDE";
+const navInitialState = navActive ? "open" : "closed";
 
-const { navActive, asideActive } = parseLayout(grid_cols);
+const asideActive = layout === "BOTH" || layout === "NO_NAV";
+const asideInitialState = asideActive ? "open" : "closed";
 ---
 
 <!doctype html>
@@ -50,8 +44,8 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <div
             id="app"
             data-layout={layout}
-            data-navstate="closed"
-            data-asidestate="closed"
+            data-navstate={navInitialState}
+            data-asidestate={asideInitialState}
             class=`bg-tertiary-shade h-svh overflow-clip grid`
         >
             <header id="header-grid-cell" class="bg-secondary-shade col-span-full pt-2">
@@ -61,7 +55,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 <ToolBar />
             </menu>
             <nav id="nav-grid-cell" class="shadow-md">
-                <SideBar category="NAV" active={navActive} client:load>
+                <SideBar type="nav" active={navActive} client:load>
                     <slot name="nav-sidebar" />
                 </SideBar>
             </nav>
@@ -72,7 +66,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
                 <slot />
             </main>
             <aside id="aside-grid-cell" class="shadow-md">
-                <SideBar category="ASIDE" active={asideActive} client:load>
+                <SideBar type="aside" active={asideActive} client:load>
                     <slot name="aside-sidebar" />
                 </SideBar>
             </aside>
@@ -81,9 +75,7 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <slot name="body" />
         <script>
             import handleScrollBehavior from "../lib/projects/handleScrollBehavior.ts";
-            import handleLayout from "../lib/handleLayout.ts";
             handleScrollBehavior();
-            handleLayout();
         </script>
     </body>
 </html>

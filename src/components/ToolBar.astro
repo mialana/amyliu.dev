@@ -16,26 +16,7 @@ import SideBarButton from "@/components/SideBarButton.astro";
     <SideBarButton type="aside" />
 </div>
 
-<script is:inline>
-    function handleSideBarButtonClicked(button, type) {
-        const app = document.getElementById("app");
-        if (!app) return;
-
-        const key = type === "nav" ? "navstate" : "asidestate";
-        app.dataset[key] = app.dataset[key] === "open" ? "closed" : "open";
-
-        const toggledClasses = ["rotate-180", "brightness-50", "brightness-125"];
-
-        toggledClasses.forEach((c) => {
-            button.classList.toggle(c);
-        });
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-        const navButton = document.getElementById("nav-sidebar-button");
-        const asideButton = document.getElementById("aside-sidebar-button");
-
-        navButton.addEventListener("click", (event) => handleSideBarButtonClicked(event.currentTarget, "nav"));
-        asideButton.addEventListener("click", (event) => handleSideBarButtonClicked(event.currentTarget, "aside"));
-    });
+<script>
+    import { handleSideBarButtonState } from "../lib/handleSideBarState";
+    handleSideBarButtonState();
 </script>
