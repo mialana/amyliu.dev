@@ -34,9 +34,9 @@ const finalizedSlug = createSlug(project.data.title, project.data?.slug);
         }
         {/* Allow middle div to define a gap-like layout rather than prose */}
         <samp class="prose p-2 text-left text-[0.7em] *:my-0">
-            <h2 class="font-black">
+            <h1 class="font-black">
                 {project.data.title}
-            </h2>
+            </h1>
             <div class="py-1">
                 <code>
                     {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}

@@ -17,7 +17,7 @@
     --font-words: "Atkinson Hyperlegible Next", sans-serif; /* default font for app, `words` to avoid clash */
     --font-signature: "Fredericka the Great", serif;
     --font-code: "JetBrains Mono", monospace;
-    --font-github-code: "Courier Prime", monospace;
+    --font-github-code: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
 
     /* light color palette */
     --color-light-primary-shade: #eae3da;
@@ -465,8 +465,7 @@
         font-size: 2em;
 
         &:not(*:last-child) {
-            margin-top: 0;
-            margin-bottom: 0.75em;
+            margin-block: 0;
         }
     }
 

@@ -54,7 +54,12 @@ export default function ProjectsFilter() {
     useEffect(() => {
         slim.current = new SlimSelect({
             select: "#slim-select-projects-filter",
-            settings: { closeOnSelect: false, allowDeselect: true, showSearch: false },
+            settings: {
+                closeOnSelect: false,
+                allowDeselect: true,
+                showSearch: false,
+                placeholderText: "Filter Projects <span class='fa-solid fa-caret-down'></span>",
+            },
             data: [
                 {
                     label: "Type",
@@ -91,8 +96,6 @@ export default function ProjectsFilter() {
             },
         });
 
-        slim.current.setSelected(["type:all", "category:all"]);
-
         return () => {
             slim.current?.destroy();
             slim.current = null;
@@ -105,7 +108,9 @@ export default function ProjectsFilter() {
 
     return (
         <menu className="gap-3xl desktop:gap-sm desktop:flex-col bg-primary-shade desktop:bg-primary-neutral flex p-2">
-            <h1 className="desktop:block hidden">Project Selection</h1>
+            <div className="desktop:block prose text-2xs hidden">
+                <h1>Projects Selection</h1>
+            </div>
 
             <select id="slim-select-projects-filter" multiple />
         </menu>

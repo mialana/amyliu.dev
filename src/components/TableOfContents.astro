@@ -37,11 +37,11 @@ for (const h of headings) {
             On This Page <span class="fa-solid fa-caret-down"></span>
         </h1>
     </div>
-    <ul class="desktop:block hidden *:font-light">
+    <ul class="desktop:block hidden text-sm">
         {
             (function renderTree(nodes: Node[]): any {
                 return nodes.map((node) => (
-                    <li data-slug={node.slug}>
+                    <li data-slug={node.slug} class="mb-1">
                         <a
                             href={`#${node.slug}`}
                             class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}

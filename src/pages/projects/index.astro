@@ -1,10 +1,7 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import type { MarkdownHeading } from "astro";
-
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import FilterProjects from "@/components/ProjectsFilter";
+import ProjectsSelect from "@/components/ProjectsSelect";
 import TableOfContents from "@/components/TableOfContents.astro";
 
 import { getProjectIndexData, type ProjectIndexData, type ProjectSection } from "@/lib/projects/query";
@@ -18,7 +15,7 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 
 <MainLayout title="Projects" layout="NO_ASIDE">
     <div slot="nav-sidebar">
-        <FilterProjects client:only />
+        <ProjectsSelect client:only />
         <TableOfContents headings={tocHeadings} />
     </div>
 
