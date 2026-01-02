@@ -49,6 +49,7 @@
         "rehype-slug": "^6.0.0",
         "remark-math": "^6.0.0",
         "remark-sectionize-headings": "^0.2.8",
+        "slim-select": "^3.3.0",
         "tailwind-merge": "^3.4.0",
         "tailwindcss": "^4.1.18",
         "typed.js": "^2.1.0"

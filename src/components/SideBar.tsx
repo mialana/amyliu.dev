@@ -39,7 +39,7 @@ export function DesktopSideBar({ sideBarType, active, children }: SideBarProps) 
 
     return (
         <aside
-            className={`h-full overflow-x-clip overflow-y-scroll transition-[max-width] ${open ? "max-w-sm" : "max-w-0"}`}
+            className={`h-full overflow-x-clip overflow-y-scroll transition-[max-width] ${open ? "max-w-xs" : "max-w-0"}`}
         >
             {children}
         </aside>

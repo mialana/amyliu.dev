@@ -4,7 +4,7 @@ import type { MarkdownHeading } from "astro";
 
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import Search from "@/components/Search";
+import FilterProjects from "@/components/ProjectsFilter";
 import TableOfContents from "@/components/TableOfContents.astro";
 
 import { getProjectIndexData, type ProjectIndexData, type ProjectSection } from "@/lib/projects/query";
@@ -16,8 +16,11 @@ const idPrefix = "card-";
 const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(idPrefix);
 ---
 
-<MainLayout title="Projects" layout="BOTH">
-    <Search slot="nav-sidebar" client:only />
+<MainLayout title="Projects" layout="NO_ASIDE">
+    <div slot="nav-sidebar">
+        <FilterProjects client:only />
+        <TableOfContents headings={tocHeadings} />
+    </div>
 
     <div class="gap-xl flex flex-wrap items-start justify-center">
         {
@@ -46,5 +49,4 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
             })
         }
     </div>
-    <TableOfContents slot="aside-sidebar" headings={tocHeadings} />
 </MainLayout>

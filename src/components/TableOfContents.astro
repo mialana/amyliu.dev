@@ -29,21 +29,25 @@ for (const h of headings) {
 }
 ---
 
-<section>
-    <h1>On This Page</h1>
-    <ul class="*:font-light">
+<section class="bg-primary-shade desktop:bg-primary-neutral p-2">
+    <div id="on-this-page">
+        <h1
+            class="desktop:border-0 desktop:hidden border-primary-shadow/50 bg-primary-neutral w-fit rounded-sm border px-2 shadow-sm"
+        >
+            On This Page <span class="fa-solid fa-caret-down"></span>
+        </h1>
+    </div>
+    <ul class="desktop:block hidden *:font-light">
         {
             (function renderTree(nodes: Node[]): any {
                 return nodes.map((node) => (
                     <li data-slug={node.slug}>
-                        <div class={`relative`}>
-                            <a
-                                href={`#${node.slug}`}
-                                class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
-                            >
-                                {node.text}
-                            </a>
-                        </div>
+                        <a
+                            href={`#${node.slug}`}
+                            class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
+                        >
+                            {node.text}
+                        </a>
                         {node.children.length > 0 && <ul class="pl-3">{renderTree(node.children)}</ul>}
                     </li>
                 ));
