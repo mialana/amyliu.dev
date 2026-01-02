@@ -1,0 +1,17 @@
+---
+import SvgSideBar from "@/components/svg/SvgSideBar.astro";
+
+interface Props {
+    type: "nav" | "aside";
+}
+
+const { type } = Astro.props;
+---
+
+<button
+    id=`${type}-sidebar-button`
+    class=`desktop:block hidden bg-inverted-tertiary h-(--a2-toolbar-height) w-(--a2-toolbar-height) px-1.5 leading-(--a2-toolbar-height) hover:outline-1 hover:brightness-150 -outline-offset-2 rotate-180 brightness-50`
+    style=`${type === "aside" && "--svg-rotation: 180deg"}`
+>
+    <SvgSideBar />
+</button>

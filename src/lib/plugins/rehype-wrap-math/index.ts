@@ -25,8 +25,6 @@ const rehypeWrapMath: Plugin<[RehypeWrapMathOptions?], Root> = (options: RehypeW
 
             if (!classList.includes("tml-display")) return; // do not apply to inline math
 
-            console.log(classList);
-
             const wrapperElement = h(`.${wrapperClass}`, [node]);
 
             parent.children.splice(index, 1, wrapperElement);

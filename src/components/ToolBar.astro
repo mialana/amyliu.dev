@@ -1,0 +1,41 @@
+---
+import SideBarButton from "@/components/SideBarButton.astro";
+---
+
+<div class="flex items-center-safe" style="--a2-toolbar-height: 1.5rem;">
+    <SideBarButton type="nav" />
+
+    <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="/resume.pdf"
+        class="bg-primary-shade desktop:border-x-2 ml-auto border-l-2 border-dotted"
+        ><h4 title="Open Resume" class="px-2 hover:contrast-150">Resume</h4></a
+    >
+
+    <SideBarButton type="aside" />
+</div>
+
+<script is:inline>
+    function handleSideBarButtonClicked(button, type) {
+        const app = document.getElementById("app");
+        if (!app) return;
+
+        const key = type === "nav" ? "navstate" : "asidestate";
+        app.dataset[key] = app.dataset[key] === "open" ? "closed" : "open";
+
+        const toggledClasses = ["rotate-180", "brightness-50", "brightness-125"];
+
+        toggledClasses.forEach((c) => {
+            button.classList.toggle(c);
+        });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const navButton = document.getElementById("nav-sidebar-button");
+        const asideButton = document.getElementById("aside-sidebar-button");
+
+        navButton.addEventListener("click", (event) => handleSideBarButtonClicked(event.currentTarget, "nav"));
+        asideButton.addEventListener("click", (event) => handleSideBarButtonClicked(event.currentTarget, "aside"));
+    });
+</script>

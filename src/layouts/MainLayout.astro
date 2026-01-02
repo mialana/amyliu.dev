@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar";
 import Footer from "@/components/Footer.astro";
+import ToolBar from "@/components/ToolBar.astro";
 
 import parseLayout from "@/lib/parseLayout";
 
@@ -46,22 +47,31 @@ const { navActive, asideActive } = parseLayout(grid_cols);
         <script is:inline src="/resources/js/handleTheme.js"></script>
     </head>
     <body>
-        <div id="app" data-layout={layout} class=`bg-tertiary-shade h-svh overflow-clip grid`>
+        <div
+            id="app"
+            data-layout={layout}
+            data-navstate="closed"
+            data-asidestate="closed"
+            class=`bg-tertiary-shade h-svh overflow-clip grid`
+        >
             <header id="header-grid-cell" class="bg-secondary-shade col-span-full pt-2">
                 <Header />
             </header>
-            <nav id="nav-grid-cell" class="shadow-md transition-transform duration-500">
+            <menu id="toolbar-grid-cell" class="bg-secondary-shade col-span-full brightness-75">
+                <ToolBar />
+            </menu>
+            <nav id="nav-grid-cell" class="shadow-md">
                 <SideBar category="NAV" active={navActive} client:load>
                     <slot name="nav-sidebar" />
                 </SideBar>
             </nav>
             <main
                 id="main-grid-cell"
-                class="page-animation bg-primary-shade flex overflow-x-clip overflow-y-scroll rounded-sm p-6 shadow-md *:m-auto *:max-w-4xl"
+                class="page-animation bg-primary-shade mx-(--gap-md) flex overflow-x-clip overflow-y-scroll rounded-sm p-6 shadow-md *:m-auto *:max-w-4xl"
             >
                 <slot />
             </main>
-            <aside id="aside-grid-cell" class="shadow-md transition-transform duration-500">
+            <aside id="aside-grid-cell" class="shadow-md">
                 <SideBar category="ASIDE" active={asideActive} client:load>
                     <slot name="aside-sidebar" />
                 </SideBar>
