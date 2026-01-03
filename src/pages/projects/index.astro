@@ -16,12 +16,13 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 
 <MainLayout title="Projects" layout="NO_ASIDE">
     <div slot="nav-sidebar">
-        <ProjectsSelect client:only />
-        <!-- <ProjectSelect /> -->
+        <!-- <ProjectsSelect client:only /> -->
+
         <!-- <TableOfContents headings={tocHeadings} /> -->
     </div>
+    <ProjectSelect />
 
-    <ul class="gap-xl flex flex-wrap items-start justify-center">
+    <!-- <ul class="gap-xl flex flex-wrap items-start justify-center">
         {
             sections.flatMap((section: ProjectSection) => {
                 let projectElementsArr = [];
@@ -44,5 +45,5 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
                 return projectElementsArr;
             })
         }
-    </ul>
+    </ul> -->
 </MainLayout>
