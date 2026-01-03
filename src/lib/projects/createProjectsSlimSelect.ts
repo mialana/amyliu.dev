@@ -53,24 +53,24 @@ export default function () {
             showSearch: false,
             placeholderText: "Filter Projects <span class='fa-solid fa-caret-down'></span>",
         },
-        data: [
-            {
-                label: "Type",
-                options: [
-                    { text: "Solo", value: "type:solo" },
-                    { text: "Team", value: "type:team" },
-                ],
-            },
-            {
-                label: "Category",
-                options: [
-                    { text: "Personal", value: "category:personal" },
-                    { text: "Research", value: "category:research" },
-                    { text: "Internship", value: "category:internship" },
-                    { text: "School", value: "category:school" },
-                ],
-            },
-        ],
+        // data: [
+        //     {
+        //         label: "Type",
+        //         options: [
+        //             { text: "Solo", value: "type:solo" },
+        //             { text: "Team", value: "type:team" },
+        //         ],
+        //     },
+        //     {
+        //         label: "Category",
+        //         options: [
+        //             { text: "Personal", value: "category:personal" },
+        //             { text: "Research", value: "category:research" },
+        //             { text: "Internship", value: "category:internship" },
+        //             { text: "School", value: "category:school" },
+        //         ],
+        //     },
+        // ],
         events: { beforeChange: beforeChange, afterChange: afterChange },
     });
 }

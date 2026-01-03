@@ -1,32 +1,17 @@
 ---
 import type { MarkdownHeading } from "astro";
 
+import createTocTree, { type TocNode } from "@/lib/projects/createTocTree";
+
+const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
+const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
+
 interface Props {
     headings: MarkdownHeading[];
 }
 const { headings = [] } = Astro.props;
 
-const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
-const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
-
-/* Headings are given as a flat list */
-/* create a `Node` type that is a MarkdownHeading combined with other headings that are within that heading */
-type Node = MarkdownHeading & { children: Node[] };
-const root: Node = { depth: 0, slug: "", text: "", children: [] };
-const stack: Node[] = [root];
-
-for (const h of headings) {
-    let p = stack.at(-1);
-    while (stack.length && h.depth <= p!.depth) {
-        /* pop until we reach the headings "parent". 
-        popping also means this heading has no more children */
-        stack.pop();
-        p = stack.at(-1);
-    }
-    const node: Node = { ...h, children: [] };
-    p!.children.push(node);
-    stack.push(node); /* push this node onto stack as a non-processed node */
-}
+const root: TocNode = createTocTree(headings);
 ---
 
 <section class="bg-primary-shade desktop:bg-primary-neutral p-2">
@@ -39,9 +24,10 @@ for (const h of headings) {
     </div>
     <ul class="desktop:block hidden text-sm">
         {
-            (function renderTree(nodes: Node[]): any {
-                return nodes.map((node) => (
-                    <li data-slug={node.slug} class="mb-1">
+            (function renderTree(nodes: TocNode[]): any {
+                // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
+                return nodes.map((node: TocNode) => (
+                    <li data-slug={node.slug} class="toc-item mb-1">
                         <a
                             href={`#${node.slug}`}
                             class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
