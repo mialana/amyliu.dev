@@ -54,7 +54,7 @@ const asideInitialState = asideActive ? "open" : "closed";
             <div id="toolbar-grid-cell" class="bg-secondary-shade desktop:mb-4 col-span-full brightness-75">
                 <ToolBar />
             </div>
-            <nav id="nav-grid-cell" class="bg-primary-neutral shadow-md">
+            <nav id="nav-grid-cell" class="bg-primary-neutral desktop:rounded-r-sm overflow-hidden shadow-md">
                 <SideBar sideBarType="nav" active={navActive}>
                     <slot name="nav-sidebar" />
                 </SideBar>
@@ -65,7 +65,7 @@ const asideInitialState = asideActive ? "open" : "closed";
             >
                 <slot />
             </main>
-            <aside id="aside-grid-cell" class="bg-primary-neutral shadow-md">
+            <aside id="aside-grid-cell" class="bg-primary-neutral desktop:rounded-l-sm overflow-hidden shadow-md">
                 <SideBar sideBarType="aside" active={asideActive}>
                     <slot name="aside-sidebar" />
                 </SideBar>

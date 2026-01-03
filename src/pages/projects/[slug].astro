@@ -4,7 +4,8 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import ProjectLayout from "@/layouts/ProjectLayout.astro";
-import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+// import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
 import ProjectHead from "@/components/ProjectHead.astro";
 
 // Generate a new path for every collection entry
@@ -48,7 +49,7 @@ if (!headings.length) {
     {
         (project.data.code || project.data.externalLinks) && (
             <section slot="aside-sidebar">
-                <ProjectExternalLinks code={project.data.code} externalLinks={project.data.externalLinks} client:load />
+                <ProjectExternalLinks code={project.data.code} externalLinks={project.data.externalLinks} />
             </section>
         )
     }

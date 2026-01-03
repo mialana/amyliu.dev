@@ -1,0 +1,76 @@
+---
+import siteMappings from "@/lib/siteMappings.json";
+import { Image } from "astro:assets";
+
+interface LinkItem {
+    url: string;
+    label: string;
+}
+
+interface Props {
+    code?: string;
+    externalLinks?: string[];
+}
+
+const { code, externalLinks = [] } = Astro.props;
+
+function getFavicon(url: string) {
+    try {
+        const { origin, hostname } = new URL(url);
+        if (hostname === "asset-browser-zeta.vercel.app") return `${origin}/strawberry.svg`;
+        else if (hostname.includes("webgpu.amyliu.dev")) return `${origin}/favicon/favicon.svg`;
+        return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+    } catch {
+        return "";
+    }
+}
+
+function getLabel(url: string) {
+    try {
+        const { href, hostname } = new URL(url);
+        const match = siteMappings.find((mapping) => href.includes(mapping.host));
+        if (match) return match.label;
+        return hostname
+            .replace("www.", "")
+            .split(".")[0]
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
+    } catch {
+        return "External Link";
+    }
+}
+
+const links: LinkItem[] = [];
+
+if (code) {
+    links.push({ url: code, label: getLabel(code) });
+}
+
+externalLinks.forEach((url) => {
+    links.push({ url, label: getLabel(url) });
+});
+---
+
+<div class="desktop:flex-col flex items-center justify-evenly gap-4">
+    {
+        links.map(({ url, label }) => (
+            <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mx-auto my-2 flex w-20 flex-col items-center gap-2"
+            >
+                <div class="bg-inverted-secondary/50 border-inverted-neutral desktop:rounded-2xl flex h-16 w-16 items-center justify-center rounded-md border p-1 shadow hover:scale-105">
+                    <Image
+                        src={getFavicon(url)}
+                        alt={`Favicon ${label}`}
+                        width={42}
+                        height={42}
+                        class="desktop:rounded-2xl size-3/4 rounded-xl bg-white bg-none p-2"
+                    />
+                </div>
+                <span class="text-2xs desktop:text-xs mt-1 text-center leading-tight">{label}</span>
+            </a>
+        ))
+    }
+</div>

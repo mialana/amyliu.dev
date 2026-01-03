@@ -48,7 +48,7 @@ const ProjectExternalLinks: React.FC<Props> = ({ code, externalLinks = [] }) => 
     });
 
     return (
-        <div className="flex flex-col items-center gap-4">
+        <div className="desktop:flex-col flex items-center justify-evenly gap-4">
             {links.map(({ url, label }) => {
                 const [imgSrc, setImgSrc] = useState(getFavicon(url));
                 return (
@@ -59,7 +59,7 @@ const ProjectExternalLinks: React.FC<Props> = ({ code, externalLinks = [] }) => 
                         rel="noopener noreferrer"
                         className="mx-auto my-2 flex w-20 flex-col items-center gap-2"
                     >
-                        <span className="bg-inverted-secondary/50 border-inverted-neutral flex h-16 w-16 items-center justify-center rounded-2xl border p-1 shadow transition hover:scale-105">
+                        <span className="bg-inverted-secondary/50 border-inverted-neutral desktop:rounded-2xl flex h-16 w-16 items-center justify-center rounded-md border p-1 shadow hover:scale-105">
                             <img
                                 src={imgSrc || getFavicon(url)}
                                 alt={`Favicon ${label}`}
@@ -75,7 +75,7 @@ const ProjectExternalLinks: React.FC<Props> = ({ code, externalLinks = [] }) => 
                                 }}
                             />
                         </span>
-                        <span className="mt-1 text-center text-xs leading-tight">{label}</span>
+                        <span className="text-2xs desktop:text-xs mt-1 text-center leading-tight">{label}</span>
                     </a>
                 );
             })}
