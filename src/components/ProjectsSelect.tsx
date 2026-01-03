@@ -33,27 +33,37 @@ const buildSelector = (options: Option[]) => {
     return `.project-card${constraints.join("")}`;
 };
 
-const afterChange = (options: Option[]) => {
-    const selector = buildSelector(options);
-
-    const matchingCards = new Set(document.querySelectorAll<HTMLUListElement>(selector));
-
-    const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
-
-    allCards.forEach((card) => {
-        if (matchingCards.has(card)) {
-            changeProjectDisplay(card, "block");
-        } else {
-            changeProjectDisplay(card, "none");
-        }
-    });
-};
-
-const addable = (value: string) => {
-    const [identifier] = value.split(":");
-};
-
 export default function ProjectsSelect() {
+    const slimSelectRef = useRef<SlimSelect>(null);
+
+    const afterChange = (options: Option[]) => {
+        const selector = buildSelector(options);
+
+        const matchingCards = new Set(document.querySelectorAll<HTMLUListElement>(selector));
+
+        const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
+
+        allCards.forEach((card) => {
+            if (matchingCards.has(card)) {
+                changeProjectDisplay(card, "block");
+            } else {
+                changeProjectDisplay(card, "none");
+            }
+        });
+    };
+
+    const addable = (value: string) => {
+        if (!slimSelectRef.current) return value; // fallback to non-optimized ux
+
+        const [identifier] = value.split(":");
+        const currentValues = slimSelectRef.current.getSelected();
+
+        if (currentValues.find((v) => v.split(":")[0] == identifier)) return false;
+
+        console.log("allowed");
+        return value;
+    };
+
     return (
         <SlimSelect
             multiple
