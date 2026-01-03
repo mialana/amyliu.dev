@@ -8,7 +8,7 @@ interface SideBarProps {
 }
 
 export function MobileSideBar({ sideBarType, active, children }: SideBarProps) {
-    return <div className={`relative overflow-clip`}>{children}</div>;
+    return <div className={`desktop:overflow-y-clip relative overflow-x-clip overflow-y-visible`}>{children}</div>;
 }
 
 export function DesktopSideBar({ sideBarType, active, children }: SideBarProps) {
