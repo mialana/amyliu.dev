@@ -4,7 +4,7 @@ export type TocNode = MarkdownHeading & { children: TocNode[] };
 
 /* creates a tree data structure from the list of `MarkdownHeading`'s that Astro content collections provide */
 /* Headings are given as a flat list */
-export default function (headings: MarkdownHeading[]): TocNode {
+export function createTocTree(headings: MarkdownHeading[]): TocNode {
     const root: TocNode = { depth: 0, slug: "", text: "", children: [] };
     const stack: TocNode[] = [root]; // transient stack
 
@@ -21,4 +21,18 @@ export default function (headings: MarkdownHeading[]): TocNode {
     }
 
     return root;
+}
+
+export function handleOnThisPageBehavior() {
+    const onThisPageElement = document.getElementById("on-this-page");
+    const tocListElement = document.getElementById("toc-list");
+    if (!onThisPageElement || !tocListElement) return;
+
+    onThisPageElement.addEventListener("click", (e) => {
+        const tocExpanded = onThisPageElement.getAttribute("aria-expanded") === "true";
+
+        tocListElement.classList.toggle("max-h-auto", !tocExpanded);
+        tocListElement.classList.toggle("max-h-0", tocExpanded);
+        onThisPageElement.setAttribute("aria-expanded", String(!tocExpanded)); // converts from boolean to string
+    });
 }

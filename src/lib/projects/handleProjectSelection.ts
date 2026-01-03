@@ -72,23 +72,41 @@ const enforceOneItemPerGroup = (choices: Choices, addedValue: string) => {
     });
 };
 
-const resetNativeSelect = (el: HTMLSelectElement) => {
+export const resetNativeSelect = (el: HTMLSelectElement) => {
     el.selectedIndex = -1;
     [...el.options].forEach((opt) => {
         opt.selected = false;
     });
 };
 
-export default function () {
+const positionDropdown = (choices: Choices) => {
+    const root = choices.containerOuter?.element;
+    if (!root) return;
+
+    const inner = root.querySelector(".choices__inner") as HTMLElement | null;
+    const dropdown = root.querySelector(".choices__list--dropdown") as HTMLElement | null;
+
+    if (!inner || !dropdown) return;
+
+    const rect = inner.getBoundingClientRect();
+
+    dropdown.style.position = "fixed";
+    dropdown.style.top = `${rect.bottom}px`;
+    dropdown.style.left = `${rect.left}px`;
+    dropdown.style.width = `${rect.width}px`;
+};
+
+export function initializeChoices() {
     const el = document.getElementById(PROJECT_SELECT_ELEMENT_CLASSNAME) as HTMLSelectElement | null;
     if (!(el instanceof HTMLSelectElement)) return;
 
-    resetNativeSelect(el); // form-caching is not necessary here
+    // form-caching can be disabled here
+    resetNativeSelect(el);
 
-    const choices = new Choices(el, { searchEnabled: false, removeItemButton: true, shouldSort: true });
+    const choices = new Choices(el, { removeItemButton: true, position: "bottom", noChoicesText: "choose" });
 
     ["addItem", "removeItem"].forEach((changeEvent) => {
-        choices.passedElement.element.addEventListener(changeEvent, (e) => {
+        el.addEventListener(changeEvent, (e) => {
             if (!isChoicesEvent(e)) return; // to appease ts
             if (e.type === "addItem") {
                 const value: string = e.detail.value;
@@ -96,8 +114,11 @@ export default function () {
             }
 
             filterProjectCards(choices);
+            positionDropdown(choices);
         });
     });
 
-    choices.showDropdown();
+    // set up resize listener
+    positionDropdown(choices);
+    window.addEventListener("resize", () => positionDropdown(choices));
 }

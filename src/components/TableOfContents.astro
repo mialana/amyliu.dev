@@ -1,7 +1,7 @@
 ---
 import type { MarkdownHeading } from "astro";
 
-import createTocTree, { type TocNode } from "@/lib/projects/createTocTree";
+import { createTocTree, type TocNode } from "@/lib/projects/handleTocBehavior";
 
 const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
 const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
@@ -15,14 +15,14 @@ const root: TocNode = createTocTree(headings);
 ---
 
 <section class="bg-primary-shade desktop:bg-primary-neutral p-2">
-    <div id="on-this-page">
+    <div id="on-this-page" aria-expanded="false" aria-controls="toc-list">
         <h1
-            class="desktop:border-0 desktop:hidden border-primary-shadow/50 bg-primary-neutral w-fit rounded-sm border px-2 shadow-sm"
+            class="desktop:hidden border-primary-shadow/50 bg-primary-neutral pointer-events-auto w-fit rounded-sm border px-2 shadow-sm"
         >
             On This Page <span class="fa-solid fa-caret-down"></span>
         </h1>
     </div>
-    <ul class="desktop:block hidden text-sm">
+    <ul id="toc-list" class="desktop:max-h-fit block max-h-0 overflow-hidden text-sm transition-[max-height]">
         {
             (function renderTree(nodes: TocNode[]): any {
                 // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
@@ -42,11 +42,14 @@ const root: TocNode = createTocTree(headings);
     </ul>
     <script>
         import { updateActiveHeading } from "../lib/projects/handleScrollBehavior.ts";
+        import { handleOnThisPageBehavior } from "../lib/projects/handleTocBehavior.ts";
 
         window.addEventListener("DOMContentLoaded", () => {
             // Run on load and whenever the hash changes
             updateActiveHeading();
             window.addEventListener("hashchange", () => updateActiveHeading());
+
+            handleOnThisPageBehavior();
         });
     </script>
 </section>

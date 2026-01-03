@@ -115,7 +115,7 @@ export default function ProjectsSelect() {
 
     return (
         <div
-            id="projects-select-body"
+            id="projects-select-container"
             className="gap-3xl desktop:gap-sm desktop:flex-col bg-primary-shade desktop:bg-primary-neutral flex p-2"
         >
             <div className="desktop:block prose text-2xs hidden">

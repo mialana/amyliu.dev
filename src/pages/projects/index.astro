@@ -1,8 +1,7 @@
 ---
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-// import ProjectSelect from "@/components/ProjectsSelect.astro";
-import ProjectSelect from "@/components/ProjectsSelect.tsx";
+import ProjectSelect from "@/components/ProjectsSelect.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 
 import { getProjectIndexData, type ProjectIndexData, type ProjectSection } from "@/lib/projects/query";
@@ -15,9 +14,9 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 ---
 
 <MainLayout title="Projects" layout="NO_ASIDE">
-    <div slot="nav-sidebar">
-        <ProjectSelect client:only />
-        <!-- <TableOfContents headings={tocHeadings} /> -->
+    <div slot="nav-sidebar" class="h-full overflow-y-scroll">
+        <ProjectSelect />
+        <TableOfContents headings={tocHeadings} />
     </div>
 
     <ul class="gap-xl flex flex-wrap items-start justify-center">

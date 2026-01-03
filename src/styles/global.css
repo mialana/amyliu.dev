@@ -1,3 +1,7 @@
+/* tailwind layers are 'theme', 'base', 'components', and 'utilities' */
+/* TODO: combine all 'vendor' layers into one */
+@layer theme, base, resets, globals, components, defaults, utilities, choices, ecLayer, math, overrides;
+
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
@@ -5,10 +9,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("/vendor/temml/Temml-NotoSans.css") layer(math);
 @import url("/vendor/choices.js/choices.css") layer(choices);
-
-/* tailwind layers are 'theme', 'base', 'components', and 'utilities' */
-/* TODO: combine all 'vendor' layers into one */
-@layer theme, base, resets, globals, components, defaults, utilities, choices, ecLayer, math, overrides;
 
 @import "tailwindcss";
 @import "rehype-callouts/theme/vitepress" layer(utilities);
@@ -242,10 +242,6 @@
         font-weight: var(--a2-font-weight);
         line-height: var(--a2-line-height);
         color: var(--a2-text-color);
-    }
-
-    :where(#app) {
-        --a2-main-cell-bg-color: var(--color-primary-shade);
     }
 
     /* set text color for elements that need emphasis */
@@ -615,13 +611,45 @@
 }
 
 @utility u-choices {
-    --choices-z-index: 25;
-    --choices-border-radius-item: 1px;
-    --choices-primary-color: red;
-    & :where(.choices__input.choices__input--cloned) {
-        /* 1/3/2026: currently a bug in upstream pkg that sets width to 1ch */
-        width: auto !important;
-        min-width: auto !important;
+    --a2-choices-spacing: calc(var(--spacing) * 0.5);
+    --choices-multiple-item-padding: var(--a2-choices-spacing) var(--gap-sm);
+    --choices-multiple-item-margin: var(--a2-choices-spacing);
+    --choices-dropdown-item-padding: var(--a2-choices-spacing);
+    --choices-inner-padding: var(--a2-choices-spacing) var(--gap-sm);
+    --choices-border-radius-item: var(--radius-sm);
+    --choices-primary-color: var(--color-inverted-tertiary);
+    --choices-bg-color: --alpha(var(--color-inverted-neutral) / 10%);
+    --choices-keyline-color: --alpha(var(--color-inverted-neutral) / 25%);
+    --choices-bg-color-dropdown: var(--color-primary-neutral);
+    --choices-highlighted-color: --alpha(var(--color-inverted-neutral) / 10%);
+    --choices-highlight-color: var(--color-primary-neutral);
+    --choices-text-color: var(--color-primary-neutral);
+    --choices-input-margin-bottom: 0px;
+    --choices-placeholder-opacity: 1;
+    width: 100%;
+
+    & > :where(.choices__inner) {
+        min-height: auto;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+
+        & > .choices__input {
+            outline: 0px;
+            /* 1/3/2026: currently a bug in upstream pkg that sets width to 1ch */
+            min-width: 0px !important;
+            width: auto !important;
+            max-width: 12ch;
+            background-color: transparent;
+        }
+    }
+
+    & > :where(.choices__list--dropdown) {
+        position: fixed;
+        & .choices__heading {
+            padding: var(--a2-choices-spacing);
+        }
     }
 }
 

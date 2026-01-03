@@ -2,30 +2,32 @@
 const PROJECT_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
 ---
 
-<div>
-    <select id=`${PROJECT_SELECT_ELEMENT_CLASSNAME}` multiple>
-        <optgroup label="Type">
-            <option value="type:solo">Solo</option>
-            <option value="type:team">Team</option>
-        </optgroup>
-
+<div
+    id="projects-select-container"
+    class="gap-3xl desktop:gap-sm desktop:flex-col bg-primary-shade desktop:bg-primary-neutral flex p-2"
+>
+    <div class="desktop:block prose text-2xs hidden">
+        <h1>Projects Selection</h1>
+    </div>
+    <select id=`${PROJECT_SELECT_ELEMENT_CLASSNAME}` multiple data-placeholder="Select Filters">
         <optgroup label="Category">
             <option value="category:personal">Personal</option>
             <option value="category:research">Research</option>
             <option value="category:internship">Internship</option>
             <option value="category:school">School</option>
         </optgroup>
+
+        <optgroup label="Type">
+            <option value="type:solo">Solo</option>
+            <option value="type:team">Team</option>
+        </optgroup>
     </select>
 </div>
 
 <script>
-    import handleProjectSelection from "../lib/projects/handleProjectSelection";
+    import { initializeChoices } from "../lib/projects/handleProjectSelection";
 
     window.addEventListener("DOMContentLoaded", () => {
-        const mobileMediaQuery = window.matchMedia(
-            `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
-        );
-        handleProjectSelection();
-        mobileMediaQuery.addEventListener("change", handleProjectSelection);
+        initializeChoices();
     });
 </script>
