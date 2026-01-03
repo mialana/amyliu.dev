@@ -1,7 +1,7 @@
 ---
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import ProjectsSelect from "@/components/ProjectsSelect";
+import ProjectsSelect from "@/components/ProjectsSelect.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 
 import { getProjectIndexData, type ProjectIndexData, type ProjectSection } from "@/lib/projects/query";
@@ -15,18 +15,15 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 
 <MainLayout title="Projects" layout="NO_ASIDE">
     <div slot="nav-sidebar">
-        <ProjectsSelect client:only />
-        <TableOfContents headings={tocHeadings} />
+        <ProjectsSelect />
+        <!-- <TableOfContents headings={tocHeadings} /> -->
     </div>
 
-    <div class="gap-xl flex flex-wrap items-start justify-center">
+    <!-- <ul class="gap-xl flex flex-wrap items-start justify-center">
         {
             sections.flatMap((section: ProjectSection) => {
                 let projectElementsArr = [];
-
-                {
-                    /* Only display the section if it is not `pinned` as that is a bit redundant */
-                }
+                // only display the section if it is not `pinned` as that is a bit redundant
                 if (section.id != "pinned") {
                     projectElementsArr.push(
                         <div class="prose prose-sm basis-full text-center">
@@ -45,5 +42,5 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
                 return projectElementsArr;
             })
         }
-    </div>
+    </ul> -->
 </MainLayout>
