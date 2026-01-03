@@ -639,6 +639,14 @@
             pointer-events: auto !important;
             z-index: 9999 !important;
         }
+
+        & * {
+            z-index: 9999;
+            display: block;
+            &:where(.slim-select-projects-wrapper) {
+                background-color: red;
+            }
+        }
     }
 
     /*

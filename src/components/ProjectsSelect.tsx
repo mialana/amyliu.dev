@@ -1,6 +1,9 @@
+import { useRef } from "react";
+
 import "slim-select/styles";
+import SlimSelect from "slim-select";
+import SlimSelectAdapter from "@/components/adapters/SlimSelectAdapter";
 import type { Option } from "slim-select";
-import SlimSelect from "slim-select/react";
 
 const getTocItemForCard = (card: HTMLUListElement): HTMLUListElement | null => {
     const id = card.id;
@@ -8,60 +11,81 @@ const getTocItemForCard = (card: HTMLUListElement): HTMLUListElement | null => {
     return document.querySelector<HTMLUListElement>(`.toc-item[data-slug="${id}"]`);
 };
 
-const afterChange = (filters: Option[]) => {
-    let selectors: string[] = [];
+// show card and toc item
+const changeProjectDisplay = (card: HTMLUListElement | null, display: "block" | "none") => {
+    if (!card) return;
 
-    const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
+    card.style.display = display;
 
-    if (filters.length === 0) {
-        selectors.push(".project-card"); // get all cards
+    const tocItem = getTocItemForCard(card);
+    if (tocItem) {
+        tocItem.style.display = display;
     }
-
-    for (const filter of filters) {
-        const [identifier, val] = filter.value.split(":");
-        selectors.push(`.project-card[data-${identifier}=${val}]`);
-    }
-
-    const matchingCards = document.querySelectorAll<HTMLUListElement>(selectors.join(", "));
-
-    console.log(matchingCards);
-    matchingCards.forEach((card) => {
-        if (!card) return;
-
-        // show card and toc item
-        card.style.display = "block";
-
-        const tocItem = getTocItemForCard(card);
-        if (tocItem) {
-            tocItem.style.display = "block";
-        }
-    });
 };
 
-const beforeChange = (newFilters: Option[], oldFilters: Option[]) => {
-    if (newFilters.length > 0 && oldFilters.length === 0) {
-        // before change, hide all cards and toc items when the user first picks a filter
-        const cards = document.querySelectorAll<HTMLUListElement>(".project-card");
+const buildSelector = (options: Option[]) => {
+    if (options.length === 0) return ".project-card";
 
-        cards.forEach((card) => {
-            if (!card) return;
+    const constraints = options.map(({ value }) => {
+        const [identifier, val] = value.split(":");
+        return `[data-${identifier}^="${val}"]`;
+    });
 
-            card.style.display = "none";
+    return `.project-card${constraints.join("")}`;
+};
 
-            const tocItem = getTocItemForCard(card);
-            if (tocItem) {
-                tocItem.style.display = "none";
+const getAddedOption = (newOptions: Option[], oldOptions: Option[]) => {
+    const oldValues = new Set(oldOptions.map((o) => o.value));
+    return newOptions.find((o) => !oldValues.has(o.value)) ?? null;
+};
+
+export default function ProjectsSelect() {
+    const slimSelectRef = useRef<SlimSelect>(null);
+    const processedOptionsRef = useRef<Option[] | null>(null);
+
+    const afterChange = (options: Option[]) => {
+        if (!processedOptionsRef.current) return;
+
+        const selector = buildSelector(options);
+
+        const matchingCards = new Set(document.querySelectorAll<HTMLUListElement>(selector));
+
+        const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
+
+        allCards.forEach((card) => {
+            if (matchingCards.has(card)) {
+                changeProjectDisplay(card, "block");
+            } else {
+                changeProjectDisplay(card, "none");
             }
         });
-    }
+    };
 
-    return true; // change can always occur
-};
+    const beforeChange = (newOptions: Option[], oldOptions: Option[]) => {
+        const added = getAddedOption(newOptions, oldOptions);
+        if (!added) return true;
 
-export default function createProjectsSlimSelect() {
+        const [addedIdentifier] = added.value.split(":");
+
+        const processedOptions: Option[] = newOptions.filter((opt) => {
+            const [identifier] = opt.value.split(":");
+            return identifier !== addedIdentifier || opt.value === added.value;
+        });
+
+        console.log(newOptions, oldOptions, processedOptions);
+
+        processedOptionsRef.current = processedOptions;
+
+        const processedOptionValues: string[] = processedOptionsRef.current.map((opt) => opt.value);
+        slimSelectRef?.current?.setSelected(processedOptionValues);
+
+        return true;
+    };
+
     return (
-        <SlimSelect
+        <SlimSelectAdapter
             multiple
+            onReady={(instance) => (slimSelectRef.current = instance)}
             settings={{
                 closeOnSelect: false,
                 showSearch: false,
@@ -80,6 +104,6 @@ export default function createProjectsSlimSelect() {
                 <option value="category:internship">Internship</option>
                 <option value="category:school">School</option>
             </optgroup>
-        </SlimSelect>
+        </SlimSelectAdapter>
     );
 }

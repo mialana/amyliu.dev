@@ -19,11 +19,11 @@ import SideBarButton from "@/components/SideBarButton.astro";
 <script>
     import { handleSideBarButtonState } from "../lib/handleSideBarState";
 
-    (() => {
+    window.addEventListener("DOMContentLoaded", () => {
         const mobileMediaQuery = window.matchMedia(
             `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
         );
         handleSideBarButtonState();
         mobileMediaQuery.addEventListener("change", handleSideBarButtonState);
-    })();
+    });
 </script>

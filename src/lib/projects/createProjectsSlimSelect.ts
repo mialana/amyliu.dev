@@ -1,5 +1,9 @@
 import SlimSelect, { Option } from "slim-select";
 
+const SLIM_SELECT_ELEMENT_CLASSNAME = `slim-select-projects`;
+
+let instance: SlimSelect | null = null;
+
 const getTocItemForCard = (card: HTMLUListElement): HTMLUListElement | null => {
     const id = card.id;
     // the `data-slug` attribute of TOC items matches the `id` attribute of project cards
@@ -45,13 +49,24 @@ const beforeChange = (newFilters: Option[], oldFilters: Option[]) => {
     return true; // change can always occur
 };
 
+function deleteExistingSlimSelectInstance() {
+    if (!instance) return;
+
+    instance.destroy();
+    instance = null;
+}
+
 export default function () {
-    new SlimSelect({
-        select: "#slim-select-projects-filter",
+    deleteExistingSlimSelectInstance();
+
+    const wrapper = document.getElementById(`${SLIM_SELECT_ELEMENT_CLASSNAME}-wrapper`);
+    instance = new SlimSelect({
+        select: `#${SLIM_SELECT_ELEMENT_CLASSNAME}`,
         settings: {
             closeOnSelect: false,
             showSearch: false,
             placeholderText: "Filter Projects <span class='fa-solid fa-caret-down'></span>",
+            contentLocation: wrapper,
         },
         data: [
             {
@@ -73,4 +88,6 @@ export default function () {
         ],
         events: { beforeChange: beforeChange, afterChange: afterChange },
     });
+
+    // instance.open();
 }
