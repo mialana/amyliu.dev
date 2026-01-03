@@ -6,5 +6,3 @@ if ! git diff --quiet; then
   git add .
   git commit -m "lint"
 fi
-
-git push
