@@ -1,8 +1,7 @@
 import { useRef } from "react";
 
 import "slim-select/styles";
-import SlimSelect from "slim-select";
-import SlimSelectAdapter from "@/components/adapters/SlimSelectAdapter";
+import SlimSelect from "slim-select/react";
 import type { Option } from "slim-select";
 
 const getTocItemForCard = (card: HTMLUListElement): HTMLUListElement | null => {
@@ -34,64 +33,36 @@ const buildSelector = (options: Option[]) => {
     return `.project-card${constraints.join("")}`;
 };
 
-const getAddedOption = (newOptions: Option[], oldOptions: Option[]) => {
-    const oldValues = new Set(oldOptions.map((o) => o.value));
-    return newOptions.find((o) => !oldValues.has(o.value)) ?? null;
+const afterChange = (options: Option[]) => {
+    const selector = buildSelector(options);
+
+    const matchingCards = new Set(document.querySelectorAll<HTMLUListElement>(selector));
+
+    const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
+
+    allCards.forEach((card) => {
+        if (matchingCards.has(card)) {
+            changeProjectDisplay(card, "block");
+        } else {
+            changeProjectDisplay(card, "none");
+        }
+    });
+};
+
+const addable = (value: string) => {
+    const [identifier] = value.split(":");
 };
 
 export default function ProjectsSelect() {
-    const slimSelectRef = useRef<SlimSelect>(null);
-    const processedOptionsRef = useRef<Option[] | null>(null);
-
-    const afterChange = (options: Option[]) => {
-        if (!processedOptionsRef.current) return;
-
-        const selector = buildSelector(options);
-
-        const matchingCards = new Set(document.querySelectorAll<HTMLUListElement>(selector));
-
-        const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
-
-        allCards.forEach((card) => {
-            if (matchingCards.has(card)) {
-                changeProjectDisplay(card, "block");
-            } else {
-                changeProjectDisplay(card, "none");
-            }
-        });
-    };
-
-    const beforeChange = (newOptions: Option[], oldOptions: Option[]) => {
-        const added = getAddedOption(newOptions, oldOptions);
-        if (!added) return true;
-
-        const [addedIdentifier] = added.value.split(":");
-
-        const processedOptions: Option[] = newOptions.filter((opt) => {
-            const [identifier] = opt.value.split(":");
-            return identifier !== addedIdentifier || opt.value === added.value;
-        });
-
-        console.log(newOptions, oldOptions, processedOptions);
-
-        processedOptionsRef.current = processedOptions;
-
-        const processedOptionValues: string[] = processedOptionsRef.current.map((opt) => opt.value);
-        slimSelectRef?.current?.setSelected(processedOptionValues);
-
-        return true;
-    };
-
     return (
-        <SlimSelectAdapter
+        <SlimSelect
             multiple
-            onReady={(instance) => (slimSelectRef.current = instance)}
             settings={{
                 closeOnSelect: false,
                 showSearch: false,
                 placeholderText: "Filter Projects <span class='fa-solid fa-caret-down'></span>",
             }}
-            events={{ beforeChange: beforeChange, afterChange: afterChange }}
+            events={{ addable: addable, afterChange: afterChange }}
         >
             <optgroup label="Type">
                 <option value="type:solo">Solo</option>
@@ -104,6 +75,6 @@ export default function ProjectsSelect() {
                 <option value="category:internship">Internship</option>
                 <option value="category:school">School</option>
             </optgroup>
-        </SlimSelectAdapter>
+        </SlimSelect>
     );
 }

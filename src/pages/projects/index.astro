@@ -2,6 +2,7 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ProjectsSelect from "@/components/ProjectsSelect.tsx";
+import ProjectSelect from "@/components/ProjectSelect.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 
 import { getProjectIndexData, type ProjectIndexData, type ProjectSection } from "@/lib/projects/query";
@@ -15,7 +16,8 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 
 <MainLayout title="Projects" layout="NO_ASIDE">
     <div slot="nav-sidebar">
-        <ProjectsSelect client:load />
+        <!-- <ProjectsSelect client:load /> -->
+        <ProjectSelect />
         <!-- <TableOfContents headings={tocHeadings} /> -->
     </div>
 

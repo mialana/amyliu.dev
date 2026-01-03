@@ -52,6 +52,7 @@
         "slim-select": "^3.3.0",
         "tailwind-merge": "^3.4.0",
         "tailwindcss": "^4.1.18",
+        "tom-select": "^2.4.3",
         "typed.js": "^2.1.0"
     },
     "devDependencies": {

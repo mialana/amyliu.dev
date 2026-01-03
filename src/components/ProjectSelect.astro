@@ -1,0 +1,47 @@
+---
+
+---
+
+<select id="projects-select" multiple>
+    <optgroup label="Type">
+        <option value="type:solo">Solo</option>
+        <option value="type:team">Team</option>
+    </optgroup>
+
+    <optgroup label="Category">
+        <option value="category:personal">Personal</option>
+        <option value="category:research">Research</option>
+        <option value="category:internship">Internship</option>
+        <option value="category:school">School</option>
+    </optgroup>
+</select>
+
+<script>
+    import TomSelect from "tom-select";
+    import "tom-select/dist/css/tom-select.css";
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const select = new TomSelect("#projects-select", {
+            maxItems: null,
+            hideSelected: true,
+            closeAfterSelect: false,
+
+            onItemAdd(value: string) {
+                console.log("called");
+                const added = select.options[value];
+                if (!added?.optgroup) return;
+
+                const group = added.optgroup;
+
+                // remove any other selected item in the same optgroup
+                select.items
+                    .filter((v) => v !== value)
+                    .forEach((v) => {
+                        if (select.options[v]?.optgroup === group) {
+                            select.removeItem(v, true);
+                        }
+                    });
+            },
+        });
+    });
+</script>
