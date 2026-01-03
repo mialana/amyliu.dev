@@ -87,10 +87,10 @@ const positionDropdown = (choices: Choices) => {
     const dropdown = root.querySelector(".choices__list--dropdown") as HTMLElement | null;
 
     if (!inner || !dropdown) return;
+    dropdown.style.position = "fixed";
 
     const rect = inner.getBoundingClientRect();
 
-    dropdown.style.position = "fixed";
     dropdown.style.top = `${rect.bottom}px`;
     dropdown.style.left = `${rect.left}px`;
     dropdown.style.width = `${rect.width}px`;

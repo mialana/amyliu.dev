@@ -8,13 +8,8 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
 ---
 
-<MainLayout title="Home" layout="BOTH">
-    <div slot="nav-sidebar">
-        <div>item 1</div>
-        <div>item 2</div>
-        <div>item 3</div>
-    </div>
-    <div class="desktop:flex-row desktop:gap-16 flex flex-col items-center-safe justify-start gap-8">
+<MainLayout title="Home" layout="NONE">
+    <div class="desktop:flex-row desktop:gap-16 bg-primary-shade flex flex-col items-center-safe justify-start gap-8">
         <div class="aspect-square max-w-lg">
             <Image
                 src={Headshot2025_2}
@@ -58,11 +53,6 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
                 books, all the way to the stars.
             </q>
         </div>
-    </div>
-    <div slot="aside-sidebar">
-        <div>right: item 1</div>
-        <div>item 2</div>
-        <div>item 3</div>
     </div>
 </MainLayout>
 

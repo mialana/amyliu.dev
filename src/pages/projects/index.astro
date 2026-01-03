@@ -14,7 +14,7 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 ---
 
 <MainLayout title="Projects" layout="NO_ASIDE">
-    <div slot="nav-sidebar" class="h-full overflow-y-scroll">
+    <div slot="nav-sidebar">
         <ProjectSelect />
         <TableOfContents headings={tocHeadings} />
     </div>

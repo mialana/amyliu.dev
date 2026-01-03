@@ -23,15 +23,25 @@ export function createTocTree(headings: MarkdownHeading[]): TocNode {
     return root;
 }
 
+function positionTocElement(tocElement: HTMLElement, onThisPageElement: HTMLElement) {
+    const rect = onThisPageElement.getBoundingClientRect();
+
+    tocElement.style.top = `${rect.bottom}px`;
+    tocElement.style.left = `${rect.left}px`;
+    tocElement.style.width = `${rect.width}px`;
+}
+
 export function handleOnThisPageBehavior() {
     const onThisPageElement = document.getElementById("on-this-page");
     const tocListElement = document.getElementById("toc-list");
     if (!onThisPageElement || !tocListElement) return;
 
     onThisPageElement.addEventListener("click", (e) => {
+        positionTocElement(tocListElement, onThisPageElement);
+
         const tocExpanded = onThisPageElement.getAttribute("aria-expanded") === "true";
 
-        tocListElement.classList.toggle("max-h-auto", !tocExpanded);
+        tocListElement.classList.toggle("max-h-[25vh]", !tocExpanded);
         tocListElement.classList.toggle("max-h-0", tocExpanded);
         onThisPageElement.setAttribute("aria-expanded", String(!tocExpanded)); // converts from boolean to string
     });

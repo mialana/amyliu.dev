@@ -14,20 +14,23 @@ const { headings = [] } = Astro.props;
 const root: TocNode = createTocTree(headings);
 ---
 
-<section class="bg-primary-shade desktop:bg-primary-neutral p-2">
+<div class="bg-primary-shade desktop:bg-primary-neutral w-full">
     <div id="on-this-page" aria-expanded="false" aria-controls="toc-list">
-        <h1
-            class="desktop:hidden border-primary-shadow/50 bg-primary-neutral pointer-events-auto w-fit rounded-sm border px-2 shadow-sm"
+        <div
+            class="desktop:hidden border-primary-shadow/50 bg-primary-neutral pointer-events-auto w-fit rounded-xs border px-2"
         >
             On This Page <span class="fa-solid fa-caret-down"></span>
-        </h1>
+        </div>
     </div>
-    <ul id="toc-list" class="desktop:max-h-fit block max-h-0 overflow-hidden text-sm transition-[max-height]">
+    <ul
+        id="toc-list"
+        class="desktop:max-h-fit desktop:static bg-primary-neutral fixed z-20 max-h-0 w-full overflow-x-hidden overflow-y-scroll text-sm transition-[max-height]"
+    >
         {
             (function renderTree(nodes: TocNode[]): any {
                 // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
                 return nodes.map((node: TocNode) => (
-                    <li data-slug={node.slug} class="toc-item mb-1">
+                    <li data-slug={node.slug} class="toc-item pb-1">
                         <a
                             href={`#${node.slug}`}
                             class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
@@ -52,4 +55,4 @@ const root: TocNode = createTocTree(headings);
             handleOnThisPageBehavior();
         });
     </script>
-</section>
+</div>
