@@ -71,7 +71,7 @@ export default defineConfig({
             skipGeneration: isCloudflare, // disable build of astro-d2 in CI
         }),
     ],
-    vite: { plugins: [tailwindcss()], css: { devSourcemap: true } },
+    vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [

@@ -1,32 +1,103 @@
 import Choices from "choices.js";
 
+const PROJECT_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
+
+type ChoicesEventDetail = { id: number; value: string; label: string; customProperties?: unknown; groupValue?: string };
+type ChoicesEvent = CustomEvent<ChoicesEventDetail>;
+
+const isChoicesEvent = (e: Event): e is ChoicesEvent =>
+    e instanceof CustomEvent && typeof (e as CustomEvent).detail?.value === "string";
+
+const getTocItemForCard = (card: HTMLUListElement): HTMLUListElement | null => {
+    const id = card.id;
+    // the `data-slug` attribute of TOC items matches the `id` attribute of project cards
+    return document.querySelector<HTMLUListElement>(`.toc-item[data-slug="${id}"]`);
+};
+
+// show card and toc item
+const changeProjectDisplay = (card: HTMLUListElement | null, display: "block" | "none") => {
+    if (!card) return;
+
+    card.style.display = display;
+
+    const tocItem = getTocItemForCard(card);
+    if (tocItem) {
+        tocItem.style.display = display;
+    }
+};
+
+const getSelectedValues = (choices: Choices): string[] => {
+    const value = choices.getValue(true);
+    if (Array.isArray(value)) return value;
+    return [];
+};
+
+const buildSelector = (values: string[]) => {
+    if (values.length === 0) return ".project-card";
+
+    const constraints = values.map((value) => {
+        const [identifier, val] = value.split(":");
+        return `[data-${identifier}^="${val}"]`;
+    });
+
+    return `.project-card${constraints.join("")}`;
+};
+
+const filterProjectCards = (choices: Choices) => {
+    const values: string[] = getSelectedValues(choices);
+
+    const selector = buildSelector(values);
+    const matchingCards = new Set(document.querySelectorAll<HTMLUListElement>(selector));
+
+    const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
+
+    allCards.forEach((card) => {
+        changeProjectDisplay(card, matchingCards.has(card) ? "block" : "none");
+    });
+};
+
+const enforceOneItemPerGroup = (choices: Choices, addedValue: string) => {
+    // extract group identifier (i.e. "type", "category")
+    const addedGroup = addedValue.split(":")[0];
+
+    // get currently selected items
+    const selected = choices.getValue() as { value: string }[];
+
+    // find other items from the same group
+    const toRemove = selected.filter((item) => item.value !== addedValue && item.value.startsWith(`${addedGroup}:`));
+
+    // remove them from the choices element
+    toRemove.forEach((item) => {
+        choices.removeActiveItemsByValue(item.value);
+    });
+};
+
+const resetNativeSelect = (el: HTMLSelectElement) => {
+    el.selectedIndex = -1;
+    [...el.options].forEach((opt) => {
+        opt.selected = false;
+    });
+};
+
 export default function () {
-    document.addEventListener("DOMContentLoaded", () => {
-        const el = document.getElementById("projects-select") as HTMLSelectElement;
+    const el = document.getElementById(PROJECT_SELECT_ELEMENT_CLASSNAME) as HTMLSelectElement | null;
+    if (!(el instanceof HTMLSelectElement)) return;
 
-        const choices = new Choices(el, { searchEnabled: false });
+    resetNativeSelect(el); // form-caching is not necessary here
 
-        console.log(choices);
+    const choices = new Choices(el, { searchEnabled: false, removeItemButton: true, shouldSort: true });
 
-        el.addEventListener("addItem", (event: any) => {
-            console.log("called");
-            const addedValue: string = event.detail.value;
+    ["addItem", "removeItem"].forEach((changeEvent) => {
+        choices.passedElement.element.addEventListener(changeEvent, (e) => {
+            if (!isChoicesEvent(e)) return; // to appease ts
+            if (e.type === "addItem") {
+                const value: string = e.detail.value;
+                enforceOneItemPerGroup(choices, value);
+            }
 
-            // Extract group identifier (e.g. "type", "category")
-            const addedGroup = addedValue.split(":")[0];
-
-            // Get current selected items
-            const selected = choices.getValue() as { value: string }[];
-
-            // Find other items from the same group
-            const toRemove = selected.filter(
-                (item) => item.value !== addedValue && item.value.startsWith(`${addedGroup}:`),
-            );
-
-            // Remove them
-            toRemove.forEach((item) => {
-                choices.removeActiveItemsByValue(item.value);
-            });
+            filterProjectCards(choices);
         });
     });
+
+    choices.showDropdown();
 }

@@ -1,0 +1,31 @@
+---
+const PROJECT_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
+---
+
+<div>
+    <select id=`${PROJECT_SELECT_ELEMENT_CLASSNAME}` multiple>
+        <optgroup label="Type">
+            <option value="type:solo">Solo</option>
+            <option value="type:team">Team</option>
+        </optgroup>
+
+        <optgroup label="Category">
+            <option value="category:personal">Personal</option>
+            <option value="category:research">Research</option>
+            <option value="category:internship">Internship</option>
+            <option value="category:school">School</option>
+        </optgroup>
+    </select>
+</div>
+
+<script>
+    import handleProjectSelection from "../lib/projects/handleProjectSelection";
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const mobileMediaQuery = window.matchMedia(
+            `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
+        );
+        handleProjectSelection();
+        mobileMediaQuery.addEventListener("change", handleProjectSelection);
+    });
+</script>
