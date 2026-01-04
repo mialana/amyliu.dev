@@ -293,7 +293,7 @@
             --tw-shadow-color: var(--color-inverted-shadow);
         }
 
-        border-color: var(--color-inverted-shadow);
+        border-color: --alpha(var(--color-inverted-shadow) / 75%);
         outline-color: var(--color-inverted-shadow);
         &::selection {
             background-color: var(--a2-text-selection-color);
@@ -621,6 +621,7 @@
     --choices-dropdown-item-padding: var(--a2-choices-spacing);
     --choices-inner-padding: var(--a2-choices-spacing) var(--gap-sm);
     --choices-border-radius-item: var(--radius-sm);
+    --choices-border-radius: var(--radius-xs);
     --choices-primary-color: var(--color-inverted-tertiary);
     --choices-bg-color: --alpha(var(--color-inverted-neutral) / 10%);
     --choices-keyline-color: --alpha(var(--color-inverted-neutral) / 25%);
@@ -630,6 +631,7 @@
     --choices-text-color: var(--color-primary-neutral);
     --choices-input-margin-bottom: 0px;
     --choices-placeholder-opacity: 1;
+    --choices-z-index: 30;
     width: 100%;
 
     & > :where(.choices__inner) {
@@ -695,13 +697,22 @@
     }
 }
 
+/* commonly used for sidebar content styling */
+@utility u-mobile-dotted-border {
+    @media (max-width: theme(--breakpoint-desktop)) {
+        border-width: 2px 0px; /* apply border only on mobile */
+        border-style: dotted;
+    }
+}
+
 @utility u-toc {
     &[aria-expanded="true"] #toc-list {
-        max-height: 25vh;
         padding: var(--a2-spacing-atoms);
 
         @media (max-width: theme(--breakpoint-desktop)) {
-            border-width: 1px; /* apply border only on desktop */
+            max-height: 25vh;
+            border-width: 0.5px;
+            border-color: --alpha(var(--color-inverted-neutral) / 25%);
         }
     }
     &[aria-expanded="false"] #toc-list {

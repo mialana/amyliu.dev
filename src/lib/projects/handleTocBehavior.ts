@@ -37,6 +37,10 @@ export function initializeOnThisPageBehavior() {
     const tocListElement = document.getElementById("toc-list");
     if (!onThisPageElement || !tocListElement || !tocContainerElement) return;
 
+    const mobileMediaQuery = window.matchMedia(
+        `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
+    );
+
     function setTocState(expanded: boolean) {
         if (!onThisPageElement || !tocListElement || !tocContainerElement) return;
 
@@ -46,17 +50,12 @@ export function initializeOnThisPageBehavior() {
     }
 
     function toggleTocState() {
+        if (!mobileMediaQuery.matches) return;
         const expanded = tocContainerElement?.getAttribute("aria-expanded") === "true";
         setTocState(!expanded);
     }
 
     onThisPageElement.addEventListener("click", toggleTocState);
-
-    // handle desktop case.
-    // i.e. on desktop automatically set to expanded state so that aria-expanded is true and positioning occurs
-    const mobileMediaQuery = window.matchMedia(
-        `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
-    );
 
     const maintainDefaults = (e: MediaQueryList | MediaQueryListEvent) => {
         setTocState(!e.matches);
