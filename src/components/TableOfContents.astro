@@ -14,17 +14,17 @@ const { headings = [] } = Astro.props;
 const root: TocNode = createTocTree(headings);
 ---
 
-<div class="bg-primary-shade desktop:bg-primary-neutral w-full px-2">
-    <div id="on-this-page" aria-expanded="false" aria-controls="toc-list">
+<div id="toc-container" class="w-full px-2" aria-expanded="false" aria-controls="toc-list">
+    <div id="on-this-page">
         <div
-            class="desktop:border-0 border-primary-shadow/50 bg-primary-neutral desktop:font-bold pointer-events-auto w-fit rounded-xs border px-2"
+            class="desktop:border-0 border-primary-shadow/50 desktop:font-bold pointer-events-auto w-fit rounded-xs border px-2"
         >
             On This Page <span class="fa-solid fa-caret-down desktop:text-transparent"></span>
         </div>
     </div>
     <ul
         id="toc-list"
-        class="desktop:max-h-fit desktop:static bg-primary-neutral fixed z-20 max-h-0 w-full overflow-x-hidden overflow-y-scroll text-sm transition-[max-height]"
+        class="desktop:max-h-fit desktop:static bg-primary-neutral desktop:border-0 border-primary-shadow/50 fixed z-20 max-h-0 w-full overflow-x-hidden overflow-y-scroll text-sm transition-[max-height]"
     >
         {
             (function renderTree(nodes: TocNode[]): any {

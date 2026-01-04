@@ -46,7 +46,7 @@ const asideInitialState = asideActive ? "open" : "closed";
             data-layout={layout}
             data-navstate={navInitialState}
             data-asidestate={asideInitialState}
-            class=`bg-tertiary-shade h-svh overflow-hidden grid`
+            class=`desktop:bg-tertiary-shade bg-primary-neutral h-svh overflow-hidden grid`
         >
             <header id="header-grid-cell" class="bg-secondary-shade col-span-full pt-2">
                 <Header />
@@ -54,7 +54,7 @@ const asideInitialState = asideActive ? "open" : "closed";
             <div id="toolbar-grid-cell" class="bg-secondary-shade desktop:mb-4 col-span-full brightness-75">
                 <ToolBar />
             </div>
-            <nav id="nav-grid-cell" class="bg-primary-neutral desktop:rounded-r-sm overflow-hidden shadow-md">
+            <nav id="nav-grid-cell" class="bg-primary-neutral desktop:rounded-r-sm desktop:shadow-md overflow-hidden">
                 <SideBar sideBarType="nav" active={navActive}>
                     <slot name="nav-sidebar" />
                 </SideBar>
@@ -65,7 +65,10 @@ const asideInitialState = asideActive ? "open" : "closed";
             >
                 <slot />
             </main>
-            <aside id="aside-grid-cell" class="bg-primary-neutral desktop:rounded-l-sm overflow-hidden shadow-md">
+            <aside
+                id="aside-grid-cell"
+                class="bg-primary-neutral desktop:rounded-l-sm desktop:shadow-md overflow-hidden"
+            >
                 <SideBar sideBarType="aside" active={asideActive}>
                     <slot name="aside-sidebar" />
                 </SideBar>

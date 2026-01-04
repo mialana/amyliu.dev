@@ -32,24 +32,21 @@ function positionTocElement(tocElement: HTMLElement, onThisPageElement: HTMLElem
 }
 
 export function initializeOnThisPageBehavior() {
+    const tocContainerElement = document.getElementById("toc-container");
     const onThisPageElement = document.getElementById("on-this-page");
     const tocListElement = document.getElementById("toc-list");
-    if (!onThisPageElement || !tocListElement) return;
+    if (!onThisPageElement || !tocListElement || !tocContainerElement) return;
 
     function setTocState(expanded: boolean) {
-        if (!onThisPageElement || !tocListElement) return;
+        if (!onThisPageElement || !tocListElement || !tocContainerElement) return;
 
         positionTocElement(tocListElement, onThisPageElement);
 
-        tocListElement.classList.toggle("max-h-[25vh]", !expanded);
-        tocListElement.classList.toggle("p-2", !expanded);
-        tocListElement.classList.toggle("max-h-0", expanded);
-
-        onThisPageElement.setAttribute("aria-expanded", String(expanded)); // converts from boolean to string
+        tocContainerElement.setAttribute("aria-expanded", String(expanded)); // converts from boolean to string
     }
 
     function toggleTocState() {
-        const expanded = onThisPageElement?.getAttribute("aria-expanded") === "true";
+        const expanded = tocContainerElement?.getAttribute("aria-expanded") === "true";
         setTocState(!expanded);
     }
 

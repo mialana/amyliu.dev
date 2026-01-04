@@ -24,7 +24,7 @@
     --color-light-primary-shade: #eae3da;
     --color-light-secondary-shade: #657557;
     --color-light-tertiary-shade: #9e8698;
-    --color-light-primary-neutral: #e2e0e0;
+    --color-light-primary-neutral: #d9d9d9;
     --color-light-important-text: #151515;
     --color-light-primary-shadow: #7a6c6c;
 
@@ -519,6 +519,7 @@
     }
 
     /* if IS child of or parent of a heading element, but NOT a heading-anchor, inherit typography attributes */
+
     &:not(*.heading-anchor):has(h1, h2, h3, h4, h5, h5, h6),
     h1 > &:not(.heading-anchor) {
         @apply inherit-typography;
@@ -694,6 +695,20 @@
     }
 }
 
+@utility u-toc {
+    &[aria-expanded="true"] #toc-list {
+        max-height: 25vh;
+        padding: var(--a2-spacing-atoms);
+
+        @media (max-width: theme(--breakpoint-desktop)) {
+            border-width: 1px; /* apply border only on desktop */
+        }
+    }
+    &[aria-expanded="false"] #toc-list {
+        max-height: 0px;
+    }
+}
+
 @layer overrides {
     :root {
         @media (max-width: theme(--breakpoint-desktop)) {
@@ -728,6 +743,10 @@
         }
     }
 
+    #toc-container {
+        @apply u-toc;
+    }
+
     /* override the default .prose class defined in "utilities" layer */
     .prose {
         --tw-prose-body: var(--a2-text-color);
@@ -740,27 +759,27 @@
         --tw-prose-captions: var(--a2-emphasized-text-color);
         --tw-prose-hr: --alpha(var(--color-inverted-neutral) / 50%);
 
+        a {
+            @apply u-anchor;
+        }
+
         :where(:not(.not-prose, .not-prose *)) {
             @apply u-headings;
 
             /* targets all outer-level 'media' */
-            &:where(img, svg, figure):not(.expressive-code, .expressive-code *) {
+            &:is(img, svg, figure):not(.expressive-code, .expressive-code *) {
                 border-radius: var(--radius-md);
                 width: 100%;
                 margin-inline: auto;
             }
 
-            &:where(hr) {
+            &:is(hr) {
                 border-style: dotted;
                 border-width: var(--border-md);
             }
 
-            &:where(a) {
-                @apply u-anchor;
-            }
-
             /* inline code */
-            &:where(code):not(.expressive-code pre code),
+            &:is(code):not(.expressive-code pre code),
             &:is(.ec-code-caption code) {
                 @apply u-inline-code;
             }
@@ -771,20 +790,20 @@
             }
 
             /* Github-style TIP, INFO, QUESTION, etc. */
-            &:where(.callout) {
+            &:is(.callout) {
                 @apply u-callout;
             }
 
             /* styling for LaTeX */
-            &:where(math) {
+            &:is(math) {
                 @apply u-math;
             }
-            &:where(.math-wrapper) {
+            &:is(.math-wrapper) {
                 @apply u-math-wrapper;
             }
 
             /* style headings that contain an anchor */
-            &:where(.heading-with-anchor):not(a) {
+            &:is(.heading-with-anchor):not(a) {
                 @apply u-heading-with-anchor;
             }
 
@@ -794,11 +813,12 @@
             }
 
             /* coming soon */
-            &:where(.md-section--h2:has(.coming-soon-image)) {
+            &:is(.md-section--h2:has(.coming-soon-image)) {
                 @apply u-coming-soon;
             }
 
-            &:where(.rehyped-inline-svg-wrapper) {
+            /* inline svg */
+            &:is(.rehyped-inline-svg-wrapper) {
                 @apply u-inline-svg;
             }
         }

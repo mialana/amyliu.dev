@@ -13,14 +13,16 @@ const { code, externalLinks = [] } = Astro.props;
 const links: ExternalLinkItem[] = createExternalLinks(code, externalLinks);
 ---
 
-<div class="desktop:flex-col flex items-center justify-evenly gap-4">
+<div
+    class="desktop:flex-col desktop:border-0 border-primary-shadow/50 flex items-center justify-evenly gap-4 border-y-0 border-dotted px-2 py-4"
+>
     {
         links.map(({ url, label }) => (
             <a
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mx-auto my-2 flex w-20 flex-col items-center gap-2"
+                class="mx-auto flex w-20 flex-col items-center gap-2"
             >
                 <div class="bg-inverted-secondary/50 border-inverted-neutral desktop:rounded-2xl flex h-16 w-16 items-center justify-center rounded-md border p-1 shadow hover:scale-105">
                     <Image
