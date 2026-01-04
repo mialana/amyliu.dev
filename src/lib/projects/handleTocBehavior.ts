@@ -23,6 +23,24 @@ export function createTocTree(headings: MarkdownHeading[]): TocNode {
     return root;
 }
 
+// attach on open, remove on close
+const onTocOpenScoped = (tocContainerElement: HTMLElement, tocListElement: HTMLElement) => {
+    const onPointerDown = (e: Event) => {
+        if (e.target instanceof Node && !tocContainerElement.contains(e.target)) {
+            tocContainerElement.setAttribute("aria-expanded", "false");
+        }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+
+    const cleanup = () => {
+        document.removeEventListener("pointerdown", onPointerDown);
+        tocContainerElement.removeEventListener("tocClose", cleanup);
+    };
+
+    tocContainerElement.addEventListener("tocClose", cleanup);
+};
+
 function positionTocElement(tocElement: HTMLElement, onThisPageElement: HTMLElement) {
     const rect = onThisPageElement.getBoundingClientRect();
 
@@ -47,6 +65,12 @@ export function initializeOnThisPageBehavior() {
         positionTocElement(tocListElement, onThisPageElement);
 
         tocContainerElement.setAttribute("aria-expanded", String(expanded)); // converts from boolean to string
+
+        if (expanded) {
+            onTocOpenScoped(tocContainerElement, tocListElement);
+        } else {
+            tocContainerElement.dispatchEvent(new Event("tocClose"));
+        }
     }
 
     function toggleTocState() {

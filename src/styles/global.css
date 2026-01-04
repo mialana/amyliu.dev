@@ -700,19 +700,24 @@
 /* commonly used for sidebar content styling */
 @utility u-mobile-dotted-border {
     @media (max-width: theme(--breakpoint-desktop)) {
-        border-width: 2px 0px; /* apply border only on mobile */
+        border-width: 1.5px 1.5px; /* apply border only on mobile */
         border-style: dotted;
     }
 }
 
 @utility u-toc {
-    &[aria-expanded="true"] #toc-list {
-        padding: var(--a2-spacing-atoms);
+    &[aria-expanded="true"] {
+        & > #on-this-page span {
+            rotate: 180deg;
+        }
+        & > #toc-list {
+            padding: var(--a2-spacing-atoms);
 
-        @media (max-width: theme(--breakpoint-desktop)) {
-            max-height: 25vh;
-            border-width: 0.5px;
-            border-color: --alpha(var(--color-inverted-neutral) / 25%);
+            @media (max-width: theme(--breakpoint-desktop)) {
+                max-height: 25vh;
+                border-width: 0.5px;
+                border-color: --alpha(var(--color-inverted-neutral) / 25%);
+            }
         }
     }
     &[aria-expanded="false"] #toc-list {
@@ -778,7 +783,7 @@
             @apply u-headings;
 
             /* targets all outer-level 'media' */
-            &:is(img, svg, figure):not(.expressive-code, .expressive-code *) {
+            &:is(img, svg:not(.heading-anchor-icon), figure):not(.expressive-code, .expressive-code *) {
                 border-radius: var(--radius-md);
                 width: 100%;
                 margin-inline: auto;
