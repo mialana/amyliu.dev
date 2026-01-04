@@ -31,18 +31,41 @@ function positionTocElement(tocElement: HTMLElement, onThisPageElement: HTMLElem
     tocElement.style.width = `${rect.width}px`;
 }
 
-export function handleOnThisPageBehavior() {
+export function initializeOnThisPageBehavior() {
     const onThisPageElement = document.getElementById("on-this-page");
     const tocListElement = document.getElementById("toc-list");
     if (!onThisPageElement || !tocListElement) return;
 
-    onThisPageElement.addEventListener("click", (e) => {
+    function setTocState(expanded: boolean) {
+        if (!onThisPageElement || !tocListElement) return;
+
         positionTocElement(tocListElement, onThisPageElement);
 
-        const tocExpanded = onThisPageElement.getAttribute("aria-expanded") === "true";
+        tocListElement.classList.toggle("max-h-[25vh]", !expanded);
+        tocListElement.classList.toggle("p-2", !expanded);
+        tocListElement.classList.toggle("max-h-0", expanded);
 
-        tocListElement.classList.toggle("max-h-[25vh]", !tocExpanded);
-        tocListElement.classList.toggle("max-h-0", tocExpanded);
-        onThisPageElement.setAttribute("aria-expanded", String(!tocExpanded)); // converts from boolean to string
-    });
+        onThisPageElement.setAttribute("aria-expanded", String(expanded)); // converts from boolean to string
+    }
+
+    function toggleTocState() {
+        const expanded = onThisPageElement?.getAttribute("aria-expanded") === "true";
+        setTocState(!expanded);
+    }
+
+    onThisPageElement.addEventListener("click", toggleTocState);
+
+    // handle desktop case.
+    // i.e. on desktop automatically set to expanded state so that aria-expanded is true and positioning occurs
+    const mobileMediaQuery = window.matchMedia(
+        `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
+    );
+
+    const checkAndHandleDesktop = (e: MediaQueryList | MediaQueryListEvent) => {
+        if (!e.matches) {
+            setTocState(true);
+        }
+    };
+    checkAndHandleDesktop(mobileMediaQuery);
+    mobileMediaQuery.addEventListener("change", checkAndHandleDesktop);
 }

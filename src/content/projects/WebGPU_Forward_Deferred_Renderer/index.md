@@ -1,5 +1,5 @@
 ---
-title: WebGPU Forward+ and Clustered Deferred Renderer
+title: WebGPU Forward+ & Clustered Deferred Renderer
 slug: WebGPU_Forward_Deferred_Renderer
 startDate: 2025-10-11
 endDate: 2025-10-17

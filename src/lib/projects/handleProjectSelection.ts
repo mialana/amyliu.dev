@@ -103,7 +103,11 @@ export function initializeChoices() {
     // form-caching can be disabled here
     resetNativeSelect(el);
 
-    const choices = new Choices(el, { removeItemButton: true, position: "bottom", noChoicesText: "choose" });
+    const choices = new Choices(el, {
+        removeItemButton: true,
+        position: "bottom",
+        itemSelectText: "Select ≤ 1 per group",
+    });
 
     ["addItem", "removeItem"].forEach((changeEvent) => {
         el.addEventListener(changeEvent, (e) => {

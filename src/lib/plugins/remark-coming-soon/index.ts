@@ -16,7 +16,7 @@ interface RemarkComingSoonOptions {
 
 const remarkComingSoon: Plugin<[RemarkComingSoonOptions?], Root> = (options: RemarkComingSoonOptions = {}) => {
     const {
-        headingText = "Writeup Coming Soon",
+        headingText = "Writeup Coming Soon...",
         headingClass = "coming-soon-heading",
         imageClass = "coming-soon-image",
         imageWrapperClass = "coming-soon-image-wrapper",

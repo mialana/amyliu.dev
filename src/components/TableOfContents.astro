@@ -14,7 +14,7 @@ const { headings = [] } = Astro.props;
 const root: TocNode = createTocTree(headings);
 ---
 
-<div class="bg-primary-shade desktop:bg-primary-neutral w-full">
+<div class="bg-primary-shade desktop:bg-primary-neutral w-full px-2">
     <div id="on-this-page" aria-expanded="false" aria-controls="toc-list">
         <div
             class="desktop:border-0 border-primary-shadow/50 bg-primary-neutral desktop:font-bold pointer-events-auto w-fit rounded-xs border px-2"
@@ -30,7 +30,7 @@ const root: TocNode = createTocTree(headings);
             (function renderTree(nodes: TocNode[]): any {
                 // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
                 return nodes.map((node: TocNode) => (
-                    <li data-slug={node.slug} class="toc-item pb-1">
+                    <li data-slug={node.slug} class="toc-item pb-(--gap-sm) leading-tight">
                         <a
                             href={`#${node.slug}`}
                             class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
@@ -45,14 +45,14 @@ const root: TocNode = createTocTree(headings);
     </ul>
     <script>
         import { updateActiveHeading } from "../lib/projects/handleScrollBehavior.ts";
-        import { handleOnThisPageBehavior } from "../lib/projects/handleTocBehavior.ts";
+        import { initializeOnThisPageBehavior } from "../lib/projects/handleTocBehavior.ts";
 
         window.addEventListener("DOMContentLoaded", () => {
             // Run on load and whenever the hash changes
             updateActiveHeading();
             window.addEventListener("hashchange", () => updateActiveHeading());
 
-            handleOnThisPageBehavior();
+            initializeOnThisPageBehavior();
         });
     </script>
 </div>

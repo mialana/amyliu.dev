@@ -11,7 +11,7 @@ const { sideBarType, active } = Astro.props;
 // classes that depend on data attributes and SideBar type need to be static as tw classes are compiled at build time
 const dynamicClassList =
     sideBarType === "nav"
-        ? "desktop:[#app[data-navstate='open']_&]:max-w-sm desktop:[#app[data-navstate='closed']_&]:max-w-0"
+        ? "desktop:[#app[data-navstate='open']_&]:max-w-xs desktop:[#app[data-navstate='closed']_&]:max-w-0"
         : "desktop:[#app[data-asidestate='true']_&]:max-w-sm desktop:[#app[data-asidestate='false']_&]:max-w-0";
 ---
 
