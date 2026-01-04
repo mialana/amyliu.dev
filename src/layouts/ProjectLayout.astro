@@ -6,8 +6,6 @@ import Tags from "@/components/Tags.astro";
 import { YouTube } from "@astro-community/astro-embed-youtube";
 import { Image } from "astro:assets";
 
-import createSlug from "@/lib/projects/createSlug";
-
 interface Props {
     project: CollectionEntry<"projects">;
     showBreakdown?: boolean;
@@ -15,7 +13,7 @@ interface Props {
     showTags?: boolean;
 }
 
-const { project, showBreakdown = true, replaceImagePlaceholder = false, showTags = true } = Astro.props;
+const { project } = Astro.props;
 ---
 
 <div
@@ -24,7 +22,7 @@ const { project, showBreakdown = true, replaceImagePlaceholder = false, showTags
 >
     <section id="project-headings" class="prose-sm md:prose-base text-center">
         <h1>
-            <a id="project-h1-anchor" href={`/projects/${createSlug(project.data.title, project.data.slug)}/`}>
+            <a id="project-h1-anchor" href={`/projects/${project.data.slug}/`}>
                 {project.data.title}
             </a>
         </h1>
@@ -38,7 +36,7 @@ const { project, showBreakdown = true, replaceImagePlaceholder = false, showTags
                 {format(project.data.endDate, "MMMM dd, yyyy")}
             </time>
 
-            <p>
+            <p class="mx-auto w-3/4">
                 {project.data.description}
             </p>
         </figcaption>
@@ -57,16 +55,12 @@ const { project, showBreakdown = true, replaceImagePlaceholder = false, showTags
             )
         }
     </div>
-    {
-        showTags && (
-            <div class="not-prose">
-                <Tags content={[project.data.category]} label="category" />
-                <Tags content={[project.data.type]} label="type" />
-                <Tags content={project.data.tags} label="tags" />
-                <Tags content={project.data.techStack} label="tech stack" />
-            </div>
-        )
-    }
+    <div class="not-prose">
+        <Tags content={[project.data.category]} label="category" />
+        <Tags content={[project.data.type]} label="type" />
+        <Tags content={project.data.tags} label="tags" />
+        <Tags content={project.data.techStack} label="tech stack" />
+    </div>
 
     <article>
         <hr />

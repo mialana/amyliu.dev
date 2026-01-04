@@ -27,7 +27,6 @@
     --color-light-primary-neutral: #e2e0e0;
     --color-light-important-text: #151515;
     --color-light-primary-shadow: #7a6c6c;
-    --color-light-grid-background: #c3bdbd;
 
     --color-light-blue-accent: #454eb3;
     --color-light-red-accent: #c54b4b;
@@ -43,7 +42,6 @@
     --color-dark-primary-neutral: #1f1f21;
     --color-dark-important-text: #e8e8e8;
     --color-dark-primary-shadow: #28242d;
-    --color-dark-grid-background: #868080;
 
     /* light accent colors adjusted by saturation and luminance variables */
     --color-dark-blue-accent: hsl(from var(--color-light-blue-accent) h calc(s + var(--a2-accent-dark-saturation-adjust)) calc(l + var(--a2-accent-dark-luminance-adjust)));
@@ -82,7 +80,6 @@
     --color-inverted-neutral: var(--color-dark-primary-neutral);
     --color-inverted-shadow: var(--color-dark-primary-shadow);
     --color-inverted-important-text: var(--color-dark-important-text);
-    --color-grid-background: var(--color-dark-grid-background);
 
     --color-blue-accent: var(--color-light-blue-accent);
     --color-red-accent: var(--color-light-red-accent);
@@ -254,6 +251,10 @@
         cursor: pointer;
     }
 
+    :where(a) {
+        @apply u-anchor;
+    }
+
     /* apply loading gif as background to all images */
     /* https://loading.io/spinner/spinner/ */
     :where(img) {
@@ -293,7 +294,7 @@
         }
 
         border-color: var(--color-inverted-shadow);
-        outline-color: --alpha(var(--color-primary-shade) / 50%);
+        outline-color: var(--color-inverted-shadow);
         &::selection {
             background-color: var(--a2-text-selection-color);
         }
@@ -340,7 +341,6 @@
     --color-inverted-neutral: var(--color-light-primary-neutral);
     --color-inverted-shadow: var(--color-light-primary-shadow);
     --color-inverted-important-text: var(--color-light-important-text);
-    --color-grid-background: var(--color-light-grid-background);
 
     --color-blue-accent: var(--color-dark-blue-accent);
     --color-red-accent: var(--color-dark-red-accent);
@@ -383,6 +383,11 @@
     font-weight: var(--a2-code-font-weight);
     font-size: calc(var(--a2-code-relative-font-size) * 1em);
     line-height: calc(1 / var(--a2-code-relative-font-size));
+}
+
+@utility u-grid-background {
+    background-image: radial-gradient(--alpha(var(--color-inverted-shadow) / 25%) 0.04em, transparent 0.12em);
+    background-size: 1em 1em;
 }
 
 /* allow leading to accept variable values */
@@ -510,6 +515,7 @@
     /* underline on hover unless a child of or parent of a heading element */
     &:not(:has(h1, h2, h3, h4, h5, h6)):not(:where(h1, h2, h3, h4, h5, h6) > a):hover {
         text-decoration: underline;
+        text-decoration-color: currentColor;
     }
 
     /* if IS child of or parent of a heading element, but NOT a heading-anchor, inherit typography attributes */

@@ -5,24 +5,21 @@ import { Image } from "astro:assets";
 
 import { type CollectionEntry } from "astro:content";
 
-import createSlug from "@/lib/projects/createSlug";
 interface Props {
     project: CollectionEntry<"projects">;
     idPrefix: string;
 }
 
 const { project, idPrefix } = Astro.props;
-
-const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 ---
 
 <li
-    id={`${idPrefix}${finalizedSlug}`}
+    id={`${idPrefix}${project.data.slug}`}
     class="project-card"
     data-type={project.data.type}
     data-category={project.data.category}
 >
-    <a href={`/projects/${finalizedSlug}/`}>
+    <a href={`/projects/${project.data.slug}/`}>
         <article
             class="bg-primary-neutral hover:bg-tertiary-shade group relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2"
         >

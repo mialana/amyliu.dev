@@ -2,14 +2,12 @@
 import { getCollection } from "astro:content";
 
 import MainLayout from "@/layouts/MainLayout.astro";
-import ProjectLayout from "@/layouts/ProjectLayout.astro";
-
-import createSlug from "@/lib/projects/createSlug";
+import HorizontalProjectCardLayout from "@/layouts/HorizontalProjectCardLayout.astro";
 
 export async function getStaticPaths() {
     const projects = await getCollection("projects");
 
-    // Include tech stack as honorary tags
+    // Getall tags in database and map to a set. Include tech stack as honorary tags
     const uniqueRawTags = [
         ...new Set(projects.map((project: any) => [...project.data.tags, ...project.data.techStack]).flat()),
     ];
@@ -26,26 +24,16 @@ const { tag: tag } = Astro.params;
 const { projects } = Astro.props;
 
 const tagTitle = tag.replaceAll("_", " ");
+const prefix = `${tag}-tag-`;
 ---
 
 <MainLayout title={tagTitle} layout="NONE">
-    <div id="per-tag-container">
+    <div id=`${prefix}container`>
         <!-- tag banner -->
-        <a id="per-tag-banner" href=`#${tagTitle}-top`>{tagTitle}</a>
+        <a id=`${prefix}banner` href=`#${tagTitle}-top`>{tagTitle}</a>
 
-        <ul id="per-tag-project-list" class="gap-lg desktop:flex-row desktop:overflow-x-scroll flex">
-            {
-                projects.map((project: any) => (
-                    <li class="content-animation per-tag-project-card bg-primary-neutral w-2xl flex-1 shrink rounded-md p-4">
-                        <ProjectLayout
-                            project={project}
-                            showBreakdown={false}
-                            replaceImagePlaceholder={true}
-                            showTags={false}
-                        />
-                    </li>
-                ))
-            }
+        <ul id=`${prefix}project-list` class="gap-lg flex flex-col">
+            {projects.map((project: any) => <HorizontalProjectCardLayout project={project} idPrefix={prefix} />)}
         </ul>
     </div>
 </MainLayout>

@@ -4,15 +4,11 @@
 
 import { type CollectionEntry } from "astro:content";
 
-import createSlug from "@/lib/projects/createSlug";
-
 interface Props {
     project: CollectionEntry<"projects">;
 }
 
 const { project } = Astro.props;
-
-const finalizedSlug = createSlug(project.data.title, project.data?.slug);
 
 const normalizeTag = (t: string) => t.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
 
@@ -26,7 +22,7 @@ const jsonLd = JSON.stringify({
     description: project.data.description,
     url: url,
     keywords: keywords, // <= your tags, normalized
-    ...(finalizedSlug ? { identifier: finalizedSlug } : {}),
+    ...(project.data.slug ? { identifier: project.data.slug } : {}),
 });
 ---
 
