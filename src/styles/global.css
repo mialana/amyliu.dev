@@ -512,7 +512,7 @@
 @utility u-anchor {
     text-decoration: none;
 
-    /* underline on hover unless a child of or parent of a heading element */
+    /* underline on hover, unless a child of or parent of a heading element */
     &:not(:has(h1, h2, h3, h4, h5, h6)):not(:where(h1, h2, h3, h4, h5, h6) > a):hover {
         text-decoration: underline;
         text-decoration-color: currentColor;
