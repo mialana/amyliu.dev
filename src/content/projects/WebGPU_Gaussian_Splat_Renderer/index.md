@@ -24,4 +24,6 @@ description: A real-time 3DGS Renderer deployed on the web -- render-optimized t
 code: https://github.com/mialana/GPU-Programming-Project5-WebGPU-Gaussian-Splat-Viewer
 externalLinks:
     - https://gaussian-splat-renderer.webgpu.amyliu.dev/
+thumbnail: ./assets/thumbnail.webp
+writeup-incomplete: true
 ---

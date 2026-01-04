@@ -1,0 +1,71 @@
+import type { MarkdownHeading } from "astro";
+
+export type TocNode = MarkdownHeading & { children: TocNode[] };
+
+/* creates a tree data structure from the list of `MarkdownHeading`'s that Astro content collections provide */
+/* Headings are given as a flat list */
+export function createTocTree(headings: MarkdownHeading[]): TocNode {
+    const root: TocNode = { depth: 0, slug: "", text: "", children: [] };
+    const stack: TocNode[] = [root]; // transient stack
+
+    for (const h of headings) {
+        let p = stack.at(-1);
+        while (stack.length && h.depth <= p!.depth) {
+            /* pop until we reach the headings "parent". popping also means this heading has no more children */
+            stack.pop();
+            p = stack.at(-1);
+        }
+        const node: TocNode = { ...h, children: [] };
+        p!.children.push(node);
+        stack.push(node); /* push this node onto stack as a non-processed node */
+    }
+
+    return root;
+}
+
+function positionTocElement(tocElement: HTMLElement, onThisPageElement: HTMLElement) {
+    const rect = onThisPageElement.getBoundingClientRect();
+
+    tocElement.style.top = `${rect.bottom}px`;
+    tocElement.style.left = `${rect.left}px`;
+    tocElement.style.width = `${rect.width}px`;
+}
+
+export function initializeOnThisPageBehavior() {
+    const onThisPageElement = document.getElementById("on-this-page");
+    const tocListElement = document.getElementById("toc-list");
+    if (!onThisPageElement || !tocListElement) return;
+
+    function setTocState(expanded: boolean) {
+        if (!onThisPageElement || !tocListElement) return;
+
+        positionTocElement(tocListElement, onThisPageElement);
+
+        tocListElement.classList.toggle("max-h-[25vh]", !expanded);
+        tocListElement.classList.toggle("p-2", !expanded);
+        tocListElement.classList.toggle("max-h-0", expanded);
+
+        onThisPageElement.setAttribute("aria-expanded", String(expanded)); // converts from boolean to string
+    }
+
+    function toggleTocState() {
+        const expanded = onThisPageElement?.getAttribute("aria-expanded") === "true";
+        setTocState(!expanded);
+    }
+
+    onThisPageElement.addEventListener("click", toggleTocState);
+
+    // handle desktop case.
+    // i.e. on desktop automatically set to expanded state so that aria-expanded is true and positioning occurs
+    const mobileMediaQuery = window.matchMedia(
+        `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
+    );
+
+    const checkAndHandleDesktop = (e: MediaQueryList | MediaQueryListEvent) => {
+        if (!e.matches) {
+            setTocState(true);
+        }
+    };
+    checkAndHandleDesktop(mobileMediaQuery);
+    mobileMediaQuery.addEventListener("change", checkAndHandleDesktop);
+}

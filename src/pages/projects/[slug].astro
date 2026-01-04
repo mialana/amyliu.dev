@@ -2,10 +2,9 @@
 import { getCollection, render, type CollectionEntry } from "astro:content";
 
 import MainLayout from "@/layouts/MainLayout.astro";
-import createSlug from "@/lib/createSlug";
 import TableOfContents from "@/components/TableOfContents.astro";
 import ProjectLayout from "@/layouts/ProjectLayout.astro";
-import ProjectExternalLinks from "@/components/ProjectExternalLinks";
+import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
 import ProjectHead from "@/components/ProjectHead.astro";
 
 // Generate a new path for every collection entry
@@ -13,8 +12,7 @@ export async function getStaticPaths() {
     const projects = await getCollection("projects");
 
     return projects.map((project) => {
-        let slug = createSlug(project.data.title, project.data?.slug);
-        return { params: { slug: slug }, props: { project } };
+        return { params: { slug: project.data.slug }, props: { project } };
     });
 }
 
@@ -26,19 +24,12 @@ const { project } = Astro.props;
 
 const { Content, headings } = await render(project);
 
-const fallbackHeading = {
-    depth: 1,
-    slug: `updated-${new Date().toISOString().split("T")[0]}`,
-    text: `Updated: ${new Date().toISOString().split("T")[0]}`,
-};
-
-if (!headings.length) {
-    headings.push(fallbackHeading);
-}
+console.log(project.data.externalLinks);
 ---
 
-<MainLayout title={project.data.title} layout="DEFAULT">
+<MainLayout title={project.data.title} layout="BOTH">
     <ProjectHead slot="head" project={project} />
+    <script is:inline slot="head" src="/vendor/temml/temml.min.js"></script>
 
     <TableOfContents headings={headings} slot="nav-sidebar" />
 
@@ -49,12 +40,31 @@ if (!headings.length) {
     {
         (project.data.code || project.data.externalLinks) && (
             <section slot="aside-sidebar">
-                <ProjectExternalLinks
-                    code={project.data.code}
-                    externalLinks={project.data.externalLinks}
-                    client:load
-                />
+                <ProjectExternalLinks code={project.data.code} externalLinks={project.data.externalLinks} />
             </section>
         )
     }
+
+    <script>
+        // inline script to copy anchor href to clipboard when `heading-anchor` is clicked
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const anchors = document.querySelectorAll<HTMLAnchorElement>(".heading-anchor");
+
+            /* add event listener for all anchors */
+            anchors.forEach((anchor) => {
+                anchor.addEventListener("click", (e) => {
+                    copyLink(anchor);
+                });
+            });
+
+            /* copies heading anchor links to clipboard on click */
+            function copyLink(anchor: HTMLAnchorElement) {
+                const href = anchor.getAttribute("href");
+                if (!href) return;
+                const url = new URL(href, window.location.href).toString();
+                navigator.clipboard?.writeText(url);
+            }
+        });
+    </script>
 </MainLayout>

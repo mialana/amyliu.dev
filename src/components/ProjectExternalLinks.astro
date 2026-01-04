@@ -1,0 +1,38 @@
+---
+import createExternalLinks from "@/lib/projects/createExternalLinks";
+import { type ExternalLinkItem, getLinkFavicon } from "@/lib/projects/createExternalLinks";
+import { Image } from "astro:assets";
+
+interface Props {
+    code?: string;
+    externalLinks?: string[];
+}
+
+const { code, externalLinks = [] } = Astro.props;
+
+const links: ExternalLinkItem[] = createExternalLinks(code, externalLinks);
+---
+
+<div class="desktop:flex-col flex items-center justify-evenly gap-4">
+    {
+        links.map(({ url, label }) => (
+            <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mx-auto my-2 flex w-20 flex-col items-center gap-2"
+            >
+                <div class="bg-inverted-secondary/50 border-inverted-neutral desktop:rounded-2xl flex h-16 w-16 items-center justify-center rounded-md border p-1 shadow hover:scale-105">
+                    <Image
+                        src={getLinkFavicon(url)}
+                        alt={`Favicon ${label}`}
+                        width={42}
+                        height={42}
+                        class="desktop:rounded-2xl size-3/4 rounded-xl bg-white bg-none p-2"
+                    />
+                </div>
+                <span class="text-2xs desktop:text-xs mt-1 text-center leading-tight">{label}</span>
+            </a>
+        ))
+    }
+</div>

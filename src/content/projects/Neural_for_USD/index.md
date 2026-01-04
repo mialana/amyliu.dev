@@ -26,6 +26,7 @@ tags:
 description: A comprehensive interface to solve data collection for Neural Radiance Fields and Novel View Synthesis for the Pixar OpenUSD framework.
 code: https://github.com/mialana/neural-for-usd
 pinned: true
+thumbnail: ./assets/thumbnail.webp
 ---
 
 ## Summary
@@ -74,7 +75,8 @@ The Stage Manager handles all interactions with the OpenUSD scene. It owns the U
 - **Camera frame generation** via `generateCameraFrames()`, which supports keyframe-based hemispherical sampling or manually configured free camera states.
 - **Exporting data** using `exportDataJson()` to write camera intrinsics and extrinsics to structured JSON, alongside the rendered frames.
 
-```cpp title="src/base/stagemanager.cpp" collapse={6-8}
+```cpp collapse={6-8}
+// src/base/stagemanager.cpp
 void StageManager::exportDataJson() const
 {
 	QJsonObject json;
@@ -130,7 +132,9 @@ It also holds references to:
 - Current rendering parameters
 - A shared `isDirty` state flag for UI-refresh synchronization
 
-```cpp title="src/base/renderengine.cpp" collapse={5-19}
+```cpp collapse={5-19}
+// src/base/renderengine.cpp
+
 void RenderEngine::record(StageManager* manager)
 {
 	HgiTextureHandle textureHandle = m_imagingEngine.GetAovTexture(HdAovTokens->color);
@@ -147,8 +151,7 @@ void RenderEngine::record(StageManager* manager)
 	storage.format = HdxGetHioFormat(textureHandle->GetDescriptor().format);
 
 	// where `Hgi` stands for "Hydra Graphics Interface"
-	mappedColorTextureBuffer = HdStTextureUtils::HgiTextureReadback(m_imagingEngine.GetHgi(),
-	                                                                textureHandle, &size);
+	mappedColorTextureBuffer = HdStTextureUtils::HgiTextureReadback(m_imagingEngine.GetHgi(), textureHandle, &size);
 	storage.data = mappedColorTextureBuffer.get();
 
 	int frame = manager->getCurrentFrame();
@@ -186,7 +189,8 @@ Rays are generated per-image by the projection of pixels through the pinhole cam
 
 At a resolution of 100×100 pixels with 64 samples per ray, training on 106 images results in $100 \times 100 \times 64 \times 106 = 67{,}840{,}000$ 3D point samples per batch.
 
-```python title="src/nerf/nerf.py" collapse={8-18, }
+```python collapse={8-18}
+# src/nerf/nerf.py
 def get_rays(
 	height: int, width: int, focal_length: float, c2w: torch.Tensor
 ) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -290,7 +294,8 @@ The MLP architecture is designed to reflect the structure of the mapping defined
     - Color depends on both position $\mathbf{x}$ and viewing direction $\mathbf{d}$.
     - Accordingly, density is predicted from the base network, while color is predicted from a branch that incorporates view-direction information.
 
-```python title="src/nerf/nerf.py" collapse={2-4}
+```python collapse={2-4}
+# src/nerf/nerf.py
 class MLP(nn.Module):
 	"""
 	Multilayer Perceptron module.

@@ -1,0 +1,65 @@
+---
+import { format } from "date-fns";
+
+import { type CollectionEntry } from "astro:content";
+
+interface Props {
+    project: CollectionEntry<"projects">;
+    idPrefix: string;
+}
+
+const { project, idPrefix } = Astro.props;
+
+const allTags = [...project.data.tags, ...project.data.techStack];
+---
+
+<li id={`${idPrefix}${project.data.slug}`} class="relative">
+    <article
+        class="bg-primary-neutral u-grid-background flex h-[25vh] items-center-safe justify-between border p-8 outline -outline-offset-8"
+    >
+        <div
+            class="prose desktop:text-inherit desktop:place-self-start desktop:prose-base desktop:text-left desktop:h-full flex flex-col overflow-y-scroll text-center text-[0.5em]"
+        >
+            <h1>
+                {project.data.title}
+            </h1>
+            <div class="py-1">
+                <code>
+                    {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}
+                </code>
+                {
+                    /* Using `border-l` is ineffective here as that is an utility class which cannot override the styling in `overrides` layer */
+                }
+                <code style="border-left: 0;">
+                    {project.data.category.toUpperCase()} · {project.data.type.toUpperCase()}
+                </code>
+            </div>
+            <p class="desktop:block hidden w-5/6" style="margin-block: 0.5em; line-height: var(--a2-line-height);">
+                {project.data.description}
+            </p>
+            <div class="desktop:text-xs desktop:mt-auto gap-y-1">
+                {
+                    project.data.tags.map((t) => (
+                        <a href={`/tags/${t}`} class="text-violet-accent relative z-20 mx-1">
+                            #{t}
+                        </a>
+                    ))
+                }
+                {
+                    project.data.techStack.map((t) => (
+                        <a href={`/tags/${t}`} class="text-orange-accent relative z-20 mx-1">
+                            #{t}
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+        <div
+            class="aspect-square h-full rounded-full mask-radial-from-60% mask-radial-to-70% bg-cover bg-center bg-no-repeat"
+            style=`background-image: url(${project.data.thumbnail.src});`
+        >
+        </div>
+    </article>
+    <a href={`/projects/${project.data.slug}/`} class="hover:bg-aqua-accent/50 absolute inset-0 z-10 h-full w-full">
+    </a>
+</li>

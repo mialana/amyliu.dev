@@ -1,18 +1,13 @@
 ---
-import "@/styles/global.css";
-
 import MainLayout from "@/layouts/MainLayout.astro";
 ---
 
 <MainLayout title="404">
-    <div
-        class="mx-auto flex h-full grow flex-col place-content-center text-center"
-    >
-        <div class="text-6xl font-extrabold">404</div>
-        <br />
-        <div class="text-xl">
+    <div class="prose text-center">
+        <h1>404</h1>
+        <h3>
             Whoops, no page here. Go back
-            <a href="/" class="font-bold hover:underline">HOME</a>.
-        </div>
+            <a href="/" class="font-bold no-underline hover:underline">HOME</a>.
+        </h3>
     </div>
 </MainLayout>

@@ -1,0 +1,30 @@
+---
+const PROJECT_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
+---
+
+<div id="projects-select-container" class="bg-primary-shade desktop:bg-primary-neutral p-2">
+    <div class="desktop:block prose text-2xs mb-1 hidden">
+        <h1>Projects Selection</h1>
+    </div>
+    <select id=`${PROJECT_SELECT_ELEMENT_CLASSNAME}` multiple data-placeholder="Select Filters">
+        <optgroup label="Category">
+            <option value="category:personal">Personal</option>
+            <option value="category:research">Research</option>
+            <option value="category:internship">Internship</option>
+            <option value="category:school">School</option>
+        </optgroup>
+
+        <optgroup label="Type">
+            <option value="type:solo">Solo</option>
+            <option value="type:team">Team</option>
+        </optgroup>
+    </select>
+</div>
+
+<script>
+    import { initializeChoices } from "../lib/projects/handleProjectSelection";
+
+    window.addEventListener("DOMContentLoaded", () => {
+        initializeChoices();
+    });
+</script>

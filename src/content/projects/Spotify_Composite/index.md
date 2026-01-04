@@ -17,6 +17,7 @@ tags:
     - frontend
 description: Easily blend Spotify playlists through the Spotify Developer's API using this React-based web application.
 code: https://github.com/mialana/spotify-composite
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary
@@ -97,15 +98,10 @@ This two-stage flow ensures compliance with Spotify’s secure token management 
 
 ```js
 // src/components/PlaylistMenu.js
-const [playlistsEndpoint, setPlaylistsEndpoint] = useState(
-    "https://api.spotify.com/v1/me/playlists",
-);
+const [playlistsEndpoint, setPlaylistsEndpoint] = useState("https://api.spotify.com/v1/me/playlists");
 // uses axios.get to get the current user's playlists
 function handleGetPlaylists() {
-    axios.get(playlistsEndpoint, {
-        headers: { Authorization: "Bearer " + token },
-        params: { limit: 5, offset: 0 },
-    });
+    axios.get(playlistsEndpoint, { headers: { Authorization: "Bearer " + token }, params: { limit: 5, offset: 0 } });
 }
 ```
 
@@ -131,16 +127,9 @@ function createNewPlaylist() {
     const userID = localStorage.getItem("user_id");
     const NEW_PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/users/${userID}/playlists`;
 
-    const postBody = {
-        name: playlistName,
-        public: isPublic,
-        collaborative: collaboration,
-        description: description,
-    };
+    const postBody = { name: playlistName, public: isPublic, collaborative: collaboration, description: description };
 
-    axios.post(NEW_PLAYLIST_ENDPOINT, JSON.stringify(postBody), {
-        headers: { Authorization: "Bearer " + token },
-    });
+    axios.post(NEW_PLAYLIST_ENDPOINT, JSON.stringify(postBody), { headers: { Authorization: "Bearer " + token } });
 }
 ```
 
@@ -153,10 +142,7 @@ const ADD_TO_PLAYLIST_ENDPOINT = `https://api.spotify.com/v1/playlists/${playlis
 const postBody = { position: 0, uris: modifiedArray };
 
 axios.post(ADD_TO_PLAYLIST_ENDPOINT, JSON.stringify(postBody), {
-    headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-    },
+    headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
 });
 ```
 

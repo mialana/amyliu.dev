@@ -18,6 +18,7 @@ tags:
     - 3D-modeling
 description: A Maya plug-in to procedurally solve a Rubik's Cube using the Kociemba algorithm within the 3D viewport.
 code: https://github.com/mialana/maya-rubiks
+thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

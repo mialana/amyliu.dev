@@ -1,6 +1,4 @@
 ---
-import "@/styles/global.css";
-
 interface Props {
     content: string[];
     label: string;
@@ -9,26 +7,25 @@ interface Props {
 const { content, label } = Astro.props;
 ---
 
-<div
-    class="**:text-important-text my-1 flex max-w-full snap-x! snap-mandatory! items-baseline-last gap-3 overflow-x-scroll! scroll-auto pb-1 text-xs capitalize **:font-light xl:text-sm"
->
-    <div
-        class="text-inverted-neutral! snap-start! place-self-center-safe text-[0.4rem]/none font-bold uppercase"
-    >
+<div class="text-important-text gap-sm flex flex-row items-baseline justify-start justify-items-start">
+    <span class="text-inverted-secondary text-2xs snap-start text-nowrap">
         {label}
-    </div>
-    {
-        label != "type" && label != "category" ? (
-            content.map((tag) => (
-                <a
-                    href={`/tags/${tag}/`}
-                    class={`not-prose hover:text-red-accent flex size-fit snap-start! items-center-safe gap-1 scroll-auto rounded-sm text-nowrap no-underline ${label == "tags" && "before:text-[0.6rem] before:content-['#']"}`}
-                >
-                    {tag.replaceAll("_", " ")}
-                </a>
-            ))
-        ) : (
-            <div>{content[0]}</div>
-        )
-    }
+    </span>
+    <ul class="gap-x-sm flex snap-x snap-mandatory overflow-x-scroll text-xs font-medium">
+        {
+            content.map((tag) =>
+                label === "tags" || label === "tech stack" ? (
+                    <a
+                        href={`/tags/${tag}/`}
+                        class={`hover:text-red-accent cursor-grabbing snap-start text-nowrap no-underline`}
+                    >
+                        {label === "tags" && <span>#</span>}
+                        {tag.replaceAll("_", " ")}
+                    </a>
+                ) : (
+                    <span>{tag}</span>
+                ),
+            )
+        }
+    </ul>
 </div>

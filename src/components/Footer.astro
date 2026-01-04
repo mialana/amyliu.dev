@@ -1,44 +1,36 @@
 ---
-import "@/styles/global.css";
+import ThemeButton from "@/components/ThemeButton.astro";
 
-import ThemeToggle from "./ThemeToggle";
+const footerMap = [
+    { label: "GitHub", href: "https://github.com/mialana/", icon: "fa-brands fa-github" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/miyalana/", icon: "fa-brands fa-linkedin" },
+    { label: "Email", href: "mailto:liu.amy05@gmail.com", icon: "fa-solid fa-envelope" },
+];
 ---
 
-<div class="bg-secondary pb-2 shadow-[0_10px_15px_3px]">
-    <ul
-        class="flex justify-center gap-(--default-gap) pt-2 pb-1 *:hover:underline"
-    >
-        <li>
-            <a
+<ul class="gap-lg flex justify-center">
+    {
+        footerMap.map(({ label, href, icon }) => (
+            <li>
+                <a href={href} target="_blank" rel="noopener noreferrer" title={`Find me on ${label}`}>
+                    <span class={`u-fa-icon ${icon}`} />
+                </a>
+            </li>
+        ))
+    }
+</ul>
+
+<div class="grid grid-cols-[1fr_auto_1fr]">
+    <div class="prose prose-xs desktop:prose-sm col-start-2 text-center">
+        <code>
+            © 2025 · developed by Amy Liu · powered by <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://github.com/mialana/">GitHub</a
+                href="https://astro.build/">Astro</a
             >
-        </li>
-        <li>
-            <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.linkedin.com/in/miyalana/">LinkedIn</a
-            >
-        </li>
-        <li>
-            <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="mailto:liu.amy05@gmail.com">Contact</a
-            >
-        </li>
-    </ul>
-    <div class="text-center text-sm">
-        © 2025 · developed by Amy Liu · powered by <a
-            class="font-medium"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://astro.build/">Astro</a
-        >
+        </code>
     </div>
-    <div class="absolute right-4 bottom-4">
-        <ThemeToggle client:load />
+    <div class="justify-self-end-safe px-2">
+        <ThemeButton />
     </div>
 </div>

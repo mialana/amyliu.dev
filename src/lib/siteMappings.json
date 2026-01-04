@@ -1,17 +1,8 @@
 [
-    {
-        "host": "github.com/CIS-7000-sp25/usd-structure",
-        "label": "Code (USD Structure)"
-    },
-    {
-        "host": "github.com/CIS-7000-sp25/backend",
-        "label": "Code (Asset Resolver)"
-    },
+    { "host": "github.com/CIS-7000-sp25/usd-structure", "label": "Code (USD Structure)" },
+    { "host": "github.com/CIS-7000-sp25/backend", "label": "Code (Asset Resolver)" },
     { "host": "webgpu.amyliu.dev", "label": "Live Deployment" },
-    {
-        "host": "youtu.be/760CSeimXMI",
-        "label": "Extra Demo Video (Asset Resolver)"
-    },
+    { "host": "youtu.be/760CSeimXMI", "label": "Extra Demo Video (Asset Resolver)" },
     { "host": "youtu.be/tQ3UcTzR-a0", "label": "Gameplay Snapshot" },
     { "host": "github.com", "label": "Code" },
     { "host": "vercel.app", "label": "Live Deployment" },
@@ -19,5 +10,6 @@
     { "host": "linkedin.com", "label": "LinkedIn Spotlight" },
     { "host": "developer.nvidia.com", "label": "NVIDIA Blogpost" },
     { "host": "docs.google.com", "label": "Research Poster" },
-    { "host": "academia.edu", "label": "Research Paper" }
+    { "host": "academia.edu", "label": "Research Paper" },
+    { "host": "dl.acm.org", "label": "ACM Paper" }
 ]

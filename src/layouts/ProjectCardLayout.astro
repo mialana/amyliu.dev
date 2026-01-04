@@ -1,0 +1,61 @@
+---
+import { format } from "date-fns";
+
+import { Image } from "astro:assets";
+
+import { type CollectionEntry } from "astro:content";
+
+interface Props {
+    project: CollectionEntry<"projects">;
+    idPrefix: string;
+}
+
+const { project, idPrefix } = Astro.props;
+---
+
+<li
+    id={`${idPrefix}${project.data.slug}`}
+    class="project-card"
+    data-type={project.data.type}
+    data-category={project.data.category}
+>
+    <a href={`/projects/${project.data.slug}/`}>
+        <article
+            class="bg-primary-neutral hover:bg-tertiary-shade group relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2"
+        >
+            <Image
+                class="bg-inverted-primary"
+                src={project.data.thumbnail}
+                alt=`Project ${project.data.title} Thumbnail`
+            />
+            {
+                /* "pinned" banner */
+                project.data.pinned === true && (
+                    <span class="bg-green-accent text-2xs p-xdouble-y-2 text-inverted-important-text font-code absolute top-0 rounded-br-sm font-bold saturate-150 group-hover:hidden">
+                        PINNED
+                    </span>
+                )
+            }
+            {/* Allow middle div to define a gap-like layout rather than prose */}
+            <samp class="prose p-2 text-left text-[0.75em] *:my-0">
+                <h1 class="font-black">
+                    {project.data.title}
+                </h1>
+                <div class="py-1">
+                    <code>
+                        {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}
+                    </code>
+                    {
+                        /* Using `border-l` is ineffective here as that is an utility class which cannot override the styling in `overrides` layer */
+                    }
+                    <code style="border-left: 0;">
+                        {project.data.category.toUpperCase()} · {project.data.type.toUpperCase()}
+                    </code>
+                </div>
+                <p class="">
+                    {project.data.description}
+                </p>
+            </samp>
+        </article>
+    </a>
+</li>

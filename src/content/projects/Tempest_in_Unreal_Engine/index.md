@@ -19,6 +19,8 @@ description: Tempest uses Unreal's Gameplay Ability System and Niagara VFX to bu
 demoVideoLink: https://www.youtube.com/watch?v=u4kn-k1czP4
 code: https://github.com/TempestUE5/Tempest
 pinned: true
+thumbnail: ./assets/thumbnail.webp
+writeup-incomplete: true
 ---
 
 ## Summary

@@ -1,67 +1,58 @@
 ---
 import type { MarkdownHeading } from "astro";
 
+import { createTocTree, type TocNode } from "@/lib/projects/handleTocBehavior";
+
+const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
+const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
+
 interface Props {
     headings: MarkdownHeading[];
 }
 const { headings = [] } = Astro.props;
 
-type Node = MarkdownHeading & { children: Node[] };
-const root: Node = { depth: 0, slug: "", text: "", children: [] };
-const stack: Node[] = [root];
-
-for (const h of headings) {
-    while (stack.length && h.depth <= stack.at(-1)!.depth) stack.pop();
-    const node: Node = { ...h, children: [] };
-    stack.at(-1)!.children.push(node);
-    stack.push(node);
-}
+const root: TocNode = createTocTree(headings);
 ---
 
-<section>
-    <h1 class="mb-1 cursor-default leading-none font-semibold">On This Page</h1>
-    <ul class="w-fit px-1 text-sm leading-relaxed text-nowrap *:font-light">
+<div class="bg-primary-shade desktop:bg-primary-neutral w-full px-2">
+    <div id="on-this-page" aria-expanded="false" aria-controls="toc-list">
+        <div
+            class="desktop:border-0 border-primary-shadow/50 bg-primary-neutral desktop:font-bold pointer-events-auto w-fit rounded-xs border px-2"
+        >
+            On This Page <span class="fa-solid fa-caret-down desktop:text-transparent"></span>
+        </div>
+    </div>
+    <ul
+        id="toc-list"
+        class="desktop:max-h-fit desktop:static bg-primary-neutral fixed z-20 max-h-0 w-full overflow-x-hidden overflow-y-scroll text-sm transition-[max-height]"
+    >
         {
-            (function renderTree(nodes: Node[]): any {
-                return nodes.map((n) => (
-                    <li data-slug={n.slug}>
-                        <div class={`relative w-fit pr-2 pb-1`}>
-                            <a
-                                href={`#${n.slug}`}
-                                class="x-1 relative top-1 hover:underline active:underline"
-                            >
-                                {n.text}
-                            </a>
-                        </div>
-                        {n.children.length > 0 && (
-                            <ul class="pl-3">{renderTree(n.children)}</ul>
-                        )}
+            (function renderTree(nodes: TocNode[]): any {
+                // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
+                return nodes.map((node: TocNode) => (
+                    <li data-slug={node.slug} class="toc-item pb-(--gap-sm) leading-tight">
+                        <a
+                            href={`#${node.slug}`}
+                            class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
+                        >
+                            {node.text}
+                        </a>
+                        {node.children.length > 0 && <ul class="pl-3">{renderTree(node.children)}</ul>}
                     </li>
                 ));
             })(root.children)
         }
     </ul>
-    <script is:inline>
+    <script>
+        import { updateActiveHeading } from "../lib/projects/handleScrollBehavior.ts";
+        import { initializeOnThisPageBehavior } from "../lib/projects/handleTocBehavior.ts";
+
         window.addEventListener("DOMContentLoaded", () => {
-            const links = document.querySelectorAll("a[href^='#']");
-
-            function updateActiveLink() {
-                const hash = window.location.hash;
-                links.forEach((link) => {
-                    if (link.getAttribute("href") === hash) {
-                        link.classList.add("font-semibold", "text-blue-accent");
-                    } else {
-                        link.classList.remove(
-                            "font-semibold",
-                            "text-blue-accent",
-                        );
-                    }
-                });
-            }
-
             // Run on load and whenever the hash changes
-            updateActiveLink();
-            window.addEventListener("hashchange", updateActiveLink);
+            updateActiveHeading();
+            window.addEventListener("hashchange", () => updateActiveHeading());
+
+            initializeOnThisPageBehavior();
         });
     </script>
-</section>
+</div>
