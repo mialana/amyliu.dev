@@ -34,6 +34,8 @@ const asideInitialState = asideActive ? "open" : "closed";
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
+        {/* placeholder that is updated in `handleTheme` script */}
+        <meta name="theme-color" content="#000000" />
         <script is:inline src="https://kit.fontawesome.com/4c79a437cb.js" crossorigin="anonymous"></script>
         <title>{title} · Amy Liu</title>
         <slot name="head" />
