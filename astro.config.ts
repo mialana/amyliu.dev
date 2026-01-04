@@ -55,8 +55,6 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
     cascadeLayer: "ecLayer", // place ec styles into a named cascade layer
 };
 
-const isCloudflare = process.env.CLOUDFLARE_WORKER === "1";
-
 // https://astro.build/config
 export default defineConfig({
     server: { host: "0.0.0.0" },
@@ -65,12 +63,7 @@ export default defineConfig({
         sitemap(),
         astroExpressiveCode(expressiveCodeConfig),
         react(),
-        d2({
-            layout: "elk",
-            theme: { default: "300" },
-            sketch: true,
-            skipGeneration: isCloudflare, // disable build of astro-d2 in CI
-        }),
+        d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
     vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
