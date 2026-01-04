@@ -1,6 +1,5 @@
 ---
 import { format } from "date-fns";
-import { Image } from "astro:assets";
 
 import { type CollectionEntry } from "astro:content";
 
@@ -10,6 +9,8 @@ interface Props {
 }
 
 const { project, idPrefix } = Astro.props;
+
+const allTags = [...project.data.tags, ...project.data.techStack];
 ---
 
 <li id={`${idPrefix}${project.data.slug}`} class="relative">
@@ -40,6 +41,13 @@ const { project, idPrefix } = Astro.props;
                 {
                     project.data.tags.map((t) => (
                         <a href={`/tags/${t}`} class="text-violet-accent relative z-20 mx-1">
+                            #{t}
+                        </a>
+                    ))
+                }
+                {
+                    project.data.techStack.map((t) => (
+                        <a href={`/tags/${t}`} class="text-orange-accent relative z-20 mx-1">
                             #{t}
                         </a>
                     ))

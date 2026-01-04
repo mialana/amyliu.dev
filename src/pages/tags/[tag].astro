@@ -29,9 +29,9 @@ const prefix = `${tag}-tag-`;
 
 <MainLayout title={tagTitle} layout="NONE">
     <div id=`${prefix}container`>
-        <!-- tag banner -->
-        <a id=`${prefix}banner` href=`#${tagTitle}-top`>{tagTitle}</a>
-
+        <div class="prose bg-inverted-neutral/25 sticky top-0 z-30 mb-4 w-fit rounded-sm px-2">
+            <h1>{tagTitle}</h1>
+        </div>
         <ul id=`${prefix}project-list` class="gap-lg flex flex-col">
             {projects.map((project: any) => <HorizontalProjectCardLayout project={project} idPrefix={prefix} />)}
         </ul>
