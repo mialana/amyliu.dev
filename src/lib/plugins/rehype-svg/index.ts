@@ -94,7 +94,7 @@ const rehypeSvg: Plugin<[RehypeSvgOptions?], Root> = (options: RehypeSvgOptions 
                             wrapperElement = {
                                 type: "element",
                                 tagName: "div",
-                                properties: { className: [svgWrapperClass] },
+                                properties: {},
                                 children: [svgElement],
                             };
 

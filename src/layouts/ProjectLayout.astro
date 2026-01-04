@@ -62,8 +62,13 @@ const { project } = Astro.props;
         <Tags content={project.data.techStack} label="tech stack" />
     </div>
 
-    <article>
+    <article id="project-content">
         <hr />
         <slot />
     </article>
 </div>
+<script>
+    import postprocessProjectContent from "../lib/postprocessProjectContent";
+
+    document.addEventListener("DOMContentLoaded", postprocessProjectContent);
+</script>

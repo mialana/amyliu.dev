@@ -15,7 +15,7 @@ import rehypeCallouts from "rehype-callouts";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeCaptions from "./src/lib/plugins/rehype-captions"; /* custom */
 import rehypeSvg from "./src/lib/plugins/rehype-svg"; /* custom */
-import rehypeWrapMath from "./src/lib/plugins/rehype-wrap-math"; /* custom */
+import rehypeMiscellaneous from "./src/lib/plugins/rehype-miscellaneous"; /* custom */
 
 import astroExpressiveCode, { type AstroExpressiveCodeOptions } from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
@@ -87,8 +87,9 @@ export default defineConfig({
             [rehypeAutolinkHeadings, RehypeAutolinkHeadingsSettings] /* add generated link to `heading-anchor` class */,
             rehypeCaptions,
             rehypeCallouts,
-            rehypeWrapMath,
-            rehypeRaw /* must run before `rehypeSvg` but after rehypeExpressiveCode */,
+            rehypeMiscellaneous,
+            /* must run before `rehypeSvg` but after rehypeExpressiveCode. in general more likely to mess up plugin logic, so keep at end */
+            rehypeRaw,
             rehypeSvg,
         ],
     },

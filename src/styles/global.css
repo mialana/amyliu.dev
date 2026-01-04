@@ -675,6 +675,25 @@
     }
 }
 
+@utility u-inline-svg {
+    position: relative;
+    &::after {
+        content: "Hey try panning and zooming this SVG!";
+        position: absolute;
+        top: var(--a2-spacing-atoms);
+        right: var(--a2-spacing-atoms);
+
+        border-radius: var(--radius-md);
+        @apply p-xdouble-y-2;
+
+        background: --alpha(var(--color-tertiary-shade) / 75%);
+        font-size: 0.75em;
+    }
+    &:hover::after {
+        display: none;
+    }
+}
+
 @layer overrides {
     :root {
         @media (max-width: theme(--breakpoint-desktop)) {
@@ -769,12 +788,18 @@
                 @apply u-heading-with-anchor;
             }
 
+            /* expressive code */
             &:where(.expressive-code, .expressive-code *) {
                 @apply u-expressive-code;
             }
 
+            /* coming soon */
             &:where(.md-section--h2:has(.coming-soon-image)) {
                 @apply u-coming-soon;
+            }
+
+            &:where(.rehyped-inline-svg-wrapper) {
+                @apply u-inline-svg;
             }
         }
     }

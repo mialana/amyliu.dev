@@ -1,5 +1,7 @@
 import * as Panzoom from "@panzoom/panzoom";
 
+const PROJECT_CONTENT_ID = "project-content";
+
 const SVG_CLASS_NAME = "rehyped-inline-svg";
 const SVG_WRAPPER_CLASS_NAME = "rehyped-inline-svg-wrapper";
 
@@ -31,24 +33,29 @@ function attachPanzoomToSvg(svg: SVGSVGElement, wrapper: HTMLDivElement) {
     });
 }
 
-export default function postprocessMarkdown(el: HTMLDivElement | null) {
-    if (el) {
-        // ensure background loading gifs are removed after load
-        el.querySelectorAll("img, svg").forEach((img) => {
-            img.addEventListener("load", () => {
-                img.classList.add("bg-none", "bg-transparent");
-            });
+export default function () {
+    const projectContent = document.getElementById(PROJECT_CONTENT_ID);
+    if (!projectContent) return;
+
+    // ensure background loading gifs are removed after load
+    projectContent.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("load", () => {
+            img.classList.add("bg-none", "bg-transparent");
         });
+    });
 
-        // convert all SVG img elements to inline SVG and add panzoom
-        const wrappers = el.querySelectorAll<HTMLDivElement>(SVG_WRAPPER_CLASS_NAME);
+    // convert all SVG img elements to inline SVG and add panzoom
+    const wrappers = projectContent.querySelectorAll<HTMLDivElement>(`.${SVG_WRAPPER_CLASS_NAME}`);
 
-        wrappers.forEach((wrapper) => {
-            const svg = wrapper.querySelector<SVGSVGElement>(SVG_CLASS_NAME);
+    console.log(wrappers);
 
-            if (!svg) return;
+    wrappers.forEach((wrapper) => {
+        const svg = wrapper.querySelector<SVGSVGElement>(`.${SVG_CLASS_NAME}`);
 
-            attachPanzoomToSvg(svg, wrapper);
-        });
-    }
+        console.log(wrapper, svg);
+
+        if (!svg) return;
+
+        attachPanzoomToSvg(svg, wrapper);
+    });
 }
