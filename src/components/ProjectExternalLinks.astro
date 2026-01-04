@@ -13,7 +13,10 @@ const { code, externalLinks = [] } = Astro.props;
 const links: ExternalLinkItem[] = createExternalLinks(code, externalLinks);
 ---
 
-<div class="desktop:flex-col u-mobile-dotted-border flex items-center justify-evenly gap-4 px-2 py-4">
+<div
+    id="project-external-links-container"
+    class="desktop:flex-col u-mobile-dotted-border flex items-center justify-evenly gap-4 px-2 py-4"
+>
     {
         links.map(({ url, label }) => (
             <a
@@ -28,7 +31,7 @@ const links: ExternalLinkItem[] = createExternalLinks(code, externalLinks);
                         alt={`Favicon ${label}`}
                         width={42}
                         height={42}
-                        class="desktop:rounded-2xl size-3/4 rounded-xl bg-white bg-none p-2"
+                        class="external-link-image desktop:rounded-2xl size-3/4 rounded-xl bg-none p-2"
                     />
                 </div>
                 <span class="text-2xs desktop:text-xs mt-1 text-center leading-tight">{label}</span>
@@ -36,3 +39,26 @@ const links: ExternalLinkItem[] = createExternalLinks(code, externalLinks);
         ))
     }
 </div>
+
+<script is:inline>
+    /**
+     * the favicon fetching often takes a while in production so this keeps the loading GIF
+     * until they are fully loaded
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("project-external-links-container");
+        if (!container) return;
+
+        container.querySelectorAll("img").forEach((img) => {
+            const onLoad = () => {
+                img.classList.add("bg-none", "bg-white");
+            };
+
+            if (img.complete && img.naturalWidth !== 0) {
+                onLoad(); // already loaded
+            } else {
+                img.addEventListener("load", onLoad, { once: true });
+            }
+        });
+    });
+</script>

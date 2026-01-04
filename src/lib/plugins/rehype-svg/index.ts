@@ -46,8 +46,10 @@ const rehypeSvg: Plugin<[RehypeSvgOptions?], Root> = (options: RehypeSvgOptions 
 
         const filePath = file.path;
 
+        const nodesToReplace: { parent: Parent; index: number; wrapper: Element }[] = [];
+
         visit(tree, "element", (node: Element, index?: number, parent?: Parent) => {
-            if (!isImage(node) || !parent) return;
+            if (!isImage(node) || !parent || index == null) return;
 
             const imageElement = node as Element;
 
@@ -81,37 +83,26 @@ const rehypeSvg: Plugin<[RehypeSvgOptions?], Root> = (options: RehypeSvgOptions 
                             svgElement.properties.className = [...existingClasses, ...imgClasses, svgClass];
                         }
 
-                        // check if the parent can be made into a wrapper or if we should make a new wrapper.
+                        const wrapper: Element = {
+                            type: "element",
+                            tagName: "div",
+                            properties: { className: [svgWrapperClass] },
+                            children: [svgElement],
+                        };
 
-                        const index = parent.children.indexOf(node);
-                        const numChildren = parent.children.length;
-
-                        let wrapperElement: Element;
-                        if (index === 0 && numChildren === 1 && isElement(parent)) {
-                            wrapperElement = parent;
-                        } else {
-                            // create wrapper <div>
-                            wrapperElement = {
-                                type: "element",
-                                tagName: "div",
-                                properties: {},
-                                children: [svgElement],
-                            };
-
-                            if (index !== -1) {
-                                parent.children.splice(index, 1, wrapperElement);
-                            }
-                        }
-
-                        addClassToHast(wrapperElement, svgWrapperClass);
+                        nodesToReplace.push({ parent, index, wrapper });
                     } catch (err) {
-                        console.log(`[rehype-svg] Error processing image with src "${imageSrc}": ${err}`);
+                        console.warn(`[rehype-svg] Error processing image with src "${imageSrc}": ${err}`);
                     }
                 })(),
             );
         });
 
         await Promise.all(jobs);
+
+        for (const { parent, index, wrapper } of nodesToReplace) {
+            parent.children[index] = wrapper;
+        }
     };
 
     return transformer;

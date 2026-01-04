@@ -46,7 +46,8 @@ export async function readOrFetchSource(src: string, filePathOfOrigin?: string):
         }
 
         return null;
-    } catch {
+    } catch (err) {
+        console.warn(`[rehype-svg] Failed to load ${src}: ${err}`);
         return null;
     }
 }

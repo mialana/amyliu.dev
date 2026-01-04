@@ -47,8 +47,6 @@ export default function () {
     // convert all SVG img elements to inline SVG and add panzoom
     const wrappers = projectContent.querySelectorAll<HTMLDivElement>(`.${SVG_WRAPPER_CLASS_NAME}`);
 
-    console.log(wrappers);
-
     wrappers.forEach((wrapper) => {
         const svg = wrapper.querySelector<SVGSVGElement>(`.${SVG_CLASS_NAME}`);
 

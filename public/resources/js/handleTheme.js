@@ -23,7 +23,6 @@ function updateHtmlThemeColorMeta() {
         document.head.appendChild(meta);
     }
 
-    console.log(color);
     meta.setAttribute("content", color);
 }
 
