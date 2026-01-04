@@ -1,5 +1,3 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-
 import { z } from "zod";
 
 export const ROOT_DATA_ATTRIBUTE = "data-theme";
@@ -30,29 +28,42 @@ export const updateFromDOM = (callback: (theme: Theme) => void, mutationList?: M
     }
 };
 
-export default function ThemeButton() {
-    const [theme, setTheme] = useState<Theme>(LIGHT_THEME_TEXT);
+export function initializeThemeButton() {
+    const button = document.getElementById("theme-button");
+    if (!button) return;
 
-    useEffect(() => {
-        updateFromDOM(setTheme); // initial call
-    }, []);
+    let theme: Theme = LIGHT_THEME_TEXT;
+
+    const syncIcon = () => {
+        button.classList.toggle("fa-moon", theme === LIGHT_THEME_TEXT);
+        button.classList.toggle("fa-sun", theme === DARK_THEME_TEXT);
+    };
+
+    updateFromDOM((t) => {
+        theme = t;
+        syncIcon();
+    });
 
     /* setup mutation observer for changes to theme from `ThemeClient` */
-    useLayoutEffect(() => {
-        const root = document.documentElement;
+    const root = document.documentElement;
 
-        const observer = new MutationObserver((mutationList) => updateFromDOM(setTheme, mutationList));
+    const observer = new MutationObserver((mutationList) =>
+        updateFromDOM((t) => {
+            theme = t;
+            syncIcon();
+        }, mutationList),
+    );
 
-        observer.observe(root, { attributes: true, attributeFilter: [ROOT_DATA_ATTRIBUTE] });
-        return () => observer.disconnect();
-    });
+    observer.observe(root, { attributes: true, attributeFilter: [ROOT_DATA_ATTRIBUTE] });
 
     /* all the steps to ensure the theme change has effect globally */
     function commitThemeChange(desiredTheme: Theme) {
-        setTheme(desiredTheme);
+        theme = desiredTheme;
 
         document.documentElement.setAttribute(ROOT_DATA_ATTRIBUTE, desiredTheme);
         localStorage.setItem(LOCAL_STORAGE_VARNAME, desiredTheme);
+
+        syncIcon();
     }
 
     function toggle() {
@@ -61,10 +72,5 @@ export default function ThemeButton() {
         commitThemeChange(nextTheme);
     }
 
-    return (
-        <span
-            onClick={toggle}
-            className={`${theme === LIGHT_THEME_TEXT ? "fa-moon" : "fa-sun"} fa-solid u-fa-icon text-inverted-primary cursor-pointer text-lg`}
-        />
-    );
+    button.addEventListener("click", toggle);
 }

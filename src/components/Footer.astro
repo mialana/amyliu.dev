@@ -1,5 +1,5 @@
 ---
-import ThemeButton from "./ThemeButton";
+import ThemeButton from "@/components/ThemeButton.astro";
 
 const footerMap = [
     { label: "GitHub", href: "https://github.com/mialana/", icon: "fa-brands fa-github" },
@@ -31,6 +31,6 @@ const footerMap = [
         </code>
     </div>
     <div class="justify-self-end-safe px-2">
-        <ThemeButton client:load />
+        <ThemeButton />
     </div>
 </div>

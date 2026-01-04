@@ -1,7 +1,7 @@
 import { useLayoutEffect, useEffect, useState } from "react";
 import { TagCloud } from "react-tagcloud";
 
-import { DARK_THEME_TEXT, ROOT_DATA_ATTRIBUTE, type Theme, updateFromDOM } from "@/components/ThemeButton";
+import { DARK_THEME_TEXT, ROOT_DATA_ATTRIBUTE, type Theme, updateFromDOM } from "@/lib/handleThemeButton";
 
 interface TagLinkProps {
     tag: string;
