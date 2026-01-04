@@ -29,6 +29,7 @@ const LucideLinkIconHtml = `
     stroke-width='var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_STROKE_WIDTH_VARNAME}, 2)'
     stroke-linecap="round"
     stroke-linejoin="round"
+    style="display: inline;"
     class='${ANCHOR_ICON_CLASSNAME} lucide lucide-link-icon lucide-link'
 >
     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -57,6 +58,7 @@ const RehypeAutoLinkSettings: RehypeAutoLinkOptions = {
     behavior: "append",
     properties(node) {
         return {
+            style: "display: inline;",
             className: [
                 ...normalizeClassName(node.properties.className),
                 ANCHOR_CLASSNAME,

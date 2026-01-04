@@ -519,7 +519,6 @@
     }
 
     /* if IS child of or parent of a heading element, but NOT a heading-anchor, inherit typography attributes */
-
     &:not(*.heading-anchor):has(h1, h2, h3, h4, h5, h5, h6),
     h1 > &:not(.heading-anchor) {
         @apply inherit-typography;
@@ -583,12 +582,12 @@
         @apply inherit-typography;
         display: inline;
         height: 0.75em;
-        width: auto;
+        width: 0.75em;
         vertical-align: baseline;
         margin-left: calc(var(--a2-spacing-atoms) * 1.5);
 
         @media (min-width: theme(--breakpoint-desktop)) {
-            display: none; /* start invisible if on desktop */
+            display: none; /* start collapsed if on desktop */
         }
 
         /* create local variables to adjust color on hover */
@@ -681,7 +680,7 @@
 @utility u-inline-svg {
     position: relative;
     &::after {
-        content: "Hey try panning and zooming this SVG!";
+        content: "hey try panning and zooming this SVG!";
         position: absolute;
         top: var(--a2-spacing-atoms);
         right: var(--a2-spacing-atoms);
@@ -690,7 +689,8 @@
         @apply p-xdouble-y-2;
 
         background: --alpha(var(--color-tertiary-shade) / 75%);
-        font-size: 0.75em;
+
+        @apply codelike;
     }
     &:hover::after {
         display: none;

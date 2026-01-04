@@ -8,7 +8,7 @@
         "build": "astro build",
         "build:cloudflare": "cross-env CLOUDFLARE_WORKER=1 astro build",
         "deploy": "astro build && wrangler deploy",
-        "preview": "astro build && wrangler dev",
+        "preview": "cross-env CLOUDFLARE_WORKER=1 astro build && wrangler dev",
         "astro": "astro",
         "lint": "npx prettier . --write --config=.prettierrc.mjs --no-editorconfig --cache --ignore-unknown",
         "prepare": "husky"

@@ -1,7 +1,7 @@
 name = "amyliu-dev"
 compatibility_date = "2025-03-25"
 
-workers_dev = false
+workers_dev = true
 preview_urls = true
 
 [build]
@@ -14,3 +14,18 @@ not_found_handling = "404-page"
 [[routes]]
 pattern = "amyliu.dev"
 custom_domain = true
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
