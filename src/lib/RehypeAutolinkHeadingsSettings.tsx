@@ -5,6 +5,8 @@ import { fromHtml } from "hast-util-from-html";
 import { isElement } from "hast-util-is-element";
 import { parseSelector } from "hast-util-parse-selector";
 
+import { normalizeClassName } from "./plugins/utils";
+
 const WRAPPER_CLASSNAME = "heading-with-anchor-wrapper";
 const HEADER_CLASSNAME = "heading-with-anchor";
 const ANCHOR_CLASSNAME = "heading-anchor";
@@ -53,12 +55,21 @@ export const HeadingAnchorWrapper: Element = parseSelector(`.${WRAPPER_CLASSNAME
 
 const RehypeAutoLinkSettings: RehypeAutoLinkOptions = {
     behavior: "append",
-    properties: {
-        className: [ANCHOR_CLASSNAME, ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME],
-        title: "Copy link to clipboard",
-        ariaHidden: true,
+    properties(node) {
+        return {
+            className: [
+                ...normalizeClassName(node.properties.className),
+                ANCHOR_CLASSNAME,
+                ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME,
+            ],
+            title: "Copy link to clipboard",
+            ariaHidden: true,
+        };
     },
-    headingProperties: { className: [HEADER_CLASSNAME] },
+    headingProperties(node) {
+        // use normalizeClassName as that does not mutate the original element
+        return { className: [...normalizeClassName(node.properties?.className), HEADER_CLASSNAME] };
+    },
     content: HeadingAnchorIconElementFromHtml,
 };
 

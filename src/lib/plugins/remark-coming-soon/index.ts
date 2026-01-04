@@ -4,7 +4,7 @@
  */
 
 import type { Plugin } from "unified";
-import type { Root, Heading, Image, Paragraph } from "mdast";
+import type { Root, Heading, Image, Paragraph, Emphasis } from "mdast";
 
 interface RemarkComingSoonOptions {
     headingText?: string;
@@ -16,7 +16,7 @@ interface RemarkComingSoonOptions {
 
 const remarkComingSoon: Plugin<[RemarkComingSoonOptions?], Root> = (options: RemarkComingSoonOptions = {}) => {
     const {
-        headingText = "Project Details Coming Soon",
+        headingText = "Writeup Coming Soon",
         headingClass = "coming-soon-heading",
         imageClass = "coming-soon-image",
         imageWrapperClass = "coming-soon-image-wrapper",
@@ -29,31 +29,41 @@ const remarkComingSoon: Plugin<[RemarkComingSoonOptions?], Root> = (options: Rem
 
         if (!writeupIncomplete) return;
 
-        // since remark output is static, this is the current date but ends up being the date of latest build.
-        const dateLastBuilt = includeDate
-            ? ` (Updated ${new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })})`
-            : "";
-
         const headingNode: Heading = {
             type: "heading",
             depth: 2,
             data: { hProperties: { className: headingClass } },
-            children: [{ type: "text", value: `${headingText}${dateLastBuilt}` }],
+            children: [{ type: "text", value: headingText }],
         };
 
         const imageNode: Image = {
             type: "image",
             url: "/resources/gif/coming_soon.gif",
             alt: "Coming soon",
-            title: "More details about this project are coming soon.",
             data: { hProperties: { className: imageClass } },
+        };
+
+        // since remark output is static, this is the current date but ends up being the date of latest build.
+        const dateLastBuilt = includeDate
+            ? `${new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}`
+            : "";
+
+        // this node is converted to a caption and already gets a classname,
+        //  courtesy of my `rehype-captions` plugin!
+        const captionNode: Emphasis = {
+            type: "emphasis",
+            children: [
+                { type: "text", value: `More details about this project are in the works! Site last updated ` },
+                { type: "strong", children: [{ type: "text", value: dateLastBuilt }] },
+                { type: "text", value: "." },
+            ],
         };
 
         // wrap the image in a paragraph MDAST node
         const imageWrapper: Paragraph = {
             type: "paragraph",
             data: { hProperties: { className: imageWrapperClass } },
-            children: [imageNode],
+            children: [imageNode, captionNode],
         };
 
         tree.children = [headingNode, imageWrapper];

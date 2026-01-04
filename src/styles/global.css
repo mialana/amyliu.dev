@@ -534,6 +534,13 @@
     justify-items: start;
     row-gap: var(--a2-spacing-atoms);
 
+    /* typography for figcaption */
+    color: inherit;
+    font-family: var(--a2-font-family);
+    font-weight: 450;
+    line-height: 1.4;
+    font-size: var(--text-xs);
+
     &::before {
         content: "⬑"; /* styling for "before" arrow */
         line-height: 1;
@@ -548,16 +555,6 @@
         grid-column: 2; /* Put every child element into column 2 */
         /* Remove margin between blocks (p, ul, pre, etc.). Relay on grid gap for consistent spacing. */
         margin: 0;
-    }
-
-    /* typography for figcaption */
-    &,
-    & * {
-        color: inherit;
-        font-family: var(--a2-font-family);
-        font-weight: 450;
-        line-height: 1.4;
-        font-size: var(--text-xs);
     }
 }
 
@@ -585,7 +582,7 @@
         @apply inherit-typography;
         display: inline;
         height: 0.75em;
-        aspect-ratio: 1 / 1;
+        width: auto;
         vertical-align: baseline;
         margin-left: calc(var(--a2-spacing-atoms) * 1.5);
 
@@ -659,6 +656,25 @@
     }
 }
 
+@utility u-coming-soon {
+    position: relative;
+
+    & > .coming-soon-heading {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--color-dark-important-text);
+        text-align: center;
+
+        @apply desktop:text-base text-sm;
+
+        & a {
+            display: none; /* hide heading anchor */
+        }
+    }
+}
+
 @layer overrides {
     :root {
         @media (max-width: theme(--breakpoint-desktop)) {
@@ -708,10 +724,11 @@
         :where(:not(.not-prose, .not-prose *)) {
             @apply u-headings;
 
-            &:where(img, svg):not(.expressive-code, .expressive-code *) {
-                margin-inline: auto;
-                max-width: 100%;
+            /* targets all outer-level 'media' */
+            &:where(img, svg, figure):not(.expressive-code, .expressive-code *) {
                 border-radius: var(--radius-md);
+                width: 100%;
+                margin-inline: auto;
             }
 
             &:where(hr) {
@@ -748,12 +765,16 @@
             }
 
             /* style headings that contain an anchor */
-            &:where(.heading-with-anchor) {
+            &:where(.heading-with-anchor):not(a) {
                 @apply u-heading-with-anchor;
             }
 
             &:where(.expressive-code, .expressive-code *) {
                 @apply u-expressive-code;
+            }
+
+            &:where(.md-section--h2:has(.coming-soon-image)) {
+                @apply u-coming-soon;
             }
         }
     }
