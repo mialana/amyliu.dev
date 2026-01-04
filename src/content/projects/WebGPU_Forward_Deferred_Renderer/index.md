@@ -24,4 +24,5 @@ code: https://github.com/mialana/GPU-Programming-Project4-WebGPU-Forward-Plus-an
 externalLinks:
     - https://advanced-forward-deferred.webgpu.amyliu.dev/
 thumbnail: ./assets/thumbnail.webp
+writeup-incomplete: true
 ---

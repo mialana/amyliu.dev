@@ -25,4 +25,5 @@ code: https://github.com/mialana/GPU-Programming-Project5-WebGPU-Gaussian-Splat-
 externalLinks:
     - https://gaussian-splat-renderer.webgpu.amyliu.dev/
 thumbnail: ./assets/thumbnail.webp
+writeup-incomplete: true
 ---

@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 
 import remarkSectionizeHeadings, { type Options as RemarkSectionizeHeadingsOptions } from "remark-sectionize-headings";
 import remarkMath from "remark-math"; /* converts to 'language-math' */
+import remarkComingSoon from "./src/lib/plugins/remark-coming-soon";
 
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
@@ -76,6 +77,7 @@ export default defineConfig({
     markdown: {
         remarkPlugins: [
             [remarkMath, { singleDollarTextMath: true }],
+            remarkComingSoon, // must run before `remarkSectionizeHeadings`
             [remarkSectionizeHeadings as RemarkPlugin<[RemarkSectionizeHeadingsOptions?]>, { addClass: "md-section" }],
         ],
         rehypePlugins: [
