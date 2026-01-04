@@ -96,6 +96,27 @@ const positionDropdown = (choices: Choices) => {
     dropdown.style.width = `${rect.width}px`;
 };
 
+// attach on open, remove on close
+const onDropdownOpenScoped = (choices: Choices) => {
+    const root = choices.containerOuter?.element;
+    if (!root) return;
+
+    const onPointerDown = (e: Event) => {
+        if (e.target instanceof Node && !root.contains(e.target)) {
+            choices.hideDropdown();
+        }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+
+    const cleanup = () => {
+        document.removeEventListener("pointerdown", onPointerDown);
+        root.removeEventListener("hideDropdown", cleanup);
+    };
+
+    root.addEventListener("hideDropdown", cleanup);
+};
+
 export function initializeChoices() {
     const el = document.getElementById(PROJECT_SELECT_ELEMENT_CLASSNAME) as HTMLSelectElement | null;
     if (!(el instanceof HTMLSelectElement)) return;
@@ -125,4 +146,12 @@ export function initializeChoices() {
     // set up resize listener
     positionDropdown(choices);
     window.addEventListener("resize", () => positionDropdown(choices));
+
+    // set up listener to close choices dropdown when a click/ scroll is detected outside of the element
+    const root = choices.containerOuter?.element;
+    if (!root) return;
+
+    root.addEventListener("showDropdown", () => {
+        onDropdownOpenScoped(choices);
+    });
 }

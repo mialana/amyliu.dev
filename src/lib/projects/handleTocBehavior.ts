@@ -58,11 +58,9 @@ export function initializeOnThisPageBehavior() {
         `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
     );
 
-    const checkAndHandleDesktop = (e: MediaQueryList | MediaQueryListEvent) => {
-        if (!e.matches) {
-            setTocState(true);
-        }
+    const maintainDefaults = (e: MediaQueryList | MediaQueryListEvent) => {
+        setTocState(!e.matches);
     };
-    checkAndHandleDesktop(mobileMediaQuery);
-    mobileMediaQuery.addEventListener("change", checkAndHandleDesktop);
+    maintainDefaults(mobileMediaQuery);
+    mobileMediaQuery.addEventListener("change", maintainDefaults);
 }
