@@ -52,8 +52,6 @@ export default function () {
     wrappers.forEach((wrapper) => {
         const svg = wrapper.querySelector<SVGSVGElement>(`.${SVG_CLASS_NAME}`);
 
-        console.log(wrapper, svg);
-
         if (!svg) return;
 
         attachPanzoomToSvg(svg, wrapper);

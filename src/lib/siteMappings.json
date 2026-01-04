@@ -10,5 +10,6 @@
     { "host": "linkedin.com", "label": "LinkedIn Spotlight" },
     { "host": "developer.nvidia.com", "label": "NVIDIA Blogpost" },
     { "host": "docs.google.com", "label": "Research Poster" },
-    { "host": "academia.edu", "label": "Research Paper" }
+    { "host": "academia.edu", "label": "Research Paper" },
+    { "host": "dl.acm.org", "label": "ACM Paper" }
 ]

@@ -1,11 +1,7 @@
 ---
-import siteMappings from "@/lib/siteMappings.json";
+import createExternalLinks from "@/lib/projects/createExternalLinks";
+import { type ExternalLinkItem, getLinkFavicon } from "@/lib/projects/createExternalLinks";
 import { Image } from "astro:assets";
-
-interface LinkItem {
-    url: string;
-    label: string;
-}
 
 interface Props {
     code?: string;
@@ -14,41 +10,7 @@ interface Props {
 
 const { code, externalLinks = [] } = Astro.props;
 
-function getFavicon(url: string) {
-    try {
-        const { origin, hostname } = new URL(url);
-        if (hostname === "asset-browser-zeta.vercel.app") return `${origin}/strawberry.svg`;
-        else if (hostname.includes("webgpu.amyliu.dev")) return `${origin}/favicon/favicon.svg`;
-        return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
-    } catch {
-        return "";
-    }
-}
-
-function getLabel(url: string) {
-    try {
-        const { href, hostname } = new URL(url);
-        const match = siteMappings.find((mapping) => href.includes(mapping.host));
-        if (match) return match.label;
-        return hostname
-            .replace("www.", "")
-            .split(".")[0]
-            .replace(/-/g, " ")
-            .replace(/\b\w/g, (l) => l.toUpperCase());
-    } catch {
-        return "External Link";
-    }
-}
-
-const links: LinkItem[] = [];
-
-if (code) {
-    links.push({ url: code, label: getLabel(code) });
-}
-
-externalLinks.forEach((url) => {
-    links.push({ url, label: getLabel(url) });
-});
+const links: ExternalLinkItem[] = createExternalLinks(code, externalLinks);
 ---
 
 <div class="desktop:flex-col flex items-center justify-evenly gap-4">
@@ -62,7 +24,7 @@ externalLinks.forEach((url) => {
             >
                 <div class="bg-inverted-secondary/50 border-inverted-neutral desktop:rounded-2xl flex h-16 w-16 items-center justify-center rounded-md border p-1 shadow hover:scale-105">
                     <Image
-                        src={getFavicon(url)}
+                        src={getLinkFavicon(url)}
                         alt={`Favicon ${label}`}
                         width={42}
                         height={42}

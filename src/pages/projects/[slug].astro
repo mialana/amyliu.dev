@@ -4,7 +4,6 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import ProjectLayout from "@/layouts/ProjectLayout.astro";
-// import ProjectExternalLinks from "@/components/ProjectExternalLinks";
 import ProjectExternalLinks from "@/components/ProjectExternalLinks.astro";
 import ProjectHead from "@/components/ProjectHead.astro";
 
@@ -25,15 +24,7 @@ const { project } = Astro.props;
 
 const { Content, headings } = await render(project);
 
-const fallbackHeading = {
-    depth: 1,
-    slug: `updated-${new Date().toISOString().split("T")[0]}`,
-    text: `Updated: ${new Date().toISOString().split("T")[0]}`,
-};
-
-if (!headings.length) {
-    headings.push(fallbackHeading);
-}
+console.log(project.data.externalLinks);
 ---
 
 <MainLayout title={project.data.title} layout="BOTH">
