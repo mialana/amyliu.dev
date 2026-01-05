@@ -15,9 +15,10 @@ const dynamicClassList =
         : "desktop:[#app[data-asidestate='true']_&]:max-w-sm desktop:[#app[data-asidestate='false']_&]:max-w-0";
 ---
 
+{/* Should be the container that scrolls on desktop, should not scroll on mobile (i.e. maintain fixed height) */}
 <div
     id=`${sideBarType}-sidebar`
-    class=`desktop:transition-[max-width] transition-[max-height] overflow-hidden desktop:h-full ${dynamicClassList}`
+    class=`desktop:transition-[max-width] transition-[max-height] overflow-x-scroll desktop:overflow-y-auto overflow-y-hidden desktop:h-full ${dynamicClassList}`
     data-active={active ? "true" : "false"}
 >
     <slot />

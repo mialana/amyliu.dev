@@ -66,6 +66,7 @@ export function initializeOnThisPageBehavior() {
 
         tocContainerElement.setAttribute("aria-expanded", String(expanded)); // converts from boolean to string
 
+        if (!mobileMediaQuery.matches) return; // return only on desktop
         if (expanded) {
             onTocOpenScoped(tocContainerElement, tocListElement);
         } else {
@@ -79,11 +80,12 @@ export function initializeOnThisPageBehavior() {
         setTocState(!expanded);
     }
 
-    onThisPageElement.addEventListener("click", toggleTocState);
-
     const maintainDefaults = (e: MediaQueryList | MediaQueryListEvent) => {
         setTocState(!e.matches);
     };
     maintainDefaults(mobileMediaQuery);
     mobileMediaQuery.addEventListener("change", maintainDefaults);
+
+    // regardless of media, set up click listener in case of resize in the future
+    onThisPageElement.addEventListener("click", toggleTocState);
 }

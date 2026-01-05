@@ -716,7 +716,6 @@
             @media (max-width: theme(--breakpoint-desktop)) {
                 max-height: 25vh;
                 border-width: 0.5px;
-                border-color: --alpha(var(--color-inverted-neutral) / 25%);
             }
         }
     }

@@ -14,6 +14,7 @@ const { headings = [] } = Astro.props;
 const root: TocNode = createTocTree(headings);
 ---
 
+{/* Styling for `aria-expanded` behavior defined in `global.css` under `u-toc` */}
 <div id="toc-container" class="u-mobile-dotted-border w-full p-2" aria-expanded="false" aria-controls="toc-list">
     <div id="on-this-page">
         <div
@@ -22,15 +23,16 @@ const root: TocNode = createTocTree(headings);
             On This Page <span class="fa-solid fa-caret-down desktop:text-transparent"></span>
         </div>
     </div>
+    {/* Since it's fixed positioning on mobile, it is the scrolling container */}
     <ul
         id="toc-list"
-        class="desktop:max-h-fit desktop:static bg-primary-neutral fixed z-20 max-h-0 w-full overflow-x-hidden overflow-y-scroll rounded-xs text-sm transition-[max-height]"
+        class="desktop:max-h-full desktop:static bg-primary-neutral border-inverted-neutral/25 desktop:overflow-y-hidden fixed z-20 max-h-0 w-full overflow-hidden overflow-y-scroll rounded-xs text-sm transition-[max-height]"
     >
         {
             (function renderTree(nodes: TocNode[]): any {
                 // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
                 return nodes.map((node: TocNode) => (
-                    <li data-slug={node.slug} class="toc-item pb-(--gap-sm) leading-tight">
+                    <li data-slug={node.slug} class="toc-item mb-(--gap-sm) leading-tight">
                         <a
                             href={`#${node.slug}`}
                             class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
