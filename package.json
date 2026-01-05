@@ -14,7 +14,7 @@
         "ci": "node ci.mjs"
     },
     "dependencies": {
-        "@astro-community/astro-embed-youtube": "^0.5.9",
+        "@astro-community/astro-embed-youtube": "^0.5.10",
         "@astrojs/react": "^4.4.2",
         "@astrojs/sitemap": "^3.6.0",
         "@daiji256/rehype-mathml": "^1.2.2",
