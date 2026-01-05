@@ -50,7 +50,7 @@ const asideInitialState = asideActive ? "open" : "closed";
             data-asidestate={asideInitialState}
             class=`desktop:bg-tertiary-shade bg-primary-neutral h-svh overflow-hidden grid`
         >
-            <header id="header-grid-cell" class="bg-secondary-shade col-span-full pt-2">
+            <header id="header-grid-cell" class="bg-secondary-shade col-span-full py-2">
                 <Header />
             </header>
             <div id="toolbar-grid-cell" class="bg-secondary-shade desktop:mb-4 col-span-full brightness-75">
@@ -75,7 +75,7 @@ const asideInitialState = asideActive ? "open" : "closed";
                     <slot name="aside-sidebar" />
                 </SideBar>
             </aside>
-            <footer id="footer-grid-cell" class="bg-secondary-shade desktop:mt-4 col-span-full py-1"><Footer /></footer>
+            <footer id="footer-grid-cell" class="bg-secondary-shade desktop:mt-4 col-span-full py-2"><Footer /></footer>
         </div>
         <script>
             import handleScrollBehavior from "../lib/projects/handleScrollBehavior.ts";
