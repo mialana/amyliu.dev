@@ -37,7 +37,7 @@
         "expressive-code-language-badge": "^1.1.0",
         "hast-util-parse-selector": "^4.0.0",
         "mermaid": "^11.12.2",
-        "motion": "^12.23.26",
+        "motion": "^12.26.1",
         "npm": "^11.7.0",
         "react": "^19.2.3",
         "react-dom": "^19.2.3",
