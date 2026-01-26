@@ -38,7 +38,7 @@
         "hast-util-parse-selector": "^4.0.0",
         "mermaid": "^11.12.2",
         "motion": "^12.27.0",
-        "npm": "^11.7.0",
+        "npm": "^11.8.0",
         "react": "^19.2.3",
         "react-dom": "^19.2.3",
         "react-tagcloud": "^2.3.3",
