@@ -54,7 +54,7 @@
         "tailwind-merge": "^3.5.0",
         "tailwindcss": "^4.2.0",
         "tom-select": "^2.5.1",
-        "typed.js": "^2.1.0"
+        "typed.js": "^3.0.0"
     },
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.19",
