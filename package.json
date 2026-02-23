@@ -24,7 +24,7 @@
         "@mathjax/mathjax-dejavu-font": "^4.1.0",
         "@panzoom/panzoom": "^4.6.1",
         "@radix-ui/react-slot": "^1.2.4",
-        "@tailwindcss/vite": "^4.1.18",
+        "@tailwindcss/vite": "^4.2.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "astro": "^5.17.2",
