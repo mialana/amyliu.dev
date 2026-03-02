@@ -19,7 +19,7 @@
         "@astrojs/sitemap": "^3.7.0",
         "@daiji256/rehype-mathml": "^1.2.2",
         "@expressive-code/plugin-collapsible-sections": "^0.41.7",
-        "@expressive-code/plugin-frames": "^0.41.5",
+        "@expressive-code/plugin-frames": "^0.41.7",
         "@expressive-code/plugin-line-numbers": "^0.41.7",
         "@mathjax/mathjax-dejavu-font": "^4.1.1",
         "@panzoom/panzoom": "^4.6.1",
