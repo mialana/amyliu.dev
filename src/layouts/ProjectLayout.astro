@@ -51,7 +51,11 @@ const { project } = Astro.props;
                     class="block min-w-full"
                 />
             ) : (
-                <Image src={project.data.thumbnail} alt={`Project ${project.data.title} Fallback Thumbnail`} />
+                <Image
+                    src={project.data.thumbnail}
+                    alt={`Project ${project.data.title} Fallback Thumbnail`}
+                    class="mx-auto"
+                />
             )
         }
     </div>

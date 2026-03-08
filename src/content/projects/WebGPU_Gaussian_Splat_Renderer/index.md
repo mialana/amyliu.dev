@@ -20,6 +20,7 @@ tags:
     - compute_shaders
     - algorithm_implementation
     - web
+    - gaussian_splats
 description: A real-time 3DGS Renderer deployed on the web -- render-optimized through spherical harmonics decoding, performance-optimized through compute pipelines.
 code: https://github.com/mialana/GPU-Programming-Project5-WebGPU-Gaussian-Splat-Viewer
 externalLinks:
