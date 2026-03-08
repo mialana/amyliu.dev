@@ -20,13 +20,16 @@ export function createSlug(title: string, staticSlug: string | undefined = undef
     return staticSlug
         ? staticSlug
         : title
-            // remove leading & trailing whitespace
-            .trim()
-            // replace spaces
-            .replace(/\s+/g, "_");
+              // remove leading & trailing whitespace
+              .trim()
+              // replace spaces
+              .replace(/\s+/g, "_");
 }
 
-export async function getProjectIndexData(prefix: string, sortKey: ProjectSortKey = "startDate"): Promise<ProjectIndexData> {
+export async function getProjectIndexData(
+    prefix: string,
+    sortKey: ProjectSortKey = "startDate",
+): Promise<ProjectIndexData> {
     const allProjects = await getCollection("projects");
 
     const pinnedProjects = allProjects
