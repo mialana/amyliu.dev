@@ -13,14 +13,17 @@ let currSortOrder: ProjectSortOrder =
         : Object.keys(projectSortOrderMap)[0];
 ---
 
-<div id={SORT_CONTAINER_CLASSNAME} class="p-(--choices-dropdown-item-padding) text-(length:--choices-font-size-md)">
+<div
+    id={SORT_CONTAINER_CLASSNAME}
+    class="relative p-(--choices-dropdown-item-padding) text-(length:--choices-font-size-md)"
+>
     <span>Sort Order</span>
-    <ul class="float-end inline-block cursor-pointer overflow-clip rounded-(--choices-border-radius-item)">
+    <ul class="u-choices-item-after cursor-pointer overflow-clip rounded-(--choices-border-radius-item)">
         {
             Object.entries(projectSortOrderMap).map(([order, label]) => {
                 return (
                     <li
-                        class={`${SORT_ORDER_ELEMENT_CLASSNAME} aria-selected:bg-violet-accent/50 bg-violet-accent/15 inline-block px-(--a2-spacing-atoms) hover:brightness-125`}
+                        class={`${SORT_ORDER_ELEMENT_CLASSNAME} aria-selected:bg-violet-accent/50 bg-violet-accent/15 inline-block px-(--gap-md) hover:brightness-125`}
                         onclick={`onOrderSelected('${order}')`}
                         data-key={order}
                         aria-selected={order === currSortOrder ? "true" : "false"}

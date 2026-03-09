@@ -13,19 +13,18 @@ export type ProjectSection = { id: string; title: string; projects: ProjectEntry
 /* Parsed data to return from this module */
 export type ProjectIndexData = { sections: ProjectSection[]; tocHeadings: MarkdownHeading[] };
 
-export const projectSortOrderMap = { "startDate": "Start Date", "endDate": "End Date" } as const;
+export const projectSortOrderMap = { startDate: "Start Date", endDate: "End Date" } as const;
 export type ProjectSortOrder = keyof typeof projectSortOrderMap;
-
 
 // Adapted from https://equk.co.uk/2023/02/02/generating-slug-from-title-in-astro/
 export function createSlug(title: string, staticSlug: string | undefined = undefined) {
     return staticSlug
         ? staticSlug
         : title
-            // remove leading & trailing whitespace
-            .trim()
-            // replace spaces
-            .replace(/\s+/g, "_");
+              // remove leading & trailing whitespace
+              .trim()
+              // replace spaces
+              .replace(/\s+/g, "_");
 }
 
 export async function getProjectIndexData(

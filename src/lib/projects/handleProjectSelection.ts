@@ -2,22 +2,20 @@ import Choices from "choices.js";
 
 const PROJECTS_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
 const CHOICES_DROPDOWN_ELEMENT_SELECTOR = ".choices__list--dropdown";
-const CHOICES_EXTRA_ELEMENT_CLASSNAME = "choices-extra-content-container"
-const SORT_KEY_MAP_CONTAINER_CLASSNAME = "projects-sort-key-map-container";
-const SORT_KEY_BUTTON_CLASSNAME = "projects-sort-key-button";
+const CHOICES_EXTRA_ELEMENT_CLASSNAME = "choices-extra-content-container";
 
 type ChoicesEventDetail = { id: number; value: string; label: string; customProperties?: unknown; groupValue?: string };
 type ChoicesEvent = CustomEvent<ChoicesEventDetail>;
 
-function bifilter<T>(
-    f: (x: T, i: number, arr: T[]) => boolean,
-    xs: T[]
-): [T[], T[]] {
-    return xs.reduce<[T[], T[]]>(([Tarr, Farr], x, i, arr) => {
-        if (f(x, i, arr)) Tarr.push(x);
-        else Farr.push(x);
-        return [Tarr, Farr];
-    }, [[], []]);
+function bifilter<T>(f: (x: T, i: number, arr: T[]) => boolean, xs: T[]): [T[], T[]] {
+    return xs.reduce<[T[], T[]]>(
+        ([Tarr, Farr], x, i, arr) => {
+            if (f(x, i, arr)) Tarr.push(x);
+            else Farr.push(x);
+            return [Tarr, Farr];
+        },
+        [[], []],
+    );
 }
 
 const isChoicesEvent = (e: Event): e is ChoicesEvent =>
@@ -94,7 +92,7 @@ export const resetNativeSelect = (el: HTMLSelectElement) => {
     });
 };
 
-const positionDropdown = (choices: Choices) => {
+const positionDropdown = (choices: Choices, mobileMediaQuery: MediaQueryList) => {
     const root = choices.containerOuter?.element;
     if (!root) return;
 
@@ -102,12 +100,15 @@ const positionDropdown = (choices: Choices) => {
     const dropdown = root.querySelector(CHOICES_DROPDOWN_ELEMENT_SELECTOR) as HTMLElement | null;
 
     if (!inner || !dropdown) return;
-    dropdown.style.position = "fixed";
 
-    const rect = root.getBoundingClientRect();
+    const isMobile: boolean = mobileMediaQuery.matches;
 
-    dropdown.style.top = `${rect.bottom}px`;
-    dropdown.style.left = `${rect.left}px`;
+    dropdown.style.position = isMobile ? "fixed" : "absolute";
+
+    const rect = inner.getBoundingClientRect();
+
+    dropdown.style.top = isMobile ? `${rect.bottom}px` : `${rect.height}px`;
+    dropdown.style.left = isMobile ? `${rect.left}px` : "0px";
     dropdown.style.width = `${rect.width}px`;
 };
 
@@ -128,29 +129,33 @@ function appendExtraElementToDropdown(root: HTMLElement) {
 }
 
 // attach on open, remove on close
-const onDropdownOpenScoped = (choices: Choices) => {
+const onDropdownOpenScoped = (choices: Choices, scrollableAncestor: string, mobileMediaQuery: MediaQueryList) => {
     const root = choices.containerOuter?.element;
     if (!root) return;
 
-    appendExtraElementToDropdown(root)
+    appendExtraElementToDropdown(root);
 
     const onPointerDown = (e: Event) => {
         if (e.target instanceof Node && !root.contains(e.target)) {
             choices.hideDropdown();
         }
     };
+    const positionDropdownFn = () => positionDropdown(choices, mobileMediaQuery);
 
+    // set up listeners
     document.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("resize", positionDropdownFn);
 
     const cleanup = () => {
         document.removeEventListener("pointerdown", onPointerDown);
         root.removeEventListener("hideDropdown", cleanup);
+        choices.showDropdown();
     };
 
     root.addEventListener("hideDropdown", cleanup);
 };
 
-export function initializeChoices() {
+export function initializeChoices(scrollableAncestor: string) {
     const srcSelectEl = document.getElementById(PROJECTS_SELECT_ELEMENT_CLASSNAME) as HTMLSelectElement | null;
     if (!(srcSelectEl instanceof HTMLSelectElement)) return;
 
@@ -171,7 +176,7 @@ export function initializeChoices() {
                     const newEl = defaults.choice.call(this, ...args);
 
                     const [, srcChoice] = args;
-                    const srcEl = srcChoice.element
+                    const srcEl = srcChoice.element;
 
                     if (!srcEl) return newEl;
 
@@ -187,6 +192,10 @@ export function initializeChoices() {
         },
     });
 
+    const mobileMediaQuery = window.matchMedia(
+        `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
+    );
+
     // add event listeners for when new choices are added or removed
     ["addItem", "removeItem"].forEach((changeEvent) => {
         srcSelectEl.addEventListener(changeEvent, (e) => {
@@ -197,7 +206,7 @@ export function initializeChoices() {
             }
 
             filterProjectCards(choices);
-            positionDropdown(choices);
+            positionDropdown(choices, mobileMediaQuery);
         });
     });
 
@@ -206,10 +215,7 @@ export function initializeChoices() {
     if (!root) return;
 
     root.addEventListener("showDropdown", () => {
-        onDropdownOpenScoped(choices);
-        positionDropdown(choices);
+        onDropdownOpenScoped(choices, scrollableAncestor, mobileMediaQuery);
+        positionDropdown(choices, mobileMediaQuery);
     });
-
-    // set up resize listener
-    window.addEventListener("resize", () => positionDropdown(choices));
 }

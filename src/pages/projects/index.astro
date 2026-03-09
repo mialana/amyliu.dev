@@ -28,7 +28,7 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 
 <MainLayout title="Projects" layout="NO_ASIDE">
     <div slot="nav-sidebar">
-        <ProjectSelect />
+        <ProjectSelect scrollableAncestor="#nav-sidebar" />
         <TableOfContents headings={tocHeadings} />
     </div>
 
