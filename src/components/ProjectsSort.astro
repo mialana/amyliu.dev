@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import { projectSortOrderMap, type ProjectSortOrder } from "@/lib/projects/query";
 
 const SORT_CONTAINER_CLASSNAME = "projects-sort-container";
@@ -47,5 +49,9 @@ let currSortOrder: ProjectSortOrder =
         });
 
         document.documentElement.dataset.projectsSortOrder = sortOrder;
+
+        const url = new URL(window.location);
+        url.searchParams.set("sortOrder", sortOrder);
+        window.location.href = url.toString();
     }
 </script>

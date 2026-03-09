@@ -149,7 +149,6 @@ const onDropdownOpenScoped = (choices: Choices, scrollableAncestor: string, mobi
     const cleanup = () => {
         document.removeEventListener("pointerdown", onPointerDown);
         root.removeEventListener("hideDropdown", cleanup);
-        choices.showDropdown();
     };
 
     root.addEventListener("hideDropdown", cleanup);
