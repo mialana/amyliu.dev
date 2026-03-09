@@ -15,11 +15,13 @@ jobs:
                   node-version: 24
 
             - name: Run CI (Install build dependencies)
-              run: sh ${{ github.workspace }}/scripts/ci-unix.sh
+              run: npm run ci
 
-            - name: Build & Deploy Worker
-              uses: cloudflare/wrangler-action@v3
-              with:
-                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  preCommands: npm run build
+            - name: Run Build
+              run: npm run build
+
+            - name: Run Deploy
+              run: npm run deploy
+              env:
+                  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
