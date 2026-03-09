@@ -23,7 +23,7 @@ const tagCloudData = uniqueTags.map((tag) => ({ value: tag, count: tagCounts[tag
             <h1 class="px-4 leading-relaxed">Tags Index</h1>
         </span>
         <div class="max-w-5xl py-4">
-            <TagsIndex tagCloudData={tagCloudData} client:load />
+            <TagsIndex tagCloudData={tagCloudData} client:only="react" />
         </div>
     </div>
 </MainLayout>
