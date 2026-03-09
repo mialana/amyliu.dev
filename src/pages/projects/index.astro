@@ -4,13 +4,26 @@ import ProjectCardLayout from "@/layouts/ProjectCardLayout.astro";
 import ProjectSelect from "@/components/ProjectsSelect.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 
-import { getProjectIndexData, type ProjectIndexData, type ProjectSection } from "@/lib/projects/query";
+import {
+    getProjectIndexData,
+    projectSortOrderMap,
+    type ProjectIndexData,
+    type ProjectSection,
+    type ProjectSortOrder,
+} from "@/lib/projects/query";
 
 /* a prefix to add to the id of the project cards to prevent clashing with the slug of the real project page */
 const idPrefix = "card-";
 
+// use URL to set `sortOrder`
+const maybeSortOrder: any | null = Astro.url.searchParams.get("sortOrder");
+let sortOrder: ProjectSortOrder =
+    maybeSortOrder && Object.keys(projectSortOrderMap).includes(maybeSortOrder)
+        ? maybeSortOrder
+        : Object.keys(projectSortOrderMap)[0];
+
 /* separate out data parsing into separate module in lib */
-const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(idPrefix);
+const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(idPrefix, sortOrder);
 ---
 
 <MainLayout title="Projects" layout="NO_ASIDE">
@@ -27,7 +40,7 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
                 if (section.id != "pinned") {
                     projectElementsArr.push(
                         <div class="prose prose-sm basis-full text-center">
-                            {/* basis-ful ensures the header takes up the full flex row */}
+                            {/* basis-full ensures the header takes up the full flex row */}
                             <h1 id={section.id}>{section.title}</h1>
                         </div>,
                     );

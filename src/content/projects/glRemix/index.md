@@ -4,7 +4,7 @@ slug: glRemix
 startDate: 2025-10-20
 endDate: 2025-12-08
 type: team of 4
-category: school
+category: personal
 techStack:
     - C++
     - Direct3D12

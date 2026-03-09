@@ -632,6 +632,9 @@
     --choices-input-margin-bottom: 0px;
     --choices-placeholder-opacity: 1;
     --choices-z-index: 30;
+    --choices-font-size-lg: var(--a2-font-size);
+    --choices-font-size-md: calc(var(--a2-font-size) * 0.875);
+    --choices-font-size-sm: calc(var(--a2-font-size) * 0.75);
     width: 100%;
 
     & > :where(.choices__inner) {

@@ -13,42 +13,44 @@ export type ProjectSection = { id: string; title: string; projects: ProjectEntry
 /* Parsed data to return from this module */
 export type ProjectIndexData = { sections: ProjectSection[]; tocHeadings: MarkdownHeading[] };
 
-export type ProjectSortKey = "startDate" | "endDate";
+export const projectSortOrderMap = { "startDate": "Start Date", "endDate": "End Date" } as const;
+export type ProjectSortOrder = keyof typeof projectSortOrderMap;
+
 
 // Adapted from https://equk.co.uk/2023/02/02/generating-slug-from-title-in-astro/
 export function createSlug(title: string, staticSlug: string | undefined = undefined) {
     return staticSlug
         ? staticSlug
         : title
-              // remove leading & trailing whitespace
-              .trim()
-              // replace spaces
-              .replace(/\s+/g, "_");
+            // remove leading & trailing whitespace
+            .trim()
+            // replace spaces
+            .replace(/\s+/g, "_");
 }
 
 export async function getProjectIndexData(
     prefix: string,
-    sortKey: ProjectSortKey = "startDate",
+    sortOrder: ProjectSortOrder = "startDate",
 ): Promise<ProjectIndexData> {
     const allProjects = await getCollection("projects");
 
     const pinnedProjects = allProjects
         .filter((p) => p.data.pinned === true)
-        .sort((a, b) => b.data[sortKey].valueOf() - a.data[sortKey].valueOf());
+        .sort((a, b) => b.data[sortOrder].valueOf() - a.data[sortOrder].valueOf());
 
     const nonPinnedProjects = allProjects
         .filter((p) => p.data.pinned !== true)
-        .sort((a, b) => b.data[sortKey].valueOf() - a.data[sortKey].valueOf());
+        .sort((a, b) => b.data[sortOrder].valueOf() - a.data[sortOrder].valueOf());
 
     /* create a map of years to project entries within that year */
-    const projectsBySortKey = new Map<number, ProjectEntry[]>();
+    const projectsBySortOrder = new Map<number, ProjectEntry[]>();
 
     for (const project of nonPinnedProjects) {
-        const year = project.data[sortKey].getFullYear();
-        if (!projectsBySortKey.has(year)) {
-            projectsBySortKey.set(year, []);
+        const year = project.data[sortOrder].getFullYear();
+        if (!projectsBySortOrder.has(year)) {
+            projectsBySortOrder.set(year, []);
         }
-        projectsBySortKey.get(year)!.push(project);
+        projectsBySortOrder.get(year)!.push(project);
     }
 
     const sections: ProjectSection[] = [];
@@ -59,7 +61,7 @@ export async function getProjectIndexData(
     }
 
     /* push the other sections one by one */
-    [...projectsBySortKey.entries()]
+    [...projectsBySortOrder.entries()]
         .sort(([a], [b]) => b - a)
         .forEach(([year, projects]) => {
             sections.push({ id: `year-${year}`, title: String(year), projects });
