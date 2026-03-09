@@ -10,12 +10,16 @@ jobs:
         timeout-minutes: 60
         steps:
             - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+
+            - name: Run CI (Install build dependencies)
+              run: sh ${{ github.workspace }}/scripts/ci-unix.sh
+
             - name: Build & Deploy Worker
               uses: cloudflare/wrangler-action@v3
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  preCommands: |
-                      set -e
-                      curl -fsSL https://d2lang.com/install.sh | sh -s --
-                      d2 --version
+                  preCommands: npm run build
