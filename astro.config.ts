@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
 import type { RemarkPlugin } from "@astrojs/markdown-remark";
 
 import sitemap from "@astrojs/sitemap";
@@ -57,6 +58,7 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
+    adapter: cloudflare({ imageService: "compile" }),
     server: { host: "0.0.0.0" },
     site: "https://amyliu.dev/",
     integrations: [
@@ -65,7 +67,7 @@ export default defineConfig({
         react(),
         d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
-    vite: { plugins: [tailwindcss()] },
+    vite: { plugins: [tailwindcss()], build: { minify: false } },
     devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [

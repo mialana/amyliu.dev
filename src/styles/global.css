@@ -99,6 +99,7 @@
     --font-size-2xs: var(--text-2xs);
     --font-size-3xs: var(--text-3xs); /* extends text-* */
 
+    --gap-2xs: calc(var(--spacing) * 0.5);
     --gap-xs: var(--spacing);
     --gap-sm: calc(var(--spacing) * 2);
     --gap-md: calc(var(--spacing) * 4);
@@ -357,7 +358,9 @@
 }
 
 @utility p-xdouble-y-* {
+    padding-inline: calc(--value([*]) * 2);
     padding-inline: calc(--value(number) * 2px);
+    padding-block: calc(--value([*]) * 1);
     padding-block: calc(--value(number) * 1px); /* Use `calc(... * _px)` to assign units */
 }
 
@@ -615,10 +618,11 @@
 }
 
 @utility u-choices {
-    --a2-choices-spacing: calc(var(--spacing) * 0.5);
+    --a2-choices-spacing: var(--gap-2xs);
+    --a2-choices-item-padding-inline: var(--gap-sm);
     --choices-multiple-item-padding: var(--a2-choices-spacing) var(--gap-sm);
     --choices-multiple-item-margin: var(--a2-choices-spacing);
-    --choices-dropdown-item-padding: var(--a2-choices-spacing);
+    --choices-dropdown-item-padding: var(--a2-choices-spacing) var(--a2-choices-item-padding-inline);
     --choices-inner-padding: var(--a2-choices-spacing) var(--gap-sm);
     --choices-border-radius-item: var(--radius-sm);
     --choices-border-radius: var(--radius-xs);
@@ -632,6 +636,9 @@
     --choices-input-margin-bottom: 0px;
     --choices-placeholder-opacity: 1;
     --choices-z-index: 30;
+    --choices-font-size-lg: var(--a2-font-size);
+    --choices-font-size-md: calc(var(--a2-font-size) * 0.875);
+    --choices-font-size-sm: calc(var(--a2-font-size) * 0.75);
     width: 100%;
 
     & > :where(.choices__inner) {
@@ -656,7 +663,21 @@
         & .choices__heading {
             padding: var(--a2-choices-spacing);
         }
+        & .choices__item::after {
+            content: attr(data-select-text);
+            @apply u-choices-item-after;
+            font-style: italic;
+        }
     }
+}
+
+@utility u-choices-item-after {
+    font-size: var(--choices-font-size-sm);
+    font-weight: 300;
+    position: absolute;
+    right: var(--a2-choices-item-padding-inline);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 @utility u-coming-soon {

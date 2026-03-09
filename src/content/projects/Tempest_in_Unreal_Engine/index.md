@@ -4,7 +4,7 @@ slug: Tempest_in_Unreal_Engine
 startDate: 2025-10-03
 endDate: 2025-11-05
 type: team of 2
-category: school
+category: personal
 techStack:
     - Unreal_Engine
     - C++
