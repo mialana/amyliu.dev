@@ -11,6 +11,9 @@ interface Props {
 }
 
 const { project, idPrefix } = Astro.props;
+
+console.log("called");
+console.log(project.data.thumbnail);
 ---
 
 <li
@@ -27,7 +30,8 @@ const { project, idPrefix } = Astro.props;
                 class="bg-inverted-primary"
                 src={project.data.thumbnail}
                 alt=`Project ${project.data.title} Thumbnail`
-                width={600}
+                width={400}
+                priority
             />
             {
                 /* "pinned" banner */
