@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 
 import MainLayout from "@/layouts/MainLayout.astro";
 import HorizontalProjectCardLayout from "@/layouts/HorizontalProjectCardLayout.astro";
+import TagHead from "@/components/TagHead.astro";
 
 export async function getStaticPaths() {
     const projects = await getCollection("projects");
@@ -28,6 +29,7 @@ const prefix = `${tag}-tag-`;
 ---
 
 <MainLayout title={tagTitle} layout="NONE">
+    <TagHead slot="head" tag={tag} projects={projects} />
     <div id=`${prefix}container`>
         <div class="prose bg-inverted-neutral/25 sticky top-0 z-30 mb-4 w-fit rounded-sm px-2">
             <h1>{tagTitle}</h1>

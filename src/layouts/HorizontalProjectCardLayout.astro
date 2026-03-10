@@ -9,16 +9,14 @@ interface Props {
 }
 
 const { project, idPrefix } = Astro.props;
-
-const allTags = [...project.data.tags, ...project.data.techStack];
 ---
 
 <li id={`${idPrefix}${project.data.slug}`} class="relative">
     <article
-        class="bg-primary-neutral u-grid-background flex h-[25vh] items-center-safe justify-between border p-8 outline -outline-offset-8"
+        class="bg-primary-neutral u-grid-background flex h-[32vh] items-center-safe justify-between border p-8 outline -outline-offset-8"
     >
         <div
-            class="prose desktop:text-inherit desktop:place-self-start desktop:prose-base desktop:text-left desktop:h-full flex flex-col overflow-y-scroll text-center text-[0.5em]"
+            class="prose desktop:text-inherit desktop:place-self-start desktop:prose-base desktop:text-left desktop:h-full flex flex-col text-center text-[0.5em]"
         >
             <h1>
                 {project.data.title}
@@ -37,7 +35,7 @@ const allTags = [...project.data.tags, ...project.data.techStack];
             <p class="desktop:block hidden w-5/6" style="margin-block: 0.5em; line-height: var(--a2-line-height);">
                 {project.data.description}
             </p>
-            <div class="desktop:text-xs desktop:mt-auto gap-y-1">
+            <div class="desktop:text-xs desktop:mt-auto gap-y-1 overflow-visible overflow-y-scroll">
                 {
                     project.data.tags.map((t) => (
                         <a href={`/tags/${t}`} class="text-violet-accent relative z-20 mx-1">

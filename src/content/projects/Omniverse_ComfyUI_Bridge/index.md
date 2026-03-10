@@ -19,10 +19,10 @@ tags:
     - artificial_intelligence
 description: A plugin for the NVIDIA Omniverse platform to support a ComfyUI workflow directly within the viewport.
 code: https://github.com/livingbio/Omniverse-ComfyUI-bridge-template
+thumbnail: ./assets/thumbnail.webp
+pinned: true
 externalLinks:
     - https://developer.nvidia.com/blog/accelerating-video-production-and-customization-with-gliacloud-and-nvidia-omniverse-libraries/
-pinned: true
-thumbnail: ./assets/thumbnail.png
 ---
 
 ## Summary

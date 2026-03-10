@@ -58,6 +58,7 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
+    image: { layout: "constrained", responsiveStyles: true },
     adapter: cloudflare({ imageService: "compile" }),
     server: { host: "0.0.0.0" },
     site: "https://amyliu.dev/",
@@ -67,7 +68,7 @@ export default defineConfig({
         react(),
         d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
-    vite: { plugins: [tailwindcss()], build: { minify: false } },
+    vite: { plugins: [tailwindcss()] },
     devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [

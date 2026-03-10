@@ -18,6 +18,8 @@ const tagCloudData = uniqueTags.map((tag) => ({ value: tag, count: tagCounts[tag
 ---
 
 <MainLayout title="Tags Index" layout="NONE">
+    <meta slot="head" name="description" content="This is the tags index page of the site." />
+
     <div class="size-full p-4 text-center">
         <span class="prose">
             <h1 class="px-4 leading-relaxed">Tags Index</h1>

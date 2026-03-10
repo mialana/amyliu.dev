@@ -29,6 +29,8 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 ---
 
 <MainLayout title="Projects" layout="NO_ASIDE">
+    <meta slot="head" name="description" content="This is the projects index page of the site." />
+
     <div slot="nav-sidebar">
         <ProjectSelect scrollableAncestor="#nav-sidebar" />
         <TableOfContents headings={tocHeadings} />
