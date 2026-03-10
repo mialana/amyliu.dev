@@ -25,10 +25,9 @@ const { project, idPrefix } = Astro.props;
         >
             <Image
                 class="bg-inverted-primary"
-                src={project.data.thumbnail}
+                src={project.data.thumbnail_384w}
                 alt=`Project ${project.data.title} Thumbnail`
-                width={600}
-                layout="full-width"
+                width={project.data.thumbnail_384w.width}
             />
             {
                 /* "pinned" banner */

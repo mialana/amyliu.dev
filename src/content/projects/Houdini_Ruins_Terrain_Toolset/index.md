@@ -19,6 +19,7 @@ description: A toolset for creating procedural ruined terrains in SideFX Houdini
 code: https://github.com/mialana/houdini-ruins-terrain-toolset
 demoVideoLink: https://youtu.be/pT0rpPrVpLM
 thumbnail: ./assets/thumbnail.png
+thumbnail_384w: ./assets/thumbnail_384w.png
 ---
 
 ## Summary

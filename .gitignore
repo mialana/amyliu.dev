@@ -29,3 +29,4 @@ pnpm-debug.log*
 # Obsidian vault config files
 .obsidian
 
+.venv/

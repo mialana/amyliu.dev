@@ -20,6 +20,7 @@ tags:
 description: A study on human-computer interaction through a 3D-printed robot "companion" for grade school children.
 demoVideoLink: https://youtu.be/Uwcz0tO4J1A
 thumbnail: ./assets/thumbnail.png
+thumbnail_384w: ./assets/thumbnail_384w.png
 externalLinks:
     - https://dl.acm.org/doi/abs/10.1145/3610978.3640680
 ---

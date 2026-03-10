@@ -9,6 +9,7 @@ const projectsCollection = defineCollection({
             startDate: z.date(),
             endDate: z.date(),
             thumbnail: image(),
+            thumbnail_384w: image(),
             type: z.string(),
             category: z.string(),
             description: z.string(),

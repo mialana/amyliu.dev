@@ -21,6 +21,7 @@ tags:
 description: A simple C++ program to emulate the 3D entity interactivity and world exploration themes of Minecraft.
 # code: https://github.com/mialana/mini-minecraft
 thumbnail: ./assets/thumbnail.png
+thumbnail_384w: ./assets/thumbnail_384w.png
 ---
 
 ## Summary

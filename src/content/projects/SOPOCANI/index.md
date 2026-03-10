@@ -21,6 +21,7 @@ description: An important collaboration between digitalization and art history -
 externalLinks:
     - https://www.academia.edu/89482337/The_Fictive_Mosaics_of_Medieval_Serbia
 thumbnail: ./assets/thumbnail.png
+thumbnail_384w: ./assets/thumbnail_384w.png
 ---
 
 ## Summary

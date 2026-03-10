@@ -58,7 +58,6 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-    image: { layout: "constrained", responsiveStyles: true },
     adapter: cloudflare({ imageService: "compile" }),
     server: { host: "0.0.0.0" },
     site: "https://amyliu.dev/",

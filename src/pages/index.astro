@@ -16,8 +16,9 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
             <Image
                 src={Headshot2025_2}
                 alt="Amy Liu Headshot 2 from Barcelona, Spain"
-                width={800}
                 class="rounded-full"
+                widths={[320, 400, 480, 512]}
+                sizes={`(max-width: 320px) 320px, (max-width: 400px) 400px, (max-width: 480px) 480px, 512px`}
             />
         </div>
 

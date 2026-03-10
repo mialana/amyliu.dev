@@ -22,5 +22,6 @@ tags:
 description: A simulation of "Boids" in CUDA C++. Boids are a concept in artificial life algorithms that aim to emulate the collective flocking behavior of real-life birds.
 code: https://github.com/mialana/GPU-Programming-Project1-CUDA-Flocking
 thumbnail: ./assets/thumbnail.webp
+thumbnail_384w: ./assets/thumbnail_384w.webp
 writeup-incomplete: true
 ---

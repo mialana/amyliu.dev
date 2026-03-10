@@ -19,6 +19,7 @@ description: A collection of surface and post-process shaders to demonstrate GLS
 # code: https://github.com/mialana/glsl-simple-shaders
 demoVideoLink: https://youtu.be/YqdRmfLVsiI
 thumbnail: ./assets/thumbnail.png
+thumbnail_384w: ./assets/thumbnail_384w.png
 ---
 
 ## Summary

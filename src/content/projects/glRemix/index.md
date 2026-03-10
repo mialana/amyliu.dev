@@ -26,5 +26,6 @@ description: A platform to completely remaster decades-old, 32-bit, fixed-pipeli
 pinned: true
 code: https://github.com/glRemix/glRemix/
 thumbnail: ./assets/thumbnail.webp
+thumbnail_384w: ./assets/thumbnail_384w.webp
 writeup-incomplete: true
 ---

@@ -55,7 +55,8 @@ const { project } = Astro.props;
                     src={project.data.thumbnail}
                     alt={`Project ${project.data.title} Fallback Thumbnail`}
                     class="mx-auto"
-                    width={800}
+                    widths={[320, 400, 480, 640, 768]}
+                    sizes={`(max-width: 320px) 320px, (max-width: 400px) 400px, (max-width: 480px) 480px, (max-width: 640px) 640px, 768px`}
                 />
             )
         }
