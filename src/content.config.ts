@@ -1,15 +1,16 @@
-import { z, defineCollection, type ImageFunction } from "astro:content";
+import { defineCollection, type ImageFunction } from "astro:content";
 import { glob } from "astro/loaders";
+import { z } from "zod";
 
 const projectsCollection = defineCollection({
     loader: glob({ pattern: ["**/*.md*"], base: "./src/content/projects" }),
     schema: ({ image }: { image: ImageFunction }) =>
         z.object({
             title: z.string(),
-            startDate: z.date(),
-            endDate: z.date(),
+            startDate: z.coerce.date(),
+            endDate: z.coerce.date(),
             thumbnail: image(),
-            thumbnail_384w: image(),
+            thumbnail_540w: image(),
             type: z.string(),
             category: z.string(),
             description: z.string(),

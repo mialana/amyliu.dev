@@ -20,7 +20,7 @@ demoVideoLink: https://www.youtube.com/watch?v=u4kn-k1czP4
 code: https://github.com/TempestUE5/Tempest
 pinned: true
 thumbnail: ./assets/thumbnail.webp
-thumbnail_384w: ./assets/thumbnail_384w.webp
+thumbnail_540w: ./assets/thumbnail_540w.webp
 writeup-incomplete: true
 ---
 

@@ -4,7 +4,7 @@ slug: Mocap_Gsplat_Blender_Addon
 startDate: 2025-09-01
 endDate: 2026-02-28
 thumbnail: ./assets/thumbnail.webp
-thumbnail_384w: ./assets/thumbnail_384w.webp
+thumbnail_540w: ./assets/thumbnail_540w.webp
 type: solo
 category: personal
 techStack:

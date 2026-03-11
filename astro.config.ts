@@ -21,7 +21,8 @@ import rehypeMiscellaneous from "./src/lib/plugins/rehype-miscellaneous"; /* cus
 import astroExpressiveCode, { type AstroExpressiveCodeOptions } from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import { pluginLanguageBadge } from "expressive-code-language-badge";
+// 3-10-2026: Peer dependency conflict with Starlight and Astro 6.0
+// import { pluginLanguageBadge } from "expressive-code-language-badge";
 import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions"; /* custom */
 
 import react from "@astrojs/react";
@@ -40,7 +41,7 @@ const expressiveCodeThemeSelector = (theme: ExpressiveCodeTheme) => {
 };
 
 const expressiveCodeConfig: AstroExpressiveCodeOptions = {
-    plugins: [pluginLanguageBadge(), pluginCodeCaptions(), pluginLineNumbers(), pluginCollapsibleSections()],
+    plugins: [/* pluginLanguageBadge(), */ pluginCodeCaptions(), pluginLineNumbers(), pluginCollapsibleSections()],
     shiki: { langAlias: { usd: "python", usda: "python", math: "ini" } } /* math is included as a fallback */,
     themes: ["andromeeda", "slack-ochin"],
     themeCssRoot: ":root" /* already the default, but just in case */,
@@ -58,7 +59,7 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-    adapter: cloudflare({ imageService: "compile" }),
+    adapter: cloudflare({ imageService: "compile", experimental: { headersAndRedirectsDevModeSupport: true } }),
     server: { host: "0.0.0.0" },
     site: "https://amyliu.dev/",
     integrations: [

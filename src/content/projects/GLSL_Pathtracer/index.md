@@ -20,7 +20,7 @@ tags:
 description: A GLSL-based application to showcase different rendering methods associated with the Monte Carlo Light Transport algorithm.
 # code: https://github.com/mialana/glsl-pathtracer.git
 thumbnail: ./assets/thumbnail.png
-thumbnail_384w: ./assets/thumbnail_384w.png
+thumbnail_540w: ./assets/thumbnail_540w.png
 ---
 
 ## Summary

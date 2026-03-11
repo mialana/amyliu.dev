@@ -25,7 +25,7 @@ externalLinks:
     - https://docs.google.com/presentation/d/10Z3G4-0b2C9TGzJGmr-ySdmvx1fgl2Ni/edit?usp=drive_link&ouid=105323988877358545567&rtpof=true&sd=true
 demoVideoLink: https://youtu.be/HQG477SzD8U
 thumbnail: ./assets/thumbnail.png
-thumbnail_384w: ./assets/thumbnail_384w.png
+thumbnail_540w: ./assets/thumbnail_540w.png
 ---
 
 ## Summary

@@ -21,7 +21,7 @@ description: A mesh-editor GUI that performs Catmull-Clark subdivision on input 
 # code: https://github.com/mialana/mini-maya
 demoVideoLink: https://youtu.be/xrlr0QXQ3Ts
 thumbnail: ./assets/thumbnail.png
-thumbnail_384w: ./assets/thumbnail_384w.png
+thumbnail_540w: ./assets/thumbnail_540w.png
 ---
 
 ## Summary

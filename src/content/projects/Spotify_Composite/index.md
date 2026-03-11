@@ -18,7 +18,7 @@ tags:
 description: Easily blend Spotify playlists through the Spotify Developer's API using this React-based web application.
 code: https://github.com/mialana/spotify-composite
 thumbnail: ./assets/thumbnail.png
-thumbnail_384w: ./assets/thumbnail_384w.png
+thumbnail_540w: ./assets/thumbnail_540w.png
 ---
 
 ## Summary

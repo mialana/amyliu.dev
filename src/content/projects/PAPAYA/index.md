@@ -28,7 +28,7 @@ externalLinks:
     - https://youtu.be/760CSeimXMI
     - https://asset-browser-zeta.vercel.app/
 thumbnail: ./assets/thumbnail.png
-thumbnail_384w: ./assets/thumbnail_384w.png
+thumbnail_540w: ./assets/thumbnail_540w.png
 ---
 
 ## Summary

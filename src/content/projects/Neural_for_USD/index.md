@@ -27,7 +27,7 @@ description: A comprehensive interface to solve data collection for Neural Radia
 code: https://github.com/mialana/neural-for-usd
 pinned: true
 thumbnail: ./assets/thumbnail.webp
-thumbnail_384w: ./assets/thumbnail_384w.webp
+thumbnail_540w: ./assets/thumbnail_540w.webp
 ---
 
 ## Summary

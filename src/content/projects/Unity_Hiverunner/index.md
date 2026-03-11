@@ -26,6 +26,6 @@ description: In a voxel-based world, play an ant who must balance risk vs. rewar
 demoVideoLink: https://youtu.be/UpFucJPhbws
 code: https://github.com/mialana/unity-hiverunner
 thumbnail: ./assets/thumbnail.png
-thumbnail_384w: ./assets/thumbnail_384w.png
+thumbnail_540w: ./assets/thumbnail_540w.png
 writeup-incomplete: true
 ---

@@ -23,11 +23,11 @@ const { project, idPrefix } = Astro.props;
         <article
             class="bg-primary-neutral hover:bg-tertiary-shade group relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2"
         >
-            <Image
-                class="bg-inverted-primary"
-                src={project.data.thumbnail_384w}
-                alt=`Project ${project.data.title} Thumbnail`
-                width={project.data.thumbnail_384w.width}
+            <img
+                class="bg-inverted-primary saturate-125"
+                src={project.data.thumbnail_540w.src}
+                alt=`Project ${project.data.title} Thumbnail 540w x AUTO`
+                width={project.data.thumbnail_540w.width}
             />
             {
                 /* "pinned" banner */
