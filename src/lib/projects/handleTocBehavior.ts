@@ -41,12 +41,15 @@ const onTocOpenScoped = (tocContainerElement: HTMLElement, tocListElement: HTMLE
     tocContainerElement.addEventListener("tocClose", cleanup);
 };
 
-function positionTocElement(tocElement: HTMLElement, onThisPageElement: HTMLElement) {
-    const rect = onThisPageElement.getBoundingClientRect();
-
-    tocElement.style.top = `${rect.bottom}px`;
-    tocElement.style.left = `${rect.left}px`;
-    tocElement.style.width = `${rect.width}px`;
+function positionTocElement(tocElement: HTMLElement, onThisPageElement: HTMLElement, mobileMediaQuery: MediaQueryList) {
+    if (mobileMediaQuery.matches) {
+        const rect = onThisPageElement.getBoundingClientRect();
+        tocElement.style.top = `${rect.bottom}px`;
+        tocElement.style.left = `${rect.left}px`;
+        tocElement.style.width = `${rect.width}px`;
+    } else {
+        tocElement.removeAttribute("style");
+    }
 }
 
 export function initializeOnThisPageBehavior() {
@@ -62,7 +65,7 @@ export function initializeOnThisPageBehavior() {
     function setTocState(expanded: boolean) {
         if (!onThisPageElement || !tocListElement || !tocContainerElement) return;
 
-        positionTocElement(tocListElement, onThisPageElement);
+        positionTocElement(tocListElement, onThisPageElement, mobileMediaQuery);
 
         tocContainerElement.setAttribute("aria-expanded", String(expanded)); // converts from boolean to string
 

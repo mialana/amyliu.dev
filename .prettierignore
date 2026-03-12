@@ -9,5 +9,5 @@ node_modules/
 .astro/
 .wrangler/
 
-public/vendor/
 public/d2/
+src/vendor/

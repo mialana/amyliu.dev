@@ -30,7 +30,7 @@ const root: TocNode = createTocTree(headings);
     {/* Since it's fixed positioning on mobile, it is the scrolling container */}
     <ul
         id="toc-list"
-        class="desktop:max-h-full desktop:static bg-primary-neutral border-inverted-neutral/25 desktop:overflow-y-hidden fixed z-20 max-h-0 w-full overflow-hidden overflow-y-scroll rounded-xs text-sm transition-[max-height]"
+        class="desktop:max-h-full desktop:static bg-primary-neutral border-inverted-neutral/25 desktop:overflow-y-hidden desktop:w-max fixed z-20 max-h-0 w-full overflow-hidden overflow-y-scroll rounded-xs text-sm transition-[max-height]"
     >
         {
             (function renderTree(nodes: TocNode[]): any {
