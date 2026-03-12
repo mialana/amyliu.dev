@@ -28,6 +28,9 @@ const { project, idPrefix } = Astro.props;
                 src={project.data.thumbnail_540w.src}
                 alt=`Project ${project.data.title} Thumbnail 540w x AUTO`
                 width={project.data.thumbnail_540w.width}
+                height={project.data.thumbnail_540w.height}
+                loading="lazy"
+                decoding="async"
             />
             {
                 /* "pinned" banner */

@@ -1,5 +1,8 @@
 ---
 import "@/styles/global.css";
+
+import { Font } from "astro:assets";
+
 import Header from "@/components/Header.astro";
 import SideBar from "@/components/SideBar.astro";
 import Footer from "@/components/Footer.astro";
@@ -35,6 +38,9 @@ const asideInitialState = asideActive ? "open" : "closed";
         <meta name="generator" content={Astro.generator} />
         {/* placeholder that is updated in `handleTheme` script */}
         <meta name="theme-color" content="#000000" />
+        <Font cssVariable="--fontvar-fredericka-the-great" preload />
+        <Font cssVariable="--fontvar-jetbrains-mono" />
+        <Font cssVariable="--fontvar-atkinson-hyperlegible-next" preload />
         <script is:inline src="https://kit.fontawesome.com/4c79a437cb.js" crossorigin="anonymous"></script>
         <title>{title} · Amy Liu</title>
         <slot name="head" />

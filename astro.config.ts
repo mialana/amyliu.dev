@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import cloudflare from "@astrojs/cloudflare";
 import type { RemarkPlugin } from "@astrojs/markdown-remark";
 
@@ -21,8 +21,7 @@ import rehypeMiscellaneous from "./src/lib/plugins/rehype-miscellaneous"; /* cus
 import astroExpressiveCode, { type AstroExpressiveCodeOptions } from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-// 3-10-2026: Peer dependency conflict with Starlight and Astro 6.0
-// import { pluginLanguageBadge } from "expressive-code-language-badge";
+import { pluginLanguageBadge } from "expressive-code-language-badge";
 import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions"; /* custom */
 
 import react from "@astrojs/react";
@@ -41,7 +40,7 @@ const expressiveCodeThemeSelector = (theme: ExpressiveCodeTheme) => {
 };
 
 const expressiveCodeConfig: AstroExpressiveCodeOptions = {
-    plugins: [/* pluginLanguageBadge(), */ pluginCodeCaptions(), pluginLineNumbers(), pluginCollapsibleSections()],
+    plugins: [pluginLanguageBadge(), pluginCodeCaptions(), pluginLineNumbers(), pluginCollapsibleSections()],
     shiki: { langAlias: { usd: "python", usda: "python", math: "ini" } } /* math is included as a fallback */,
     themes: ["andromeeda", "slack-ochin"],
     themeCssRoot: ":root" /* already the default, but just in case */,
@@ -68,7 +67,7 @@ export default defineConfig({
         react(),
         d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
-    vite: { plugins: [tailwindcss()] },
+    vite: { plugins: [tailwindcss()], build: { cssCodeSplit: true } },
     devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [
@@ -89,4 +88,29 @@ export default defineConfig({
             rehypeSvg,
         ],
     },
+    fonts: [
+        {
+            name: "Fredericka the Great",
+            provider: fontProviders.google(),
+            cssVariable: "--fontvar-fredericka-the-great",
+            weights: [400],
+            styles: ["normal"],
+        },
+
+        {
+            name: "JetBrains Mono",
+            provider: fontProviders.google(),
+            cssVariable: "--fontvar-jetbrains-mono",
+            weights: ["100 800"],
+            styles: ["normal", "italic"],
+        },
+
+        {
+            name: "Atkinson Hyperlegible Next",
+            provider: fontProviders.google(),
+            cssVariable: "--fontvar-atkinson-hyperlegible-next",
+            weights: ["200 800"],
+            styles: ["normal", "italic"],
+        },
+    ],
 });

@@ -2,10 +2,6 @@
 /* TODO: combine all 'vendor' layers into one */
 @layer theme, base, resets, globals, components, defaults, utilities, choices, ecLayer, math, overrides;
 
-@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap");
-
 @import url("/vendor/temml/Temml-NotoSans.css") layer(math);
 @import url("/vendor/choices.js/choices.css") layer(choices);
 
@@ -14,9 +10,9 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-    --font-words: "Atkinson Hyperlegible Next", sans-serif; /* default font for app, `words` to avoid clash */
-    --font-signature: "Fredericka the Great", serif;
-    --font-code: "JetBrains Mono", monospace;
+    --font-words: var(--fontvar-atkinson-hyperlegible-next); /* default font for app, `words` to avoid clash */
+    --font-signature: var(--fontvar-fredericka-the-great), serif;
+    --font-code: var(--fontvar-jetbrains-mono), monospace;
     --font-github-code: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
 
     /* light color palette */
