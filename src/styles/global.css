@@ -2,18 +2,20 @@
 /* TODO: combine all 'vendor' layers into one */
 @layer theme, base, resets, globals, components, defaults, utilities, choices, ecLayer, math, overrides;
 
-@import url("/vendor/temml/Temml-NotoSans.css") layer(math);
-@import url("/vendor/choices.js/choices.css") layer(choices);
+@import url("../vendor/temml/Temml-NotoSans.css") layer(math);
+@import url("../vendor/choices.js/choices.css") layer(choices);
 
 @import "tailwindcss";
 @import "rehype-callouts/theme/vitepress" layer(utilities);
 @plugin "@tailwindcss/typography";
 
-@theme {
+@theme inline {
     --font-words: var(--fontvar-atkinson-hyperlegible-next); /* default font for app, `words` to avoid clash */
-    --font-signature: var(--fontvar-fredericka-the-great), serif;
-    --font-code: var(--fontvar-jetbrains-mono), monospace;
+    --font-signature: var(--fontvar-fredericka-the-great);
+    --font-code: var(--fontvar-jetbrains-mono);
     --font-github-code: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+    --font-math: var(--fontvar-noto-sans-math);
 
     /* light color palette */
     --color-light-primary-shade: #eae3da;
@@ -299,6 +301,10 @@
     :where(q) {
         font-style: italic;
     }
+
+    :where(math) {
+        font-family: var(--font-math);
+    }
 }
 
 @layer utilities {
@@ -404,15 +410,26 @@
     font-size: inherit;
 }
 
-@utility u-fa-icon {
+@utility u-icon {
     :where(&) {
-        color: var(--color-dark-important-text);
-        font-size: 1em;
+        --icon-size: 1em; /* variable that can be overriden */
+
+        &:is(svg),
+        & :is(svg, i, span) {
+            color: currentColor;
+            width: var(--icon-size);
+            height: var(--icon-size);
+        }
 
         &:hover {
             scale: calc(100% + var(--a2-transform-scale-adjust));
         }
     }
+}
+
+@utility u-icon-holder {
+    display: flex;
+    align-items: safe center;
 }
 
 @utility u-inline-code {
@@ -602,6 +619,12 @@
             rotate: 270deg;
         }
 
+        @media (max-width: theme(--breakpoint-desktop)) {
+            &:active {
+                rotate: 270deg;
+            }
+        }
+
         &:active {
             scale: calc(100% - var(--a2-transform-scale-adjust));
         }
@@ -723,7 +746,7 @@
 
 @utility u-toc {
     &[aria-expanded="true"] {
-        & > #on-this-page span {
+        & > #on-this-page .u-icon {
             rotate: 180deg;
         }
         & > #toc-list {
@@ -776,6 +799,10 @@
 
     #toc-container {
         @apply u-toc;
+    }
+
+    :has(> .u-icon) {
+        @apply u-icon-holder;
     }
 
     /* override the default .prose class defined in "utilities" layer */

@@ -24,7 +24,7 @@ const asideInitialState = asideActive ? "open" : "closed";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="group/root">
     <head>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
@@ -39,9 +39,9 @@ const asideInitialState = asideActive ? "open" : "closed";
         {/* placeholder that is updated in `handleTheme` script */}
         <meta name="theme-color" content="#000000" />
         <Font cssVariable="--fontvar-fredericka-the-great" preload />
-        <Font cssVariable="--fontvar-jetbrains-mono" />
         <Font cssVariable="--fontvar-atkinson-hyperlegible-next" preload />
-        <script is:inline src="https://kit.fontawesome.com/4c79a437cb.js" crossorigin="anonymous"></script>
+        <Font cssVariable="--fontvar-jetbrains-mono" />
+        <Font cssVariable="--fontvar-noto-sans-math" />
         <title>{title} · Amy Liu</title>
         <slot name="head" />
         {/* put in head to minimize latency */}

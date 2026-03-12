@@ -1,0 +1,13 @@
+# ignore auto-generated files
+worker-configuration.d.ts
+package-lock.json
+
+# ignore vendor resource folders
+dist/
+node_modules/
+.venv/
+.astro/
+.wrangler/
+
+public/vendor/
+public/d2/

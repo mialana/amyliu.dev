@@ -5,7 +5,8 @@ The NotoMath font has been obtained from
 https://github.com/notofonts/math
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap");
+/* NOTE: Commented out to follow better practices for Astro */
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap"); */
 
 math {
     font-style: normal;
@@ -25,9 +26,10 @@ math * {
     border-color: currentColor;
 }
 
-math {
+/* NOTE: Commented out to follow better practices for Astro */
+/* math {
     font-family: "NotoSans Math", math;
-}
+} */
 
 /* display: block is necessary in Firefox and Safari.
  * Not in Chromium, which recognizes display: "block math" written inline. */

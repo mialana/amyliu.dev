@@ -1,8 +1,15 @@
 ---
-import type { Theme } from "@/lib/handleThemeButton";
+import MoonIcon from "~icons/line-md/moon-rising-alt-twotone-loop";
+import SunIcon from "~icons/line-md/sun-rising-twotone-loop";
 ---
 
-<span id="theme-button" class="fa-solid u-fa-icon text-inverted-primary cursor-pointer text-lg"></span>
+<button id="theme-button" class="u-icon text-inverted-primary cursor-pointer">
+    <span id="moon-theme-button" class="group-data-[theme=dark]/root:hidden" title="Toggle on Dark Mode"
+        ><MoonIcon />
+    </span>
+
+    <span id="sun-icon" class="group-data-[theme=light]/root:hidden" title="Toggle on Light Mode"><SunIcon /></span>
+</button>
 
 <script>
     import { initializeThemeButton } from "@/lib/handleThemeButton";

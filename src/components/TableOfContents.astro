@@ -1,6 +1,8 @@
 ---
 import type { MarkdownHeading } from "astro";
 
+import CaretDownIcon from "~icons/fa6-solid/caret-down";
+
 import { createTocTree, type TocNode } from "@/lib/projects/handleTocBehavior";
 
 const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
@@ -18,9 +20,11 @@ const root: TocNode = createTocTree(headings);
 <div id="toc-container" class="u-mobile-dotted-border w-full p-2" aria-expanded="false" aria-controls="toc-list">
     <div id="on-this-page">
         <div
+            id="on-this-page-label"
             class="desktop:font-bold desktop:border-0 desktop:backdrop-brightness-100 border-inverted-neutral/25 pointer-events-auto w-fit rounded-xs border px-2 backdrop-brightness-110"
         >
-            On This Page <span class="fa-solid fa-caret-down desktop:text-transparent"></span>
+            <span>On This Page</span>
+            <CaretDownIcon class="u-icon desktop:hidden inline" />
         </div>
     </div>
     {/* Since it's fixed positioning on mobile, it is the scrolling container */}

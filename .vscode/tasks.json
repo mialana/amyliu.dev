@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "lint",
+            "problemMatcher": [],
+            "label": "npm: lint",
+            "detail": "npx prettier . --write --config=.prettierrc.mjs --ignore-path=.prettierignore --no-editorconfig --cache",
+            "group": { "kind": "build", "isDefault": true }
+        }
+    ]
+}

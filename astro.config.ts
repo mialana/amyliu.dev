@@ -27,6 +27,7 @@ import { pluginCodeCaptions } from "./src/lib/plugins/ec-code-captions"; /* cust
 import react from "@astrojs/react";
 
 import tailwindcss from "@tailwindcss/vite";
+import Icons from "unplugin-icons/vite";
 
 import d2 from "astro-d2"; /* modern alternative to mermaid */
 
@@ -67,7 +68,7 @@ export default defineConfig({
         react(),
         d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
-    vite: { plugins: [tailwindcss()], build: { cssCodeSplit: true } },
+    vite: { plugins: [tailwindcss(), Icons({ compiler: "astro" })], build: { cssCodeSplit: true } },
     devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [
@@ -95,22 +96,31 @@ export default defineConfig({
             cssVariable: "--fontvar-fredericka-the-great",
             weights: [400],
             styles: ["normal"],
+            fallbacks: ["serif"],
         },
-
         {
             name: "JetBrains Mono",
             provider: fontProviders.google(),
             cssVariable: "--fontvar-jetbrains-mono",
             weights: ["100 800"],
             styles: ["normal", "italic"],
+            fallbacks: ["monospace"],
         },
-
         {
             name: "Atkinson Hyperlegible Next",
             provider: fontProviders.google(),
             cssVariable: "--fontvar-atkinson-hyperlegible-next",
             weights: ["200 800"],
             styles: ["normal", "italic"],
+            fallbacks: ["sans-serif"],
+        },
+        {
+            name: "Noto Sans Math",
+            provider: fontProviders.google(),
+            cssVariable: "--fontvar-noto-sans-math",
+            weights: [400],
+            styles: ["normal"],
+            fallbacks: ["math"],
         },
     ],
 });

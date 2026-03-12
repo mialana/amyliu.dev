@@ -129,7 +129,7 @@ function appendExtraElementToDropdown(root: HTMLElement) {
 }
 
 // attach on open, remove on close
-const onDropdownOpenScoped = (choices: Choices, scrollableAncestor: string, mobileMediaQuery: MediaQueryList) => {
+const onDropdownOpenScoped = (choices: Choices, mobileMediaQuery: MediaQueryList) => {
     const root = choices.containerOuter?.element;
     if (!root) return;
 
@@ -154,7 +154,7 @@ const onDropdownOpenScoped = (choices: Choices, scrollableAncestor: string, mobi
     root.addEventListener("hideDropdown", cleanup);
 };
 
-export function initializeChoices(scrollableAncestor: string) {
+export function initializeChoices() {
     const srcSelectEl = document.getElementById(PROJECTS_SELECT_ELEMENT_CLASSNAME) as HTMLSelectElement | null;
     if (!(srcSelectEl instanceof HTMLSelectElement)) return;
 
@@ -214,7 +214,7 @@ export function initializeChoices(scrollableAncestor: string) {
     if (!root) return;
 
     root.addEventListener("showDropdown", () => {
-        onDropdownOpenScoped(choices, scrollableAncestor, mobileMediaQuery);
+        onDropdownOpenScoped(choices, mobileMediaQuery);
         positionDropdown(choices, mobileMediaQuery);
     });
 }

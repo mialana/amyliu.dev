@@ -9,15 +9,9 @@ const CHOICES_EXTRA_ELEMENT_CLASSNAME = "choices-extra-content-container";
 interface Props {
     scrollableAncestor: string;
 }
-
-const { scrollableAncestor } = Astro.props;
 ---
 
-<div
-    id={PROJECTS_SELECT_CONTAINER_CLASSNAME}
-    class=`u-mobile-dotted-border border-b-0 p-2`
-    data-scrollable-ancestor={scrollableAncestor}
->
+<div id={PROJECTS_SELECT_CONTAINER_CLASSNAME} class=`u-mobile-dotted-border border-b-0 p-2`>
     <div class=`desktop:block prose text-2xs mb-1 hidden`>
         <h1>Projects Selection</h1>
     </div>
@@ -46,14 +40,5 @@ const { scrollableAncestor } = Astro.props;
 <script>
     import { initializeChoices } from "../lib/projects/handleProjectSelection";
 
-    const PROJECTS_SELECT_CONTAINER_CLASSNAME = "projects-select-container";
-
-    window.addEventListener("DOMContentLoaded", () => {
-        const container = document.getElementById(PROJECTS_SELECT_CONTAINER_CLASSNAME);
-        if (!container) return;
-
-        const scrollableAncestor = container.dataset.scrollableAncestor ?? ":root";
-
-        initializeChoices(scrollableAncestor);
-    });
+    window.addEventListener("DOMContentLoaded", () => initializeChoices());
 </script>

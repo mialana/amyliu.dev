@@ -1,19 +1,23 @@
 ---
 import ThemeButton from "@/components/ThemeButton.astro";
 
+import GithubIcon from "~icons/fa6-brands/github-square";
+import LinkedinIcon from "~icons/fa6-brands/linkedin";
+import EmailIcon from "~icons/fa-solid/envelope-square";
+
 const footerMap = [
-    { label: "GitHub", href: "https://github.com/mialana/", icon: "fa-brands fa-github" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/miyalana/", icon: "fa-brands fa-linkedin" },
-    { label: "Email", href: "mailto:liu.amy05@gmail.com", icon: "fa-solid fa-envelope" },
+    { label: "GitHub", href: "https://github.com/mialana/", Icon: GithubIcon },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/miyalana/", Icon: LinkedinIcon },
+    { label: "Email", href: "mailto:liu.amy05@gmail.com", Icon: EmailIcon },
 ];
 ---
 
 <ul class="gap-lg flex justify-center">
     {
-        footerMap.map(({ label, href, icon }) => (
+        footerMap.map(({ label, href, Icon }) => (
             <li>
-                <a href={href} target="_blank" rel="noopener noreferrer" title={`Find me on ${label}`}>
-                    <span class={`u-fa-icon ${icon}`} />
+                <a href={href} target="_blank" rel="noopener noreferrer" title={`Click for my ${label}!`}>
+                    <Icon class="u-icon" />
                 </a>
             </li>
         ))

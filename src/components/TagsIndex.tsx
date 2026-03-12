@@ -1,7 +1,11 @@
+import { z } from "zod";
+
 import { useLayoutEffect, useEffect, useState } from "react";
 import { TagCloud } from "react-tagcloud";
 
-import { DARK_THEME_TEXT, ROOT_DATA_ATTRIBUTE, type Theme, updateFromDOM } from "@/lib/handleThemeButton";
+import { DARK_THEME_TEXT, ROOT_DATA_ATTRIBUTE, ThemeOptions, type Theme } from "@/lib/handleThemeButton";
+
+export const ThemeSchema = z.enum(ThemeOptions);
 
 interface TagLinkProps {
     tag: string;
@@ -9,6 +13,23 @@ interface TagLinkProps {
     style?: React.CSSProperties;
     className?: string;
 }
+
+const isThemeMutation = (mutation: MutationRecord) =>
+    mutation.type === "attributes" &&
+    mutation.target === document.documentElement &&
+    mutation.attributeName === ROOT_DATA_ATTRIBUTE;
+
+const updateFromDOM = (callback: (theme: Theme) => void, mutationList?: MutationRecord[]) => {
+    if (mutationList && !mutationList.some(isThemeMutation)) return;
+
+    const foundTheme = document.documentElement.getAttribute(ROOT_DATA_ATTRIBUTE);
+
+    const result = ThemeSchema.safeParse(foundTheme);
+
+    if (result.success) {
+        callback(result.data);
+    }
+};
 
 function TagLink({ tag, count, style, className }: TagLinkProps) {
     return (
