@@ -13,6 +13,8 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 24
+                  cache: npm
+                  cache-dependency-path: package-lock.json
 
             - name: Run CI (Install build dependencies)
               run: npm run ci

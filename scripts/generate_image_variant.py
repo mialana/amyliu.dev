@@ -53,7 +53,7 @@ def get_args():
         "--width",
         help="Width of variant",
         type=int,
-        default=540,
+        default=400,
     )
 
     parser.add_argument(
@@ -138,11 +138,11 @@ def resize_sequence(
         loop=0,  # loop indefinitely
         duration=target_duration,
         optimize=True,
-        quality=70,
+        quality=60,
         method=6,
         minimize_size=True,
         allow_mixed=True,
-        alpha_quality=85,
+        alpha_quality=75,
     )
 
     frame_count = len(normalized_frames)

@@ -256,7 +256,8 @@
     /* apply loading gif as background to all images */
     /* https://loading.io/spinner/spinner/ */
     :where(img) {
-        background: url("/resources/gif/loading.gif") center center no-repeat; /* centered icon */
+        /* centered icon */
+        background: url("/resources/gif/loading.gif") center center no-repeat;
         background-size: 64px 64px; /* icon size */
         background-color: var(--color-primary-neutral); /* filler color */
         font-size: 0px; /* hide unloaded image text */
