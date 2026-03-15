@@ -34,21 +34,20 @@ export function initializeTocBehavior(isMobile: boolean) {
     }
 
     function listenForPointerDown(e: Event) {
-        const el = e.target
-        if (!(el instanceof Node) || tocContainerElement.contains(el)) return
-        setTocState(false)
+        const el = e.target;
+        if (!(el instanceof Node) || tocContainerElement.contains(el)) return;
+        setTocState(false);
     }
-
 
     function toggleTocState() {
         const currExpanded = stringToBoolean(onThisPageButton.ariaExpanded);
-        const nextExpanded = !currExpanded
+        const nextExpanded = !currExpanded;
         setTocState(nextExpanded);
 
         if (nextExpanded) {
-            document.addEventListener("pointerdown", listenForPointerDown)
+            document.addEventListener("pointerdown", listenForPointerDown);
         } else {
-            document.removeEventListener("pointerdown", listenForPointerDown)
+            document.removeEventListener("pointerdown", listenForPointerDown);
         }
     }
 
@@ -56,8 +55,7 @@ export function initializeTocBehavior(isMobile: boolean) {
 
     if (isMobile) {
         onThisPageButton.addEventListener("click", toggleTocState);
-
     } else {
-        setTocState(true)
+        setTocState(true);
     }
 }
