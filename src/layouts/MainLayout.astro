@@ -12,19 +12,17 @@ type Layout = "BOTH" | "NO_NAV" | "NO_ASIDE" | "NONE";
 interface Props {
     title: string;
     layout?: Layout;
+    mainGridCellStyleOverrides?: string;
 }
 
-const { title, layout = "BOTH" } = Astro.props;
+const { title, layout = "BOTH", mainGridCellStyleOverrides = "" } = Astro.props;
 
 const isNavActive = layout === "BOTH" || layout === "NO_ASIDE";
-const navInitial = isNavActive.toString();
-
 const isAsideActive = layout === "BOTH" || layout === "NO_NAV";
-const asideInitial = isAsideActive.toString();
 ---
 
 <!doctype html>
-<html lang="en" class="group/root">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -71,7 +69,7 @@ const asideInitial = isAsideActive.toString();
             }
             <main
                 id="main-grid-cell"
-                class="page-animation bg-primary-shade desktop:rounded-sm desktop:mx-4 desktop:shadow-md flex overflow-x-clip overflow-y-scroll p-6 *:m-auto *:max-w-4xl *:grow">
+                class=`page-animation bg-primary-shade desktop:rounded-sm desktop:mx-4 desktop:shadow-md debug monitor:*:max-w-5xl flex overflow-x-clip overflow-y-scroll p-6 *:m-auto *:max-w-4xl *:grow ${mainGridCellStyleOverrides}`>
                 <slot />
             </main>
             {

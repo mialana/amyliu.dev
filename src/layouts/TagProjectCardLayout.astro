@@ -1,0 +1,75 @@
+---
+import { format } from "date-fns";
+import { Image } from "astro:assets";
+
+import RightArrowIcon from "~icons/tabler/arrow-big-right-filled";
+
+import { type ProjectEntryStructured } from "@/lib/projects/query";
+
+export interface CardSource {
+    title: string;
+    slug: string;
+    kind: string;
+}
+
+interface Props {
+    project: ProjectEntryStructured;
+    source: CardSource;
+}
+
+const { project, source } = Astro.props as Props;
+const { title: srcTitle, slug: srcSlug, kind: srcKind } = source;
+
+const idPattern = `${srcSlug}-${srcKind}-${project.id}-project-card`;
+---
+
+{/* `tabindex=0` denotes focusable with auto-ordering */}
+<div id=`${idPattern}` class=`group/card relative m-auto max-w-xl` tabindex="0">
+    <Image
+        id=`${idPattern}--card-hero`
+        class="w-full"
+        alt={`${project.data.title} Card Hero Image for '${srcTitle}' ${srcKind}`}
+        src={project.data.thumbnail}
+    />
+    <section
+        id=`${idPattern}--card-overview`
+        class=`prose-custom monitor:gap-sm gap-md bg-primary-shade/75 content-animation absolute top-0 flex size-full max-w-none flex-col overflow-y-scroll p-4 text-right invisible opacity-0 contrast-175 transition-opacity group-focus-within/card:visible group-focus-within/card:opacity-100 group-hover/card:visible group-hover/card:opacity-100 prose-custom-sm monitor:prose-custom-xs`>
+        <h1 class="font-signature m-0">
+            {project.data.title}
+        </h1>
+        <div>
+            <code>
+                {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}
+            </code>
+            <br />
+            <code class="uppercase">
+                {project.data.category} · {project.data.type}
+            </code>
+        </div>
+        <button
+            aria-label=`${project.data.title} Card Hero Image for '${srcTitle}' ${srcKind}`
+            class="bg-inverted-tertiary p-xdouble-y-4 relative w-fit place-self-end rounded-md border text-sm hover:brightness-150">
+            <a href={`/projects/${project.id}/`} class="text-inverted-important-text gap-sm size-full"
+                >Take Me There<RightArrowIcon class="u-icon" />
+            </a>
+        </button>
+
+        <details class="mt-auto cursor-default">
+            <summary class="cursor-pointer text-left leading-none">More tags for this tag!</summary>
+            <ul class="not-prose font-github-code gap-2xs flex flex-wrap py-2">
+                {
+                    project.data.tagsLike.map((t) => (
+                        <li id={`${idPattern}--link-to-${t.value}-${t.identity}`} class="inline rounded-xs">
+                            <a
+                                href={`/tags/${t.value}`}
+                                title={`Go to ${t.label} page for '${t.value}'`}
+                                class={`${t.identity === "tag" ? "text-violet-accent" : "text-orange-accent"} relative px-2 hover:brightness-125`}>
+                                #{t.value}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </details>
+    </section>
+</div>

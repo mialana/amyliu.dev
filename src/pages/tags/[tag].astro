@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 
 import MainLayout from "@/layouts/MainLayout.astro";
-import HorizontalProjectCardLayout, { type CardSource } from "@/layouts/HorizontalProjectCardLayout.astro";
+import TagProjectCardLayout, { type CardSource } from "@/layouts/TagProjectCardLayout.astro";
 import TagHead from "@/components/TagHead.astro";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
@@ -34,39 +34,27 @@ const { tag } = Astro.params as Params;
 const { projects } = Astro.props as Props;
 
 const tagTitle = tag.replaceAll("_", " ");
-const prefix = `${tag}-tag-`;
+const prefix = `${tag}-tag`;
 
 const tagAsSource: CardSource = { title: tagTitle, slug: tag, kind: "tag" };
 ---
 
-<MainLayout title={tagTitle} layout="NONE">
+<MainLayout title={tagTitle} layout="NONE" mainGridCellStyleOverrides="u-grid-background">
     <TagHead slot="head" tag={tag} projects={projects} />
-    <div id=`${prefix}container`>
+    <div id=`${prefix}--container` class="min-h-full">
         <div class="prose-custom bg-inverted-neutral/50 sticky top-0 z-30 mb-4 w-fit rounded-md px-2">
             <h1 class="text-inverted-important-text text-wrap">{tagTitle}</h1>
         </div>
-        <ul id=`${prefix}project-list` class="gap-lg flex flex-col items-center-safe">
-            {projects.map((project) => <HorizontalProjectCardLayout project={project} source={tagAsSource} />)}
+        <ul
+            id=`${prefix}--project-list`
+            class="gap-lg desktop:grid monitor:[--card-grid-size:var(--container-xs)] flex grid-cols-[repeat(auto-fit,minmax(var(--card-grid-size),1fr))] flex-col items-center-safe [--card-grid-size:var(--container-sm)]">
+            {
+                projects.map((project) => (
+                    <li class="contents">
+                        <TagProjectCardLayout project={project} source={tagAsSource} />
+                    </li>
+                ))
+            }
         </ul>
     </div>
-
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const buttons = document.querySelectorAll<HTMLAnchorElement>("button.card-display-button");
-
-            /* add event listener for all buttons */
-            buttons.forEach((butn) => {
-                const parentCardId = butn.dataset.cardId;
-                const parentCard = document.querySelector(`#${parentCardId}`) as HTMLLIElement | undefined;
-
-                butn.addEventListener("click", (e) => {
-                    if (!parentCard) return;
-
-                    const currentDisplay = parentCard.dataset.display;
-                    // switch the display mode
-                    parentCard.dataset.display = currentDisplay === "overview" ? "more" : "overview";
-                });
-            });
-        });
-    </script>
 </MainLayout>

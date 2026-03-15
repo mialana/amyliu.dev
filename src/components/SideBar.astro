@@ -11,7 +11,7 @@ const { sideBarType } = Astro.props;
 {/* Should be the container that scrolls on desktop, should not scroll on mobile (i.e. maintain fixed height) */}
 <div
     id=`${sideBarType}-sidebar-element`
-    class=`desktop:transition-[max-width] transition-[max-height] overflow-x-hidden desktop:overflow-x-scroll max-w-full overflow-y-auto desktop:h-full desktop:max-w-sm not-expanded:max-w-0`
+    class=`desktop:transition-[max-width] transition-[max-height] overflow-x-hidden page-animation desktop:overflow-x-scroll max-w-full overflow-y-auto desktop:h-full desktop:not-expanded:max-w-0 desktop:max-w-sm`
     aria-hidden={false}>
     <slot />
 </div>

@@ -24,13 +24,21 @@ export function createTocTree(headings: MarkdownHeading[]): TocNode {
     return root;
 }
 
+let tocAbort: AbortController | null = null;
+
+// ran on every mobile media query change
 export function initializeTocBehavior(isMobile: boolean) {
+    tocAbort?.abort(); // remove all event listeners
+    tocAbort = new AbortController();
+
     const onThisPageButton = getRequiredElement("#on-this-page-button");
     const tocContainerElement = getRequiredElement("#toc-container");
+    const tocListElement = getRequiredElement("#toc-list");
 
     function setTocState(state: boolean) {
-        onThisPageButton.ariaExpanded = state.toString();
-        tocContainerElement.dataset.expanded = state.toString();
+        onThisPageButton.ariaExpanded = String(state);
+        tocContainerElement.dataset.expanded = String(state);
+        tocListElement.ariaHidden = String((!state));
     }
 
     function listenForPointerDown(e: Event) {
@@ -44,18 +52,17 @@ export function initializeTocBehavior(isMobile: boolean) {
         const nextExpanded = !currExpanded;
         setTocState(nextExpanded);
 
+        document.removeEventListener("pointerdown", listenForPointerDown);
+
         if (nextExpanded) {
-            document.addEventListener("pointerdown", listenForPointerDown);
-        } else {
-            document.removeEventListener("pointerdown", listenForPointerDown);
+            document.addEventListener("pointerdown", listenForPointerDown, { signal: tocAbort?.signal });
         }
     }
 
-    tocContainerElement.ariaDisabled = (!isMobile).toString();
+    onThisPageButton.ariaDisabled = String((!isMobile));
 
+    setTocState(!isMobile); // closed default on mobile, open default on desktop
     if (isMobile) {
-        onThisPageButton.addEventListener("click", toggleTocState);
-    } else {
-        setTocState(true);
+        onThisPageButton.addEventListener("click", toggleTocState, { signal: tocAbort?.signal });
     }
 }

@@ -19,10 +19,10 @@
 
     /* light color palette */
     --color-light-primary-shade: #eae3da;
-    --color-light-secondary-shade: #768763;
+    --color-light-secondary-shade: #657557;
     --color-light-tertiary-shade: #9e8698;
     --color-light-primary-neutral: #d9d9d9;
-    --color-light-important-text: #151515;
+    --color-light-important-text: #0f0f0f;
     --color-light-primary-shadow: #7a6c6c;
 
     --color-light-blue-accent: #454eb3;
@@ -86,8 +86,10 @@
     --color-violet-accent: var(--color-light-violet-accent);
 
     --breakpoint-desktop: 768px;
+    --breakpoint-monitor: 1024px;
 
     --container-desktop: var(--breakpoint-desktop);
+    --container-monitor: var(--breakpoint-monitor);
     --container-3xs: 198px;
     --min-height-3xs: var(--container-3xs); /* extends min-h-* */
 
@@ -320,14 +322,14 @@
             opacity: 1;
         }
     }
+}
 
-    .page-animation {
-        animation: 0.25s fadeIn ease-in-out;
-    }
+@utility page-animation {
+    animation: 0.5s fadeIn ease-in;
+}
 
-    .content-animation {
-        animation: 1s fadeIn ease-in-out;
-    }
+@utility content-animation {
+    animation: 1s fadeIn ease-in-out;
 }
 
 @utility dark-palette {
@@ -801,6 +803,18 @@
     }
 }
 
+@utility prose-custom-xs {
+    :where(&) {
+        @apply prose-xs;
+    }
+}
+
+@utility prose-custom-sm {
+    :where(&) {
+        @apply prose-sm;
+    }
+}
+
 @utility prose-uniform {
     /* overrides of prose that are 'external' features */
     /* by creating a separate utility, we increase specificity and create a division of responsibilities */
@@ -888,7 +902,8 @@
 
 /* selects for both descandants and current element for all cases that signify expansion */
 @custom-variant expanded {
-    :where(:is([data-expanded="true"], [aria-expanded="true"]) &, &:is([data-expanded="true"], [aria-expanded="true"], [aria-hidden="false"])) {
+    :where(:is([data-expanded="true"], [aria-expanded="true"]) &),
+    :where(&:is([data-expanded="true"], [aria-expanded="true"], [aria-hidden="false"])) {
         @slot;
     }
 }

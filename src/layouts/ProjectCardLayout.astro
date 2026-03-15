@@ -1,26 +1,24 @@
 ---
 import { format } from "date-fns";
 
-import { Image } from "astro:assets";
-
 import { type CollectionEntry } from "astro:content";
 
 interface Props {
     project: CollectionEntry<"projects">;
-    idPrefix: string;
+    idPattern: string;
 }
 
-const { project, idPrefix } = Astro.props;
+const { project, idPattern } = Astro.props;
 ---
 
 <li
-    id={`${idPrefix}${project.id}`}
+    id={`${idPattern}${project.id}`}
     class="project-card"
     data-type={project.data.type}
     data-category={project.data.category}>
     <a href={`/projects/${project.id}/`}>
         <article
-            class="bg-primary-neutral hover:bg-tertiary-shade group relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2">
+            class="bg-primary-neutral hover:bg-tertiary-shade group/card relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2">
             <img
                 class="bg-inverted-primary saturate-125"
                 src={project.data.thumbnail_540w.src}
@@ -33,7 +31,7 @@ const { project, idPrefix } = Astro.props;
             {
                 /* "pinned" banner */
                 project.data.pinned === true && (
-                    <span class="bg-green-accent text-2xs p-xdouble-y-2 text-inverted-important-text font-code absolute top-0 rounded-br-sm font-bold saturate-150 group-hover:hidden">
+                    <span class="bg-green-accent text-2xs p-xdouble-y-2 text-inverted-important-text font-code absolute top-0 rounded-br-sm font-bold saturate-150 group-hover/card:hidden">
                         PINNED
                     </span>
                 )
