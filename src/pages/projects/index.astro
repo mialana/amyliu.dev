@@ -1,31 +1,22 @@
 ---
 export const prerender = false;
 
+import { getCollection } from "astro:content";
+
 import MainLayout from "@/layouts/MainLayout.astro";
 import ProjectCardLayout from "@/layouts/ProjectCardLayout.astro";
 import ProjectSelect from "@/components/ProjectsSelect.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 
-import {
-    getProjectIndexData,
-    projectSortOrderMap,
-    type ProjectIndexData,
-    type ProjectSection,
-    type ProjectSortOrder,
-} from "@/lib/projects/query";
+import { getProjectIndexData, structureProject, type ProjectEntryStructured } from "@/lib/projects/query";
+
+const projects: ProjectEntryStructured[] = (await getCollection("projects")).map((p) => structureProject(p));
 
 /* a prefix to add to the id of the project cards to prevent clashing with the slug of the real project page */
 const idPrefix = "card-";
 
-// use URL to set `sortOrder`
-const maybeSortOrder: any | null = Astro.url.searchParams.get("sortOrder");
-let sortOrder: ProjectSortOrder =
-    maybeSortOrder && Object.keys(projectSortOrderMap).includes(maybeSortOrder)
-        ? maybeSortOrder
-        : Object.keys(projectSortOrderMap)[0];
-
 /* separate out data parsing into separate module in lib */
-const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(idPrefix, sortOrder);
+const { sections, tocHeadings } = getProjectIndexData(projects, "startDate", idPrefix);
 ---
 
 <MainLayout title="Projects" layout="NO_ASIDE">
@@ -33,31 +24,26 @@ const { sections, tocHeadings }: ProjectIndexData = await getProjectIndexData(id
 
     <div slot="nav-sidebar">
         <ProjectSelect scrollableAncestor="#nav-sidebar" />
-        <TableOfContents headings={tocHeadings} />
+        <TableOfContents tocRootNode={tocHeadings} />
     </div>
 
-    <ul class="gap-xl flex flex-wrap items-start justify-center">
+    <ul class="gap-xl flex flex-col">
         {
-            sections.flatMap((section: ProjectSection) => {
-                let projectElementsArr = [];
-                // only display the section if it is not `pinned` as that is a bit redundant
-                if (section.id != "pinned") {
-                    projectElementsArr.push(
-                        <div class="prose prose-sm basis-full text-center">
-                            {/* basis-full ensures the header takes up the full flex row */}
-                            <h1 id={section.id}>{section.title}</h1>
-                        </div>,
-                    );
-                }
-
-                projectElementsArr.push(
-                    ...section.projects.map((project) => {
-                        return <ProjectCardLayout project={project} idPrefix={idPrefix} />;
-                    }),
-                );
-
-                return projectElementsArr;
-            })
+            sections.map((section) => (
+                <l1>
+                    <div class="prose-custom prose-sm mx-auto mb-(--gap-lg) text-center">
+                        {/* basis-full ensures the header takes up the full flex row */}
+                        <h1 id={section.key} class="">
+                            {section.title}
+                        </h1>
+                    </div>
+                    <ul class={`gap-xl flex flex-wrap items-start justify-center`}>
+                        {section.projectIndices.map((idx) => (
+                            <ProjectCardLayout project={projects[idx]} idPrefix={idPrefix} />
+                        ))}
+                    </ul>
+                </l1>
+            ))
         }
     </ul>
 </MainLayout>

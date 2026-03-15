@@ -10,7 +10,7 @@
         "deploy": "npm run generate-types && astro build && wrangler deploy",
         "preview": "npm run generate-types && astro build && wrangler dev",
         "astro": "astro",
-        "lint": "npx prettier . --write --config=.prettierrc.mjs --ignore-path=.prettierignore --no-editorconfig --cache",
+        "lint": "npx prettier . --write --config=.prettierrc.ts --ignore-path=.prettierignore --no-editorconfig --cache",
         "prepare": "husky",
         "ci": "npm install && node ci.mjs"
     },

@@ -1,7 +1,6 @@
 # Rehype Captions
 
-Credits to [rehype-image-caption](https://github.com/Robot-Inventor/rehype-image-caption/tree/main)
-for code inspiration.
+Credits to [rehype-image-caption](https://github.com/Robot-Inventor/rehype-image-caption/tree/main) for code inspiration.
 
 Decided to create a local plugin that solves essentially the same task but tweaked to achieve my personal preferences.
 

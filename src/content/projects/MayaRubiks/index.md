@@ -70,8 +70,7 @@ Automating shader setup to bypass manual Maya Hypershade manipulation is vital t
 
 ### Scene State to Solver Communication
 
-`rubiks_cube_solver.py` samples the current scene/cube state and translates it into a serialized string format. A subprocess call to muodov's `kociemba`
-PyPi package returns the optimal solution, which is then parsed back into a list of discrete moves for `MayaRubiks` usage.
+`rubiks_cube_solver.py` samples the current scene/cube state and translates it into a serialized string format. A subprocess call to muodov's `kociemba` PyPi package returns the optimal solution, which is then parsed back into a list of discrete moves for `MayaRubiks` usage.
 
 ---
 

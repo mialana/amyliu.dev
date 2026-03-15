@@ -105,8 +105,7 @@ def set_coil(col, desc, mod, count, radius):
 
 Hair color is selected from a predefined dictionary of natural shades and applied directly to the assigned `aiStandardHair` shader’s `baseColor` attribute. The process is randomized per subject while retaining structural consistency by building on a set of shared base grooms.
 
-This setup allows fully batched, stylized hair generation at scale without relying on manual groom editing or artist intervention.
-![Hair Modifier Diagram](./assets/hair_modifier_diagram.png)
+This setup allows fully batched, stylized hair generation at scale without relying on manual groom editing or artist intervention. ![Hair Modifier Diagram](./assets/hair_modifier_diagram.png)
 
 ### Headwear Assets Deformation
 

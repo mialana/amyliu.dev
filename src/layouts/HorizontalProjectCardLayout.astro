@@ -1,63 +1,103 @@
 ---
 import { format } from "date-fns";
+import { Image } from "astro:assets";
 
-import { type CollectionEntry } from "astro:content";
+import RightArrowIcon from "~icons/tabler/arrow-big-right-filled";
+import PlusIcon from "~icons/tabler/square-rounded-plus-filled";
 
-interface Props {
-    project: CollectionEntry<"projects">;
-    idPrefix: string;
+import { type ProjectEntryStructured } from "@/lib/projects/query";
+
+export interface CardSource {
+    title: string;
+    slug: string;
+    kind: string;
 }
 
-const { project, idPrefix } = Astro.props;
+interface Props {
+    project: ProjectEntryStructured;
+    source: CardSource;
+}
+
+const { project, source } = Astro.props as Props;
+const {
+    id,
+    data: { title, thumbnail_540w, tagsLike },
+} = project;
+const { title: sourceTitle, slug: sourceSlug, kind: sourceKind } = source;
+
+const buildElementID = (suffix: string = "") => `${sourceSlug}-${sourceKind}-${project.id}-project-card-${suffix}`;
+
+const overview = "data-[display=overview]";
+const more = "data-[display=more]";
+const groupOverview = `group-${overview}/card`;
+const groupMore = `group-${more}/card`;
+
+import ProjectCardLayout from "@/layouts/ProjectCardLayout.astro";
 ---
 
-<li id={`${idPrefix}${project.data.slug}`} class="relative">
+<ProjectCardLayout project={project} idPrefix={`${source.kind}-`} />
+<!-- 
+<li
+    id={buildElementID()}
+    class=`group/card overflow-hidden relative **:duration-2000 duration-2000 ease-in-out **:ease-in-out w-1/2`
+    data-display="overview">
+    
+    <Image
+        id={buildElementID("--card-hero")}
+        class="size-full"
+        alt={`${title} Card Hero Image for '${sourceTitle}' ${sourceKind}`}
+        src={thumbnail_540w}
+        width={thumbnail_540w.width}
+        height={thumbnail_540w.width}
+    />
+    
     <article
-        class="bg-primary-neutral u-grid-background flex h-[32vh] items-center-safe justify-between border p-8 outline -outline-offset-8"
-    >
-        <div
-            class="prose desktop:text-inherit desktop:place-self-start desktop:prose-base desktop:text-left desktop:h-full flex flex-col text-center text-[0.5em]"
+        class=`bg-primary-neutral/75 u-grid-background ${groupMore}:bg-inverted-neutral size-full flex flex-col justify-center-safe z-10 relative items-center-safe text-center transition-colors *:transition-[max-height] opacity-0`>
+        <button
+            id={buildElementID("--card-display-button")}
+            aria-label=`${title} Card Switch Display Button for '${sourceTitle}' ${sourceKind}`
+            class=`card-display-button absolute top-16 left-[50%] z-20 -translate-x-1/2 p-2 hover:brightness-150`
+            data-project-slug={sourceSlug}
+            data-card-id={buildElementID()}><PlusIcon class="u-icon" style="--icon-size: 2em;" /></button
         >
-            <h1>
+        <section
+            class=`${groupMore}:max-h-0 max-h-full overflow-hidden prose-custom px-16 contrast-250 absolute  ${overview}:rounded-full`>
+            <h1 class="font-signature" style="font-size: 1.5em;">
                 {project.data.title}
             </h1>
-            <div class="py-1">
+            <p>
                 <code>
                     {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}
                 </code>
-                {
-                    /* Using `border-l` is ineffective here as that is an utility class which cannot override the styling in `overrides` layer */
-                }
-                <code style="border-left: 0;">
-                    {project.data.category.toUpperCase()} · {project.data.type.toUpperCase()}
+                <br />
+                <code class="uppercase">
+                    {project.data.category} · {project.data.type}
                 </code>
-            </div>
-            <p class="desktop:block hidden w-5/6" style="margin-block: 0.5em; line-height: var(--a2-line-height);">
-                {project.data.description}
             </p>
-            <div class="desktop:text-xs desktop:mt-auto gap-y-1 overflow-visible overflow-y-scroll">
-                {
-                    project.data.tags.map((t) => (
-                        <a href={`/tags/${t}`} class="text-violet-accent relative z-20 mx-1">
-                            #{t}
+            <button
+                aria-label=`${title} Card Hero Image for '${sourceTitle}' ${sourceKind}`
+                class="bg-inverted-tertiary text-inverted-important-text p-xdouble-y-4 gap-sm mx-auto rounded-md border text-sm hover:brightness-150"
+                ><span class="text-nowrap">Take Me There</span><RightArrowIcon class="u-icon" /><a
+                    href={`/projects/${sourceSlug}/`}
+                    class="absolute size-full"></a></button
+            >
+        </section>
+        <ul
+            class=`${groupOverview}:max-h-0 max-h-full overflow-y-scroll px-8 flex flex-wrap justify-center-safe font-github-code gap-2xs absolute`>
+            {
+                tagsLike.map((t) => (
+                    <li
+                        id={buildElementID(`--link-to-${t.value}-${t.identity}`)}
+                        class="bg-inverted-shadow/50 inline rounded-md p-2 contrast-150">
+                        <a
+                            href={`/tags/${t.value}`}
+                            title={`Go to ${t.label} page for '${t.value}'`}
+                            class={`${t.identity === "tag" ? "text-violet-accent" : "text-orange-accent"} relative mx-1 hover:brightness-125`}>
+                            #{t.value}
                         </a>
-                    ))
-                }
-                {
-                    project.data.techStack.map((t) => (
-                        <a href={`/tags/${t}`} class="text-orange-accent relative z-20 mx-1">
-                            #{t}
-                        </a>
-                    ))
-                }
-            </div>
-        </div>
-        <div
-            class="aspect-square h-full rounded-full mask-radial-from-60% mask-radial-to-70% bg-cover bg-center bg-no-repeat"
-            style=`background-image: url(${project.data.thumbnail.src});`
-        >
-        </div>
+                    </li>
+                ))
+            }
+        </ul>
     </article>
-    <a href={`/projects/${project.data.slug}/`} class="hover:bg-aqua-accent/50 absolute inset-0 z-10 h-full w-full">
-    </a>
-</li>
+</li> -->

@@ -9,7 +9,7 @@ import { isElement } from "hast-util-is-element";
 import type { Plugin, Transformer } from "unified";
 import { visit } from "unist-util-visit";
 import { h } from "hastscript";
-import { addClassToHast, normalizeClassName } from "../utils";
+import { addClassToHast, normalizeClassName } from "../plugin_utils";
 
 export interface RehypeMiscellaneousOptions {
     mathWrapperClass?: string;

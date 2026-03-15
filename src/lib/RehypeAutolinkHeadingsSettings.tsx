@@ -4,7 +4,7 @@ import type { Element } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { isElement } from "hast-util-is-element";
 
-import { normalizeClassName } from "./plugins/utils";
+import { normalizeClassName } from "./plugins/plugin_utils";
 
 const HEADER_CLASSNAME = "heading-with-anchor";
 const ANCHOR_CLASSNAME = "heading-anchor";
@@ -25,6 +25,8 @@ const LucideLinkIconHtml = `
     stroke-width='var(${CSS_VARIABLE_PREFIX}${ANCHOR_ICON_STROKE_WIDTH_VARNAME}, 2)'
     stroke-linecap="round"
     stroke-linejoin="round"
+    width='64px'
+    height='64px'
     class='${ANCHOR_ICON_CLASSNAME} lucide lucide-link-icon lucide-link'
 >
     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />

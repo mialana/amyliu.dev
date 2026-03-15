@@ -47,7 +47,7 @@ export async function readOrFetchSource(src: string, filePathOfOrigin?: string):
 
         return null;
     } catch (err) {
-        console.warn(`[rehype-svg] Failed to load ${src}: ${err}`);
+        console.warn(`[a2 plugin] Failed to load ${src}: ${err}`);
         return null;
     }
 }

@@ -14,15 +14,13 @@ const { project, idPrefix } = Astro.props;
 ---
 
 <li
-    id={`${idPrefix}${project.data.slug}`}
+    id={`${idPrefix}${project.id}`}
     class="project-card"
     data-type={project.data.type}
-    data-category={project.data.category}
->
-    <a href={`/projects/${project.data.slug}/`}>
+    data-category={project.data.category}>
+    <a href={`/projects/${project.id}/`}>
         <article
-            class="bg-primary-neutral hover:bg-tertiary-shade group relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2"
-        >
+            class="bg-primary-neutral hover:bg-tertiary-shade group relative max-w-sm justify-center overflow-hidden rounded-lg shadow-lg hover:-translate-y-2">
             <img
                 class="bg-inverted-primary saturate-125"
                 src={project.data.thumbnail_540w.src}
@@ -41,25 +39,22 @@ const { project, idPrefix } = Astro.props;
                 )
             }
             {/* Allow middle div to define a gap-like layout rather than prose */}
-            <samp class="prose p-2 text-left text-[0.75em] *:my-0">
-                <h1 class="font-black">
+            <section class="prose-custom samplike p-2 text-left text-[0.75em] *:my-0">
+                <h1>
                     {project.data.title}
                 </h1>
                 <div class="py-1">
                     <code>
                         {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}
                     </code>
-                    {
-                        /* Using `border-l` is ineffective here as that is an utility class which cannot override the styling in `overrides` layer */
-                    }
-                    <code style="border-left: 0;">
+                    <code class="border-l-0">
                         {project.data.category.toUpperCase()} · {project.data.type.toUpperCase()}
                     </code>
                 </div>
-                <p class="">
+                <p>
                     {project.data.description}
                 </p>
-            </samp>
+            </section>
         </article>
     </a>
 </li>

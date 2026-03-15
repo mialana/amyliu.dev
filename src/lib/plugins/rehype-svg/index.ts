@@ -5,7 +5,7 @@ import { fromHtml } from "hast-util-from-html";
 import type { Plugin, Transformer } from "unified";
 import { visit } from "unist-util-visit";
 
-import { addClassToHast, normalizeClassName, readOrFetchSource } from "../utils";
+import { addClassToHast, normalizeClassName, readOrFetchSource } from "../plugin_utils";
 
 /**
  * small dev note to self:
@@ -92,7 +92,7 @@ const rehypeSvg: Plugin<[RehypeSvgOptions?], Root> = (options: RehypeSvgOptions 
 
                         nodesToReplace.push({ parent, index, wrapper });
                     } catch (err) {
-                        console.warn(`[rehype-svg] Error processing image with src "${imageSrc}": ${err}`);
+                        console.warn(`[a2 plugin] Error processing image with src "${imageSrc}": ${err}`);
                     }
                 })(),
             );

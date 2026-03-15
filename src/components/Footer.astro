@@ -16,7 +16,12 @@ const footerMap = [
     {
         footerMap.map(({ label, href, Icon }) => (
             <li>
-                <a href={href} target="_blank" rel="noopener noreferrer" title={`Click for my ${label}!`}>
+                <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="pt-2 pb-0"
+                    title={`Click for my ${label}!`}>
                     <Icon class="u-icon" />
                 </a>
             </li>
@@ -24,17 +29,18 @@ const footerMap = [
     }
 </ul>
 
-<div class="grid grid-cols-[1fr_auto_1fr]">
-    <div class="prose prose-xs desktop:prose-sm col-start-2 text-center tracking-tighter">
-        <code>
+<div class="grid grid-cols-[1fr_auto_1fr] items-center-safe pb-1">
+    <div class="prose-custom prose-xs desktop:prose-sm col-start-2 text-center tracking-tighter">
+        <code class="inline-block">
             © 2025 · developed by Amy Liu · powered by <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://astro.build/">Astro</a
+                href="https://astro.build/"
+                class="inline-block py-1">Astro</a
             >
         </code>
     </div>
-    <div class="justify-self-end-safe px-2">
+    <div class="justify-self-end-safe">
         <ThemeButton />
     </div>
 </div>

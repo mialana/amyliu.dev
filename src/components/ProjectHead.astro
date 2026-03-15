@@ -22,7 +22,7 @@ const jsonLd = JSON.stringify({
     description: project.data.description,
     url: url,
     keywords: keywords, // normalized tags
-    ...(project.data.slug ? { identifier: project.data.slug } : {}),
+    ...(project.id ? { identifier: project.id } : {}),
 });
 ---
 

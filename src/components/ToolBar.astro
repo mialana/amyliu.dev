@@ -1,29 +1,24 @@
 ---
 import SideBarButton from "@/components/SideBarButton.astro";
+
+interface Props {
+    isNavActive: boolean;
+    isAsideActive: boolean;
+}
+
+const { isNavActive, isAsideActive }: Props = Astro.props;
 ---
 
-<div class="flex items-center-safe" style="--a2-toolbar-height: 1.5rem;">
-    <SideBarButton sideBarType="nav" />
+<div class="flex items-center-safe [--a2-toolbar-height:1.75rem]">
+    {isNavActive && <SideBarButton sideBarType="nav" />}
 
     <a
         target="_blank"
         rel="noopener noreferrer"
         href="/materials/resume.pdf"
-        class="bg-primary-shade desktop:border-x-2 ml-auto border-l-2 border-dotted"
+        class="bg-primary-shade desktop:border-x-2 ml-auto border-l-2 border-dotted contrast-125"
         ><h4 title="Open Resume" class="px-2 leading-(--a2-toolbar-height) hover:contrast-150">Resume</h4></a
     >
 
-    <SideBarButton sideBarType="aside" />
+    {isAsideActive && <SideBarButton sideBarType="aside" />}
 </div>
-
-<script>
-    import { handleSideBarButtonState } from "../lib/handleSideBarState";
-
-    window.addEventListener("DOMContentLoaded", () => {
-        const mobileMediaQuery = window.matchMedia(
-            `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
-        );
-        handleSideBarButtonState();
-        mobileMediaQuery.addEventListener("change", handleSideBarButtonState);
-    });
-</script>

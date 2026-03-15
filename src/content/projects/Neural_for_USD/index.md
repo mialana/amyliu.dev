@@ -175,8 +175,7 @@ After extracting multi-view images and camera parameters using the Qt GUI, the s
 
 #### Input and Sampling Strategy
 
-At the core of NeRF is a learnable function $f_{\theta}$ that represents the scene as a continuous volumetric field.
-This function defines how any point in 3D space appears when viewed from a particular direction.
+At the core of NeRF is a learnable function $f_{\theta}$ that represents the scene as a continuous volumetric field. This function defines how any point in 3D space appears when viewed from a particular direction.
 
 $$
 \begin{align}
@@ -232,8 +231,7 @@ Applies the pinhole camera model to find the origin (camera position) and direct
 ---
 ```
 
-![Sampled View Directions](assets/sampled_view_directions.png)
-_A diagram of camera positions and orientations, which follow cosine-sampling in the upper hemisphere._
+![Sampled View Directions](assets/sampled_view_directions.png) _A diagram of camera positions and orientations, which follow cosine-sampling in the upper hemisphere._
 
 #### Positional Encoding
 
@@ -338,8 +336,7 @@ The raw outputs of the MLP—density and color predictions at sampled points—a
 
 The final rendered outputs are computed using the predictions from the fine pass, while the coarse pass serves to guide sampling during training.
 
-![Psnr Dev](assets/psnr_dev.webp)
-_NeRF training over time, illustrating 1. improving render quality, 2. increasing PSNR, and 3. the balance of uniform stratified sampling (via the coarse MLP pass) to focused hierarchical sampling (fine pass) along rays._
+![Psnr Dev](assets/psnr_dev.webp) _NeRF training over time, illustrating 1. improving render quality, 2. increasing PSNR, and 3. the balance of uniform stratified sampling (via the coarse MLP pass) to focused hierarchical sampling (fine pass) along rays._
 
 #### Python CLI and Workflow
 

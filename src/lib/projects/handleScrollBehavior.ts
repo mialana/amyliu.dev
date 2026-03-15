@@ -34,17 +34,6 @@ export function handleScrollToAnchorTarget(
 }
 
 export default function handleScrollBehavior() {
-    window.addEventListener(
-        "scroll",
-        () => {
-            if (document.documentElement.scrollTop > 0) {
-                console.warn("VIEWPORT SCROLLED", document.documentElement.scrollTop);
-                //  window.scrollTo(0, 0); /* window should never scroll */
-            }
-        },
-        false,
-    );
-
     window.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("main-grid-cell");
         if (!container) return;

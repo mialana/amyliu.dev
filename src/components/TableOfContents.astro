@@ -1,64 +1,80 @@
 ---
-import type { MarkdownHeading } from "astro";
-
+import { type MarkdownHeading } from "astro";
 import CaretDownIcon from "~icons/fa6-solid/caret-down";
-
-import { createTocTree, type TocNode } from "@/lib/projects/handleTocBehavior";
+import { createTocTree, type TocNode } from "@/lib/handleTocBehavior";
 
 const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
 const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
 
 interface Props {
-    headings: MarkdownHeading[];
+    tocRootNode: TocNode;
 }
-const { headings = [] } = Astro.props;
-
-const root: TocNode = createTocTree(headings);
+/* set default to do nothing */
+const { tocRootNode }: Props = Astro.props;
 ---
 
-{/* Styling for `aria-expanded` behavior defined in `global.css` under `u-toc` */}
-<div id="toc-container" class="u-mobile-dotted-border w-full p-2" aria-expanded="false" aria-controls="toc-list">
-    <div id="on-this-page">
-        <div
-            id="on-this-page-label"
-            class="desktop:font-bold desktop:border-0 desktop:backdrop-brightness-100 border-inverted-neutral/25 pointer-events-auto w-fit rounded-xs border px-2 backdrop-brightness-110"
-        >
-            <span>On This Page</span>
-            <CaretDownIcon class="u-icon desktop:hidden inline" />
-        </div>
-    </div>
-    {/* Since it's fixed positioning on mobile, it is the scrolling container */}
+<!-- @utility u-toc {
+    &[aria-expanded="true"] {
+        & > #toc-list {
+            padding: var(--a2-spacing-atoms);
+
+            @media (max-width: theme(--breakpoint-desktop)) {
+                max-height: 25vh;
+                border-width: 0.5px;
+            }
+        }
+    }
+    &[aria-expanded="false"] #toc-list {
+        max-height: 0px;
+    }
+} -->{
+    /* Styling for `aria-expanded` behavior defined in `global.css` under `u-toc` */
+}
+<div id="toc-container" class="u-mobile-dotted-border w-full desktop:py-2" data-expanded="false">
+    <button
+        id="on-this-page-button"
+        class="desktop:font-bold desktop:border-0 desktop:backdrop-brightness-100 border-inverted-neutral/25 desktop:cursor-default desktop:pointer-events-none gap-sm desktop:m-0 z-30 m-2 w-fit rounded-xs border px-2 backdrop-brightness-110 [--icon-size:1em]"
+        aria-label="On This Page Button"
+        aria-expanded="false"
+        aria-disabled="false"
+        aria-controls="toc-list">
+        <span>On This Page</span>
+        <CaretDownIcon class="u-icon desktop:hidden expanded:rotate-180" />
+    </button>
     <ul
         id="toc-list"
-        class="desktop:max-h-full desktop:static bg-primary-neutral border-inverted-neutral/25 desktop:overflow-y-hidden desktop:w-max fixed z-20 max-h-0 w-full overflow-hidden overflow-y-scroll rounded-xs text-sm transition-[max-height]"
-    >
+        aria-hidden="true"
+        class={`desktop:max-h-full desktop:static bg-primary-neutral border-inverted-neutral/25 desktop:overflow-y-hidden desktop:w-max expanded:border-[0.5px] absolute z-20 overflow-hidden overflow-y-scroll rounded-xs not-expanded:max-h-0 expanded:max-h-1/2 text-sm transition-[max-height] expanded:p-(--a2-spacing-atoms) w-full desktop:border-0`}>
         {
-            (function renderTree(nodes: TocNode[]): any {
+            (function renderTree(nodes: TocNode[]) {
                 // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
                 return nodes.map((node: TocNode) => (
                     <li data-slug={node.slug} class="toc-item mb-(--gap-sm) leading-tight">
                         <a
                             href={`#${node.slug}`}
-                            class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}
-                        >
+                            class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}>
                             {node.text}
                         </a>
                         {node.children.length > 0 && <ul class="pl-3">{renderTree(node.children)}</ul>}
                     </li>
                 ));
-            })(root.children)
+            })(tocRootNode.children)
         }
     </ul>
     <script>
         import { updateActiveHeading } from "../lib/projects/handleScrollBehavior.ts";
-        import { initializeOnThisPageBehavior } from "../lib/projects/handleTocBehavior.ts";
+        import { initializeTocBehavior } from "../lib/handleTocBehavior.ts";
+        import { getMobileMediaQuery } from "../lib/utils";
 
         window.addEventListener("DOMContentLoaded", () => {
             // Run on load and whenever the hash changes
             updateActiveHeading();
             window.addEventListener("hashchange", () => updateActiveHeading());
 
-            initializeOnThisPageBehavior();
+            const mobileMediaQuery = getMobileMediaQuery();
+
+            initializeTocBehavior(mobileMediaQuery.matches);
+            mobileMediaQuery.addEventListener("change", (e) => initializeTocBehavior(e.matches));
         });
     </script>
 </div>

@@ -5,7 +5,7 @@ import { toHast } from "mdast-util-to-hast";
 
 import { codeCaptionsStyleSettings, getCodeCaptionsStyleSettings } from "./styles";
 
-import { addClassToHast } from "../utils";
+import { addClassToHast } from "../plugin_utils";
 
 export interface CodeCaptionsOptions {
     /**

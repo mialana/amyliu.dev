@@ -1,36 +1,27 @@
 ---
 export const prerender = false;
 
-import { projectSortOrderMap, type ProjectSortOrder } from "@/lib/projects/query";
+import { projectSortOrderArray } from "@/lib/projects/query";
+import { camelCaseToHumanReadable } from "@/lib/utils";
 
 const SORT_CONTAINER_CLASSNAME = "projects-sort-container";
 const SORT_ORDER_ELEMENT_CLASSNAME = "projects-sort-order-element";
-
-// use URL to set `sortOrder`
-const maybeSortOrder: any | null = Astro.url.searchParams.get("sortOrder");
-
-let currSortOrder: ProjectSortOrder =
-    maybeSortOrder && Object.keys(projectSortOrderMap).includes(maybeSortOrder)
-        ? maybeSortOrder
-        : Object.keys(projectSortOrderMap)[0];
 ---
 
 <div
     id={SORT_CONTAINER_CLASSNAME}
-    class="relative p-(--choices-dropdown-item-padding) text-(length:--choices-font-size-md)"
->
+    class="relative p-(--choices-dropdown-item-padding) text-(length:--choices-font-size-md)">
     <span>Sort Order</span>
     <ul class="u-choices-item-after cursor-pointer overflow-clip rounded-(--choices-border-radius-item)">
         {
-            Object.entries(projectSortOrderMap).map(([order, label]) => {
+            projectSortOrderArray.map((order) => {
                 return (
                     <li
                         class={`${SORT_ORDER_ELEMENT_CLASSNAME} aria-selected:bg-violet-accent/50 bg-violet-accent/15 inline-block px-(--gap-md) hover:brightness-125`}
                         onclick={`onOrderSelected('${order}')`}
                         data-key={order}
-                        aria-selected={order === currSortOrder ? "true" : "false"}
-                    >
-                        {label}
+                        aria-selected="false">
+                        {camelCaseToHumanReadable(order)}
                     </li>
                 );
             })
@@ -41,17 +32,29 @@ let currSortOrder: ProjectSortOrder =
 <script is:inline>
     const SORT_ORDER_ELEMENT_CLASSNAME = "projects-sort-order-element";
 
-    function onOrderSelected(sortOrder) {
+    function syncButtons(sortOrder) {
         // set `ariaSelected` attribute on all buttons
         const buttons = document.querySelectorAll(`.${SORT_ORDER_ELEMENT_CLASSNAME}`);
         buttons.forEach((b) => {
             b.ariaSelected = b.dataset.key === sortOrder ? "true" : "false";
         });
-
-        document.documentElement.dataset.projectsSortOrder = sortOrder;
-
-        const url = new URL(window.location);
-        url.searchParams.set("sortOrder", sortOrder);
-        window.location.href = url.toString();
     }
+
+    function onOrderSelected(sortOrder) {
+        const app = document.getElementById("app");
+        if (!app) return;
+
+        syncButtons(sortOrder);
+        app.dataset.projectSortOrder = sortOrder;
+    }
+
+    function fromDocumentElement() {
+        const app = document.getElementById("app");
+        if (!app) return;
+
+        const sortOrder = app.dataset.projectSortOrder ?? "startDate";
+        syncButtons(sortOrder);
+    }
+
+    window.addEventListener("DOMContentLoaded", fromDocumentElement);
 </script>

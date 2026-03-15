@@ -202,8 +202,7 @@ The asset begins with a `Curve` input, which is resampled and segmented to defin
 
 A decay mask is computed using a vertical (Y-axis) gradient to emulate natural erosion from top-down weathering. This mask drives probabilistic deletion of individual rock pieces.
 
-![Mask Original Wall](assets/mask_original_wall.png)
-![Mask Deleted Wall](assets/mask_deleted_wall.png)
+![Mask Original Wall](assets/mask_original_wall.png) ![Mask Deleted Wall](assets/mask_deleted_wall.png)
 
 ### Conclusion and Significance
 

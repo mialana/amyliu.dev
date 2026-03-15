@@ -37,8 +37,7 @@ function TagLink({ tag, count, style, className }: TagLinkProps) {
             href={`/tags/${tag}/`}
             title={count !== undefined ? `${count} ${count > 1 ? "Mentions" : "Mention"}` : undefined}
             style={style}
-            className={`not-prose inline-block py-2 font-semibold no-underline hover:underline hover:underline-offset-2 ${className}`}
-        >
+            className={`inline-block py-2 font-semibold no-underline hover:underline hover:underline-offset-2 ${className}`}>
             {tag.replaceAll("_", " ")}
         </a>
     );
@@ -76,8 +75,8 @@ export default function TagsIndex({ tagCloudData }: TagsIndexProps) {
             {/* Button */}
             <button
                 onClick={() => setWordCloudView(!wordCloudView)}
-                className="bg-inverted-tertiary/50 text-inverted-important-text mb-6 cursor-pointer rounded-md border px-2 py-1 text-sm hover:brightness-150"
-            >
+                className="bg-inverted-tertiary/50 text-dark-important-text p-xdouble-y-2 mb-6 cursor-pointer rounded-md border text-sm hover:brightness-150"
+                aria-label="Switch Tags Index View Button">
                 Switch to {wordCloudView ? "Alphabetical List View" : "Wordcloud View"}
             </button>
 

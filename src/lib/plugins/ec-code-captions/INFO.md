@@ -18,15 +18,10 @@ export function getCodeCaptionsStyleSettings({ cssVar }: ResolverContext, option
 }
 ```
 
-What this does is revert the styling of the newly created figcaption to the previous layer.
-I found this was necessary as Expressive Code applies an `all: revert` to every element within
-the `.expressive-code` class.
+What this does is revert the styling of the newly created figcaption to the previous layer. I found this was necessary as Expressive Code applies an `all: revert` to every element within the `.expressive-code` class.
 
-But since the caption really does not / should not abide by the styling of the codeblock,
-a `revert-layer` allows me to define styling in a previous layer that I own.
+But since the caption really does not / should not abide by the styling of the codeblock, a `revert-layer` allows me to define styling in a previous layer that I own.
 
-And since all my text colors, line heights, etc. are uniformally defined in my "defaults" layer,
-I really have to do no extra work to make the captions abide by the styling of the rest of the website.
-And more importantly, no repeated code, which I despise.
+And since all my text colors, line heights, etc. are uniformally defined in my "defaults" layer, I really have to do no extra work to make the captions abide by the styling of the rest of the website. And more importantly, no repeated code, which I despise.
 
 Note that this logic depends on setting the `cascadeLayer` config option for Expressive Code in `astro.config.ts`.

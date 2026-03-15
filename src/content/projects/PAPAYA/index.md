@@ -308,8 +308,7 @@ Next, to support collaborative editing and version control, I working on the che
 Specifically, the workflow enforces a **single-user ownership model** during check-out:
 
 - When a user checks out an asset, the `checked_out_by` field in MySQL is updated with their identifier
-- While other users can still download the asset, further check-out attempts are blocked until it is checked back in
-  This policy safeguards against overwriting and promotes structured review and integration
+- While other users can still download the asset, further check-out attempts are blocked until it is checked back in This policy safeguards against overwriting and promotes structured review and integration
 
 ##### Endpoint Development
 
@@ -333,8 +332,7 @@ I also wanted to structure each view around a corresponding serializer in `libra
 To wrap things up in Django, I integrated **Swagger/OpenAPI** documentation into the backend to ensure smooth adoption by our large, multidisciplinary team.
 
 - `/docs` – Auto-generated reference of all endpoints, expected schemas, and return types
-- `/playground` – Interactive API testing interface directly in the browser
-  ![Swagger](assets/swagger.png)
+- `/playground` – Interactive API testing interface directly in the browser ![Swagger](assets/swagger.png)
 
 Although I've interacted [Swagger](https://swagger.io/docs/) in the past, it's always been extremely downstream in the pipeline, such as a third-party hobbyist developer. Setting it up in this project, I realized such documentation tools are extremely necessary in team workflows. As we were all working simultaneously on our own rigorous features, often times one person's progress sidestepped or completely interfered with another's. Some examples of how Swagger instantly improved our efficiency as a collective are:
 
@@ -447,8 +445,7 @@ To assist all project contributors in adopting this structure, I took some type 
 
 To enable real-time asset inspection directly in the browser, during my initial MVP prototype phase I developed a **Three.JS-based viewer** for **glTF**-converted USD files.
 
-**Note:** I only worked on the prototype, and the nifty previewing feature in the final deployed browser is all thanks to my incredible teammates.
-See Here: [Live asset preview – Jello Shelf](https://asset-browser-zeta.vercel.app/asset/jelloShelf)
+**Note:** I only worked on the prototype, and the nifty previewing feature in the final deployed browser is all thanks to my incredible teammates. See Here: [Live asset preview – Jello Shelf](https://asset-browser-zeta.vercel.app/asset/jelloShelf)
 
 However, to briefly touch on the things I learned about USD on the web during that initial sprint, I used Three.JS’s `GLTFLoader` and a Python script within the Django runtime that converts USD files to `.gltf` format using Blender scripts if it does not already exist, is what allowed for rendering of USD on the web. This decision was made after evaluating other options such as USDZ and `three-usdz-loader`, opting for this workflow with more consistent material and geometry handling.
 

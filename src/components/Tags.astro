@@ -17,8 +17,7 @@ const { content, label } = Astro.props;
                 label === "tags" || label === "tech stack" ? (
                     <a
                         href={`/tags/${tag}/`}
-                        class={`hover:text-red-accent cursor-grabbing snap-start text-nowrap no-underline`}
-                    >
+                        class={`hover:text-red-accent cursor-grabbing snap-start text-nowrap no-underline`}>
                         {label === "tags" && <span>#</span>}
                         {tag.replaceAll("_", " ")}
                     </a>

@@ -15,16 +15,14 @@ const links: ExternalLinkItem[] = createExternalLinks(code, externalLinks);
 
 <div
     id="project-external-links-container"
-    class="desktop:flex-col u-mobile-dotted-border flex items-center justify-evenly gap-4 px-2 py-4"
->
+    class="desktop:flex-col u-mobile-dotted-border flex items-center justify-evenly gap-4 px-2 py-4">
     {
         links.map(({ url, label }) => (
             <a
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mx-auto flex w-20 flex-col items-center gap-2"
-            >
+                class="mx-auto flex w-20 flex-col items-center gap-2">
                 <div class="bg-inverted-secondary/50 desktop:rounded-2xl flex h-16 w-16 items-center justify-center rounded-md border p-1 shadow hover:scale-105">
                     <Image
                         src={getLinkFavicon(url)}

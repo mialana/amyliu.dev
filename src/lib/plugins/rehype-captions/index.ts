@@ -4,7 +4,7 @@ import type { Plugin, Transformer } from "unified";
 import { isElement } from "hast-util-is-element";
 import { visit } from "unist-util-visit";
 
-import { addClassToHast } from "../utils";
+import { addClassToHast } from "../plugin_utils";
 
 export const isTopLevel = (node: Element): boolean => {
     if (!node || (node.type !== "element" && node.type !== "root")) {

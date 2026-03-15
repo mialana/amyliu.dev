@@ -1,4 +1,4 @@
-import siteMappings from "@/lib/siteMappings.json";
+import siteMappings from "@/lib/externalSiteMappings.json";
 
 export interface ExternalLinkItem {
     url: string;

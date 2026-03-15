@@ -7,17 +7,6 @@ const CHOICES_EXTRA_ELEMENT_CLASSNAME = "choices-extra-content-container";
 type ChoicesEventDetail = { id: number; value: string; label: string; customProperties?: unknown; groupValue?: string };
 type ChoicesEvent = CustomEvent<ChoicesEventDetail>;
 
-function bifilter<T>(f: (x: T, i: number, arr: T[]) => boolean, xs: T[]): [T[], T[]] {
-    return xs.reduce<[T[], T[]]>(
-        ([Tarr, Farr], x, i, arr) => {
-            if (f(x, i, arr)) Tarr.push(x);
-            else Farr.push(x);
-            return [Tarr, Farr];
-        },
-        [[], []],
-    );
-}
-
 const isChoicesEvent = (e: Event): e is ChoicesEvent =>
     e instanceof CustomEvent && typeof (e as CustomEvent).detail?.value === "string";
 

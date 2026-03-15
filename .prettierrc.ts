@@ -1,7 +1,6 @@
-// @ts-check
-/** @type {import("prettier").Config} */
+import { type Config } from "prettier";
 
-export default {
+const config: Config = {
     plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
 
     // Global default options for all files
@@ -10,5 +9,11 @@ export default {
     useTabs: false,
     semi: true,
     objectWrap: "collapse",
+    bracketSameLine: true,
+    endOfLine: "lf",
+    proseWrap: "never",
+    singleAttributePerLine: false,
     overrides: [{ files: "*.css", options: { printWidth: 200 } }],
 };
+
+export default config;

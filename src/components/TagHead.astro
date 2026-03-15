@@ -22,9 +22,9 @@ const jsonLd = JSON.stringify({
     mainEntity: projects.map((p) => ({
         "@type": "CreativeWork",
         name: p.data.title,
-        url: new URL(`/projects/${p.data.slug}/`, Astro.site).href,
+        url: new URL(`/projects/${p.id}/`, Astro.site).href,
         ...(p.data.description ? { description: p.data.description } : {}),
-        ...(p.data.slug ? { identifier: p.data.slug } : {}),
+        ...(p.id ? { identifier: p.id } : {}),
     })),
 });
 ---

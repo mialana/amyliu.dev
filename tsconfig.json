@@ -2,7 +2,7 @@
     "extends": "astro/tsconfigs/strict",
     "include": [
         ".astro/types.d.ts",
-        ".prettierrc.mjs",
+        ".prettierrc.ts",
         "astro.config.ts",
         "src/types/*",
         "./worker-configuration.d.ts",

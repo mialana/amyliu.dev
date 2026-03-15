@@ -4,9 +4,7 @@ This plugin converts `img` elements that are created from an SVG file to an inli
 
 This is for the purposes of allowing high-quality SVGs, which I also apply `panzoom` to in the DOM.
 
-The main pipeline here was that I am now using [D2](https://d2lang.com/) rather than Mermaid for diagramming.
-And to host them in production, I use the [astro-d2](https://astro-d2.vercel.app/) integration,
-which uses a Remark plugin to convert the D2 diagrams to SVG and replace the original ` ```d2 ` code blocks in MDAST. However, they are replaced with image links, which will be converted `img` elements in the DOM. Hence the desire for this plugin.
+The main pipeline here was that I am now using [D2](https://d2lang.com/) rather than Mermaid for diagramming. And to host them in production, I use the [astro-d2](https://astro-d2.vercel.app/) integration, which uses a Remark plugin to convert the D2 diagrams to SVG and replace the original ` ```d2 ` code blocks in MDAST. However, they are replaced with image links, which will be converted `img` elements in the DOM. Hence the desire for this plugin.
 
 And this works out because Remark plugins will run before Rehype plugins, so I can apply `rehype-svg` to those `img` elements.
 
@@ -58,8 +56,7 @@ But with `rehype-svg`, it appears like this in the DOM:
         data-d2-version="0.7.1"
         preserveAspectRatio="xMinYMin meet"
         viewBox="0 0 2710 432"
-        class="rehyped-inline-svg"
-    >
+        class="rehyped-inline-svg">
         <svg class="d2-3142699309 d2-svg" width="2710" height="432" viewBox="-89 -89 2710 432"></svg>
     </svg>
 </div>

@@ -2,40 +2,71 @@
 import { getCollection } from "astro:content";
 
 import MainLayout from "@/layouts/MainLayout.astro";
-import HorizontalProjectCardLayout from "@/layouts/HorizontalProjectCardLayout.astro";
+import HorizontalProjectCardLayout, { type CardSource } from "@/layouts/HorizontalProjectCardLayout.astro";
 import TagHead from "@/components/TagHead.astro";
 
-export async function getStaticPaths() {
+import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
+
+import { type ProjectEntryStructured, structureProject } from "@/lib/projects/query";
+
+export const getStaticPaths = (async () => {
     const projects = await getCollection("projects");
 
-    // Getall tags in database and map to a set. Include tech stack as honorary tags
+    // Get all tags in database and map to a set. Include tech stack as honorary tags
     const uniqueRawTags = [
         ...new Set(projects.map((project: any) => [...project.data.tags, ...project.data.techStack]).flat()),
     ];
 
-    return uniqueRawTags.map((tag) => {
-        const filteredProjects = projects
+    return uniqueRawTags.map((tag: string) => {
+        const filteredProjects: ProjectEntryStructured[] = projects
             .filter((project: any) => project.data.tags.includes(tag) || project.data.techStack.includes(tag))
-            .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
+            .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
+            .map((p) => structureProject(p));
         return { params: { tag: tag }, props: { projects: filteredProjects } };
     });
-}
+}) satisfies GetStaticPaths;
 
-const { tag: tag } = Astro.params;
-const { projects } = Astro.props;
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { tag } = Astro.params as Params;
+
+const { projects } = Astro.props as Props;
 
 const tagTitle = tag.replaceAll("_", " ");
 const prefix = `${tag}-tag-`;
+
+const tagAsSource: CardSource = { title: tagTitle, slug: tag, kind: "tag" };
 ---
 
 <MainLayout title={tagTitle} layout="NONE">
     <TagHead slot="head" tag={tag} projects={projects} />
     <div id=`${prefix}container`>
-        <div class="prose bg-inverted-neutral/25 sticky top-0 z-30 mb-4 w-fit rounded-sm px-2">
-            <h1>{tagTitle}</h1>
+        <div class="prose-custom bg-inverted-neutral/50 sticky top-0 z-30 mb-4 w-fit rounded-md px-2">
+            <h1 class="text-inverted-important-text text-wrap">{tagTitle}</h1>
         </div>
-        <ul id=`${prefix}project-list` class="gap-lg flex flex-col">
-            {projects.map((project: any) => <HorizontalProjectCardLayout project={project} idPrefix={prefix} />)}
+        <ul id=`${prefix}project-list` class="gap-lg flex flex-col items-center-safe">
+            {projects.map((project) => <HorizontalProjectCardLayout project={project} source={tagAsSource} />)}
         </ul>
     </div>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const buttons = document.querySelectorAll<HTMLAnchorElement>("button.card-display-button");
+
+            /* add event listener for all buttons */
+            buttons.forEach((butn) => {
+                const parentCardId = butn.dataset.cardId;
+                const parentCard = document.querySelector(`#${parentCardId}`) as HTMLLIElement | undefined;
+
+                butn.addEventListener("click", (e) => {
+                    if (!parentCard) return;
+
+                    const currentDisplay = parentCard.dataset.display;
+                    // switch the display mode
+                    parentCard.dataset.display = currentDisplay === "overview" ? "more" : "overview";
+                });
+            });
+        });
+    </script>
 </MainLayout>

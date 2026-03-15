@@ -1,19 +1,44 @@
 ---
-import SvgSideBar from "@/components/svg/SvgSideBar.astro";
+import NavCollapseIcon from "~icons/tabler/layout-sidebar-left-collapse-filled";
+import NavExpandIcon from "~icons/tabler/layout-sidebar-left-expand";
+import AsideCollapseIcon from "~icons/tabler/layout-sidebar-right-collapse-filled";
+import AsideExpandIcon from "~icons/tabler/layout-sidebar-right-expand";
 
-import { type SideBarType } from "@/lib/handleSideBarState";
+import { type SideBarType } from "@/lib/handleSideBarBehavior";
+
+import { capitalize } from "@/lib/utils";
 
 interface Props {
     sideBarType: SideBarType;
 }
 
 const { sideBarType } = Astro.props;
+
+const id = `${sideBarType}-sidebar-button`;
+const sideBarId = `${sideBarType}-sidebar-element`;
+const label = `${capitalize(sideBarType)} Sidebar Button`;
+
+const CollapseIcon = sideBarType === "nav" ? NavCollapseIcon : AsideCollapseIcon;
+const ExpandIcon = sideBarType === "nav" ? NavExpandIcon : AsideExpandIcon;
 ---
 
+{/* behavior corresponds to default expanded */}
 <button
-    id=`${sideBarType}-sidebar-button`
-    class=`hidden bg-inverted-tertiary h-(--a2-toolbar-height) w-(--a2-toolbar-height) px-1.5 leading-(--a2-toolbar-height) hover:outline-1 hover:brightness-150 -outline-offset-2 rotate-180 brightness-50`
-    style=`${sideBarType === "aside" && "--svg-rotation: 180deg"}`
->
-    <SvgSideBar />
+    id={id}
+    class=`bg-inverted-tertiary h-(--a2-toolbar-height) w-(--a2-toolbar-height) leading-(--a2-toolbar-height) hover:outline-1 hover:brightness-150 -outline-offset-2 not-expanded:brightness-75 brightness-125 stroke-inverted-important-text text-inverted-important-text not-desktop:hidden justify-center-safe [--icon-size:calc(var(--a2-toolbar-height)*0.75)]`
+    aria-label={label}
+    aria-expanded={true}
+    aria-controls={sideBarId}>
+    <ExpandIcon class="u-icon expanded:hidden" />
+    <CollapseIcon class="u-icon not-expanded:hidden" />
 </button>
+<script>
+    import { initializeSideBarButtonBehavior } from "../lib/handleSideBarBehavior";
+    import { getMobileMediaQuery } from "../lib/utils";
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const mobileMediaQuery = getMobileMediaQuery();
+        initializeSideBarButtonBehavior();
+        mobileMediaQuery.addEventListener("change", (e) => initializeSideBarButtonBehavior());
+    });
+</script>

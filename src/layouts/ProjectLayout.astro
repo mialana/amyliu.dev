@@ -17,12 +17,11 @@ const { project } = Astro.props;
 ---
 
 <div
-    class="prose prose-sm horizontal:prose-base flex flex-col justify-center-safe overflow-hidden"
-    style="max-width: var(--container-3xl); width: 100%;"
->
+    class="prose-custom prose-sm horizontal:prose-base flex flex-col justify-center-safe overflow-hidden"
+    style="max-width: var(--container-3xl); width: 100%;">
     <section id="project-headings" class="prose-sm md:prose-base text-center">
         <h1>
-            <a id="project-h1-anchor" href={`/projects/${project.data.slug}/`}>
+            <a id="project-h1-anchor" href={`/projects/${project.id}/`}>
                 {project.data.title}
             </a>
         </h1>
@@ -41,7 +40,7 @@ const { project } = Astro.props;
             </p>
         </figcaption>
     </section>
-    <div class="not-prose my-4">
+    <div class="my-4">
         {
             project.data.demoVideoLink ? (
                 <YouTube
@@ -68,7 +67,7 @@ const { project } = Astro.props;
         <Tags content={project.data.techStack} label="tech stack" />
     </div>
 
-    <article id="project-content">
+    <article id="project-content" class="prose-uniform">
         <hr />
         <slot />
     </article>

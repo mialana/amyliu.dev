@@ -24,7 +24,6 @@ const projectsCollection = defineCollection({
             tags: z
                 .array(z.string())
                 .refine((items) => new Set(items).size === items.length, { message: "Tags must be unique" }),
-            slug: z.string(),
         }),
 });
 

@@ -1,3 +1,5 @@
+import { getRequiredElement } from "@/lib/utils";
+
 export const ROOT_DATA_ATTRIBUTE = "data-theme";
 export const LOCAL_STORAGE_VARNAME = "theme";
 export const LIGHT_THEME_TEXT = "light";
@@ -7,8 +9,7 @@ export const ThemeOptions = [LIGHT_THEME_TEXT, DARK_THEME_TEXT] as const;
 export type Theme = (typeof ThemeOptions)[number];
 
 export function initializeThemeButton() {
-    const button = document.getElementById("theme-button");
-    if (!button) return;
+    const button = getRequiredElement("#theme-button");
 
     let theme: Theme = LIGHT_THEME_TEXT;
 
