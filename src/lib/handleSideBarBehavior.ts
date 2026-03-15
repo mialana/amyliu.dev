@@ -3,9 +3,9 @@ import { stringToBoolean, getRequiredElements, getAriaControlsElements } from "@
 export type SideBarType = "nav" | "aside";
 
 function handleSideBarButtonClicked(button: HTMLButtonElement, sidebar: Element) {
-    console.log({ button })
+    console.log({ button });
     const currExpanded: boolean = stringToBoolean(button.ariaExpanded);
-    button.ariaExpanded = String((!currExpanded));
+    button.ariaExpanded = String(!currExpanded);
     sidebar.ariaHidden = String(currExpanded); // `aria-hidden` is opposite of `aria-expanded`
 }
 
@@ -18,10 +18,8 @@ export function initializeSideBarButtonBehavior() {
 
     buttons.forEach((button) => {
         const sidebar = getAriaControlsElements(button)[0];
-        button.addEventListener(
-            "click",
-            () => handleSideBarButtonClicked(button, sidebar),
-            { signal: sidebarAbort!.signal }
-        );
+        button.addEventListener("click", () => handleSideBarButtonClicked(button, sidebar), {
+            signal: sidebarAbort!.signal,
+        });
     });
 }

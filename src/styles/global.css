@@ -815,6 +815,12 @@
     }
 }
 
+@utility prose-custom-base {
+    :where(&) {
+        @apply prose-base;
+    }
+}
+
 @utility prose-uniform {
     /* overrides of prose that are 'external' features */
     /* by creating a separate utility, we increase specificity and create a division of responsibilities */

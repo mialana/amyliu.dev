@@ -38,7 +38,7 @@ export function initializeTocBehavior(isMobile: boolean) {
     function setTocState(state: boolean) {
         onThisPageButton.ariaExpanded = String(state);
         tocContainerElement.dataset.expanded = String(state);
-        tocListElement.ariaHidden = String((!state));
+        tocListElement.ariaHidden = String(!state);
     }
 
     function listenForPointerDown(e: Event) {
@@ -59,7 +59,7 @@ export function initializeTocBehavior(isMobile: boolean) {
         }
     }
 
-    onThisPageButton.ariaDisabled = String((!isMobile));
+    onThisPageButton.ariaDisabled = String(!isMobile);
 
     setTocState(!isMobile); // closed default on mobile, open default on desktop
     if (isMobile) {
