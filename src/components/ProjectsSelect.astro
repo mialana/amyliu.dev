@@ -11,7 +11,7 @@ interface Props {
 }
 ---
 
-<div id={PROJECTS_SELECT_CONTAINER_CLASSNAME} class=`u-mobile-dotted-border border-b-0 p-2`>
+<div id={PROJECTS_SELECT_CONTAINER_CLASSNAME} class=`u-mobile-dotted-border z-0 border-b-0 p-2`>
     <div class=`desktop:block prose-custom text-2xs mb-1 hidden`>
         <h1 class="m-0">Projects Selection</h1>
     </div>
@@ -31,11 +31,11 @@ interface Props {
         </optgroup>
     </select>
 </div>
-<!-- 
+
 <div id={CHOICES_EXTRA_ELEMENT_CLASSNAME} class="hidden">
     <div class="choices__heading">Additional Options</div>
     <ProjectsSort />
-</div> -->
+</div>
 
 <script>
     import { initializeChoices } from "../lib/projects/handleProjectSelection";

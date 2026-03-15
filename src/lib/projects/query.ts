@@ -32,7 +32,7 @@ export type ProjectSection = { key: SectionKey; title: string; projectIndices: n
 export type ProjectIndexData = { sections: ProjectSection[]; tocHeadings: MarkdownHeading[] };
 
 export const projectSortOrderArray = ["startDate", "endDate"] as const;
-type ProjectSortOrder = (typeof projectSortOrderArray)[number];
+export type ProjectSortOrder = (typeof projectSortOrderArray)[number];
 
 export const DEFAULT_PROJECT_SORT_ORDER: ProjectSortOrder = "startDate";
 

@@ -1,4 +1,5 @@
 import Choices from "choices.js";
+import { getMobileMediaQuery } from "@/lib/utils";
 
 const PROJECTS_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
 const CHOICES_DROPDOWN_ELEMENT_SELECTOR = ".choices__list--dropdown";
@@ -81,26 +82,6 @@ export const resetNativeSelect = (el: HTMLSelectElement) => {
     });
 };
 
-const positionDropdown = (choices: Choices, mobileMediaQuery: MediaQueryList) => {
-    const root = choices.containerOuter?.element;
-    if (!root) return;
-
-    const inner = root.querySelector(".choices__inner") as HTMLElement | null;
-    const dropdown = root.querySelector(CHOICES_DROPDOWN_ELEMENT_SELECTOR) as HTMLElement | null;
-
-    if (!inner || !dropdown) return;
-
-    const isMobile: boolean = mobileMediaQuery.matches;
-
-    dropdown.style.position = isMobile ? "fixed" : "absolute";
-
-    const rect = inner.getBoundingClientRect();
-
-    dropdown.style.top = isMobile ? `${rect.bottom}px` : `${rect.height}px`;
-    dropdown.style.left = isMobile ? `${rect.left}px` : "0px";
-    dropdown.style.width = `${rect.width}px`;
-};
-
 function appendExtraElementToDropdown(root: HTMLElement) {
     const dropdown = root.querySelector(CHOICES_DROPDOWN_ELEMENT_SELECTOR);
     if (!dropdown) return;
@@ -129,11 +110,9 @@ const onDropdownOpenScoped = (choices: Choices, mobileMediaQuery: MediaQueryList
             choices.hideDropdown();
         }
     };
-    const positionDropdownFn = () => positionDropdown(choices, mobileMediaQuery);
 
     // set up listeners
     document.addEventListener("pointerdown", onPointerDown);
-    window.addEventListener("resize", positionDropdownFn);
 
     const cleanup = () => {
         document.removeEventListener("pointerdown", onPointerDown);
@@ -180,9 +159,7 @@ export function initializeChoices() {
         },
     });
 
-    const mobileMediaQuery = window.matchMedia(
-        `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
-    );
+    const mobileMediaQuery = getMobileMediaQuery();
 
     // add event listeners for when new choices are added or removed
     ["addItem", "removeItem"].forEach((changeEvent) => {
@@ -194,7 +171,6 @@ export function initializeChoices() {
             }
 
             filterProjectCards(choices);
-            positionDropdown(choices, mobileMediaQuery);
         });
     });
 
@@ -204,6 +180,5 @@ export function initializeChoices() {
 
     root.addEventListener("showDropdown", () => {
         onDropdownOpenScoped(choices, mobileMediaQuery);
-        positionDropdown(choices, mobileMediaQuery);
     });
 }

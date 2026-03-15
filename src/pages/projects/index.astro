@@ -8,15 +8,26 @@ import ProjectCardLayout from "@/layouts/ProjectCardLayout.astro";
 import ProjectSelect from "@/components/ProjectsSelect.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 
-import { getProjectIndexData, structureProject, type ProjectEntryStructured } from "@/lib/projects/query";
+import {
+    getProjectIndexData,
+    projectSortOrderArray,
+    structureProject,
+    type ProjectEntryStructured,
+    type ProjectSortOrder,
+} from "@/lib/projects/query";
 
 const projects: ProjectEntryStructured[] = (await getCollection("projects")).map((p) => structureProject(p));
 
 /* a prefix to add to the id of the project cards to prevent clashing with the slug of the real project page */
 const idPattern = "card-";
 
+// use URL to set `sortOrder`
+const maybeSortOrder: any | null = Astro.url.searchParams.get("sortOrder");
+let sortOrder: ProjectSortOrder =
+    maybeSortOrder && projectSortOrderArray.includes(maybeSortOrder) ? maybeSortOrder : projectSortOrderArray[0];
+
 /* separate out data parsing into separate module in lib */
-const { sections, tocHeadings } = getProjectIndexData(projects, "startDate", idPattern);
+const { sections, tocHeadings } = getProjectIndexData(projects, sortOrder, idPattern);
 ---
 
 <MainLayout title="Projects" layout="NO_ASIDE">

@@ -1,18 +1,22 @@
 ---
-export const prerender = false;
-
-import { projectSortOrderArray } from "@/lib/projects/query";
+import { projectSortOrderArray, type ProjectSortOrder } from "@/lib/projects/query";
 import { camelCaseToHumanReadable } from "@/lib/utils";
 
 const SORT_CONTAINER_CLASSNAME = "projects-sort-container";
 const SORT_ORDER_ELEMENT_CLASSNAME = "projects-sort-order-element";
+
+// use URL to set `sortOrder`
+const maybeSortOrder: any | null = Astro.url.searchParams.get("sortOrder");
+
+let currSortOrder: ProjectSortOrder =
+    maybeSortOrder && projectSortOrderArray.includes(maybeSortOrder) ? maybeSortOrder : projectSortOrderArray[0];
 ---
 
 <div
     id={SORT_CONTAINER_CLASSNAME}
     class="relative p-(--choices-dropdown-item-padding) text-(length:--choices-font-size-md)">
     <span>Sort Order</span>
-    <ul class="u-choices-item-after cursor-pointer overflow-clip rounded-(--choices-border-radius-item)">
+    <ul class="u-choices--item-after cursor-pointer overflow-clip rounded-(--choices-border-radius-item)">
         {
             projectSortOrderArray.map((order) => {
                 return (
@@ -20,7 +24,7 @@ const SORT_ORDER_ELEMENT_CLASSNAME = "projects-sort-order-element";
                         class={`${SORT_ORDER_ELEMENT_CLASSNAME} aria-selected:bg-violet-accent/50 bg-violet-accent/15 inline-block px-(--gap-md) hover:brightness-125`}
                         onclick={`onOrderSelected('${order}')`}
                         data-key={order}
-                        aria-selected="false">
+                        aria-selected={order === currSortOrder}>
                         {camelCaseToHumanReadable(order)}
                     </li>
                 );
@@ -32,7 +36,7 @@ const SORT_ORDER_ELEMENT_CLASSNAME = "projects-sort-order-element";
 <script is:inline>
     const SORT_ORDER_ELEMENT_CLASSNAME = "projects-sort-order-element";
 
-    function syncButtons(sortOrder) {
+    function syncSortOrder(sortOrder) {
         // set `ariaSelected` attribute on all buttons
         const buttons = document.querySelectorAll(`.${SORT_ORDER_ELEMENT_CLASSNAME}`);
         buttons.forEach((b) => {
@@ -44,17 +48,22 @@ const SORT_ORDER_ELEMENT_CLASSNAME = "projects-sort-order-element";
         const app = document.getElementById("app");
         if (!app) return;
 
-        syncButtons(sortOrder);
+        syncSortOrder(sortOrder);
         app.dataset.projectSortOrder = sortOrder;
+
+        // set as search param in URL
+        const url = new URL(window.location);
+        url.searchParams.set("sortOrder", sortOrder);
+        window.location.href = url.toString();
     }
 
-    function fromDocumentElement() {
+    function fromAppElement() {
         const app = document.getElementById("app");
         if (!app) return;
 
         const sortOrder = app.dataset.projectSortOrder ?? "startDate";
-        syncButtons(sortOrder);
+        syncSortOrder(sortOrder);
     }
 
-    window.addEventListener("DOMContentLoaded", fromDocumentElement);
+    window.addEventListener("DOMContentLoaded", fromAppElement);
 </script>

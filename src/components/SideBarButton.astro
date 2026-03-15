@@ -14,8 +14,8 @@ interface Props {
 
 const { sideBarType } = Astro.props;
 
-const id = `${sideBarType}-sidebar-button`;
-const sideBarId = `${sideBarType}-sidebar-element`;
+const id = `${sideBarType}-sidebar--button`;
+const sideBarId = `${sideBarType}-sidebar--element`;
 const label = `${capitalize(sideBarType)} Sidebar Button`;
 
 const CollapseIcon = sideBarType === "nav" ? NavCollapseIcon : AsideCollapseIcon;
