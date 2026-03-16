@@ -57,13 +57,15 @@ let currSortOrder: ProjectSortOrder =
         window.location.href = url.toString();
     }
 
-    function fromAppElement() {
+    function fromContext() {
         const app = document.getElementById("app");
         if (!app) return;
 
-        const sortOrder = app.dataset.projectSortOrder ?? "startDate";
+        const url = new URL(window.location);
+
+        const sortOrder = url.searchParams.get("sortOrder") ?? app.dataset.projectSortOrder ?? "startDate";
         syncSortOrder(sortOrder);
     }
 
-    window.addEventListener("DOMContentLoaded", fromAppElement);
+    window.addEventListener("DOMContentLoaded", fromContext);
 </script>
