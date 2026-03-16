@@ -7,12 +7,13 @@ const astroPathname = Astro.url.pathname;
 
 {/* explicitly set header height due to favicon scaling on mobile */}
 <div class="relative h-(--a2-header-height) [--a2-header-height:78px]">
-    <div class="absolute top-0 right-0 flex aspect-square h-full items-center-safe justify-center-safe">
+    <div
+        class="dark-theme:saturate-125 dark-theme:brightness-125 absolute top-0 right-0 flex aspect-square h-full items-center-safe justify-center-safe overflow-hidden contrast-110 saturate-110">
         {/* no optimization needed for tiny image size */}
         <img
             id="hero-favicon"
             src={FaviconImage.src}
-            class="bg-transparent bg-none contrast-110 saturate-110"
+            class="desktop:[--a2-hero-favicon-size:64px] h-(--a2-hero-favicon-size) w-(--a2-hero-favicon-size) bg-transparent bg-none [--a2-hero-favicon-size:48px]"
             alt="Hero Favicon"
             width={64}
             height={64}
@@ -41,7 +42,7 @@ const astroPathname = Astro.url.pathname;
                                     id={`header-${page}-page--anchor`}
                                     href={pagePath}
                                     title={`Go to ${page}`}
-                                    class={`${astroPathname === pagePath ? "text-violet-accent font-bold" : ""} block pt-0.5 text-lg hover:underline`}>
+                                    class={`${astroPathname === pagePath ? "text-violet-accent font-bold" : ""} block px-1 pt-0.5 text-lg hover:underline`}>
                                     {page}
                                 </a>
                             </h1>
