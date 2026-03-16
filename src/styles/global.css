@@ -966,7 +966,7 @@
 }
 
 /* override favicon svg style here as illustrator applies style inline */
-#hero-favicon {
+#hero-favicon--container {
     & #rain * {
         stroke: var(--color-important-text);
     }

@@ -1,7 +1,7 @@
 ---
 import FaviconImage from "@/assets/webp/favicon-96x96.webp";
 
-import FaviconInline from "@/assets/svg/favicon_inline_64x64.html";
+import FaviconInline from "@/assets/svg/favicon-64x64.svg";
 const pageList = ["Home", "Projects", "Tags"];
 
 const astroPathname = Astro.url.pathname;
@@ -9,14 +9,12 @@ const astroPathname = Astro.url.pathname;
 
 {/* explicitly set header height due to favicon scaling on mobile */}
 <div class="relative h-(--a2-header-height) [--a2-header-height:78px]">
-    <div
-        class="dark-theme:saturate-125 dark-theme:brightness-125 absolute top-0 right-0 flex aspect-square h-full items-center-safe justify-center-safe overflow-hidden contrast-110 saturate-110">
-        {/* no optimization needed for tiny image size */}
-        <div
-            id="hero-favicon"
-            class="desktop:[--a2-hero-favicon-size:64px] h-(--a2-hero-favicon-size) w-(--a2-hero-favicon-size) bg-transparent bg-none [--a2-hero-favicon-size:48px]">
+    <div class="absolute top-0 right-0 flex aspect-square h-full items-center-safe justify-center-safe overflow-hidden">
+        <i
+            id="hero-favicon--container"
+            class="desktop:[--a2-hero-favicon-size:64px] dark-theme:saturate-125 dark-theme:brightness-110 h-(--a2-hero-favicon-size) w-(--a2-hero-favicon-size) bg-transparent bg-none contrast-110 saturate-110 [--a2-hero-favicon-size:48px]">
             <FaviconInline />
-        </div>
+        </i>
     </div>
     <div class="flex h-full flex-col justify-center-safe">
         {/* Create a wrapper div as prose-custom is applied to descendants */}
