@@ -41,9 +41,7 @@ const { sections, tocHeadings } = getProjectIndexData(projects, sortOrder);
                 <l1>
                     <div class="prose-custom prose-sm mx-auto mb-(--gap-lg) text-center">
                         {/* basis-full ensures the header takes up the full flex row */}
-                        <h1 id={section.key} class="">
-                            {section.title}
-                        </h1>
+                        {section.key !== "pinned" && <h1 id={section.key}>{section.title}</h1>}
                     </div>
                     <ul class={`gap-xl flex flex-wrap items-start justify-center`}>
                         {section.projectIndices.map((idx) => (

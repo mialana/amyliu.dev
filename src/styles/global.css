@@ -611,7 +611,7 @@
 
     & > .choices__inner {
         min-height: auto;
-        min-width: var(--a2-sidebar-width);
+        min-width: calc(var(--a2-sidebar-width)-2 * var(--a2-projects-select-padding));
         width: 100%;
         overflow-x: auto;
         overflow-y: hidden;

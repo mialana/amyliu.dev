@@ -26,13 +26,13 @@ const { tocRootNode }: Props = Astro.props;
     <ul
         id="toc-list"
         aria-hidden="true"
-        class="desktop:max-h-full bg-primary-neutral border-inverted-neutral/25 desktop:overflow-y-hidden desktop:w-max desktop:static not-expanded:max-h-0 not-expanded:p-0 desktop:border-0 absolute z-20 max-h-(--container-sm) w-full overflow-hidden overflow-y-scroll rounded-xs border-[0.5px] p-(--a2-spacing-atoms) text-sm transition-[max-height]">
+        class="desktop:max-h-full bg-primary-neutral border-inverted-neutral/25 desktop:overflow-y-hidden desktop:w-max desktop:static not-expanded:max-h-0 not-expanded:p-0 desktop:border-0 absolute z-20 max-h-(--container-sm) w-full overflow-hidden overflow-y-scroll rounded-xs border-[0.5px] px-(--a2-spacing-atoms) text-sm transition-[max-height]">
         {
             (function renderTree(nodes: TocNode[]) {
                 // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
                 return nodes.map((node: TocNode) => {
                     return (
-                        <li data-slug={node.slug} {...(node.extra ?? {})} class="toc-item mb-(--gap-sm) leading-tight">
+                        <li data-slug={node.slug} {...(node.extra ?? {})} class="toc-item my-1 leading-tight">
                             <a
                                 href={`#${node.slug}`}
                                 class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}>
