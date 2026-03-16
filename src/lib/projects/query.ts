@@ -4,10 +4,12 @@ import { type MarkdownHeading } from "astro";
 import { type CollectionEntry } from "astro:content";
 
 import { kebabCaseToHumanReadable, snakeCaseToHumanReadable, format } from "@/lib/utils";
-import { type TagVariant } from "@/content.config";
 import { type TocNode } from "@/lib/handleTocBehavior";
 
 export const PROJECT_CARD_ID_PATTERN = `project-card__{0}`; // where `0` is the `project.id`
+
+const tagVariantArray = ["tag", "techStack"] as const;
+type TagVariant = (typeof tagVariantArray)[number];
 
 export type ProjectEntry = CollectionEntry<"projects">;
 export type TagView = { id: string; data: CollectionEntry<"tags">["data"] };

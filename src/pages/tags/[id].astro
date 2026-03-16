@@ -6,27 +6,27 @@ import ProjectCardSourceLayout, { type CardSource } from "@/layouts/ProjectCardS
 import TagHead from "@/components/TagHead.astro";
 
 import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
-import { getEntries } from "astro:content";
 
 import { augmentProjectEntry } from "@/lib/projects/query";
 import { format } from "@/lib/utils";
 
 export const getStaticPaths = (async () => {
     const tags = await getCollection("tags");
+    const allProjects = await getCollection("projects");
 
     return tags.map((tag) => {
-        return { params: { id: tag.id }, props: { tag } };
+        const referrerIds = tag.data.referrers.map((ref) => ref.id);
+        const projects = allProjects.filter((p) => referrerIds.includes(p.id)).map(augmentProjectEntry); // cannot call `augmentProjectEntry`
+        return { params: { id: tag.id }, props: { tag, projects } };
     });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { tag } = Astro.props as Props;
+const { tag, projects } = Astro.props as Props;
 
 const tagAsSource: CardSource = { title: tag.data.title, slug: tag.id, kind: "tag" };
 const idPattern = `tag-page__${tag.id}--{0}`;
-
-const projects = (await getEntries(tag.data.referrers)).map((project) => augmentProjectEntry(project));
 ---
 
 <MainLayout title={tag.data.title} layout="NONE" mainGridCellStyleOverrides="u-grid-background">

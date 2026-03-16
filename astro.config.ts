@@ -59,7 +59,7 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-    // adapter: cloudflare({ imageService: "compile", experimental: { headersAndRedirectsDevModeSupport: true } }),
+    adapter: cloudflare({ imageService: "compile", experimental: { headersAndRedirectsDevModeSupport: true } }),
     server: { host: "0.0.0.0" },
     site: "https://amyliu.dev/",
     integrations: [
@@ -68,7 +68,7 @@ export default defineConfig({
         react(),
         d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
-    vite: { plugins: [tailwindcss(), Icons({ compiler: "astro" })], build: { cssCodeSplit: true } },
+    vite: { plugins: [tailwindcss(), Icons({ compiler: "astro" })], build: { cssCodeSplit: true, minify: false } },
     devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [
