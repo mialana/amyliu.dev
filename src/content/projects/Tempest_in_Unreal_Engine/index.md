@@ -11,8 +11,8 @@ techStack:
 tags:
     - Year2025
     - game_development
-    - ue5_gameplay_ability_system
-    - ue5_niagara
+    - UE5_gameplay_ability_system
+    - UE5_niagara
     - game_physics
     - 3D-modeling
 description: Tempest uses Unreal's Gameplay Ability System and Niagara VFX to build an exciting arena brawler with endless enemy waves and complex combat gameplay.

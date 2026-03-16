@@ -23,8 +23,8 @@ class TagEntryData(TypedDict):
     referrers: list[str]
 
 
-snake_case_to_human_readable: Callable[[str], str] = lambda s: capwords(
-    s.replace("_", " ")
+snake_case_to_human_readable: Callable[[str], str] = lambda s: " ".join(
+    word[:1].upper() + word[1:] for word in s.split("_")
 )
 
 

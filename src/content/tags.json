@@ -1,14 +1,14 @@
 {
     "3D-modeling": {
         "referrers": ["MayaRubiks", "Mini_Maya", "MoBi-LE", "SOPOCANI", "Tempest_in_Unreal_Engine"],
-        "title": "3d-modeling",
+        "title": "3D-modeling",
         "variant": "tag"
     },
-    "3D-printing": { "referrers": ["MoBi-LE"], "title": "3d-printing", "variant": "tag" },
-    "3D-reconstruction": { "referrers": ["SOPOCANI"], "title": "3d-reconstruction", "variant": "tag" },
+    "3D-printing": { "referrers": ["MoBi-LE"], "title": "3D-printing", "variant": "tag" },
+    "3D-reconstruction": { "referrers": ["SOPOCANI"], "title": "3D-reconstruction", "variant": "tag" },
     "Adobe_Creative_Cloud": { "referrers": ["SOPOCANI"], "title": "Adobe Creative Cloud", "variant": "techStack" },
     "Amazon_S3": { "referrers": ["PAPAYA"], "title": "Amazon S3", "variant": "techStack" },
-    "AstroJS": { "referrers": ["PAPAYA"], "title": "Astrojs", "variant": "techStack" },
+    "AstroJS": { "referrers": ["PAPAYA"], "title": "AstroJS", "variant": "techStack" },
     "Autodesk_Maya": {
         "referrers": [
             "MayaRubiks",
@@ -37,20 +37,25 @@
         "title": "C++",
         "variant": "techStack"
     },
-    "CMake": { "referrers": ["CUDA_Boid_Flocking", "Neural_for_USD"], "title": "Cmake", "variant": "techStack" },
+    "CG_toolbox_functions": {
+        "referrers": ["GLSL_Simple_Shaders", "Unity_3D_Stylization", "Unity_Hiverunner"],
+        "title": "CG Toolbox Functions",
+        "variant": "tag"
+    },
+    "CMake": { "referrers": ["CUDA_Boid_Flocking", "Neural_for_USD"], "title": "CMake", "variant": "techStack" },
     "CSS": {
         "referrers": ["Spotify_Composite", "WebGPU_Gaussian_Splat_Renderer"],
-        "title": "Css",
+        "title": "CSS",
         "variant": "techStack"
     },
-    "CUDA": { "referrers": ["CUDA_Boid_Flocking"], "title": "Cuda", "variant": "techStack" },
-    "ComfyUI": { "referrers": ["Omniverse_ComfyUI_Bridge"], "title": "Comfyui", "variant": "techStack" },
+    "CUDA": { "referrers": ["CUDA_Boid_Flocking"], "title": "CUDA", "variant": "techStack" },
+    "ComfyUI": { "referrers": ["Omniverse_ComfyUI_Bridge"], "title": "ComfyUI", "variant": "techStack" },
     "Compute_Shaders": { "referrers": ["Unity_Hiverunner"], "title": "Compute Shaders", "variant": "techStack" },
-    "Direct3D12": { "referrers": ["glRemix"], "title": "Direct3d12", "variant": "techStack" },
+    "Direct3D12": { "referrers": ["glRemix"], "title": "Direct3D12", "variant": "techStack" },
     "Django": { "referrers": ["PAPAYA", "Parents_in_the_Loop"], "title": "Django", "variant": "techStack" },
     "GLSL": {
         "referrers": ["GLSL_Pathtracer", "GLSL_Simple_Shaders", "Mini_Maya", "Mini_Minecraft"],
-        "title": "Glsl",
+        "title": "GLSL",
         "variant": "techStack"
     },
     "GPU_optimization": {
@@ -60,7 +65,7 @@
             "WebGPU_Forward_Deferred_Renderer",
             "WebGPU_Gaussian_Splat_Renderer"
         ],
-        "title": "Gpu Optimization",
+        "title": "GPU Optimization",
         "variant": "tag"
     },
     "GPU_profiling": {
@@ -70,7 +75,7 @@
             "WebGPU_Forward_Deferred_Renderer",
             "WebGPU_Gaussian_Splat_Renderer"
         ],
-        "title": "Gpu Profiling",
+        "title": "GPU Profiling",
         "variant": "tag"
     },
     "GPU_programming": {
@@ -80,31 +85,31 @@
             "WebGPU_Forward_Deferred_Renderer",
             "WebGPU_Gaussian_Splat_Renderer"
         ],
-        "title": "Gpu Programming",
+        "title": "GPU Programming",
         "variant": "tag"
     },
-    "Gemini_AI": { "referrers": ["Parents_in_the_Loop"], "title": "Gemini Ai", "variant": "techStack" },
-    "HLSL": { "referrers": ["Unity_3D_Stylization"], "title": "Hlsl", "variant": "techStack" },
-    "HTML": { "referrers": ["Spotify_Composite"], "title": "Html", "variant": "techStack" },
+    "Gemini_AI": { "referrers": ["Parents_in_the_Loop"], "title": "Gemini AI", "variant": "techStack" },
+    "HLSL": { "referrers": ["Unity_3D_Stylization"], "title": "HLSL", "variant": "techStack" },
+    "HTML": { "referrers": ["Spotify_Composite"], "title": "HTML", "variant": "techStack" },
     "Hydra": { "referrers": ["Neural_for_USD"], "title": "Hydra", "variant": "techStack" },
     "Java": { "referrers": ["Chess_in_Java"], "title": "Java", "variant": "techStack" },
     "Java_Swing": { "referrers": ["Chess_in_Java"], "title": "Java Swing", "variant": "techStack" },
-    "Loveable_AI": { "referrers": ["Parents_in_the_Loop"], "title": "Loveable Ai", "variant": "techStack" },
-    "MatPlotLib": { "referrers": ["Neural_for_USD"], "title": "Matplotlib", "variant": "techStack" },
-    "MayaPy": { "referrers": ["MayaRubiks"], "title": "Mayapy", "variant": "techStack" },
+    "Loveable_AI": { "referrers": ["Parents_in_the_Loop"], "title": "Loveable AI", "variant": "techStack" },
+    "MatPlotLib": { "referrers": ["Neural_for_USD"], "title": "MatPlotLib", "variant": "techStack" },
+    "MayaPy": { "referrers": ["MayaRubiks"], "title": "MayaPy", "variant": "techStack" },
     "Model_Context_Protocol": {
         "referrers": ["Parents_in_the_Loop"],
         "title": "Model Context Protocol",
         "variant": "techStack"
     },
-    "MySQL": { "referrers": ["PAPAYA"], "title": "Mysql", "variant": "techStack" },
-    "NPC_behavior": { "referrers": ["Mini_Minecraft"], "title": "Npc Behavior", "variant": "tag" },
+    "MySQL": { "referrers": ["PAPAYA"], "title": "MySQL", "variant": "techStack" },
+    "NPC_behavior": { "referrers": ["Mini_Minecraft"], "title": "NPC Behavior", "variant": "tag" },
     "NVIDIA_Omniverse_Kit": {
         "referrers": ["Omniverse_ComfyUI_Bridge"],
-        "title": "Nvidia Omniverse Kit",
+        "title": "NVIDIA Omniverse Kit",
         "variant": "techStack"
     },
-    "NeRF": { "referrers": ["Neural_for_USD"], "title": "Nerf", "variant": "tag" },
+    "NeRF": { "referrers": ["Neural_for_USD"], "title": "NeRF", "variant": "tag" },
     "Nsight_Developer_Tools": {
         "referrers": ["CUDA_Boid_Flocking"],
         "title": "Nsight Developer Tools",
@@ -112,7 +117,7 @@
     },
     "NumPy": {
         "referrers": ["Mocap_Gsplat_Blender_Addon", "Neural_for_USD", "Omniverse_ComfyUI_Bridge"],
-        "title": "Numpy",
+        "title": "NumPy",
         "variant": "techStack"
     },
     "OpenGL": {
@@ -124,13 +129,13 @@
             "Mini_Maya",
             "Mini_Minecraft"
         ],
-        "title": "Opengl",
+        "title": "OpenGL",
         "variant": "techStack"
     },
-    "OpenUSD": { "referrers": ["Mini_Maya", "Neural_for_USD", "PAPAYA"], "title": "Openusd", "variant": "techStack" },
+    "OpenUSD": { "referrers": ["Mini_Maya", "Neural_for_USD", "PAPAYA"], "title": "OpenUSD", "variant": "techStack" },
     "PyTorch": {
         "referrers": ["Mocap_Gsplat_Blender_Addon", "Neural_for_USD", "Omniverse_ComfyUI_Bridge"],
-        "title": "Pytorch",
+        "title": "PyTorch",
         "variant": "techStack"
     },
     "Python": {
@@ -147,16 +152,16 @@
     },
     "QT": {
         "referrers": ["GLSL_Pathtracer", "GLSL_Simple_Shaders", "Mini_Maya", "Mini_Minecraft", "Neural_for_USD"],
-        "title": "Qt",
+        "title": "QT",
         "variant": "techStack"
     },
-    "RESTful": { "referrers": ["PAPAYA"], "title": "Restful", "variant": "tag" },
+    "RESTful": { "referrers": ["PAPAYA"], "title": "RESTful", "variant": "tag" },
     "Raspberry_Pi": { "referrers": ["MoBi-LE"], "title": "Raspberry Pi", "variant": "techStack" },
     "React": { "referrers": ["MoBi-LE", "Spotify_Composite"], "title": "React", "variant": "techStack" },
-    "RestAPI": { "referrers": ["PAPAYA"], "title": "Restapi", "variant": "techStack" },
+    "RestAPI": { "referrers": ["PAPAYA"], "title": "RestAPI", "variant": "techStack" },
     "SideFX_Houdini": {
         "referrers": ["Houdini_Ruins_Terrain_Toolset", "Synthetic_Face_Generation"],
-        "title": "Sidefx Houdini",
+        "title": "SideFX Houdini",
         "variant": "techStack"
     },
     "Typescript": {
@@ -164,27 +169,33 @@
         "title": "Typescript",
         "variant": "techStack"
     },
-    "UltiMaker_Cura": { "referrers": ["MoBi-LE"], "title": "Ultimaker Cura", "variant": "techStack" },
+    "UE5_gameplay_ability_system": {
+        "referrers": ["Tempest_in_Unreal_Engine"],
+        "title": "UE5 Gameplay Ability System",
+        "variant": "tag"
+    },
+    "UE5_niagara": { "referrers": ["Tempest_in_Unreal_Engine"], "title": "UE5 Niagara", "variant": "tag" },
+    "UltiMaker_Cura": { "referrers": ["MoBi-LE"], "title": "UltiMaker Cura", "variant": "techStack" },
     "Unity_Game_Engine": {
         "referrers": ["Houdini_Ruins_Terrain_Toolset", "Unity_3D_Stylization", "Unity_Hiverunner"],
         "title": "Unity Game Engine",
         "variant": "techStack"
     },
     "Unreal_Engine": { "referrers": ["Tempest_in_Unreal_Engine"], "title": "Unreal Engine", "variant": "techStack" },
-    "VFX": { "referrers": ["GLSL_Simple_Shaders", "Houdini_Ruins_Terrain_Toolset"], "title": "Vfx", "variant": "tag" },
+    "VFX": { "referrers": ["GLSL_Simple_Shaders", "Houdini_Ruins_Terrain_Toolset"], "title": "VFX", "variant": "tag" },
     "Vex": { "referrers": ["Houdini_Ruins_Terrain_Toolset"], "title": "Vex", "variant": "techStack" },
     "WGSL": {
         "referrers": ["WebGPU_Forward_Deferred_Renderer", "WebGPU_Gaussian_Splat_Renderer"],
-        "title": "Wgsl",
+        "title": "WGSL",
         "variant": "techStack"
     },
     "WebGPU": {
         "referrers": ["WebGPU_Forward_Deferred_Renderer", "WebGPU_Gaussian_Splat_Renderer"],
-        "title": "Webgpu",
+        "title": "WebGPU",
         "variant": "techStack"
     },
     "Win32": { "referrers": ["glRemix"], "title": "Win32", "variant": "tag" },
-    "Win32_API": { "referrers": ["glRemix"], "title": "Win32 Api", "variant": "techStack" },
+    "Win32_API": { "referrers": ["glRemix"], "title": "Win32 API", "variant": "techStack" },
     "Year2021": { "referrers": ["Chess_in_Java", "Spotify_Composite"], "title": "Year2021", "variant": "tag" },
     "Year2022": {
         "referrers": ["SOPOCANI", "Spotify_Composite", "Synthetic_Face_Generation"],
@@ -236,11 +247,6 @@
     },
     "backend": { "referrers": ["PAPAYA", "Parents_in_the_Loop"], "title": "Backend", "variant": "tag" },
     "cel_shading": { "referrers": ["Unity_3D_Stylization"], "title": "Cel Shading", "variant": "tag" },
-    "cg_toolbox_functions": {
-        "referrers": ["GLSL_Simple_Shaders", "Unity_3D_Stylization", "Unity_Hiverunner"],
-        "title": "Cg Toolbox Functions",
-        "variant": "tag"
-    },
     "cloud_services": { "referrers": ["PAPAYA"], "title": "Cloud Services", "variant": "tag" },
     "compute_shaders": {
         "referrers": ["WebGPU_Forward_Deferred_Renderer", "WebGPU_Gaussian_Splat_Renderer"],
@@ -386,12 +392,6 @@
     "toon_shader": { "referrers": ["Unity_3D_Stylization"], "title": "Toon Shader", "variant": "tag" },
     "topology": { "referrers": ["Synthetic_Face_Generation"], "title": "Topology", "variant": "tag" },
     "turn-based": { "referrers": ["Chess_in_Java"], "title": "Turn-based", "variant": "tag" },
-    "ue5_gameplay_ability_system": {
-        "referrers": ["Tempest_in_Unreal_Engine"],
-        "title": "Ue5 Gameplay Ability System",
-        "variant": "tag"
-    },
-    "ue5_niagara": { "referrers": ["Tempest_in_Unreal_Engine"], "title": "Ue5 Niagara", "variant": "tag" },
     "voxels": { "referrers": ["Unity_Hiverunner"], "title": "Voxels", "variant": "tag" },
     "web": {
         "referrers": [

@@ -11,9 +11,9 @@ export function format(s: string, ...args: string[]) {
 
 export function snakeCaseToHumanReadable(s: string) {
     return s
-        .replace(/_/g, " ")
-        .replace(/^./, (match) => match.toUpperCase())
-        .trim();
+        .split("_")
+        .map((word) => capitalize(word))
+        .join(" ");
 }
 
 export function kebabCaseToHumanReadable(s: string) {

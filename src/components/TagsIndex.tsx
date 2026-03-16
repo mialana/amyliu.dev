@@ -109,7 +109,7 @@ export default function TagsIndex({ tags }: TagsIndexProps) {
                         }}
                     />
                 ) : (
-                    <div className="gap-x-lg grid grid-cols-3 leading-tight">
+                    <div className="gap-x-lg grid grid-cols-3 items-end-safe leading-tight">
                         {/* List View */}
                         {tags.map((tag) => (
                             <p key={tag.id}>
