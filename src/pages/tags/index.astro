@@ -3,7 +3,12 @@ import { getCollection } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import TagsIndex from "@/components/TagsIndex";
 
-const tags = await getCollection("tags");
+const variantOrder = { tag: 0, techStack: 1 };
+let tags = await getCollection("tags");
+tags.sort((a, b) => {
+    const v = variantOrder[a.data.variant] - variantOrder[b.data.variant];
+    return v !== 0 ? v : a.data.title.localeCompare(b.data.title);
+});
 ---
 
 <MainLayout title="Tags Index" layout="NONE">

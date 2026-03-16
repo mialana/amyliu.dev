@@ -43,7 +43,7 @@ function TagLink({ id, count, title, style, extraClassNames }: TagLinkProps) {
             href={`/tags/${id}/`}
             title={count !== undefined ? `${count} ${count > 1 ? "Mentions" : "Mention"}` : undefined}
             style={style}
-            className={`inline-block py-2 font-semibold no-underline hover:underline hover:underline-offset-2 ${extraClassNames}`}>
+            className={`inline-block py-2 font-semibold no-underline hover:underline hover:underline-offset-2 hover:brightness-150 ${extraClassNames}`}>
             {title ?? snakeCaseToHumanReadable(id)}
         </a>
     );
@@ -101,15 +101,15 @@ export default function TagsIndex({ tags }: TagsIndexProps) {
                                 <TagLink
                                     key={tag.value}
                                     id={tag.value}
-                                    count={size}
-                                    extraClassNames={`text-[${color}]! hover:brightness-150!`}
+                                    count={tag.count}
+                                    extraClassNames={`text-[${color}]`}
                                     style={{ color, fontSize: size, marginInline: "0.5rem" }}
                                 />
                             );
                         }}
                     />
                 ) : (
-                    <div className="columns-3 leading-tight">
+                    <div className="gap-x-lg grid grid-cols-3 leading-tight">
                         {/* List View */}
                         {tags.map((tag) => (
                             <p key={tag.id}>
@@ -117,7 +117,7 @@ export default function TagsIndex({ tags }: TagsIndexProps) {
                                     id={tag.id}
                                     count={tag.data.referrers.length}
                                     title={tag.data.title}
-                                    extraClassNames={"hover:text-red-accent!"}
+                                    extraClassNames={`${tag.data.variant === "tag" ? "text-violet-accent" : "text-orange-accent"}`}
                                 />
                             </p>
                         ))}
