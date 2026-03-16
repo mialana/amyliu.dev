@@ -13,3 +13,7 @@ run_worker_first = [ "/projects/" ]
 [[routes]]
 pattern = "amyliu.dev"
 custom_domain = true
+
+[[kv_namespaces]]
+binding = "SESSION"
+id = "9744a68a7e9045c0a7c172579144270e"
