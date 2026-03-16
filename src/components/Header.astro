@@ -10,11 +10,14 @@ const astroPathname = Astro.url.pathname;
 <div class="relative block items-center justify-center">
     <div class="absolute top-0 right-0 aspect-square h-full p-4">
         <Image
+            id="hero-favicon"
             src={FaviconImage}
             class="bg-transparent bg-none contrast-110 saturate-110"
-            alt=""
-            width={96}
-            height={96}
+            alt="Hero Favicon"
+            width={FaviconImage.width}
+            height={FaviconImage.height}
+            loading="lazy"
+            decoding="async"
         />
     </div>
 
