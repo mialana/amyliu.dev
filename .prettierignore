@@ -8,6 +8,7 @@ node_modules/
 .venv/
 .astro/
 .wrangler/
+.husky/
 
 public/d2/
 src/vendor/

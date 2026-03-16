@@ -68,7 +68,7 @@ export default defineConfig({
         react(),
         d2({ layout: "elk", theme: { default: "300" }, sketch: true }),
     ],
-    vite: { plugins: [tailwindcss(), Icons({ compiler: "astro" })], build: { cssCodeSplit: true, minify: false } },
+    vite: { plugins: [tailwindcss(), Icons({ compiler: "astro" })], build: { cssCodeSplit: true } },
     devToolbar: { enabled: false },
     markdown: {
         remarkPlugins: [
