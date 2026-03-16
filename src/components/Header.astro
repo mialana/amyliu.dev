@@ -1,7 +1,6 @@
 ---
-import { Image } from "astro:assets";
-
-import FaviconImage from "@/assets/png/favicon-96x96.png";
+// import FaviconImage from "@/assets/png/favicon-96x96.png";
+import FaviconImage from "@/assets/webp/favicon-96x96.webp";
 const pageList = ["Home", "Projects", "Tags"];
 
 const astroPathname = Astro.url.pathname;
@@ -9,9 +8,10 @@ const astroPathname = Astro.url.pathname;
 
 <div class="relative block items-center justify-center">
     <div class="absolute top-0 right-0 aspect-square h-full p-4">
-        <Image
+        {/* no optimization needed for tiny image size */}
+        <img
             id="hero-favicon"
-            src={FaviconImage}
+            src={FaviconImage.src}
             class="bg-transparent bg-none contrast-110 saturate-110"
             alt="Hero Favicon"
             width={FaviconImage.width}
