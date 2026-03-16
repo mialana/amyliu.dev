@@ -5,10 +5,18 @@ import GithubIcon from "~icons/fa6-brands/github-square";
 import LinkedinIcon from "~icons/fa6-brands/linkedin";
 import EmailIcon from "~icons/fa-solid/envelope-square";
 
+import AstroIcon from "~icons/skill-icons/astro";
+import CloudflareIcon from "~icons/skill-icons/cloudflare-dark";
+
 const footerMap = [
     { label: "GitHub", href: "https://github.com/mialana/", Icon: GithubIcon },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/miyalana/", Icon: LinkedinIcon },
     { label: "Email", href: "mailto:liu.amy05@gmail.com", Icon: EmailIcon },
+];
+
+const poweredByMap = [
+    { label: "Cloudflare", href: "https://www.cloudflare.com/", Icon: CloudflareIcon },
+    { label: "Astro", href: "https://astro.build/", Icon: AstroIcon },
 ];
 ---
 
@@ -32,12 +40,23 @@ const footerMap = [
 <div class="grid grid-cols-[1fr_auto_1fr] items-center-safe pb-1">
     <div class="prose-custom prose-xs desktop:prose-sm col-start-2 text-center tracking-tighter">
         <code class="inline-block">
-            © 2025 · developed by Amy Liu · powered by <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://astro.build/"
-                class="inline-block py-1">Astro</a
-            >
+            © 2025 · developed by Amy Liu · powered by
+            <ul class="not-prose dark-theme:invert dark-theme:saturate-100 inline-block">
+                {
+                    poweredByMap.map(({ label, href, Icon }) => (
+                        <li class="contents">
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={href}
+                                title={label}
+                                class="inline-block py-1 no-underline">
+                                <Icon class="u-icon inline hover:scale-105 hover:contrast-125 hover:saturate-125" />
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
         </code>
     </div>
     <div class="justify-self-end-safe">
