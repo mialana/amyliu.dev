@@ -3,20 +3,22 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
-        "generate-types": "wrangler types",
-        "dev": "npm run generate-types && astro dev",
-        "redev": "npm run generate-types && astro dev --force",
-        "build": "npm run generate-types && astro build",
-        "deploy": "npm run generate-types && astro build && wrangler deploy",
-        "preview": "npm run generate-types && astro build && wrangler dev",
+        "ci": "npm install && node ci.mjs && wrangler types && python -m pip install -r requirements.txt && python scripts/generate_tags_json.py",
+        "predev": "npm run ci",
+        "preredev": "npm run ci",
+        "prebuild": "npm run ci",
+        "dev": "astro dev",
+        "redev": "astro dev --force",
+        "build": "astro build",
+        "deploy": "astro build && wrangler deploy",
+        "preview": "astro build && wrangler dev",
         "astro": "astro",
         "lint": "npx prettier . --write --config=.prettierrc.ts --ignore-path=.prettierignore --no-editorconfig --cache",
-        "prepare": "husky",
-        "ci": "npm install && node ci.mjs"
+        "prepare": "husky"
     },
     "dependencies": {
         "@astro-community/astro-embed-youtube": "^0.5.10",
-        "@astrojs/cloudflare": "^13.1.0",
+        "@astrojs/cloudflare": "^13.1.1",
         "@astrojs/react": "^5.0.0",
         "@astrojs/sitemap": "^3.7.1",
         "@daiji256/rehype-mathml": "^1.2.2",
@@ -24,11 +26,11 @@
         "@expressive-code/plugin-line-numbers": "^0.41.7",
         "@panzoom/panzoom": "^4.6.1",
         "@tailwindcss/vite": "^4.2.1",
-        "@types/node": "^25.4.0",
+        "@types/node": "^25.5.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
-        "astro": "^6.0.3",
-        "astro-d2": "^0.9.0",
+        "astro": "^6.0.4",
+        "astro-d2": "^0.10.0",
         "astro-expressive-code": "^0.41.7",
         "choices.js": "^11.2.1",
         "date-fns": "^4.1.0",
@@ -48,13 +50,13 @@
         "typed.js": "^3.0.0"
     },
     "devDependencies": {
-        "@iconify/json": "^2.2.449",
+        "@iconify/json": "^2.2.450",
         "@tailwindcss/typography": "^0.5.19",
         "husky": "^9.1.7",
         "prettier": "3.8.1",
         "prettier-plugin-astro": "0.14.1",
         "prettier-plugin-tailwindcss": "^0.7.2",
         "unplugin-icons": "^23.0.1",
-        "wrangler": "^4.72.0"
+        "wrangler": "^4.73.0"
     }
 }

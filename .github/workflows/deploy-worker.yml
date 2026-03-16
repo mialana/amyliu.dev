@@ -10,6 +10,10 @@ jobs:
         timeout-minutes: 60
         steps:
             - uses: actions/checkout@v4
+            - name: Setup Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
             - uses: actions/setup-node@v4
               with:
                   node-version: 24
@@ -23,7 +27,7 @@ jobs:
               run: npm run build
 
             - name: Run Deploy
-              run: npm run deploy
+              run: npm run deploy -- --config wrangler.static.toml
               env:
                   CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

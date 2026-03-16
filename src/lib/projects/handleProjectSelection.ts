@@ -1,78 +1,98 @@
-import Choices from "choices.js";
-import { getMobileMediaQuery } from "@/lib/utils";
+import Choices, { type Options } from "choices.js";
+import { getRequiredElement, capitalize } from "../utils";
 
-const PROJECTS_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
-const CHOICES_DROPDOWN_ELEMENT_SELECTOR = ".choices__list--dropdown";
-const CHOICES_EXTRA_ELEMENT_CLASSNAME = "choices-extra-content-container";
+const PROJECTS_SELECT_ORIGIN_ID = "projects-select--origin";
+const PROJECTS_SELECT_EXTRA_CONTAINER_ID = "projects-select__extra--container";
+
+// ensure classNames are always consistent
+const CHOICES_DROPDOWN_CLASSNAME = "choices__list--dropdown";
+const CHOICES_HEADING_CLASSNAME = "choices__heading";
 
 type ChoicesEventDetail = { id: number; value: string; label: string; customProperties?: unknown; groupValue?: string };
 type ChoicesEvent = CustomEvent<ChoicesEventDetail>;
 
+const projectsSelectGroupArray = ["category", "type"] as const;
+type ProjectsSelectGroup = (typeof projectsSelectGroupArray)[number];
+
+const choicesOptions: Partial<Options> = {
+    removeItemButton: true,
+    position: "bottom",
+    shouldSort: false,
+    classNames: {
+        ...Choices.defaults.allOptions.classNames,
+        groupHeading: CHOICES_HEADING_CLASSNAME,
+        listDropdown: CHOICES_DROPDOWN_CLASSNAME,
+    },
+    /* override templates to copy all data attributes from original `option` element to new element */
+    callbackOnCreateTemplates: function () {
+        const defaults = Choices.defaults.templates;
+        return {
+            choice: (...args) => {
+                const newEl = defaults.choice.call(this, ...args);
+
+                const [, srcChoice] = args;
+                const srcEl = srcChoice.element;
+
+                if (!srcEl) return newEl;
+
+                for (const key in srcEl.dataset) {
+                    if (Object.hasOwn(srcEl.dataset, key)) {
+                        newEl.dataset[key] = srcEl.dataset[key];
+                    }
+                }
+
+                return newEl;
+            },
+        };
+    },
+};
+
 const isChoicesEvent = (e: Event): e is ChoicesEvent =>
     e instanceof CustomEvent && typeof (e as CustomEvent).detail?.value === "string";
 
-const getTocItemForCard = (card: HTMLUListElement): HTMLUListElement | null => {
-    const id = card.id;
-    // the `data-slug` attribute of TOC items matches the `id` attribute of project cards
-    return document.querySelector<HTMLUListElement>(`.toc-item[data-slug="${id}"]`);
-};
+const isProjectsSelectGroup = (s: string): s is ProjectsSelectGroup => projectsSelectGroupArray.includes(s as any);
 
-// show card and toc item
-const changeProjectDisplay = (card: HTMLUListElement | null, display: "block" | "none") => {
-    if (!card) return;
-
-    card.style.display = display;
-
-    const tocItem = getTocItemForCard(card);
-    if (tocItem) {
-        tocItem.style.display = display;
-    }
-};
-
-const getSelectedValues = (choices: Choices): string[] => {
-    const value = choices.getValue(true);
-    if (Array.isArray(value)) return value;
+const getSelectedChoices = (choices: Choices): string[] => {
+    const choice = choices.getValue(true);
+    if (Array.isArray(choice)) return choice;
     return [];
 };
 
-const buildSelector = (values: string[]) => {
-    if (values.length === 0) return ".project-card";
-
-    const constraints = values.map((value) => {
-        const [identifier, val] = value.split(":");
-        return `[data-${identifier}^="${val}"]`;
+const buildMapForSelected = (selected: string[]) => {
+    const selectedMap: Map<ProjectsSelectGroup, string[]> = new Map(projectsSelectGroupArray.map((grp) => [grp, []]));
+    selected.forEach((choice) => {
+        const [grp, val] = choice.split(":");
+        if (isProjectsSelectGroup(grp)) {
+            selectedMap.get(grp)?.push(val);
+        }
     });
-
-    return `.project-card${constraints.join("")}`;
+    return selectedMap;
 };
 
-const filterProjectCards = (choices: Choices) => {
-    const values: string[] = getSelectedValues(choices);
+function updateAppDataset(selected: string[]) {
+    const app = document.getElementById("app");
+    if (!app) return;
 
-    const selector = buildSelector(values);
-    const matchingCards = new Set(document.querySelectorAll<HTMLUListElement>(selector));
+    buildMapForSelected(selected)
+        .entries()
+        .forEach(([grp, selectedInGrp]) => {
+            const attribName = `projectSelected${capitalize(grp)}`;
+            const attribValue = selectedInGrp.join(":");
+            app.dataset[attribName] = attribValue;
+        });
+}
 
-    const allCards = document.querySelectorAll<HTMLUListElement>(".project-card");
-
-    allCards.forEach((card) => {
-        changeProjectDisplay(card, matchingCards.has(card) ? "block" : "none");
-    });
-};
-
-const enforceOneItemPerGroup = (choices: Choices, addedValue: string) => {
-    // extract group identifier (i.e. "type", "category")
-    const addedGroup = addedValue.split(":")[0];
-
-    // get currently selected items
-    const selected = choices.getValue() as { value: string }[];
+const enforceOneItemPerGroup = (addedChoice: string, selected: string[], choices: Choices) => {
+    const [addedGroup] = addedChoice.split(":");
 
     // find other items from the same group
-    const toRemove = selected.filter((item) => item.value !== addedValue && item.value.startsWith(`${addedGroup}:`));
+    const conflicting = selected.filter((choice) => choice !== addedChoice && choice.startsWith(`${addedGroup}:`));
 
-    // remove them from the choices element
-    toRemove.forEach((item) => {
-        choices.removeActiveItemsByValue(item.value);
+    // remove them from the `Choices` element
+    conflicting.forEach((choice: string) => {
+        choices.removeActiveItemsByValue(choice);
     });
+    return getSelectedChoices(choices);
 };
 
 export const resetNativeSelect = (el: HTMLSelectElement) => {
@@ -83,14 +103,13 @@ export const resetNativeSelect = (el: HTMLSelectElement) => {
 };
 
 function appendExtraElementToDropdown(root: HTMLElement) {
-    const dropdown = root.querySelector(CHOICES_DROPDOWN_ELEMENT_SELECTOR);
+    const dropdown = root.querySelector(`.${CHOICES_DROPDOWN_CLASSNAME}`);
     if (!dropdown) return;
 
     // element already appended
-    if (dropdown.querySelector(`#${CHOICES_EXTRA_ELEMENT_CLASSNAME}`)) return;
+    if (dropdown.querySelector(`#${PROJECTS_SELECT_EXTRA_CONTAINER_ID}`)) return;
 
-    const template = document.getElementById(CHOICES_EXTRA_ELEMENT_CLASSNAME);
-    if (!template) return;
+    const template = getRequiredElement(`#${PROJECTS_SELECT_EXTRA_CONTAINER_ID}`);
 
     const clone = template.cloneNode(true) as HTMLElement;
     clone.classList.remove("hidden");
@@ -98,8 +117,8 @@ function appendExtraElementToDropdown(root: HTMLElement) {
     dropdown.appendChild(clone);
 }
 
-// attach on open, remove on close
-const onDropdownOpenScoped = (choices: Choices, mobileMediaQuery: MediaQueryList) => {
+// attach events on open, remove those events on close
+const onDropdownOpenScoped = (choices: Choices) => {
     const root = choices.containerOuter?.element;
     if (!root) return;
 
@@ -111,66 +130,33 @@ const onDropdownOpenScoped = (choices: Choices, mobileMediaQuery: MediaQueryList
         }
     };
 
-    // set up listeners
+    // set up scoped listening
     document.addEventListener("pointerdown", onPointerDown);
-
     const cleanup = () => {
         document.removeEventListener("pointerdown", onPointerDown);
         root.removeEventListener("hideDropdown", cleanup);
     };
-
     root.addEventListener("hideDropdown", cleanup);
 };
 
 export function initializeChoices() {
-    const srcSelectEl = document.getElementById(PROJECTS_SELECT_ELEMENT_CLASSNAME) as HTMLSelectElement | null;
-    if (!(srcSelectEl instanceof HTMLSelectElement)) return;
+    const origin = getRequiredElement<HTMLSelectElement>(`#${PROJECTS_SELECT_ORIGIN_ID}`);
 
-    // form-caching can be disabled here
-    resetNativeSelect(srcSelectEl);
+    // form-caching overriden here
+    resetNativeSelect(origin);
 
-    const choices = new Choices(srcSelectEl, {
-        removeItemButton: true,
-        position: "bottom",
-        itemSelectText: "Select ≤ 1 per group",
-        shouldSort: false,
-        /* override templates to copy all data attributes from original `option` element to new element */
-        callbackOnCreateTemplates: function () {
-            const defaults = Choices.defaults.templates;
-
-            return {
-                choice: (...args) => {
-                    const newEl = defaults.choice.call(this, ...args);
-
-                    const [, srcChoice] = args;
-                    const srcEl = srcChoice.element;
-
-                    if (!srcEl) return newEl;
-
-                    for (const key in srcEl.dataset) {
-                        if (Object.hasOwn(srcEl.dataset, key)) {
-                            newEl.dataset[key] = srcEl.dataset[key];
-                        }
-                    }
-
-                    return newEl;
-                },
-            };
-        },
-    });
-
-    const mobileMediaQuery = getMobileMediaQuery();
+    let choices = new Choices(origin, choicesOptions);
 
     // add event listeners for when new choices are added or removed
     ["addItem", "removeItem"].forEach((changeEvent) => {
-        srcSelectEl.addEventListener(changeEvent, (e) => {
+        origin.addEventListener(changeEvent, (e) => {
             if (!isChoicesEvent(e)) return; // to appease ts
+            let selected = getSelectedChoices(choices);
             if (e.type === "addItem") {
-                const value: string = e.detail.value;
-                enforceOneItemPerGroup(choices, value);
+                const addedChoice: string = e.detail.value;
+                selected = enforceOneItemPerGroup(addedChoice, selected, choices);
             }
-
-            filterProjectCards(choices);
+            updateAppDataset(selected);
         });
     });
 
@@ -179,6 +165,6 @@ export function initializeChoices() {
     if (!root) return;
 
     root.addEventListener("showDropdown", () => {
-        onDropdownOpenScoped(choices, mobileMediaQuery);
+        onDropdownOpenScoped(choices);
     });
 }

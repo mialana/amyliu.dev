@@ -1,28 +1,17 @@
-{
-    /* query the projects collection and return the data in parsed format for use in `@/projects/index.astro` */
-}
+/* query the projects collection and return the data in structured format for use in `@/pages/projects/index.astro` */
 
+import { type MarkdownHeading } from "astro";
 import { type CollectionEntry } from "astro:content";
-import type { MarkdownHeading } from "astro";
 
-import { kebabCaseToHumanReadable } from "@/lib/utils";
+import { kebabCaseToHumanReadable, snakeCaseToHumanReadable, format } from "@/lib/utils";
+import { type TagVariant } from "@/content.config";
 import { type TocNode } from "@/lib/handleTocBehavior";
 
+export const PROJECT_CARD_ID_PATTERN = `project-card__{0}`; // where `0` is the `project.id`
+
 export type ProjectEntry = CollectionEntry<"projects">;
-
-class TagLike {
-    readonly identity: "tag" | "tech-stack";
-    readonly value: string;
-    constructor(identity: "tag" | "tech-stack", value: string) {
-        this.identity = identity;
-        this.value = value;
-    }
-    get label() {
-        return this.identity === "tag" ? "Tag" : "Tech Stack";
-    }
-}
-
-export type ProjectEntryStructured = ProjectEntry & { data: ProjectEntry["data"] & { tagsLike: TagLike[] } };
+export type TagView = { id: string; data: CollectionEntry<"tags">["data"] };
+export type ProjectEntryAugmented = ProjectEntry & { data: ProjectEntry["data"] & { tagsView: TagView[] } };
 
 export type SectionKey = "pinned" | `year-${number}`;
 
@@ -35,6 +24,11 @@ export const projectSortOrderArray = ["startDate", "endDate"] as const;
 export type ProjectSortOrder = (typeof projectSortOrderArray)[number];
 
 export const DEFAULT_PROJECT_SORT_ORDER: ProjectSortOrder = "startDate";
+
+type ProjectTocNodeExtra = {
+    "data-project-type": ProjectEntry["data"]["type"];
+    "data-project-category": ProjectEntry["data"]["category"];
+};
 
 const sortIndicesBy = <T>(items: readonly T[], compare: (a: T, b: T) => number): number[] => {
     const indices = Array.from({ length: items.length }, (_, i) => i);
@@ -53,26 +47,28 @@ const findBoundaries = <T>(items: readonly T[], isBoundary: (a: T, b: T) => bool
     return boundaries;
 };
 
-const projectToSectionKey = (p: ProjectEntryStructured, order: ProjectSortOrder): SectionKey => {
+const projectToSectionKey = (p: ProjectEntryAugmented, order: ProjectSortOrder): SectionKey => {
     if (p.data.pinned) return "pinned";
     return `year-${p.data[order].getFullYear()}`;
 };
 
-function combineTagsAndTechStack(project: ProjectEntry): ProjectEntryStructured {
-    const tagsLike: TagLike[] = [];
+const createTagView = (id: string, variant: TagVariant, projectId: string): TagView => ({
+    id,
+    data: { title: snakeCaseToHumanReadable(id), variant, referrers: [{ id: projectId, collection: "projects" }] },
+});
 
-    // sort in place and append
-    project.data.tags.sort().forEach((t) => tagsLike.push(new TagLike("tag", t)));
-    project.data.techStack.sort().forEach((t) => tagsLike.push(new TagLike("tech-stack", t)));
+function buildTagsViewForProject(project: ProjectEntry): ProjectEntryAugmented {
+    const tagsView: TagView[] = project.data.tags.map((t) => createTagView(t, "tag", project.id));
+    const techStackView: TagView[] = project.data.techStack.map((t) => createTagView(t, "techStack", project.id));
 
-    return { ...project, data: { ...project.data, tagsLike: tagsLike } };
+    return { ...project, data: { ...project.data, tagsView: [...tagsView, ...techStackView] } };
 }
 
-export function structureProject(project: ProjectEntry): ProjectEntryStructured {
-    return combineTagsAndTechStack(project);
+export function augmentProjectEntry(project: ProjectEntry): ProjectEntryAugmented {
+    return buildTagsViewForProject(project);
 }
 
-function compareProjects(a: ProjectEntryStructured, b: ProjectEntryStructured, order: ProjectSortOrder): number {
+function compareProjects(a: ProjectEntryAugmented, b: ProjectEntryAugmented, order: ProjectSortOrder): number {
     if (a.data.pinned && !b.data.pinned) return -1;
     else if (b.data.pinned && !a.data.pinned) return 1;
     else {
@@ -82,7 +78,7 @@ function compareProjects(a: ProjectEntryStructured, b: ProjectEntryStructured, o
     }
 }
 
-function buildProjectSections(projects: readonly ProjectEntryStructured[], order: ProjectSortOrder): ProjectSection[] {
+function buildProjectSections(projects: readonly ProjectEntryAugmented[], order: ProjectSortOrder): ProjectSection[] {
     const sections: ProjectSection[] = [];
 
     const projectIndices = sortIndicesBy(projects, (a, b) => compareProjects(a, b, order));
@@ -108,11 +104,10 @@ function buildProjectSections(projects: readonly ProjectEntryStructured[], order
 }
 
 function buildTocNodeFromProjectSections(
-    projects: readonly ProjectEntryStructured[],
+    projects: readonly ProjectEntryAugmented[],
     sections: ProjectSection[],
-    tocHeadingsPrefix: string,
-): TocNode {
-    const node: TocNode = {
+): TocNode<ProjectTocNodeExtra> {
+    const node: TocNode<ProjectTocNodeExtra> = {
         depth: 0,
         slug: "",
         text: "",
@@ -122,19 +117,21 @@ function buildTocNodeFromProjectSections(
             text: section.title,
             children: section.projectIndices.map((idx) => {
                 const project = projects[idx];
-                return { depth: 2, slug: `${tocHeadingsPrefix}${project.id}`, text: project.data.title, children: [] };
+                return {
+                    depth: 2,
+                    slug: format(PROJECT_CARD_ID_PATTERN, project.id),
+                    text: project.data.title,
+                    children: [],
+                    extra: { "data-project-type": project.data.type, "data-project-category": project.data.category },
+                };
             }),
         })),
     };
     return node;
 }
 
-export function getProjectIndexData(
-    projects: readonly ProjectEntryStructured[],
-    order: ProjectSortOrder,
-    tocHeadingsPrefix: string,
-) {
+export function getProjectIndexData(projects: readonly ProjectEntryAugmented[], order: ProjectSortOrder) {
     const sections = buildProjectSections(projects, order);
-    const tocHeadings = buildTocNodeFromProjectSections(projects, sections, tocHeadingsPrefix);
+    const tocHeadings = buildTocNodeFromProjectSections(projects, sections);
     return { sections, tocHeadings };
 }

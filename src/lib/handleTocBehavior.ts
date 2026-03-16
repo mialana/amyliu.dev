@@ -1,13 +1,14 @@
 import type { MarkdownHeading } from "astro";
 import { stringToBoolean, getRequiredElement } from "@/lib/utils";
 
-export type TocNode = MarkdownHeading & { children: TocNode[] };
+export type TocNodeExtraType = Record<string, string>;
+export type TocNode<T extends TocNodeExtraType = {}> = MarkdownHeading & { children: TocNode<T>[]; extra?: T };
 
 /* creates a tree data structure from the list of `MarkdownHeading`'s that Astro content collections provide */
 /* Headings are given as a flat list */
-export function createTocTree(headings: MarkdownHeading[]): TocNode {
-    const root: TocNode = { depth: 0, slug: "", text: "", children: [] };
-    const stack: TocNode[] = [root]; // transient stack
+export function createTocTree(headings: MarkdownHeading[]): TocNode<{}> {
+    const root: TocNode<{}> = { depth: 0, slug: "", text: "", children: [], extra: {} };
+    const stack: TocNode<{}>[] = [root]; // transient stack
 
     for (const h of headings) {
         let p = stack.at(-1);
@@ -16,7 +17,7 @@ export function createTocTree(headings: MarkdownHeading[]): TocNode {
             stack.pop();
             p = stack.at(-1);
         }
-        const node: TocNode = { ...h, children: [] };
+        const node: TocNode<{}> = { ...h, children: [], extra: {} };
         p!.children.push(node);
         stack.push(node); /* push this node onto stack as a non-processed node */
     }

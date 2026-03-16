@@ -9,5 +9,6 @@
     "editor.rulers": [120],
     "[python]": { "editor.rulers": [80] },
     "[css]": { "editor.rulers": [200] },
-    "[markdown]": { "editor.insertSpaces": false }
+    "[markdown]": { "editor.insertSpaces": false },
+    "json.schemas": [{ "fileMatch": ["/src/content/tags.json"], "url": "./.astro/collections/tags.schema.json" }]
 }

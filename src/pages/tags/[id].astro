@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+
+import MainLayout from "@/layouts/MainLayout.astro";
+import ProjectCardSourceLayout, { type CardSource } from "@/layouts/ProjectCardSourceLayout.astro";
+import TagHead from "@/components/TagHead.astro";
+
+import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
+import { getEntries } from "astro:content";
+
+import { augmentProjectEntry } from "@/lib/projects/query";
+import { format } from "@/lib/utils";
+
+export const getStaticPaths = (async () => {
+    const tags = await getCollection("tags");
+
+    return tags.map((tag) => {
+        return { params: { id: tag.id }, props: { tag } };
+    });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { tag } = Astro.props as Props;
+
+const tagAsSource: CardSource = { title: tag.data.title, slug: tag.id, kind: "tag" };
+const idPattern = `tag-page__${tag.id}--{0}`;
+
+const projects = (await getEntries(tag.data.referrers)).map((project) => augmentProjectEntry(project));
+---
+
+<MainLayout title={tag.data.title} layout="NONE" mainGridCellStyleOverrides="u-grid-background">
+    <TagHead slot="head" tag={tag} projects={projects} />
+    <div id={format(idPattern, "container")} class="min-h-full">
+        <div class="prose-custom bg-inverted-neutral/50 sticky top-0 z-30 mb-4 w-fit rounded-md px-2">
+            <h1 class="text-inverted-important-text text-wrap">{tag.data.title}</h1>
+        </div>
+        <ul
+            id={format(idPattern, "project-list")}
+            class="gap-lg desktop:grid monitor:[--card-grid-size:var(--container-xs)] flex grid-cols-[repeat(auto-fit,minmax(var(--card-grid-size),1fr))] flex-col items-center-safe [--card-grid-size:var(--container-sm)]">
+            {projects.map((project) => <ProjectCardSourceLayout project={project} source={tagAsSource} />)}
+        </ul>
+    </div>
+</MainLayout>

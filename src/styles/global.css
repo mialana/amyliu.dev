@@ -215,6 +215,7 @@
             min-height: 0; /* absolutely necessary to ensure viewport never scrolls */
         }
 
+        /* PAGE GRID LAYOUT RULES */
         grid-template-columns: 1fr;
         &[data-layout="BOTH"] {
             grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
@@ -227,6 +228,31 @@
         }
         &[data-layout="NONE"] {
             grid-template-rows: auto auto minmax(0, 1fr) auto;
+        }
+
+        /* PROJECT TYPE SELECTION RULES */
+
+        &[data-project-selected-type="solo"] *[data-project-type]:not([data-project-type="solo"]) {
+            display: none;
+        }
+        &[data-project-selected-type="team"] *[data-project-type]:not([data-project-type*="team"]) {
+            /* category is contains-based */
+            display: none;
+        }
+
+        /* PROJECT CATEGORY SELECTION RULES */
+
+        &[data-project-selected-category="personal"] *[data-project-category]:not([data-project-category="personal"]) {
+            display: none;
+        }
+        &[data-project-selected-category="research"] *[data-project-category]:not([data-project-category="research"]) {
+            display: none;
+        }
+        &[data-project-selected-category="internship"] *[data-project-category]:not([data-project-category="internship"]) {
+            display: none;
+        }
+        &[data-project-selected-category="school"] *[data-project-category]:not([data-project-category="school"]) {
+            display: none;
         }
     }
 }
@@ -585,6 +611,7 @@
 
     & > .choices__inner {
         min-height: auto;
+        min-width: var(--a2-sidebar-width);
         width: 100%;
         overflow-x: auto;
         overflow-y: hidden;

@@ -1,10 +1,13 @@
 ---
-import { format } from "date-fns";
+// a variation for a project card that has another collection it was sourced from (i.e. tags)
+import { format as dateFormat } from "date-fns";
 import { Image } from "astro:assets";
+
+import { format } from "@/lib/utils";
 
 import RightArrowIcon from "~icons/tabler/arrow-big-right-filled";
 
-import { type ProjectEntryStructured } from "@/lib/projects/query";
+import { type ProjectEntryAugmented } from "@/lib/projects/query";
 
 export interface CardSource {
     title: string;
@@ -13,20 +16,20 @@ export interface CardSource {
 }
 
 interface Props {
-    project: ProjectEntryStructured;
+    project: ProjectEntryAugmented;
     source: CardSource;
 }
 
 const { project, source } = Astro.props as Props;
 const { title: srcTitle, slug: srcSlug, kind: srcKind } = source;
 
-const idPattern = `${srcSlug}-${srcKind}-${project.id}-project-card`;
+const idPattern = `project-card__${project.id}__${srcKind}_${srcSlug}--{0}`;
 ---
 
 {/* `tabindex=0` denotes focusable with auto-ordering */}
-<div id=`${idPattern}` class=`group/card relative m-auto max-w-xl` tabindex="0">
+<li id={format(idPattern, "container")} class=`group/card relative m-auto max-w-xl` tabindex="0">
     <Image
-        id=`${idPattern}--card-hero`
+        id={format(idPattern, "card-hero")}
         class="w-full"
         alt={`${project.data.title} Card Hero Image for '${srcTitle}' ${srcKind}`}
         src={project.data.thumbnail}
@@ -39,7 +42,7 @@ const idPattern = `${srcSlug}-${srcKind}-${project.id}-project-card`;
         </h1>
         <div>
             <code>
-                {format(project.data.startDate, "MMMM yyyy")} - {format(project.data.endDate, "MMMM yyyy")}
+                {dateFormat(project.data.startDate, "MMMM yyyy")} - {dateFormat(project.data.endDate, "MMMM yyyy")}
             </code>
             <br />
             <code class="uppercase">
@@ -58,13 +61,13 @@ const idPattern = `${srcSlug}-${srcKind}-${project.id}-project-card`;
             <summary class="cursor-pointer text-left leading-none">More tags for this tag!</summary>
             <ul class="not-prose font-github-code gap-2xs flex flex-wrap py-2">
                 {
-                    project.data.tagsLike.map((t) => (
-                        <li id={`${idPattern}--link-to-${t.value}-${t.identity}`} class="inline rounded-xs">
+                    project.data.tagsView.map((t) => (
+                        <li id={`${idPattern}--link-to-${t.id}-${t.data.variant}`} class="inline rounded-xs">
                             <a
-                                href={`/tags/${t.value}`}
-                                title={`Go to ${t.label} page for '${t.value}'`}
-                                class={`${t.identity === "tag" ? "text-violet-accent" : "text-orange-accent"} relative px-2 hover:brightness-125`}>
-                                #{t.value}
+                                href={`/tags/${t.id}`}
+                                title={`Go to ${t.data.variant} page for '${t.id}'`}
+                                class={`${t.data.variant === "tag" ? "text-violet-accent" : "text-orange-accent"} relative px-2 hover:brightness-125`}>
+                                #{t.id}
                             </a>
                         </li>
                     ))
@@ -72,4 +75,4 @@ const idPattern = `${srcSlug}-${srcKind}-${project.id}-project-card`;
             </ul>
         </details>
     </section>
-</div>
+</li>

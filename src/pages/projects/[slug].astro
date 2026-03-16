@@ -1,5 +1,6 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 import MainLayout from "@/layouts/MainLayout.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
@@ -10,17 +11,16 @@ import ProjectHead from "@/components/ProjectHead.astro";
 import { createTocTree } from "@/lib/handleTocBehavior";
 
 // Generate a new path for every collection entry
-export async function getStaticPaths() {
+
+export const getStaticPaths = (async () => {
     const projects = await getCollection("projects");
 
     return projects.map((project) => {
         return { params: { slug: project.id }, props: { project } };
     });
-}
+}) satisfies GetStaticPaths;
 
-interface Props {
-    project: CollectionEntry<"projects">;
-}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { project } = Astro.props;
 

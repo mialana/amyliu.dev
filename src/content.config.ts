@@ -1,6 +1,9 @@
-import { defineCollection, type ImageFunction } from "astro:content";
-import { glob } from "astro/loaders";
+import { defineCollection, reference, type ImageFunction } from "astro:content";
+import { glob, file } from "astro/loaders";
 import { z } from "zod";
+
+const tagVariantArray = ["tag", "techStack"] as const;
+export type TagVariant = (typeof tagVariantArray)[number];
 
 const projectsCollection = defineCollection({
     loader: glob({ pattern: ["**/*.md*"], base: "./src/content/projects" }),
@@ -27,4 +30,12 @@ const projectsCollection = defineCollection({
         }),
 });
 
-export const collections = { projects: projectsCollection };
+const tagDataObject = z.object({
+    title: z.string(),
+    variant: z.enum(tagVariantArray),
+    referrers: z.array(reference("projects")),
+});
+
+const tagsCollection = defineCollection({ loader: file("./src/content/tags.json"), schema: () => tagDataObject });
+
+export const collections = { projects: projectsCollection, tags: tagsCollection };

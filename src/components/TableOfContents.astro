@@ -1,13 +1,12 @@
 ---
-import { type MarkdownHeading } from "astro";
 import CaretDownIcon from "~icons/fa6-solid/caret-down";
-import { createTocTree, type TocNode } from "@/lib/handleTocBehavior";
+import { type TocNode } from "@/lib/handleTocBehavior";
 
 const TOC_ANCHOR_CLASSNAME = "toc-heading-anchor";
 const ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME = "anchor-with-scroll-behavior";
 
 interface Props {
-    tocRootNode: TocNode;
+    tocRootNode: TocNode<any>;
 }
 /* set default to do nothing */
 const { tocRootNode }: Props = Astro.props;
@@ -31,16 +30,18 @@ const { tocRootNode }: Props = Astro.props;
         {
             (function renderTree(nodes: TocNode[]) {
                 // creates a tree-like appearance with `padding-left` and `margin-bottom` magic
-                return nodes.map((node: TocNode) => (
-                    <li data-slug={node.slug} class="toc-item mb-(--gap-sm) leading-tight">
-                        <a
-                            href={`#${node.slug}`}
-                            class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}>
-                            {node.text}
-                        </a>
-                        {node.children.length > 0 && <ul class="pl-3">{renderTree(node.children)}</ul>}
-                    </li>
-                ));
+                return nodes.map((node: TocNode) => {
+                    return (
+                        <li data-slug={node.slug} {...(node.extra ?? {})} class="toc-item mb-(--gap-sm) leading-tight">
+                            <a
+                                href={`#${node.slug}`}
+                                class={`${TOC_ANCHOR_CLASSNAME} ${ANCHOR_WITH_SCROLL_BEHAVIOR_CLASSNAME} relative hover:underline`}>
+                                {node.text}
+                            </a>
+                            {node.children.length > 0 && <ul class="pl-3">{renderTree(node.children)}</ul>}
+                        </li>
+                    );
+                });
             })(tocRootNode.children)
         }
     </ul>

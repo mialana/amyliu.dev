@@ -2,36 +2,34 @@
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
-    tag: string;
+    tag: CollectionEntry<"tags">;
     projects: CollectionEntry<"projects">[];
 }
 
 const { tag, projects } = Astro.props;
-
-const tagTitle = tag.replaceAll("_", " ");
 const url = new URL(Astro.url.pathname, Astro.site).href;
 
-const description = `Projects tagged '${tagTitle}' (${projects.length} projects).`;
+const description = `Projects tagged '${tag.data.title}' (${projects.length} projects).`;
 
 const jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `${tagTitle} Projects`,
+    name: `${tag.data.title} Projects`,
     description,
     url,
-    mainEntity: projects.map((p) => ({
+    mainEntity: projects.map((ref) => ({
         "@type": "CreativeWork",
-        name: p.data.title,
-        url: new URL(`/projects/${p.id}/`, Astro.site).href,
-        ...(p.data.description ? { description: p.data.description } : {}),
-        ...(p.id ? { identifier: p.id } : {}),
+        name: ref.data.title,
+        url: new URL(`/projects/${ref.id}/`, Astro.site).href,
+        ...(ref.data.description ? { description: ref.data.description } : {}),
+        ...(ref.id ? { identifier: ref.id } : {}),
     })),
 });
 ---
 
 <meta name="description" content={description} />
 
-<meta name="keywords" content={tagTitle} />
+<meta name="keywords" content={tag.data.title} />
 
 <link rel="canonical" href={url} />
 

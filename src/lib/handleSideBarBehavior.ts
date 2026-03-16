@@ -3,7 +3,6 @@ import { stringToBoolean, getRequiredElements, getAriaControlsElements } from "@
 export type SideBarType = "nav" | "aside";
 
 function handleSideBarButtonClicked(button: HTMLButtonElement, sidebar: Element) {
-    console.log({ button });
     const currExpanded: boolean = stringToBoolean(button.ariaExpanded);
     button.ariaExpanded = String(!currExpanded);
     sidebar.ariaHidden = String(currExpanded); // `aria-hidden` is opposite of `aria-expanded`

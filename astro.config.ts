@@ -59,7 +59,7 @@ const expressiveCodeConfig: AstroExpressiveCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-    adapter: cloudflare({ imageService: "compile", experimental: { headersAndRedirectsDevModeSupport: true } }),
+    // adapter: cloudflare({ imageService: "compile", experimental: { headersAndRedirectsDevModeSupport: true } }),
     server: { host: "0.0.0.0" },
     site: "https://amyliu.dev/",
     integrations: [

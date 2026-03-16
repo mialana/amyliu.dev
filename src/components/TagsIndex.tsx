@@ -1,18 +1,16 @@
 import { z } from "zod";
+import type { CollectionEntry } from "astro:content"; // only import types so this component does not need to be hydrated
 
 import { useLayoutEffect, useEffect, useState } from "react";
 import { TagCloud } from "react-tagcloud";
 
 import { DARK_THEME_TEXT, ROOT_DATA_ATTRIBUTE, ThemeOptions, type Theme } from "@/lib/handleThemeButton";
+import { snakeCaseToHumanReadable } from "@/lib/utils";
+
+type TagEntry = CollectionEntry<"tags">;
+type TagCloudEntry = { value: string; count: number };
 
 export const ThemeSchema = z.enum(ThemeOptions);
-
-interface TagLinkProps {
-    tag: string;
-    count?: number;
-    style?: React.CSSProperties;
-    className?: string;
-}
 
 const isThemeMutation = (mutation: MutationRecord) =>
     mutation.type === "attributes" &&
@@ -31,23 +29,33 @@ const updateFromDOM = (callback: (theme: Theme) => void, mutationList?: Mutation
     }
 };
 
-function TagLink({ tag, count, style, className }: TagLinkProps) {
+interface TagLinkProps {
+    id: string;
+    count?: number;
+    title?: string;
+    style?: React.CSSProperties;
+    extraClassNames?: string;
+}
+
+function TagLink({ id, count, title, style, extraClassNames }: TagLinkProps) {
     return (
         <a
-            href={`/tags/${tag}/`}
+            href={`/tags/${id}/`}
             title={count !== undefined ? `${count} ${count > 1 ? "Mentions" : "Mention"}` : undefined}
             style={style}
-            className={`inline-block py-2 font-semibold no-underline hover:underline hover:underline-offset-2 ${className}`}>
-            {tag.replaceAll("_", " ")}
+            className={`inline-block py-2 font-semibold no-underline hover:underline hover:underline-offset-2 ${extraClassNames}`}>
+            {title ?? snakeCaseToHumanReadable(id)}
         </a>
     );
 }
 
 interface TagsIndexProps {
-    tagCloudData: { value: string; count: number }[];
+    tags: TagEntry[];
 }
 
-export default function TagsIndex({ tagCloudData }: TagsIndexProps) {
+export default function TagsIndex({ tags }: TagsIndexProps) {
+    const tagCloud: TagCloudEntry[] = tags.map((tag) => ({ value: tag.id, count: tag.data.referrers.length }));
+
     const [wordCloudView, setWordCloudView] = useState(true);
     const [luminosity, setLuminosity] = useState<"light" | "dark">("dark");
     const [cloudSizes, setCloudSizes] = useState({ min: 16, max: 32 });
@@ -87,14 +95,14 @@ export default function TagsIndex({ tagCloudData }: TagsIndexProps) {
                         minSize={cloudSizes.min}
                         maxSize={cloudSizes.max}
                         colorOptions={{ luminosity, alpha: 1.0 }}
-                        tags={tagCloudData}
-                        renderer={(tag: { value: string; count: number }, size: number, color: string) => {
+                        tags={tagCloud}
+                        renderer={(tag: TagCloudEntry, size: number, color: string) => {
                             return (
                                 <TagLink
                                     key={tag.value}
-                                    tag={tag.value}
-                                    count={tag.count}
-                                    className={`text-[${color}]! hover:brightness-150!`}
+                                    id={tag.value}
+                                    count={size}
+                                    extraClassNames={`text-[${color}]! hover:brightness-150!`}
                                     style={{ color, fontSize: size, marginInline: "0.5rem" }}
                                 />
                             );
@@ -103,9 +111,14 @@ export default function TagsIndex({ tagCloudData }: TagsIndexProps) {
                 ) : (
                     <div className="columns-3 leading-tight">
                         {/* List View */}
-                        {tagCloudData.map((tag) => (
-                            <p key={tag.value}>
-                                <TagLink tag={tag.value} count={tag.count} className={"hover:text-red-accent!"} />
+                        {tags.map((tag) => (
+                            <p key={tag.id}>
+                                <TagLink
+                                    id={tag.id}
+                                    count={tag.data.referrers.length}
+                                    title={tag.data.title}
+                                    extraClassNames={"hover:text-red-accent!"}
+                                />
                             </p>
                         ))}
                     </div>

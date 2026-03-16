@@ -3,6 +3,19 @@ export function capitalize(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
+export function format(s: string, ...args: string[]) {
+    return s.replace(/{(\d+)}/g, function (match, number) {
+        return typeof args[number] != "undefined" ? args[number] : match;
+    });
+}
+
+export function snakeCaseToHumanReadable(s: string) {
+    return s
+        .replace(/_/g, " ")
+        .replace(/^./, (match) => match.toUpperCase())
+        .trim();
+}
+
 export function kebabCaseToHumanReadable(s: string) {
     return s
         .replace(/-/g, " ")
@@ -34,6 +47,15 @@ export function bifilter<T>(f: (x: T, idx: number, arr: T[]) => boolean, xs: T[]
     );
 }
 
+export function mapMerge<K, V>(map: Map<K, V>, key: K, value: V, merge: (existing: V, incoming: V) => V): V {
+    const existing = map.get(key);
+
+    const next = existing === undefined ? value : merge(existing, value);
+    map.set(key, next);
+
+    return next;
+}
+
 export function getMobileMediaQuery(): MediaQueryList {
     return window.matchMedia(
         `(max-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-desktop").trim()})`,
@@ -42,7 +64,7 @@ export function getMobileMediaQuery(): MediaQueryList {
 
 type Ctor<T> = abstract new (...args: any) => T;
 
-export function getRequiredElement<T extends HTMLElement = HTMLElement>(
+export function getRequiredElement<T extends Element = HTMLElement>(
     selector: string,
     ctor: Ctor<T> = HTMLElement as unknown as Ctor<T>,
 ): T {
@@ -52,7 +74,7 @@ export function getRequiredElement<T extends HTMLElement = HTMLElement>(
     return el;
 }
 
-export function getRequiredElements<T extends HTMLElement = HTMLElement>(
+export function getRequiredElements<T extends Element = HTMLElement>(
     selector: string,
     ctor: Ctor<T> = HTMLElement as unknown as Ctor<T>,
 ): NodeListOf<T> {

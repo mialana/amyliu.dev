@@ -3,18 +3,7 @@ import { getCollection } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import TagsIndex from "@/components/TagsIndex";
 
-const projects = await getCollection("projects");
-
-const allTags = projects.flatMap((project: any) => [...project.data.tags, ...project.data.techStack]);
-
-const tagCounts = allTags.reduce((acc: Record<string, number>, tag) => {
-    acc[tag] = (acc[tag] ?? 0) + 1;
-    return acc;
-}, {});
-
-const uniqueTags = Object.keys(tagCounts).sort();
-
-const tagCloudData = uniqueTags.map((tag) => ({ value: tag, count: tagCounts[tag] }));
+const tags = await getCollection("tags");
 ---
 
 <MainLayout title="Tags Index" layout="NONE">
@@ -25,7 +14,7 @@ const tagCloudData = uniqueTags.map((tag) => ({ value: tag, count: tagCounts[tag
             <h1 class="text-important-text px-4 leading-relaxed">Tags Index</h1>
         </div>
         <div class="max-w-5xl py-4">
-            <TagsIndex tagCloudData={tagCloudData} client:only="react" />
+            <TagsIndex tags={tags} client:only="react" />
         </div>
     </div>
 </MainLayout>

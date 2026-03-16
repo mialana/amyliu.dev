@@ -1,21 +1,23 @@
 ---
 import ProjectsSort from "@/components/ProjectsSort.astro";
 
-const PROJECTS_SELECT_CONTAINER_CLASSNAME = "projects-select-container";
-const PROJECTS_SELECT_ELEMENT_CLASSNAME = "choices-projects-select";
+// keep in sync with `handleProjectSelection`
+const PROJECTS_SELECT_CONTAINER_ID = "projects-select--container";
+const PROJECTS_SELECT_ORIGIN_ID = "projects-select--origin";
+const PROJECTS_SELECT_EXTRA_CONTAINER_ID = "projects-select__extra--container";
 
-const CHOICES_EXTRA_ELEMENT_CLASSNAME = "choices-extra-content-container";
+const CHOICES_HEADING_CLASSNAME = "choices__heading";
 
 interface Props {
     scrollableAncestor: string;
 }
 ---
 
-<div id={PROJECTS_SELECT_CONTAINER_CLASSNAME} class=`u-mobile-dotted-border border-b-0 p-2`>
+<div id={PROJECTS_SELECT_CONTAINER_ID} class=`u-mobile-dotted-border border-b-0 p-2`>
     <div class=`desktop:block prose-custom text-2xs mb-1 hidden`>
         <h1 class="m-0">Projects Selection</h1>
     </div>
-    <select id={PROJECTS_SELECT_ELEMENT_CLASSNAME} multiple data-placeholder="Filters & Options">
+    <select id={PROJECTS_SELECT_ORIGIN_ID} multiple data-placeholder="Filters & Options">
         <optgroup label="Category Filters">
             <option value="category:personal" data-select-text="Passion projects, original work">Personal</option>
             <option value="category:research" data-select-text="Funded research projects">Research</option>
@@ -32,13 +34,13 @@ interface Props {
     </select>
 </div>
 
-<div id={CHOICES_EXTRA_ELEMENT_CLASSNAME} class="hidden">
-    <div class="choices__heading">Additional Options</div>
+<div id={PROJECTS_SELECT_EXTRA_CONTAINER_ID} class="hidden">
+    <div class={CHOICES_HEADING_CLASSNAME}>Additional Options</div>
     <ProjectsSort />
 </div>
 
 <script>
     import { initializeChoices } from "../lib/projects/handleProjectSelection";
 
-    window.addEventListener("DOMContentLoaded", () => initializeChoices());
+    window.addEventListener("DOMContentLoaded", initializeChoices);
 </script>
