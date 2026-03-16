@@ -164,6 +164,16 @@
             display: none; /* Chrome, Safari, Edge, Opera */
         }
     }
+
+    summary::marker,
+    summary::-webkit-details-marker {
+        content: "";
+        display: none;
+    }
+
+    details[open] summary svg {
+        rotate: 90deg;
+    }
 }
 
 /* Personal global variables and behavior-related defaults */
@@ -331,7 +341,7 @@
         font-family: var(--font-math);
     }
 
-    :where(:is(article, div, a, button, span):has(> .u-icon)) {
+    :where(:is(article, div, a, button, span, summary):has(> .u-icon)) {
         @apply u-icon-holder;
     }
 }
@@ -952,5 +962,15 @@
 @custom-variant dark-theme {
     :where(:root[data-theme="dark"] &) {
         @slot;
+    }
+}
+
+/* override favicon svg style here as illustrator applies style inline */
+#hero-favicon {
+    & #rain * {
+        stroke: var(--color-important-text);
+    }
+    & :is(#shadowRight *, #shadowMain) {
+        fill: var(--color-important-text);
     }
 }

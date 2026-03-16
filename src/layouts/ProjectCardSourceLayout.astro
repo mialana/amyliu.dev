@@ -7,6 +7,8 @@ import { format } from "@/lib/utils";
 
 import RightArrowIcon from "~icons/tabler/arrow-big-right-filled";
 
+import CaretRightIcon from "~icons/fa6-solid/caret-right";
+
 import { type ProjectEntryAugmented } from "@/lib/projects/query";
 
 export interface CardSource {
@@ -58,7 +60,7 @@ const idPattern = `project-card__${project.id}__${srcKind}_${srcSlug}--{0}`;
         </button>
 
         <details class="mt-auto cursor-default">
-            <summary class="cursor-pointer text-left leading-none">More tags for this tag!</summary>
+            <summary class="cursor-pointer text-left leading-none not-prose"><CaretRightIcon class="u-icon [--icon-size:1.25em]"/> More tags for this tag!</summary>
             <ul class="not-prose font-github-code gap-2xs flex flex-wrap py-2">
                 {
                     project.data.tagsView.map((t) => (
