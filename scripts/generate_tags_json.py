@@ -5,11 +5,14 @@ from pathlib import Path
 from typing import Literal, TypedDict, Callable, Any
 import frontmatter
 from string import capwords
+import subprocess
 
 REPO_ROOT: Path = Path(__file__).parents[1]
 CONTENT_DIR: Path = REPO_ROOT / "src" / "content"
 OUTPUT_PATH: Path = CONTENT_DIR / "tags.json"
 PROJECTS_ROOT: Path = CONTENT_DIR / "projects"
+
+PRETTIER_CONFIG_PATH = REPO_ROOT / ".prettierrc.ts"
 
 GLOB_PATTERN: str = "*/index.md"
 
@@ -53,6 +56,24 @@ def update_data(
             curr["referrers"].append(slug)
 
 
+def format_code(file_path: Path):
+
+    cmd_list = [
+        "npx",
+        "prettier",
+        str(file_path),
+        "--write",
+        "--config",
+        str(PRETTIER_CONFIG_PATH),
+    ]
+    cmd = " ".join(cmd_list)
+    print(cmd)
+
+    # run prettier via npx
+    subprocess.check_output(cmd, shell=True)
+    print(f"Successfully formatted: {file_path}")
+
+
 def main():
     files = list(PROJECTS_ROOT.resolve().rglob(GLOB_PATTERN))
 
@@ -65,7 +86,9 @@ def main():
         update_data(slug, data, techStack, "techStack")
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(json.dumps(data, indent=2))
+    OUTPUT_PATH.write_text(json.dumps(data, sort_keys=True), newline="\n")
+
+    format_code(OUTPUT_PATH)
 
 
 if __name__ == "__main__":
