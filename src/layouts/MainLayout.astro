@@ -43,7 +43,7 @@ const isAsideActive = layout === "BOTH" || layout === "NO_NAV";
         <title>{title} · Amy Liu</title>
         <slot name="head" />
         {/* put in head to minimize latency */}
-        <script is:inline src="/resources/js/handleTheme.js" defer></script>
+        <script is:inline src="/resources/js/handleTheme.js"></script>
     </head>
     <body>
         <div

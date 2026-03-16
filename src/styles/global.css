@@ -464,7 +464,7 @@
 @utility u-icon-holder {
     display: flex;
     align-items: safe center;
-    --icon-size: 1.5em; /* variable that can be overriden */
+    --icon-size: 24px; /* variable that can be overriden */
 }
 
 @utility u-inline-code {
@@ -847,6 +847,12 @@
 @utility prose-custom-base {
     :where(&) {
         @apply prose-base;
+    }
+}
+
+@utility prose-custom-lg {
+    :where(&) {
+        @apply prose-lg;
     }
 }
 
