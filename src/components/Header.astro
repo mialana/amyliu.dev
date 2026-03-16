@@ -1,35 +1,52 @@
 ---
+import { Image } from "astro:assets";
+
+import FaviconImage from "@/assets/png/favicon-96x96.png";
 const pageList = ["Home", "Projects", "Tags"];
 
 const astroPathname = Astro.url.pathname;
 ---
 
-{/* Create a wrapper div as prose-custom is applied to descendants */}
-<div id="header-signature--container" class="prose-custom font-signature max-w-none text-center">
-    <h1 id="header-signature--heading" class="text-important-text m-0">
-        {/* put padding on the link for accessibility, block to force height to adjust */}
-        <a id="header-signature--anchor" href="/" class="block pt-2">AMY LIU</a>
-    </h1>
-</div>
+<div class="relative block items-center justify-center">
+    <div class="absolute top-0 right-0 aspect-square h-full p-4">
+        <Image
+            src={FaviconImage}
+            class="bg-transparent bg-none contrast-110 saturate-110"
+            alt=""
+            width={96}
+            height={96}
+            fetchpriority="high"
+            loading="eager"
+        />
+    </div>
 
-<ul class="gap-md desktop:gap-lg mx-auto flex justify-center">
-    {/* Map headers and apply styling based on current path in site */}
-    {
-        pageList.map((page) => {
-            let pagePath = page === "Home" ? "/" : `/${page.toLowerCase()}/`;
-            return (
-                <li id={`header-${page}-page--container`}>
-                    <h1 id={`header-${page}-page--heading`}>
-                        <a
-                            id={`header-${page}-page--anchor`}
-                            href={pagePath}
-                            title={`Go to ${page}`}
-                            class={`${astroPathname === pagePath ? "text-violet-accent font-bold" : ""} block pt-0.5 text-lg hover:underline`}>
-                            {page}
-                        </a>
-                    </h1>
-                </li>
-            );
-        })
-    }
-</ul>
+    {/* Create a wrapper div as prose-custom is applied to descendants */}
+    <div id="header-signature--container" class="prose-custom font-signature relative max-w-none text-center">
+        <h1 id="header-signature--heading" class="text-important-text m-0">
+            {/* put padding on the link for accessibility, block to force height to adjust */}
+            <a id="header-signature--anchor" href="/" class="block pt-2">AMY LIU</a>
+        </h1>
+    </div>
+
+    <ul class="gap-md desktop:gap-lg mx-auto flex justify-center">
+        {/* Map headers and apply styling based on current path in site */}
+        {
+            pageList.map((page) => {
+                let pagePath = page === "Home" ? "/" : `/${page.toLowerCase()}/`;
+                return (
+                    <li id={`header-${page}-page--container`}>
+                        <h1 id={`header-${page}-page--heading`}>
+                            <a
+                                id={`header-${page}-page--anchor`}
+                                href={pagePath}
+                                title={`Go to ${page}`}
+                                class={`${astroPathname === pagePath ? "text-violet-accent font-bold" : ""} block pt-0.5 text-lg hover:underline`}>
+                                {page}
+                            </a>
+                        </h1>
+                    </li>
+                );
+            })
+        }
+    </ul>
+</div>
