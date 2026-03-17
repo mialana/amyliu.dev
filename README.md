@@ -4,7 +4,13 @@
 
 Functionality and implementation techniques are documented within the codebase through comprehensive commenting.
 
-Although this is a site built to feature my other projects, its personal goals are still to maintain best web development practices and maximize performance and accessibility stats reported by engines like [Lighthouse Page Speed insights](https://pagespeed.web.dev/). It is build on Typescript, HTML/CSS, uses the [Astro](https://astro.build/) framework, is hosted through [Cloudflare Workers](https://workers.cloudflare.com/), augments development and CI via Python, [GitHub Actions](https://github.com/features/actions), and [Husky hooks](https://typicode.github.io/husky/), and more.
+Although this is a site built to feature my other projects, its personal goals are still to maintain best web development practices and maximize performance and accessibility stats reported by engines like [Lighthouse Page Speed insights](https://pagespeed.web.dev/). It is:
+
+- build on Typescript, HTML/CSS
+- uses the [Astro](https://astro.build/) framework
+- is hosted through [Cloudflare Workers](https://workers.cloudflare.com/)
+- augments development and CI via Python scripting, [GitHub Actions](https://github.com/features/actions), and [Husky hooks](https://typicode.github.io/husky/)
+- and more
 
 ## Development Instructions
 
