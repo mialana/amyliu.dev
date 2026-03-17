@@ -74,9 +74,9 @@ function compareProjects(a: ProjectEntryAugmented, b: ProjectEntryAugmented, ord
     if (a.data.pinned && !b.data.pinned) return -1;
     else if (b.data.pinned && !a.data.pinned) return 1;
     else {
-        const aYear = a.data[order].getFullYear();
-        const bYear = b.data[order].getFullYear();
-        return bYear - aYear; // larger years come first
+        const aYear = a.data[order].getTime();
+        const bYear = b.data[order].getTime();
+        return bYear - aYear; // recent dates come first
     }
 }
 
@@ -87,7 +87,7 @@ function buildProjectSections(projects: readonly ProjectEntryAugmented[], order:
     const projectSections = projectIndices.map((idx) => projectToSectionKey(projects[idx], order));
     const boundaries = findBoundaries(projectSections, (a, b) => a !== b);
 
-    boundaries.map((start, idx) => {
+    boundaries.forEach((start, idx) => {
         const end =
             idx === boundaries.length - 1
                 ? projectIndices.length // set to length if at the last boundary

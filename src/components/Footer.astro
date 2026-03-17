@@ -23,7 +23,7 @@ const astroLink = "https://astro.build/";
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="p-3 pb-0 "
+                    class="p-3 pb-0"
                     title={`Click for my ${label}!`}>
                     <Icon class="u-icon" />
                 </a>
@@ -33,6 +33,9 @@ const astroLink = "https://astro.build/";
 </ul>
 
 <div class="grid grid-cols-[1fr_auto_1fr] items-center-safe pb-1">
+    <div class="justify-self-start-safe">
+        <ThemeButton />
+    </div>
     <div class="prose-custom col-start-2 px-1 text-center leading-none tracking-normal">
         <code class="inline-block">
             © 2025 · developed by Amy Liu<span class="desktop:inline hidden">
@@ -44,8 +47,5 @@ const astroLink = "https://astro.build/";
                 <a target="_blank" rel="noopener noreferrer" href={astroLink} title="Astro" class="py-2">Astro</a>
             </span>
         </code>
-    </div>
-    <div class="justify-self-end-safe">
-        <ThemeButton />
     </div>
 </div>
