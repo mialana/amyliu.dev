@@ -1,6 +1,13 @@
 ---
 import FaviconInline from "@/assets/svg/favicon-64x64.svg";
-const pageMap = { Home: "/", Projects: "/projects/", "Art (NEW!)": "/art/", Tags: "/tags/" };
+
+type Page = { path: string; extra?: string };
+const pageMap: Record<string, Page> = {
+    Home: { path: "/" },
+    Projects: { path: "/projects/" },
+    Art: { path: "/art/", extra: "(NEW!)" },
+    Tags: { path: "/tags/" },
+};
 
 const astroPathname = Astro.url.pathname;
 ---
@@ -26,16 +33,20 @@ const astroPathname = Astro.url.pathname;
         <ul class="gap-md desktop:gap-lg mx-auto flex justify-center">
             {/* Map headers and apply styling based on current path in site */}
             {
-                Object.entries(pageMap).map(([label, path]) => {
+                Object.entries(pageMap).map((page) => {
+                    const name = page[0];
+                    const path = page[1].path;
+                    const extra = page[1].extra ?? "";
                     return (
-                        <li id={`header-${label}-page--container`}>
-                            <h2 id={`header-${label}-page--heading`}>
+                        <li id={`header-${name}-page--container`}>
+                            <h2 id={`header-${name}-page--heading`}>
                                 <a
                                     id={`header-${path}-page--anchor`}
                                     href={path}
-                                    title={`Go to ${label}`}
+                                    title={`Go to ${name}`}
                                     class={`${astroPathname === path ? "text-violet-accent font-bold" : ""} block px-1 pt-0.5 text-lg hover:underline`}>
-                                    {label}
+                                    {name}
+                                    {extra && <span class="desktop:inline text-orange-accent hidden">{extra}</span>}
                                 </a>
                             </h2>
                         </li>

@@ -1,2 +1,4 @@
 frontmatter
 PyYAML
+markdown
+requests

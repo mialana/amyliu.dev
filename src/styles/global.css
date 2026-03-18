@@ -447,11 +447,6 @@
     line-height: --value([integer]);
 }
 
-@utility prose-xs {
-    /* create a new variant for prose */
-    font-size: var(--text-xs);
-}
-
 @utility inherit-typography {
     font-weight: inherit;
     line-height: inherit;
@@ -840,6 +835,11 @@
             @apply u-inline-code;
         }
     }
+}
+
+@utility prose-xs {
+    /* create a new variant for prose */
+    font-size: var(--text-xs);
 }
 
 @utility prose-custom-xs {
