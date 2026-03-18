@@ -9,10 +9,18 @@ export function format(s: string, ...args: string[]) {
     });
 }
 
+export function slugify(s: string) {
+    return s
+        .trim()
+        .replace(/[^A-Za-z0-9_\- ]/g, "")
+        .replace(/\s+/g, "_")
+        .replace(/^-+|-+$/g, "");
+}
+
 export function snakeCaseToHumanReadable(s: string) {
     return s
         .split("_")
-        .map((word) => capitalize(word))
+        .map((match) => capitalize(match))
         .join(" ");
 }
 
@@ -34,6 +42,28 @@ export function stringToBoolean(s: string | null | undefined) {
     if (typeof s !== "string") return !!s;
     s = s.trim().toLowerCase();
     return s === "true" || s === "1" || s === "yes";
+}
+
+export function dateToHumanReadable(date: Date): string {
+    const day = date.getDate();
+
+    const getOrdinal = (n: number) => {
+        const s = ["th", "st", "nd", "rd"];
+        const v = n % 100;
+        return s[(v - 20) % 10] || s[v] || s[0];
+    };
+
+    const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(date);
+
+    const year = date.getFullYear();
+
+    const time = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", hour12: true }).format(date);
+
+    const timezone = new Intl.DateTimeFormat("en-US", { timeZoneName: "short" })
+        .formatToParts(date)
+        .find((part) => part.type === "timeZoneName")?.value;
+
+    return `${month} ${day}${getOrdinal(day)}, ${year} at ${time} ${timezone}`;
 }
 
 export function bifilter<T>(f: (x: T, idx: number, arr: T[]) => boolean, xs: T[]): [T[], T[]] {

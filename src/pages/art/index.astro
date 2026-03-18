@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "@/layouts/MainLayout.astro";
+
+import DetailsSummary from "@/components/DetailsSummary.astro";
+
+import { dateToHumanReadable } from "@/lib/utils";
+
+const models3D = await getCollection("models3D");
+---
+
+<MainLayout title="Art Index" layout="NONE">
+    <meta slot="head" name="description" content="This is the art index page of the site." />
+
+    <div class="size-full overflow-scroll p-4">
+        <div class="prose-custom contents text-center">
+            <h1>3D-Modeling</h1>
+        </div>
+        <ul class="gap-lg flex h-full flex-col">
+            {
+                models3D.map((model) => (
+                    <li>
+                        <div class="aspect-video">
+                            <iframe
+                                class="size-full"
+                                title={model.data.title}
+                                src={model.data.embedUrl}
+                                allow="autoplay; fullscreen; xr-spa)tial-tracking"
+                                allowfullscreen
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="prose-custom prose-sm font-github-code bg-light-primary-neutral my-2 max-w-none rounded-sm p-2">
+                            <details open>
+                                <DetailsSummary>Hide/show details!</DetailsSummary>
+                                <div class="grid grid-cols-[auto_1fr] gap-x-4 p-2 [&>*:nth-child(odd)]:font-bold">
+                                    <span>published at:</span>
+                                    <span>{dateToHumanReadable(model.data.publishedAt)}</span>
+                                    <span>vertex count:</span>
+                                    <span>{model.data.vertexCount}</span>
+                                    <span>face count:</span>
+                                    <span>{model.data.faceCount}</span>
+                                    <span>description:</span>
+                                    <article set:html={model.data.description} class="**:my-0" />
+                                </div>
+                            </details>
+                        </div>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</MainLayout>

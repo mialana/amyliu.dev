@@ -3,7 +3,7 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
-        "ci": "npm install && node ci.mjs && wrangler types && python -m pip install -r requirements.txt && python scripts/generate_tags_json.py",
+        "ci": "npm install && node ci.mjs && wrangler types && python -m pip install -r requirements.txt && python scripts/generate_models3D_json.py && python scripts/generate_tags_json.py",
         "predev": "npm run ci",
         "preredev": "npm run ci",
         "prebuild": "npm run ci",

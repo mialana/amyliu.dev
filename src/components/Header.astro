@@ -1,6 +1,6 @@
 ---
 import FaviconInline from "@/assets/svg/favicon-64x64.svg";
-const pageList = ["Home", "Projects", "Tags"];
+const pageMap = { Home: "/", Projects: "/projects/", "Art (NEW!)": "/art/", Tags: "/tags/" };
 
 const astroPathname = Astro.url.pathname;
 ---
@@ -26,19 +26,18 @@ const astroPathname = Astro.url.pathname;
         <ul class="gap-md desktop:gap-lg mx-auto flex justify-center">
             {/* Map headers and apply styling based on current path in site */}
             {
-                pageList.map((page) => {
-                    let pagePath = page === "Home" ? "/" : `/${page.toLowerCase()}/`;
+                Object.entries(pageMap).map(([label, path]) => {
                     return (
-                        <li id={`header-${page}-page--container`}>
-                            <h1 id={`header-${page}-page--heading`}>
+                        <li id={`header-${label}-page--container`}>
+                            <h2 id={`header-${label}-page--heading`}>
                                 <a
-                                    id={`header-${page}-page--anchor`}
-                                    href={pagePath}
-                                    title={`Go to ${page}`}
-                                    class={`${astroPathname === pagePath ? "text-violet-accent font-bold" : ""} block px-1 pt-0.5 text-lg hover:underline`}>
-                                    {page}
+                                    id={`header-${path}-page--anchor`}
+                                    href={path}
+                                    title={`Go to ${label}`}
+                                    class={`${astroPathname === path ? "text-violet-accent font-bold" : ""} block px-1 pt-0.5 text-lg hover:underline`}>
+                                    {label}
                                 </a>
-                            </h1>
+                            </h2>
                         </li>
                     );
                 })

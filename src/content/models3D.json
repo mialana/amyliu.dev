@@ -1,0 +1,101 @@
+{
+    "Napa_Cabbage_-_Inspired_by_Jadeite_Cabbage_530badd074464cb0b7cc5af277e56e65": {
+        "title": "Napa Cabbage - Inspired by Jadeite Cabbage",
+        "uid": "530badd074464cb0b7cc5af277e56e65",
+        "embedUrl": "https://sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/embed",
+        "viewerUrl": "https://sketchfab.com/3d-models/none-530badd074464cb0b7cc5af277e56e65",
+        "apiUrl": "https://api.sketchfab.com/v3/models/530badd074464cb0b7cc5af277e56e65",
+        "publishedAt": "2026-03-16T22:05:22.597471+00:00",
+        "description": "<p>A 3D-modeling project inspired by the <a href=\"https://theme.npm.edu.tw/exh106/npm_anime/cabbage/en/index.html\">Jadeite Cabbage</a> in the Taiwan National Palace Museum.</p>\n<p>Tools used are:</p>\n<ul>\n<li><strong>ZBrush</strong> for sculpting:<ul>\n<li>an initial dynamics simulation of leaves folded around the hull shape</li>\n<li>refinement via curve tube brushes for natural vegetation stemming patterns</li>\n<li>details and leaf refinement via transpose and cloth simulation brushes</li>\n</ul>\n</li>\n<li><strong>Substance3D Painter</strong> for texture baking and overall material creation via layered detail buildup<ul>\n<li>Uses normal and height maps for structure enhancement</li>\n<li>Uses thickness map for Subsurface Scattering (SSS) appearance</li>\n</ul>\n</li>\n<li><strong>Maya Arnold</strong> for final rendering</li>\n</ul>\n<p><strong>To-Do:</strong> Increase likeness to the Jadeite Cabbage. Namely, the original model features a Locust Bug -- also sculpted in jade -- in the leaves, and a holding stand. The former being a priority.</p>",
+        "thumbnails": [
+            {
+                "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/ce9ec75c5c644d87a94620003ce4e788.jpeg",
+                "width": 1920,
+                "height": 1080,
+                "lod": 0
+            },
+            {
+                "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/fe7ae0953c8c488197077fac0c751eea.jpeg",
+                "width": 1024,
+                "height": 576,
+                "lod": 1
+            },
+            {
+                "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/1bc8e33a880645ee8f6b73953a1c6564.jpeg",
+                "width": 720,
+                "height": 405,
+                "lod": 2
+            },
+            {
+                "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/9d5a3f37a66346b79e547c1d94e6977f.jpeg",
+                "width": 256,
+                "height": 144,
+                "lod": 3
+            },
+            {
+                "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/1151fc656077438cad9ececf14de562d.jpeg",
+                "width": 64,
+                "height": 36,
+                "lod": 4
+            }
+        ],
+        "vertexCount": 369676,
+        "faceCount": 739376,
+        "tags": [
+            "vegetation",
+            "cabbage",
+            "uvmapped",
+            "jade",
+            "maya",
+            "zbrush",
+            "textured",
+            "substance3dpainter",
+            "Cultural_Heritage_History",
+            "Nature_Plants"
+        ]
+    },
+    "Yu-Gi-Oh_Clock_Arc_Machine_Monster_34a5b3425c2f40f2ba63f7eb8264292e": {
+        "title": "Yu-Gi-Oh Clock Arc Machine Monster",
+        "uid": "34a5b3425c2f40f2ba63f7eb8264292e",
+        "embedUrl": "https://sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/embed",
+        "viewerUrl": "https://sketchfab.com/3d-models/none-34a5b3425c2f40f2ba63f7eb8264292e",
+        "apiUrl": "https://api.sketchfab.com/v3/models/34a5b3425c2f40f2ba63f7eb8264292e",
+        "publishedAt": "2026-03-16T23:46:56.315356+00:00",
+        "description": "<p>A remake of the <a href=\"https://yugioh.fandom.com/wiki/Clock_Arc\">Clock Arc</a> monster from the Yu-Gi-Oh! fantasy world.</p>\n<p>Built solely in Maya.</p>\n<p>To-Do: Textures and shading.</p>",
+        "thumbnails": [
+            {
+                "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/f321f0d6e50a404dbabcb00e05d0b237.jpeg",
+                "width": 1920,
+                "height": 1080,
+                "lod": 0
+            },
+            {
+                "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/944e6c3d2f3440ba8ec690c76ce82640.jpeg",
+                "width": 1024,
+                "height": 576,
+                "lod": 1
+            },
+            {
+                "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/4c996f17b9c84a3bb8a0796a96e775f3.jpeg",
+                "width": 720,
+                "height": 405,
+                "lod": 2
+            },
+            {
+                "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/7414db936bcd44b8a17f4980980dea52.jpeg",
+                "width": 256,
+                "height": 144,
+                "lod": 3
+            },
+            {
+                "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/7382b060085e4089b036e0dd7f552ed2.jpeg",
+                "width": 64,
+                "height": 36,
+                "lod": 4
+            }
+        ],
+        "vertexCount": 44279,
+        "faceCount": 70137,
+        "tags": ["machine", "autodeskmaya", "character", "monster", "fantasy", "Art_Abstract", "Characters_Creatures"]
+    }
+}

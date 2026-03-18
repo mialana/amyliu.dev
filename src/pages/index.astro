@@ -60,16 +60,16 @@ import Headshot2025_2 from "@/assets/png/headshot-2025-2.png";
             </q>
         </div>
     </div>
+
+    <script>
+        import Typed from "typed.js";
+        import { getRequiredElement } from "@/lib/utils";
+
+        const typed = new Typed("#typed", { stringsElement: "#typed-strings", typeSpeed: 30, showCursor: false });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const typedStringsEl = getRequiredElement("#typed-strings");
+            typedStringsEl.style.display = "static"; // only show when content loaded
+        });
+    </script>
 </MainLayout>
-
-<script>
-    import Typed from "typed.js";
-    import { getRequiredElement } from "@/lib/utils";
-
-    const typed = new Typed("#typed", { stringsElement: "#typed-strings", typeSpeed: 30, showCursor: false });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const typedStringsEl = getRequiredElement("#typed-strings");
-        typedStringsEl.style.display = "static"; // only show when content loaded
-    });
-</script>
