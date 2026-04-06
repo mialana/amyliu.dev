@@ -24,7 +24,7 @@
         "@daiji256/rehype-mathml": "^1.2.2",
         "@expressive-code/plugin-collapsible-sections": "^0.41.7",
         "@expressive-code/plugin-line-numbers": "^0.41.7",
-        "@panzoom/panzoom": "^4.6.1",
+        "@panzoom/panzoom": "^4.6.2",
         "@tailwindcss/vite": "^4.2.2",
         "@types/node": "^25.5.0",
         "@types/react": "^19.2.14",
