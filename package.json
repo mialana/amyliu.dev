@@ -18,7 +18,7 @@
     },
     "dependencies": {
         "@astro-community/astro-embed-youtube": "^0.5.10",
-        "@astrojs/cloudflare": "^13.1.10",
+        "@astrojs/cloudflare": "^13.2.1",
         "@astrojs/react": "^5.0.4",
         "@astrojs/sitemap": "^3.7.2",
         "@daiji256/rehype-mathml": "^1.2.2",
