@@ -19,7 +19,7 @@
     "dependencies": {
         "@astro-community/astro-embed-youtube": "^0.5.10",
         "@astrojs/cloudflare": "^13.5.2",
-        "@astrojs/react": "^5.0.4",
+        "@astrojs/react": "^5.0.5",
         "@astrojs/sitemap": "^3.7.2",
         "@daiji256/rehype-mathml": "^1.2.2",
         "@expressive-code/plugin-collapsible-sections": "^0.42.0",
