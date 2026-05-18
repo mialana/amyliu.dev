@@ -33,7 +33,7 @@
         "astro-d2": "^0.10.0",
         "astro-expressive-code": "^0.41.7",
         "choices.js": "^11.2.3",
-        "date-fns": "^4.1.0",
+        "date-fns": "^4.2.1",
         "expressive-code-language-badge": "^1.1.0",
         "hast-util-parse-selector": "^4.0.0",
         "mdast-util-mdx-jsx": "^3.2.0",
