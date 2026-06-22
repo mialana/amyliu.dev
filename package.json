@@ -50,7 +50,7 @@
         "typed.js": "^3.0.0"
     },
     "devDependencies": {
-        "@iconify/json": "^2.2.486",
+        "@iconify/json": "^2.2.489",
         "@tailwindcss/typography": "^0.5.20",
         "husky": "^9.1.7",
         "prettier": "3.8.4",
