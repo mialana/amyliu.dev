@@ -22,7 +22,7 @@
         "@astrojs/react": "^5.0.7",
         "@astrojs/sitemap": "^3.7.3",
         "@daiji256/rehype-mathml": "^1.2.2",
-        "@expressive-code/plugin-collapsible-sections": "^0.43.1",
+        "@expressive-code/plugin-collapsible-sections": "^0.44.0",
         "@expressive-code/plugin-line-numbers": "^0.43.1",
         "@panzoom/panzoom": "^4.6.2",
         "@tailwindcss/vite": "^4.3.1",
