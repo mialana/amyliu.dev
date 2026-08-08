@@ -48,8 +48,8 @@ Furthermore, the system can support rapid prototyping for level design and envir
     2. RTT Fractured Column Asset
     3. RTT Terrain Rocks Asset
 4. **Demonstrated Tool Interactions:** HDAs that demonstrate the ease-of-use and flexibility of the main terrain HDA and associated tools through physics simulations (Rigid Body Dynamics) and associated tool usage.
-    1. Piled ruins geometry (RBD collision + scattering) on *Main Terrain*
-    2. Traversing vines and ropes using *Traversal Paths Tools*
+    1. Piled ruins geometry (RBD collision + scattering) on _Main Terrain_
+    2. Traversing vines and ropes using _Traversal Paths Tools_
 
 ## Next Steps
 
