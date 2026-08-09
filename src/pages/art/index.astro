@@ -4,7 +4,9 @@ import MainLayout from "@/layouts/MainLayout.astro";
 
 import DetailsSummary from "@/components/DetailsSummary.astro";
 
-import { dateToHumanReadable } from "@/lib/utils";
+import { MODELS_3D_INDEX_ID_PATTERN } from "@/lib/query";
+
+import { dateToHumanReadable, format } from "@/lib/utils";
 
 const models3D = await getCollection("models3D");
 ---
@@ -12,20 +14,20 @@ const models3D = await getCollection("models3D");
 <MainLayout title="Art Index" layout="NONE">
     <meta slot="head" name="description" content="This is the art index page of the site." />
 
-    <div class="size-full overflow-scroll p-4">
+    <div class="h-fit p-4">
         <div class="prose-custom contents text-center">
             <h1>3D-Modeling</h1>
         </div>
         <ul class="gap-lg flex h-full flex-col">
             {
                 models3D.map((model) => (
-                    <li>
+                    <li id={format(MODELS_3D_INDEX_ID_PATTERN, model.id)}>
                         <div class="aspect-video">
                             <iframe
                                 class="size-full"
                                 title={model.data.title}
                                 src={model.data.embedUrl}
-                                allow="autoplay; fullscreen; xr-spa)tial-tracking"
+                                allow="autoplay; fullscreen; xr-spatial-tracking"
                                 allowfullscreen
                                 loading="lazy"
                             />

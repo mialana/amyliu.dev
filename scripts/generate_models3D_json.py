@@ -21,6 +21,7 @@ class Model3DThumbnail(TypedDict):
     src: str
     width: int
     height: int
+    format: str
     lod: int
 
 
@@ -109,6 +110,7 @@ def convert_data(model: Any) -> tuple[str, Model3DEntryData]:
                 "src": thumb["url"],
                 "width": thumb["width"],
                 "height": thumb["height"],
+                "format": "jpeg",
                 "lod": idx,
             }
             for idx, thumb in enumerate(sorted_images)

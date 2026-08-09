@@ -50,7 +50,17 @@ const Model3DSchema = z.object({
     vertexCount: z.number().int(),
     faceCount: z.number().int(),
 
-    thumbnails: z.array(z.object({ src: z.url(), width: z.number(), height: z.number(), lod: z.number() })).min(1),
+    thumbnails: z
+        .array(
+            z.object({
+                src: z.url(),
+                width: z.number(),
+                height: z.number(),
+                format: z.literal("jpeg"),
+                lod: z.number(),
+            }),
+        )
+        .min(1),
 
     tags: z.array(z.string()),
 });

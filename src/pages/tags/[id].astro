@@ -2,43 +2,47 @@
 import { getCollection } from "astro:content";
 
 import MainLayout from "@/layouts/MainLayout.astro";
-import ProjectCardSourceLayout, { type CardSource } from "@/layouts/ProjectCardSourceLayout.astro";
+import ContentCardLayout, { type CardSource } from "@/layouts/ContentCardLayout.astro";
 import TagHead from "@/components/TagHead.astro";
 
 import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
 
-import { augmentProjectEntry } from "@/lib/projects/query";
+import { createContentViewFromProject, createContentViewFromModel } from "@/lib/query";
 import { format } from "@/lib/utils";
 
 export const getStaticPaths = (async () => {
     const tags = await getCollection("tags");
     const allProjects = await getCollection("projects");
+    const allModels3D = await getCollection("models3D");
 
     return tags.map((tag) => {
         const referrerIds = tag.data.referrers.map((ref) => ref.id);
-        const projects = allProjects.filter((p) => referrerIds.includes(p.id)).map(augmentProjectEntry); // cannot call `augmentProjectEntry`
-        return { params: { id: tag.id }, props: { tag, projects } };
+        const projects = allProjects.filter((p) => referrerIds.includes(p.id)).map(createContentViewFromProject);
+        const models3D = allModels3D.filter((m) => referrerIds.includes(m.id)).map(createContentViewFromModel);
+        const tagContent = projects.concat(models3D);
+
+        return { params: { id: tag.id }, props: { tag, tagContent } };
     });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { tag, projects } = Astro.props as Props;
+const { tag, tagContent } = Astro.props as Props;
 
 const tagAsSource: CardSource = { title: tag.data.title, slug: tag.id, kind: "tag" };
 const idPattern = `tag-page__${tag.id}--{0}`;
 ---
 
 <MainLayout title={tag.data.title} layout="NONE" mainGridCellStyleOverrides="u-grid-background">
-    <TagHead slot="head" tag={tag} projects={projects} />
+    <TagHead slot="head" tag={tag} content={tagContent} />
     <div id={format(idPattern, "container")} class="min-h-full">
         <div class="prose-custom bg-inverted-neutral/50 sticky top-0 z-30 mb-4 w-fit rounded-md px-2">
             <h1 class="text-inverted-important-text text-wrap">{tag.data.title}</h1>
         </div>
         <ul
-            id={format(idPattern, "project-list")}
+            id={format(idPattern, "content-list")}
             class="gap-lg desktop:grid monitor:[--card-grid-size:var(--container-xs)] flex grid-cols-[repeat(auto-fit,minmax(var(--card-grid-size),1fr))] flex-col items-center-safe [--card-grid-size:var(--container-sm)]">
-            {projects.map((project) => <ProjectCardSourceLayout project={project} source={tagAsSource} />)}
+            {tagContent.map((content) => <ContentCardLayout content={content} source={tagAsSource} />)}
         </ul>
     </div>
 </MainLayout>

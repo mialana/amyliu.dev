@@ -1,15 +1,17 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
+import type { ContentView } from "@/lib/query";
+
 interface Props {
     tag: CollectionEntry<"tags">;
-    projects: CollectionEntry<"projects">[];
+    content: ContentView[];
 }
 
-const { tag, projects } = Astro.props;
+const { tag, content } = Astro.props;
 const url = new URL(Astro.url.pathname, Astro.site).href;
 
-const description = `Projects tagged '${tag.data.title}' (${projects.length} projects).`;
+const description = `Projects tagged '${tag.data.title}' (${content.length} projects).`;
 
 const jsonLd = JSON.stringify({
     "@context": "https://schema.org",
@@ -17,11 +19,11 @@ const jsonLd = JSON.stringify({
     name: `${tag.data.title} Projects`,
     description,
     url,
-    mainEntity: projects.map((ref) => ({
+    mainEntity: content.map((ref) => ({
         "@type": "CreativeWork",
-        name: ref.data.title,
-        url: new URL(`/projects/${ref.id}/`, Astro.site).href,
-        ...(ref.data.description ? { description: ref.data.description } : {}),
+        name: ref.title,
+        url: new URL(ref.href, Astro.site).href,
+        ...(ref.description ? { description: ref.description } : {}),
         ...(ref.id ? { identifier: ref.id } : {}),
     })),
 });

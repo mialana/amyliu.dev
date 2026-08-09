@@ -5,15 +5,29 @@ import { type CollectionEntry } from "astro:content";
 
 import { kebabCaseToHumanReadable, snakeCaseToHumanReadable, format } from "@/lib/utils";
 import { type TocNode } from "@/lib/handleTocBehavior";
+import { format as dateFormat } from "date-fns";
 
 export const PROJECT_CARD_ID_PATTERN = `project-card__{0}`; // where `0` is the `project.id`
+export const MODELS_3D_INDEX_ID_PATTERN = `models3D-index__{0}`;
 
 const tagVariantArray = ["tag", "techStack"] as const;
 type TagVariant = (typeof tagVariantArray)[number];
 
 export type ProjectEntry = CollectionEntry<"projects">;
+export type ModelEntry = CollectionEntry<"models3D">;
 export type TagView = { id: string; data: CollectionEntry<"tags">["data"] };
 export type ProjectEntryAugmented = ProjectEntry & { data: ProjectEntry["data"] & { tagsView: TagView[] } };
+
+export type ContentView = {
+    id: string;
+    href: string;
+    title: string;
+    dateString: string;
+    labelsString: string;
+    description: string;
+    thumbnail: ProjectEntry["data"]["thumbnail"];
+    tagsView: TagView[];
+};
 
 export type SectionKey = "pinned" | `year-${number}`;
 
@@ -59,15 +73,46 @@ const createTagView = (id: string, variant: TagVariant, projectId: string): TagV
     data: { title: snakeCaseToHumanReadable(id), variant, referrers: [{ id: projectId, collection: "projects" }] },
 });
 
-function buildTagsViewForProject(project: ProjectEntry): ProjectEntryAugmented {
+export function augmentProjectEntry(project: ProjectEntry): ProjectEntryAugmented {
     const tagsView: TagView[] = project.data.tags.map((t) => createTagView(t, "tag", project.id));
     const techStackView: TagView[] = project.data.techStack.map((t) => createTagView(t, "techStack", project.id));
 
     return { ...project, data: { ...project.data, tagsView: [...tagsView, ...techStackView] } };
 }
 
-export function augmentProjectEntry(project: ProjectEntry): ProjectEntryAugmented {
-    return buildTagsViewForProject(project);
+export function createContentViewFromProject(project: ProjectEntry): ContentView {
+    const tagsView: TagView[] = project.data.tags.map((t) => createTagView(t, "tag", project.id));
+    const techStackView: TagView[] = project.data.techStack.map((t) => createTagView(t, "techStack", project.id));
+
+    return {
+        id: project.id,
+        href: format("/projects/{0}/", project.id),
+        title: project.data.title,
+        dateString: format(
+            "{0} - {1}",
+            dateFormat(project.data.startDate, "MMMM yyyy"),
+            dateFormat(project.data.endDate, "MMMM yyyy"),
+        ),
+        labelsString: format("{0} · {1}", project.data.category, project.data.type),
+        description: project.data.description,
+        thumbnail: project.data.thumbnail,
+        tagsView: [...tagsView, ...techStackView],
+    };
+}
+
+export function createContentViewFromModel(model: ModelEntry): ContentView {
+    const tagsView: TagView[] = model.data.tags.map((t) => createTagView(t, "tag", model.id));
+
+    return {
+        id: model.id,
+        href: format("/art/#{0}", format(MODELS_3D_INDEX_ID_PATTERN, model.id)),
+        title: model.data.title,
+        dateString: dateFormat(model.data.publishedAt, "MMMM dd, yyyy"),
+        labelsString: "3D Model",
+        description: model.data.description,
+        thumbnail: model.data.thumbnails[0],
+        tagsView: tagsView,
+    };
 }
 
 function compareProjects(a: ProjectEntryAugmented, b: ProjectEntryAugmented, order: ProjectSortOrder): number {

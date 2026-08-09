@@ -1,5 +1,5 @@
 ---
-// a variation for a project card that has another collection it was sourced from (i.e. tags)
+// a variation for a card that has another collection it was sourced from (i.e. tags)
 import { format as dateFormat } from "date-fns";
 import { Image } from "astro:assets";
 
@@ -9,7 +9,7 @@ import RightArrowIcon from "~icons/tabler/arrow-big-right-filled";
 
 import DetailsSummary from "@/components/DetailsSummary.astro";
 
-import { type ProjectEntryAugmented } from "@/lib/projects/query";
+import { type ContentView } from "@/lib/query";
 
 export interface CardSource {
     title: string;
@@ -18,43 +18,54 @@ export interface CardSource {
 }
 
 interface Props {
-    project: ProjectEntryAugmented;
+    content: ContentView;
     source: CardSource;
 }
 
-const { project, source } = Astro.props as Props;
+const { content, source } = Astro.props as Props;
 const { title: srcTitle, slug: srcSlug, kind: srcKind } = source;
 
-const idPattern = `project-card__${project.id}__${srcKind}_${srcSlug}--{0}`;
+const idPattern = `content-card__${content.id}__${srcKind}_${srcSlug}--{0}`;
 ---
 
 {/* `tabindex=0` denotes focusable with auto-ordering */}
 <li id={format(idPattern, "container")} class=`group/card relative m-auto max-w-xl` tabindex="0">
-    <Image
-        id={format(idPattern, "card-hero")}
-        class="w-full"
-        alt={`${project.data.title} Card Hero Image for '${srcTitle}' ${srcKind}`}
-        src={project.data.thumbnail}
-    />
+    {
+        content.thumbnail.src.startsWith("https") ? (
+            <img
+                id={format(idPattern, "card-hero")}
+                class="w-full"
+                alt={`${content.title} Card Hero Image for '${srcTitle}' ${srcKind}`}
+                src={content.thumbnail.src}
+            />
+        ) : (
+            <Image
+                id={format(idPattern, "card-hero")}
+                class="w-full"
+                alt={`${content.title} Card Hero Image for '${srcTitle}' ${srcKind}`}
+                src={content.thumbnail}
+            />
+        )
+    }
     <section
         id=`${idPattern}--card-overview`
         class=`prose-custom monitor:gap-sm gap-md bg-primary-shade/75 content-animation absolute top-0 flex size-full max-w-none flex-col overflow-y-scroll p-4 text-right invisible opacity-0 contrast-175 transition-opacity group-focus-within/card:visible group-focus-within/card:opacity-100 group-hover/card:visible group-hover/card:opacity-100 prose-custom-sm monitor:prose-custom-xs`>
         <h1 class="font-signature m-0">
-            {project.data.title}
+            {content.title}
         </h1>
         <div>
             <code>
-                {dateFormat(project.data.startDate, "MMMM yyyy")} - {dateFormat(project.data.endDate, "MMMM yyyy")}
+                {content.dateString}
             </code>
             <br />
             <code class="uppercase">
-                {project.data.category} · {project.data.type}
+                {content.labelsString}
             </code>
         </div>
         <button
-            aria-label=`${project.data.title} Card Hero Image for '${srcTitle}' ${srcKind}`
+            aria-label=`${content.title} Card Hero Image for '${srcTitle}' ${srcKind}`
             class="bg-inverted-tertiary p-xdouble-y-4 relative w-fit place-self-end rounded-md border text-sm hover:brightness-150">
-            <a href={`/projects/${project.id}/`} class="text-inverted-important-text gap-sm size-full"
+            <a href={content.href} class="text-inverted-important-text gap-sm size-full"
                 >Take Me There<RightArrowIcon class="u-icon" />
             </a>
         </button>
@@ -63,7 +74,7 @@ const idPattern = `project-card__${project.id}__${srcKind}_${srcSlug}--{0}`;
             <DetailsSummary>More tags for this tag!</DetailsSummary>
             <ul class="not-prose font-github-code gap-2xs flex flex-wrap py-2">
                 {
-                    project.data.tagsView.map((t) => (
+                    content.tagsView.map((t) => (
                         <li id={`${idPattern}--link-to-${t.id}-${t.data.variant}`} class="inline rounded-xs">
                             <a
                                 href={`/tags/${t.id}`}

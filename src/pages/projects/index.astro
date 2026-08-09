@@ -14,7 +14,7 @@ import {
     augmentProjectEntry,
     type ProjectEntryAugmented,
     type ProjectSortOrder,
-} from "@/lib/projects/query";
+} from "@/lib/query";
 
 const projects: ProjectEntryAugmented[] = (await getCollection("projects")).map((p) => augmentProjectEntry(p));
 

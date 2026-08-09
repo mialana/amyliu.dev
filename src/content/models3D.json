@@ -12,30 +12,35 @@
                 "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/ce9ec75c5c644d87a94620003ce4e788.jpeg",
                 "width": 1920,
                 "height": 1080,
+                "format": "jpeg",
                 "lod": 0
             },
             {
                 "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/fe7ae0953c8c488197077fac0c751eea.jpeg",
                 "width": 1024,
                 "height": 576,
+                "format": "jpeg",
                 "lod": 1
             },
             {
                 "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/1bc8e33a880645ee8f6b73953a1c6564.jpeg",
                 "width": 720,
                 "height": 405,
+                "format": "jpeg",
                 "lod": 2
             },
             {
                 "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/9d5a3f37a66346b79e547c1d94e6977f.jpeg",
                 "width": 256,
                 "height": 144,
+                "format": "jpeg",
                 "lod": 3
             },
             {
                 "src": "https://media.sketchfab.com/models/530badd074464cb0b7cc5af277e56e65/thumbnails/2a6243983cc644fea1efc893506f8fe5/1151fc656077438cad9ececf14de562d.jpeg",
                 "width": 64,
                 "height": 36,
+                "format": "jpeg",
                 "lod": 4
             }
         ],
@@ -67,30 +72,35 @@
                 "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/f321f0d6e50a404dbabcb00e05d0b237.jpeg",
                 "width": 1920,
                 "height": 1080,
+                "format": "jpeg",
                 "lod": 0
             },
             {
                 "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/944e6c3d2f3440ba8ec690c76ce82640.jpeg",
                 "width": 1024,
                 "height": 576,
+                "format": "jpeg",
                 "lod": 1
             },
             {
                 "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/4c996f17b9c84a3bb8a0796a96e775f3.jpeg",
                 "width": 720,
                 "height": 405,
+                "format": "jpeg",
                 "lod": 2
             },
             {
                 "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/7414db936bcd44b8a17f4980980dea52.jpeg",
                 "width": 256,
                 "height": 144,
+                "format": "jpeg",
                 "lod": 3
             },
             {
                 "src": "https://media.sketchfab.com/models/34a5b3425c2f40f2ba63f7eb8264292e/thumbnails/99b0b61ec52a47be9b654ec25f835dca/7382b060085e4089b036e0dd7f552ed2.jpeg",
                 "width": 64,
                 "height": 36,
+                "format": "jpeg",
                 "lod": 4
             }
         ],
